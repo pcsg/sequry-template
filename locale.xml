@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+  <groups name="pcsg/template-sequry" datatype="php,js">
+    <locale name="package.title">
+      <de><![CDATA[Sequry Basis-Template]]></de>
+      <en><![CDATA[Sequry basic template]]></en>
+    </locale>
+  <locale name="package.description"><de><![CDATA[Sequry Basis-Template]]></de><en><![CDATA[Sequry basic template]]></en></locale></groups>
+</locales>
