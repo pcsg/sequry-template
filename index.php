@@ -1,5 +1,5 @@
 <?php
 
 $Engine->assign(array(
-    'Site' => $Site
+    'Site' => QUI::getRewrite()->getProject()->firstChild()
 ));

@@ -27,6 +27,13 @@
 <div class="container page-container">
     <nav class="navigation-opened">
         <ul class="navigation">
+            <li class="navigation-entry">
+                <a href="{$Site->getUrlRewritten()}">
+                    <span class="navigation-entry-text">
+                        {$Site->getAttribute('title')}
+                    </span>
+                </a>
+            </li>
             {foreach $Site->getChildren() as $Child}
             <li class="navigation-entry">
                 <a href="{$Child->getUrlRewritten()}">
