@@ -1,5 +1,5 @@
 {
-    "name" : "pcsg/template-sequry",
+    "name" : "sequry/template",
     "type" : "quiqqer-template",
     "description" : "Basic template for Sequry passsword manager",
     "version" : "dev-dev",
