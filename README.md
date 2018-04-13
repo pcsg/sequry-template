@@ -15,7 +15,7 @@ Features (Funktionen)
 Installation
 ------------
 
-Der Paketname ist: pcsg/template-sequry
+Der Paketname ist: sequry/template
 
 
 Mitwirken

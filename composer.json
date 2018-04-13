@@ -21,7 +21,7 @@
     }
     ,"autoload": {
   "psr-4": {
-      "Pcsg\\TemplateSequry\\": "src/Pcsg/TemplateSequry"
+      "Sequry\\Template\\": "src/Sequry/Template"
    }
 }
 
