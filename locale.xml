@@ -12,5 +12,11 @@
       <en><![CDATA[The Sequry basic template offers an easy, accessable design for the Sequry frontend.]]></en>
     </locale>
 
+    <!-- site type -->
+    <locale name="admin.types.sequry">
+      <de><![CDATA[Sequry]]></de>
+      <en><![CDATA[Sequry]]></en>
+    </locale>
+
   </groups>
 </locales>

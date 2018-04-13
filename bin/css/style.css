@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+html {
+    background: #ffffff;
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    line-height: 1.45;
+    color: #393e45;
+    background: #ffffff;
+    min-height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+p {
+    margin-bottom: 1.3em;
+}
+
+h1, h2, h3, h4 {
+    margin: 1.414em 0 0.5em;
+    font-weight: inherit;
+    line-height: 1.2;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2.1em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+small, .font_small, .font-small {
+    font-size: 0.75em;
+}
+
+a {
+    text-decoration: none;
+    color: #3986dd;
+}
+
+a:hover {
+    color: #3986dd;
+}
+
+.cologne-header-nav a:hover,
+.cologne-header-nav .quiqqer-menu-megaMenu-list-item.quiqqer-menu-megaMenu-list-item--current a {
+    color: #3986dd;
+    /*background-color: transparent;*/
+}
+
+img {
+    max-width: 100%;
+}
+
+ul, ol {
+    margin-left: 1em;
+}
+
+/** helper
+ ===================================== */
+
+.grid-children {
+    overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.grid-children-container {
+    position: relative;
+    left: -20px;
+    width: calc(100% + 40px);
+}
+
+.hide-on-desktop {
+    display: inline-block;
+}
+
+.hide-on-mobile {
+    display: none;
+}
+
+@media (min-width: 767px) {
+    .hide-on-desktop {
+        display: none;
+    }
+
+    .hide-on-mobile {
+        display: inline-block;
+    }
+}
+
+/** grid
+ ===================================== */
+
+.template-columns {
+    display: flex;
+}
+
+.template-column {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.template-grid-row {
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.template-grid-row.brick-no-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.template-grid-container,
+.cologne-grid-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.template-grid-container.brick-full-width {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.brick-full-width .control-header,
+.brick-full-width .control-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
