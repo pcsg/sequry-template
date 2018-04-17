@@ -1,8 +1,368 @@
+.sequry-page-wrapper {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 60px 1fr;
+}
+
+/* header logo */
+.header-logo {
+    background: #eee;
+    /*background: #2d445a;*/
+    /*color: #bfccd9;*/
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-logo h2 {
+    margin: 0 0 0 1rem;
+}
+
+.header-main:before,
+.main:before {
+    content: '';
+    height: 100%;
+    width: 5px;
+    background: linear-gradient(-90deg, transparent, rgba(0, 0, 0, 0.14));
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+/* header main */
+.header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background: #eee;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    /*background: #2d445a;*/
+    /*color: #bfccd9;*/
+}
+
+/* menu */
+.sequry-desktop-menu {
+    width: 300px;
+    transition: 0.3s all;
+    background: #eee;
+    /*background: #2d445a;*/
+    /*color: #bfccd9;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.sequry-desktop-menu h2,
+.sequry-desktop-menu header {
+    margin: 1rem;
+}
+
+.sequry-desktop-menu header {
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.sequry-desktop-menu .header-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0 1rem;
+}
+
+.sequry-desktop-menu .header-button-icon {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.sequry-desktop-menu .header-button-icon:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.navigation {
+    list-style: none;
+    margin: 0;
+    border-bottom: 1px solid #33333322;
+}
+
+.sequry-tags .navigation {
+    border-bottom: none;
+}
+
+.navigation-entry a {
+    display: block;
+    color: inherit;
+    padding: 12px 1em;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.navigation-entry a.active,
+.navigation-entry a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+}
+
+.navigation-entry-icon {
+    width: 1rem;
+    margin-right: 1rem;
+}
+
+/* main container */
+.main {
+    padding: 1rem;
+    position: relative;
+}
+
+/*************/
+/* main list */
+/*************/
+
+/* main list entry */
+.main-list-header {
+    color: #666;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed #ddd;
+    padding: 10px 0;
+    justify-content: flex-start;
+}
+
+.main-list-header,
+.main-list-entry {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 3rem 25% 35% 15% 1fr;
+}
+
+.main-list .list-favorite {
+    width: 3rem;
+    flex-grow: 1;
+}
+
+.main-list .list-name {
+    padding-right: 2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.main-list .list-desc {
+    padding-right: 3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.main-list .list-type {
+    padding-right: 2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.main-list .list-action {
+    text-align: right;
+}
+
+/* main list entry */
+.main-list-entries {
+    list-style: none;
+    margin: 0;
+}
+
+.main-list-entry {
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
+    border: 1px dashed transparent;
+}
+
+.main-list-entry:hover {
+    /*border-color: #ccc;*/
+    background: #f5f5f5;
+}
+
+.main-list-entry .fa {
+    padding: 1rem;
+}
+
+.main-list-entry .fa:hover {
+    transform: scale(1.15);
+}
+
+.main-list-entry .fa {
+    color: #999;
+}
+
+.main-list-entry .list-action .fa {
+    visibility: hidden;
+}
+
+.main-list-entry:hover .list-action .fa {
+    visibility: visible;
+}
+
+.main-list-entry .list-action .fa:hover {
+    color: #222;
+}
+
+.button-add-password {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+/**********/
+/* mobile */
+/**********/
+@media (max-width: 768px) {
+    .header-logo,
+    .header-main {
+        display: none;
+    }
+
+    .sequry-page-wrapper {
+        display: block;
+    }
+
+    .sequry-desktop-menu {
+        position: absolute;
+        left: -100%;
+        z-index: 10;
+        height: 100vh;
+        max-width: 100%;
+    }
+
+    .header-main:before, .main:before {
+        display: none;
+    }
+
+    /* main list */
+    .main {
+        padding: 1rem 0;
+    }
+
+    .main-list .list-desc,
+    .main-list .list-type {
+        display: none;
+    }
+
+    .main-list-header {
+        padding: 0 0 10px 0;
+    }
+
+    .main-list-entry {
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .main-list-entry .fa {
+        padding: 1rem;
+    }
+
+    .main-list-header, .main-list-entry {
+        grid-template-columns: 3rem 1fr auto;
+    }
+
+    .main-list .list-name {
+        padding-right: 1rem;
+    }
+
+    .main-list-entry .list-action .fa {
+        visibility: visible;
+    }
+}
+
+/*****************/
+/* sidebar panel */
+/*****************/
+
+.background-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.2);
+    display: none;
+}
+
+.sidebar-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: #fff;
+    height: 100vh;
+    padding: 1rem;
+    width: 600px;
+    max-width: 100%;
+    right: -100%;
+    transition: 0.5s all ease-in-out;
+}
+
+
+/*********************/
+/* bottom navigation */
+/*********************/
+.sequry-bottom-navigation {
+    background: #eee;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 0.9rem;
+    /*border-top: 1px solid #eee;*/
+}
+
+.sequry-bottom-navigation:before {
+    content: '';
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: -10px;
+    background: linear-gradient(0, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.05), transparent);
+}
+
+.bottom-navigation {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    justify-content: center;
+}
+
+.bottom-navigation-entry {
+    flex: 1;
+}
+
+.bottom-navigation-entry-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 0;
+    color: #666;
+}
+
+.bottom-navigation-entry-link-text {
+    font-size: 0.9em;
+}
+
+/***************/
+/* log in page */
+/***************/
 .login-main-wrapper {
     display: grid;
     grid-template-columns: 60% auto;
-    grid-template-rows: 100%;
-    height: 100vh;
+    grid-template-rows: minmax(100vh, auto);
+    min-height: 100vh;
+
+    /* test */
+    background: url(https://image.freepik.com/free-vector/vector-abstract-internet-background_1406-134.jpg);
+    background-size: cover;
 }
 
 .login-panelLeft,
@@ -13,15 +373,27 @@
 
 .login-panelLeft {
     background: #eee;
+    background: linear-gradient(45deg, #f5f5f5 40%, #ddddddf8, #eee 80%);
+}
+
+.login-panelRight {
+    background: #fff;
 }
 
 .login-panel-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    height: 100%;
-    justify-content: center;
-    padding-bottom: 10em;
+    padding-top: 25vh;
+}
+
+@media (min-height: 1000px) {
+    .login-panel-wrapper {
+        padding-top: 15em;
+    }
+}
+
+@media (max-height: 500px) {
+    .login-panel-wrapper {
+        padding-top: 20vh;
+    }
 }
 
 .login-panel-logo {
@@ -41,6 +413,30 @@
 .login-panel-formContainer .quiqqer-login {
     padding: 0;
 }
+
+.login-panel-formContainer button.login {
+    width: 100%;
+    margin-top: 1em;
+}
+
+.quiqqer-frontendUsers-frontendlogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiqqer-frontendUsers-frontendlogin-message {
+    order: 2;
+}
+
+.quiqqer-frontendUsers-frontendlogin-message .quiqqer-frontendUsers-error {
+    width: 100%;
+    margin-top: 2em;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #AE432E;
+}
+
 @media (max-width: 768px) {
     .login-main-wrapper {
         display: grid;
@@ -50,13 +446,23 @@
     }
 
     .login-panel-wrapper {
-        padding-bottom: 0;
+        padding-top: 0;
     }
 
     .login-panel-logo {
         position: initial;
-        /*margin-bottom: 1em;*/
+        display: block;
         margin-left: auto;
         margin-right: auto;
     }
 }
+
+/* für später */
+/* floating button */
+/*
+.button-add-password {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}*/
