@@ -13,7 +13,7 @@ $isAuth      = boolval($SessionUser->getId());
 
 
 $Engine->assign([
-    'Logo' => $Logo,
+    'Logo'          => $Logo,
     'FrontendLogin' => $FrontendLogin,
     'isAuth'        => $isAuth,
     'SessionUser'   => $SessionUser

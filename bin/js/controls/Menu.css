@@ -1,0 +1,64 @@
+/* menu */
+.sequry-desktop-menu {
+    width: 300px;
+    /*background: #2d445a;*/
+    /*color: #bfccd9;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.sequry-desktop-menu h2,
+.sequry-desktop-menu header {
+    margin: 1rem;
+}
+
+.sequry-desktop-menu header {
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.sequry-desktop-menu .header-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0 1rem;
+}
+
+.sequry-desktop-menu .header-button-icon {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.sequry-desktop-menu .header-button-icon:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.navigation {
+    list-style: none;
+    margin: 0;
+    border-bottom: 1px solid #373c3f;
+}
+
+.sequry-tags .navigation {
+    border-bottom: none;
+}
+
+.navigation-entry a {
+    display: block;
+    color: inherit;
+    padding: 12px 1em;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.navigation-entry a.active,
+.navigation-entry a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+}
+
+.navigation-entry-icon {
+    width: 1rem;
+    margin-right: 1rem;
+}

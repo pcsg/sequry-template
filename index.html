@@ -24,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 
     <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/style.css"/>
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/sequry.css"/>
     <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/buttons.css"/>
     <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/form.css"/>
 
@@ -33,36 +34,41 @@
 </head>
 <body class="page-{$Site->getId()}">
 
-{*
-<div class="container page-container">
-    <nav class="navigation-opened">
-        <ul class="navigation">
-            <li class="navigation-entry">
-                <a href="{$Site->getUrlRewritten()}">
-                    <span class="navigation-entry-text">
-                        {$Site->getAttribute('title')}
-                    </span>
-                </a>
-            </li>
-            {foreach $Site->getChildren() as $Child}
-            <li class="navigation-entry">
-                <a href="{$Child->getUrlRewritten()}">
-                    <span class="navigation-entry-text">
-                        {$Child->getAttribute('title')}
-                    </span>
-                </a>
-            </li>
-            {/foreach}
-        </ul>
-    </nav>
+{*$Template->getLayout()*}
 
-    <main>
-        {$Template->getLayout()}
-    </main>
-</div>
-*}
+{if $isAuth}
 
-{$Template->getLayout()}
+    {*include file="`$TPL_DIR`sequry.html"*}
+
+    <section class="sequry-page-wrapper">
+
+        <div class="header-logo">
+            <h2>Sequry.io</h2>
+        </div>
+
+        <!-- header -->
+        <div class="header-main"
+             data-qui="package/sequry/template/bin/js/controls/Header"
+        ></div>
+
+        <!-- desktop nav -->
+        <nav class="sequry-desktop-menu"
+             data-qui="package/sequry/template/bin/js/controls/Menu"
+        ></nav>
+
+        <main class="main" data-qui="package/sequry/template/bin/js/controls/List"
+        ></main>
+
+        <!--<button class="" disabled>
+                <span class="fa fa-plus"></span>
+            </button>-->
+    </section>
+
+{else}
+
+{include file="`$TPL_DIR`menu.html"}
+
+{/if}
 
 <!-- Scripts -->
 <!--<script src="{$URL_TPL_DIR}bin/js/init.js"></script>-->
