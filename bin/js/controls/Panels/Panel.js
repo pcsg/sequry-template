@@ -1,7 +1,7 @@
 /**
- * @module package/sequry/template/bin/js/controls/Panel
+ * @module package/sequry/template/bin/js/controls/Panels/Panel
  */
-define('package/sequry/template/bin/js/controls/Panel', [
+define('package/sequry/template/bin/js/controls/Panels/Panel', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -9,8 +9,8 @@ define('package/sequry/template/bin/js/controls/Panel', [
     'qui/controls/utils/Background',
     'Mustache',
 
-    'text!package/sequry/template/bin/js/controls/Panel.html',
-    'css!package/sequry/template/bin/js/controls/Panel.css'
+    'text!package/sequry/template/bin/js/controls/Panels/Panel.html',
+    'css!package/sequry/template/bin/js/controls/Panels/Panel.css'
 
 ], function (
     QUI,
@@ -25,11 +25,13 @@ define('package/sequry/template/bin/js/controls/Panel', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/Panel',
+        Type   : 'package/sequry/template/bin/js/controls/Panels/Panel',
 
         Binds: [
             '$onInject',
             'open',
+            'cancel',
+            '$close',
             'changeFavorite'
         ],
 
@@ -71,13 +73,16 @@ define('package/sequry/template/bin/js/controls/Panel', [
          */
         $create: function () {
             this.$Elm = new Element('div', {
-                'class': 'sidebar-panel',
-                styles : {
-                    right: 0
-                }
+                'class': 'sidebar-panel'
             });
 
-            this.$Elm.set('html', Mustache.render(Template, {}));
+            moofx(this.$Elm).animate({
+                right: 0
+            });
+
+            this.$Elm.set('html', Mustache.render(Template, {
+                title: this.getAttribute('title')
+            }));
 
             document.body.appendChild(this.$Elm);
         },
@@ -93,7 +98,25 @@ define('package/sequry/template/bin/js/controls/Panel', [
          * todo @michael function description
          */
         $close: function () {
+            var self = this;
 
+            moofx(this.$Elm).animate({
+                right: '-100%'
+            }, {
+                callback: function () {
+                    document.body.setStyle('overflow', '');
+                    self.Background.destroy();
+                    self.$Elm.destroy();
+                    self.$Elm = null;
+
+                    self.fireEvent('close', [self]);
+                }
+            });
+        },
+
+        cancel: function () {
+            this.fireEvent('cancel', [this]);
+            this.$close();
         }
     });
 });

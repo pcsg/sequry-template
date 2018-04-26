@@ -9,7 +9,7 @@ define('package/sequry/template/bin/js/controls/List', [
     'Mustache',
 
     'package/sequry/template/bin/js/classes/List',
-    'package/sequry/template/bin/js/controls/Panel',
+    'package/sequry/template/bin/js/controls/Panels/PasswordShow',
 
     'text!package/sequry/template/bin/js/controls/List.html',
     'text!package/sequry/template/bin/js/controls/List.Entry.html',
@@ -21,7 +21,7 @@ define('package/sequry/template/bin/js/controls/List', [
     QUILoader,
     Mustache,
     ClassesList,
-    SequryPanel,
+    PasswordShow,
     Template,
     ListEntryTemplate
 ) {
@@ -105,7 +105,9 @@ define('package/sequry/template/bin/js/controls/List', [
             }));
 
             // open
-            Li.addEvent('click', this.open);
+            Li.addEvent('click', function() {
+                self.open(Entry);
+            });
 
             // change favorite
             Li.getElement('.list-favorite .fa').addEvent('click', self.changeFavorite);
@@ -116,12 +118,11 @@ define('package/sequry/template/bin/js/controls/List', [
 
         /**
          * todo @michael function description
-         * @param Elm
          */
-        open: function (Elm) {
-            console.log("Click auf das ganze Element")
-
-            var Panel = new SequryPanel();
+        open: function (Entry) {
+            new PasswordShow({
+//                title: Entry.title
+            });
 
         },
 

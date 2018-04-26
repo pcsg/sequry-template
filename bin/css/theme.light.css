@@ -32,6 +32,15 @@ a:hover {
     color: #afd3e5;
 }
 
+/*********/
+/* panel */
+/*********/
+body .sidebar-panel-header {
+    background: linear-gradient(90deg, #2071a7, #4091c7);
+    color: #fff;
+    font-weight: normal;
+}
+
 /**********/
 /* button */
 /**********/
