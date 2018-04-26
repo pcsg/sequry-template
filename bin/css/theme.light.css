@@ -12,6 +12,10 @@ a:hover {
     color: #51b7a3;
 }
 
+.control-background {
+    background: #51b7a3;
+}
+
 .header-logo,
 .sequry-desktop-menu {
     background: #4D9BC4;
@@ -84,7 +88,7 @@ button:focus,
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-    background: #51b7a3;
+    background: #41a793;
     color: #fff;
     outline: none;
 }

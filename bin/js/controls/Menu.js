@@ -34,8 +34,8 @@ define('package/sequry/template/bin/js/controls/Menu', [
          * event: on inject
          */
         $onInject: function () {
-            console.log(this.$Elm);
-            console.log('on inject');
+//            console.log(this.$Elm);
+//            console.log('on inject');
 
             this.$Elm.set('html', Mustache.render(Template, {}));
         }

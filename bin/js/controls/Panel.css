@@ -1,0 +1,66 @@
+/*****************/
+/* sidebar panel */
+/*****************/
+
+.background-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 101;
+    display: block;
+}
+
+.sidebar-panel {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    background: #fff;
+    height: 100vh;
+    width: 600px;
+    max-width: 100%;
+    transition: 0.5s all ease-in-out;
+    z-index: 1002;
+}
+
+.sidebar-panel-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 60px 1fr auto;
+    height: 100%;
+}
+
+/* header */
+.sidebar-panel-header {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background: #eee;
+}
+
+.sidebar-panel-header-title {
+    margin: 0;
+}
+
+.sidebar-panel-content {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* actions buttons */
+.sidebar-panel-action-buttons {
+    padding: 1rem;
+    text-align: right;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+.sidebar-panel-action-buttons button  {
+    margin-right: 1rem;
+}
+
+.sidebar-panel-action-buttons button:last-child {
+    margin-right: 0;
+}
