@@ -39,7 +39,7 @@ function dummyData()
                 'note'     => 'Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Pellentesque in ipsum id orci porta dapibus. Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta.'
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',
@@ -61,7 +61,7 @@ function dummyData()
                 'note'     => ' Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.'
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',
@@ -83,7 +83,7 @@ function dummyData()
                 'note'     => ''
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',
@@ -172,7 +172,7 @@ function dummyData()
                 'note'     => ''
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',
@@ -194,7 +194,7 @@ function dummyData()
                 'note'     => ''
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',
@@ -239,7 +239,7 @@ function dummyData()
                 'note'     => ''
             ],
             'securityClassId'    => 1,
-            'dataType'           => 'Zugangsdaten',
+            'dataType'           => 'Website',
             'categoryIds'        => false,
             'createUserId'       => '1337',
             'createDate'         => '1523972106',

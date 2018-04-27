@@ -54,9 +54,22 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
             var self = this;
 
             PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
+
+                console.log(result)
+
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
-                self.getElm().set('html', Mustache.render(template, {}));
+                self.getElm().set('html', Mustache.render(template, {
+                    'description'         : result.description,
+                    'userText'     : 'Benutzer',
+                    'userValue'    : result.payload.user,
+                    'passwordText' : 'Passwort',
+                    'passwordValue': result.payload.password,
+                    'urlText'      : 'Url',
+                    'urlValue'     : result.payload.url,
+                    'noteText'     : 'Notiz',
+                    'noteValue'    : result.payload.note
+                }));
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
@@ -86,6 +99,35 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
             }
 
             return data.title;
+        },
+
+        /**
+         * Return the typeof the password
+         *
+         * @returns {string}
+         */
+        getType: function () {
+            var data = this.getAttribute('data');
+
+            if (!data) {
+                return false;
+            }
+
+            if (typeof data.type === 'undefined') {
+                return false;
+            }
+
+            return data.type;
+        },
+
+        getTypeClass: function () {
+            return 'package/sequry/template/bin/js/controls/Panels/Password' + this.getType();
+        },
+
+        getTemplate: function () {
+            require([this.getTypeClass()], function (Panel) {
+
+            });
         },
 
         save: function () {

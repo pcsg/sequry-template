@@ -24,7 +24,7 @@ define('package/sequry/template/bin/js/controls/List', [
     ClassesList,
     PasswordPanel,
     PasswordCreate,
-    Template,
+    template,
     ListEntryTemplate
 ) {
     "use strict";
@@ -57,7 +57,7 @@ define('package/sequry/template/bin/js/controls/List', [
          */
         $onInject: function () {
 
-            this.$Elm.set('html', Mustache.render(Template, {}));
+            this.$Elm.set('html', Mustache.render(template, {}));
             this.listContainer = this.$Elm.getElement('.main-list-entries');
 
             this.addButton = this.$Elm.getElement('.button-add-password');

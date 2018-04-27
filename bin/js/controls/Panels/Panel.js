@@ -156,11 +156,11 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
          *
          */
         setContent: function (content) {
-            this.$Elm.getElement('.sidebar-panel-inner').set('html', content)
+            this.$Elm.getElement('.sidebar-panel-content').set('html', content)
         },
 
         getContent: function () {
-            return this.$Elm.getElement('.sidebar-panel-inner');
+            return this.$Elm.getElement('.sidebar-panel-content');
         },
 
         $close: function () {
