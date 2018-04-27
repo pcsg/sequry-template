@@ -10,7 +10,7 @@ QUI::$Ajax->registerFunction(
     'package_sequry_template_ajax_passwords_getPasswordData',
     function ($passId) {
 
-        sleep(1);
+        sleep(0.5);
         $allPasswords = dummyData();
 
         foreach ($allPasswords as $elm) {
