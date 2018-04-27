@@ -9,7 +9,8 @@ define('package/sequry/template/bin/js/controls/List', [
     'Mustache',
 
     'package/sequry/template/bin/js/classes/List',
-    'package/sequry/template/bin/js/controls/Panels/PasswordShow',
+    'package/sequry/template/bin/js/controls/Panels/PasswordPanel',
+    'package/sequry/template/bin/js/controls/Panels/PasswordCreate',
 
     'text!package/sequry/template/bin/js/controls/List.html',
     'text!package/sequry/template/bin/js/controls/List.Entry.html',
@@ -21,7 +22,8 @@ define('package/sequry/template/bin/js/controls/List', [
     QUILoader,
     Mustache,
     ClassesList,
-    PasswordShow,
+    PasswordPanel,
+    PasswordCreate,
     Template,
     ListEntryTemplate
 ) {
@@ -41,13 +43,13 @@ define('package/sequry/template/bin/js/controls/List', [
         initialize: function (options) {
             this.parent(options);
 
-
             this.addEvents({
                 onInject: this.$onInject
             });
 
             this.Loader = new QUILoader();
             this.ListManager = new ClassesList();
+            this.addButton = null;
         },
 
         /**
@@ -57,6 +59,12 @@ define('package/sequry/template/bin/js/controls/List', [
 
             this.$Elm.set('html', Mustache.render(Template, {}));
             this.listContainer = this.$Elm.getElement('.main-list-entries');
+
+            this.addButton = this.$Elm.getElement('.button-add-password');
+
+            if (this.addButton) {
+                this.addButton.addEvent('click', this.addPassword)
+            }
 
             this.Loader.inject(this.$Elm);
             this.Loader.show();
@@ -105,7 +113,7 @@ define('package/sequry/template/bin/js/controls/List', [
             }));
 
             // open
-            Li.addEvent('click', function() {
+            Li.addEvent('click', function () {
                 self.open(Entry);
             });
 
@@ -120,10 +128,16 @@ define('package/sequry/template/bin/js/controls/List', [
          * todo @michael function description
          */
         open: function (Entry) {
-            new PasswordShow({
-//                title: Entry.title
-            });
+            new PasswordPanel({
+                id: Entry.id
+            }).open();
+        },
 
+        /**
+         * todo @michael function description
+         */
+        addPassword: function () {
+            //new PasswordCreatePanel().open();
         },
 
         /**

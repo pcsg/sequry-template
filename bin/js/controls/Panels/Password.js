@@ -5,23 +5,21 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
 
     'qui/QUI',
     'qui/controls/Control',
-    'qui/controls/loader/Loader',
-    'qui/controls/utils/Background',
     'Mustache',
 
-    'package/sequry/template/bin/js/controls/Panels/Panel',
+    'package/sequry/template/bin/js/controls/Panels/Password',
+    'package/sequry/template/bin/js/Password',
 
-    'text!package/sequry/template/bin/js/controls/Panels/Panel.html',
-    'css!package/sequry/template/bin/js/controls/Panels/Panel.css'
+    'text!package/sequry/template/bin/js/controls/Panels/Password.html'
+//    'css!package/sequry/template/bin/js/controls/Panels/Panel.css'
 
 ], function (
     QUI,
     QUIControl,
-    QUILoader,
-    QUIBackground,
     Mustache,
-    Panel,
-    Template
+    Password,
+    PasswordHandler,
+    template
 ) {
     "use strict";
 
@@ -31,26 +29,67 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
         Type   : 'package/sequry/template/bin/js/controls/Panels/Password',
 
         Binds: [
+            '$onInject'
         ],
 
         options: {
-            title             : false,	// {false|string} [optional] title of the window
-            backgroundClosable: true, // {bool} [optional] closes the window on click? standard = true
-            closeButton       : true, // {bool} show the close button
-            closeButtonText   : 'Abbrechen'
+            id  : false,
+            data: false
         },
 
         initialize: function (options) {
             this.parent(options);
 
-            console.log(this.getAttribute('title'))
-
-            this.SequryPanel = new Panel({
-                title: this.getAttribute('title')
+            this.addEvents({
+                onInject: this.$onInject
             });
+        },
 
+        /**
+         * event: on inject
+         *
+         * Create the password html stuff
+         */
+        $onInject: function () {
+            var self = this;
 
+            PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
+                // @todo password muss von sequry kommen!
+                // das hier ist nur eine zwischenlösung
+                self.getElm().set('html', Mustache.render(template, {}));
+//
+//                require([result.type], function(PWControl) {
+//                    new PWControl().inject(self.getElm());
+//                });
+//
+                // result.type
 
+                self.setAttribute('data', result);
+                self.fireEvent('load', [self]);
+            });
+        },
+
+        /**
+         * Return the title of the password
+         *
+         * @returns {string}
+         */
+        getTitle: function () {
+            var data = this.getAttribute('data');
+
+            if (!data) {
+                return '';
+            }
+
+            if (typeof data.title === 'undefined') {
+                return '';
+            }
+
+            return data.title;
+        },
+
+        save: function () {
+            PasswordHandler.save(this.getAttribute('id'), data);
         }
 
     });

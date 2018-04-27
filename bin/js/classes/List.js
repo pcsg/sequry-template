@@ -46,7 +46,6 @@ define('package/sequry/template/bin/js/classes/List', [
          * @param status
          */
         setFavoriteStatus: function (passwordId, status) {
-            console.log(status)
             return new Promise(function (resolve, reject) {
                 QUIAjax.post(
                     'package_sequry_template_ajax_passwords_setFavoriteStatus',

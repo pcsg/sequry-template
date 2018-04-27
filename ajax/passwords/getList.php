@@ -186,7 +186,7 @@ QUI::$Ajax->registerFunction(
             ],
             [
                 'id'                 => 10,
-                'title'              => 'Bankkonto - Sparkasse',
+                'title'              => 'Sparkasse - Online Konto',
                 'description'        => 'Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.',
                 'securityClassId'    => 1,
                 'dataType'           => 'Zugangsdaten',
