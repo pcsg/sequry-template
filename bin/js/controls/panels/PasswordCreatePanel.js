@@ -31,10 +31,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
         options: {
             title                  : false,
-            actionButton           : true,
-            actionButtonText       : 'Teilen',
-            closeButton            : true,
-            closeButtonText        : 'Schließen'
+            actionButton           : 'Speichern',
+            closeButton        : 'Schließen'
         },
 
         initialize: function (options) {

@@ -1,4 +1,6 @@
 /**
+ * Main list object. It shows passwords in form of a list.
+ *
  * @module package/sequry/template/bin/js/controls/main/List
  */
 define('package/sequry/template/bin/js/controls/main/List', [
@@ -50,6 +52,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader = new QUILoader();
             this.ListManager = new ClassesList();
             this.addButton = null;
+            this.listContainer = null;
         },
 
         /**
@@ -59,20 +62,21 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             this.$Elm.set('html', Mustache.render(template, {}));
             this.listContainer = this.$Elm.getElement('.main-list-entries');
-
             this.addButton = this.$Elm.getElement('.button-add-password');
 
+            // event add new password
             if (this.addButton) {
                 this.addButton.addEvent('click', this.addPassword)
             }
 
             this.Loader.inject(this.$Elm);
             this.Loader.show();
+
             this.$renderEntries();
         },
 
         /**
-         * todo @michael function description
+         * Render the list HTML with passwords
          */
         $renderEntries: function () {
             var self = this;
@@ -85,16 +89,16 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * todo @michael function description
+         * Render single list element and inject it to the list container
          *
-         * @param Entry
+         * @param Entry (it contains password data)
          */
         $renderEntry: function (Entry) {
 
             var self = this;
             var favIconName = 'fa-star-o';
 
-            // password is in favorite list?
+            // is password favorite?
             if (Entry.favorite) {
                 favIconName = 'fa-star'
             }
@@ -104,6 +108,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 'data-pwid': Entry.id
             });
 
+            // render html
             Li.set('html', Mustache.render(ListEntryTemplate, {
                 'favIconName': favIconName,
                 'dataFavo'   : Entry.favorite,
@@ -112,7 +117,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 'dataType'   : Entry.dataType
             }));
 
-            // open
+            // open event
             Li.addEvent('click', function () {
                 self.open(Entry);
             });
@@ -120,12 +125,13 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // change favorite
             Li.getElement('.list-favorite .fa').addEvent('click', self.changeFavorite);
 
-
             Li.inject(this.listContainer);
         },
 
         /**
-         * todo @michael function description
+         * Open password according to the password id
+         *
+         * @param Entry
          */
         open: function (Entry) {
             new PasswordPanel({
@@ -134,14 +140,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * todo @michael function description
+         * Open panel to create new password
          */
         addPassword: function () {
             new PasswordCreatePanel().open();
         },
 
         /**
-         * todo @michael function description
+         * Remove / add to favorite
          *
          * @param event
          */

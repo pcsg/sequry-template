@@ -1,4 +1,7 @@
 /**
+ * Main panel.
+ * It creates wrapper template and  inject some basic content like title or buttons
+ *
  * @module package/sequry/template/bin/js/controls/panels/Panel
  */
 define('package/sequry/template/bin/js/controls/panels/Panel', [
@@ -39,13 +42,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         options: {
             title                  : false,	// {false|string} [optional] title of the window
-            actionButton           : false, // main action, e.g. save, OK
-            actionButtonText       : '',
-            closeButton            : true, // {bool} show the close button
-            closeButtonText        : 'Abbrechen',
-            iconHeaderButton       : false, // [optional] icon button on the right top corner
+            actionButton           : false, // {false|string} main action button, e.g. save, OK
+            closeButton            : true,  // {false|string} show the close button
+            iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
             iconHeaderButtonFaClass: '', // [optional] icon type css class
-            iconHeaderButtonText   : '', // [optional] title attribute
             backgroundClosable     : true // {bool} [optional] closes the window on click? standard = true
         },
 
@@ -133,7 +133,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             if (this.getAttribute('iconHeaderButton')) {
                 new Element('button', {
                     'class': this.getAttribute('iconHeaderButtonFaClass'),
-                    'title': this.getAttribute('iconHeaderButtonText')
+                    'title': this.getAttribute('iconHeaderButton')
                 }).inject(this.$Elm.getElement('.sidebar-panel-header'))
             }
 
@@ -143,14 +143,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             if (this.getAttribute('actionButton')) {
                 new Element('button', {
                     'class': 'panel-actionButton',
-                    'html' : this.getAttribute('actionButtonText')
+                    'html' : this.getAttribute('actionButton')
                 }).inject(container)
             }
 
             if (this.getAttribute('closeButton')) {
                 new Element('button', {
                     'class': 'btn-light panel-closeButton',
-                    'html' : this.getAttribute('closeButtonText')
+                    'html' : this.getAttribute('closeButton')
                 }).inject(container)
             }
 
@@ -182,15 +182,5 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         getContent: function () {
             return this.$Elm.getElement('.sidebar-panel-content');
         }
-
-        /*$close: function () {
-            console.error('deprecated');
-            return this.close();
-        },
-
-        $open: function () {
-            console.error('deprecated');
-            return this.open();
-        }*/
     });
 });

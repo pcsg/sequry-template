@@ -1,4 +1,7 @@
 /**
+ * Panel control for showing the password data.
+ * It inherits from Panel.js
+ *
  * @module package/sequry/template/bin/js/controls/panels/PasswordPanel
  */
 define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
@@ -31,13 +34,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
         options: {
             title                  : false,
-            actionButton           : true,
-            actionButtonText       : 'Teilen',
-            closeButton            : true,
-            closeButtonText        : 'Schließen',
-            iconHeaderButton       : true,
-            iconHeaderButtonFaClass: 'fa fa-edit',
-            iconHeaderButtonText   : 'Passwort bearbeiten'
+            actionButton           : 'Teilen',
+            closeButton            : 'Schließen',
+            iconHeaderButton       : 'Passwort bearbeiten',
+            iconHeaderButtonFaClass: 'fa fa-edit'
         },
 
         initialize: function (options) {
@@ -45,22 +45,20 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
             this.$Password = null;
 
+            // panel events
             this.addEvents({
                 onOpen   : this.$onOpen,
                 openBegin: this.$openBegin,
                 obSubmit : this.$onSubmit
             });
-
-//            this.PasswordClass = new Password();
         },
 
         /**
          * event: on open
-         * integrate password
+         * Integrate password
          */
         $onOpen: function () {
             var self = this;
-
 
             this.$Password = new Password({
                 id    : this.getAttribute('id'),
@@ -74,14 +72,16 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
         },
 
         /**
-         * event: on open begin
-         * let the load display before the animation starts
+         * event:on open begin
+         * Let the loader display before the animation starts
          */
         $openBegin: function () {
             this.Loader.show();
         },
 
-
+        /**
+         * event: on submit form
+         */
         $onSubmit: function () {
             // password speichern
             console.log(this);
