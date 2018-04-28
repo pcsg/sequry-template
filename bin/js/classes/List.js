@@ -1,44 +1,19 @@
 /**
+ * Main list class.
+ *
  * @module package/sequry/template/bin/js/classes/List
  */
 define('package/sequry/template/bin/js/classes/List', [
 
     'qui/QUI',
-    'qui/controls/Control',
     'Ajax'
 
-], function (QUI, QUIControl, QUIAjax) {
+], function (QUI, QUIAjax) {
     "use strict";
 
     return new Class({
 
-        Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/classes/List',
-
-        Binds: [
-            '$onInject',
-            'changeFavorite'
-        ],
-
-        initialize: function (options) {
-            this.parent(options);
-        },
-
-        /**
-         * todo @michael function description
-         *
-         */
-        getData: function () {
-            return new Promise(function (resolve, reject) {
-                QUIAjax.get(
-                    'package_sequry_template_ajax_passwords_getList',
-                    resolve, {
-                        'package': 'sequry/template',
-                        onError  : reject
-                    }
-                );
-            });
-        },
+        Type: 'package/sequry/template/bin/js/classes/List',
 
         /**
          * todo @michael function description

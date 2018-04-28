@@ -100,7 +100,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         /**
          * Return the typeof the password
          *
-         * @returns {string}
+         * @returns {string|false}
          */
         getType: function () {
             var data = this.getAttribute('data');
@@ -116,6 +116,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             return data.type;
         },
 
+        /**
+         * Get the string for type class.
+         *
+         * @returns {string}
+         */
         getTypeClass: function () {
             return 'package/sequry/template/bin/js/controls/password/Password' + this.getType();
         },

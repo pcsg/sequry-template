@@ -56,10 +56,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
                 self.getElm().set('html', Mustache.render(template, {
-                    'userText'     : 'Benutzer',
-                    'passwordText' : 'Passwort',
-                    'urlText'      : 'Url',
-                    'noteText'     : 'Notiz'
+                    'userText'    : 'Benutzer',
+                    'passwordText': 'Passwort',
+                    'urlText'     : 'Url',
+                    'noteText'    : 'Notiz'
                 }));
 //
 //                require([result.type], function(PWControl) {
@@ -95,7 +95,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
         /**
          * Return the typeof the password
          *
-         * @returns {string}
+         * @returns {string|bool}
          */
         getType: function () {
             var data = this.getAttribute('data');
@@ -111,6 +111,11 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             return data.type;
         },
 
+        /**
+         * Get the string for type class.
+         *
+         * @returns {string}
+         */
         getTypeClass: function () {
             return 'package/sequry/template/bin/js/controls/password/Password' + this.getType();
         },

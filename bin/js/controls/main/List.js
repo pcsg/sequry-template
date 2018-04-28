@@ -11,6 +11,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'Mustache',
 
     'package/sequry/template/bin/js/classes/List',
+    'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
 
@@ -24,6 +25,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     QUILoader,
     Mustache,
     ClassesList,
+    Password,
     PasswordPanel,
     PasswordCreatePanel,
     template,
@@ -80,7 +82,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         $renderEntries: function () {
             var self = this;
-            this.ListManager.getData().then(function (Entries) {
+            Password.getDataAll().then(function (Entries) {
                 self.Loader.hide();
                 Entries.each(function (Entry) {
                     self.$renderEntry(Entry);

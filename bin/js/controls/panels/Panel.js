@@ -45,13 +45,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             actionButton           : false, // {false|string} main action button, e.g. save, OK
             closeButton            : true,  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
-            iconHeaderButtonFaClass: '', // [optional] icon type css class
-            backgroundClosable     : true // {bool} [optional] closes the window on click? standard = true
+            iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
+            backgroundClosable     : true   // {bool} [optional] closes the window on click?
         },
 
         initialize: function (options) {
             this.parent(options);
 
+            // don't scroll the page while panel is open
             document.body.setStyle('overflow', 'hidden');
 
             this.Loader = new QUILoader();
@@ -60,7 +61,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
 
         /**
-         * todo @michael function description
+         * Open panel.
+         * When animation is finished it returns a javascript promise.
+         *
+         * @return {Promise}
          */
         open: function () {
             var self = this;
@@ -68,6 +72,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.Background.create();
             this.Background.show();
 
+            // should click on background close panel?
             if (this.getAttribute('backgroundClosable')) {
                 this.Background.getElm().addEvent('click', this.cancel);
             }
@@ -77,12 +82,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'html' : Mustache.render(template)
             });
 
-            this.createButtons();
-
             this.Loader.inject(this.$Elm);
-
+            this.createButtons();
             this.$Elm.getElement('button').addEvent('click', this.submit);
 
+            // inject node element to body
             document.body.appendChild(this.$Elm);
 
             this.fireEvent('openBegin', [this]);
@@ -100,7 +104,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * todo @michael function description
+         * Close panel.
+         * When animation is finished it returns a javascript promise.
          *
          * @return {Promise}
          */
@@ -114,6 +119,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     right: '-100%'
                 }, {
                     callback: function () {
+                        // return scroll bar of the page
                         document.body.setStyle('overflow', '');
 
                         self.Background.destroy();
@@ -128,6 +134,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             });
         },
 
+        /**
+         * Create all wanted buttons.
+         * It checks the options to ensure witch buttons are needed.
+         */
         createButtons: function () {
 
             if (this.getAttribute('iconHeaderButton')) {
@@ -157,30 +167,36 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
+         * Set title of the panel.
          *
+         * @param title (string)
+         */
+        setTitle: function (title) {
+            this.$Elm.getElement('.sidebar-panel-header-title').set('html', title);
+        },
+
+        /**
+         * Return the content DOMNode
+         *
+         * @return {HTMLElement} DIV
+         */
+        getContent: function () {
+            return this.$Elm.getElement('.sidebar-panel-content');
+        },
+
+        /**
+         * Cancel action and fire cancel event.
          */
         cancel: function () {
             this.fireEvent('cancel', [this]);
             this.close();
         },
 
+        /**
+         * Submit form and fire submitevent.
+         */
         submit: function () {
             this.fireEvent('submit', [this]);
-        },
-
-        setTitle: function (title) {
-            this.$Elm.getElement('.sidebar-panel-header-title').set('html', title);
-        },
-
-        /**
-         *
-         */
-        setContent: function (content) {
-            this.$Elm.getElement('.sidebar-panel-content').set('html', content)
-        },
-
-        getContent: function () {
-            return this.$Elm.getElement('.sidebar-panel-content');
         }
     });
 });
