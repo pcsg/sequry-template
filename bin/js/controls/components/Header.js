@@ -1,15 +1,15 @@
 /**
- * @module package/sequry/template/bin/js/controls/Header
+ * @module package/sequry/template/bin/js/controls/components/Header
  */
-define('package/sequry/template/bin/js/controls/Header', [
+define('package/sequry/template/bin/js/controls/components/Header', [
 
     'qui/QUI',
     'qui/controls/Control',
     'Mustache',
     'Locale',
 
-    'text!package/sequry/template/bin/js/controls/Header.html',
-    'css!package/sequry/template/bin/js/controls/Header.css'
+    'text!package/sequry/template/bin/js/controls/components/Header.html',
+    'css!package/sequry/template/bin/js/controls/components/Header.css'
 
 ], function (QUI, QUIControl, Mustache, QUILocale, Template) {
     "use strict";
@@ -17,7 +17,7 @@ define('package/sequry/template/bin/js/controls/Header', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/Header',
+        Type   : 'package/sequry/template/bin/js/controls/components/Header',
 
         Binds: [
             '$onInject'

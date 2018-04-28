@@ -1,23 +1,21 @@
 /**
- * @module package/sequry/template/bin/js/controls/Panels/Password
+ * @module package/sequry/template/bin/js/controls/password/Password
  */
-define('package/sequry/template/bin/js/controls/Panels/Password', [
+define('package/sequry/template/bin/js/controls/password/Password', [
 
     'qui/QUI',
     'qui/controls/Control',
     'Mustache',
 
-    'package/sequry/template/bin/js/controls/Panels/Password',
     'package/sequry/template/bin/js/Password',
 
-    'text!package/sequry/template/bin/js/controls/Panels/Password.html'
-//    'css!package/sequry/template/bin/js/controls/Panels/Panel.css'
+    'text!package/sequry/template/bin/js/controls/password/Password.html'
+//    'css!package/sequry/template/bin/js/controls/password/Panel.css'
 
 ], function (
     QUI,
     QUIControl,
     Mustache,
-    Password,
     PasswordHandler,
     template
 ) {
@@ -26,7 +24,7 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/Panels/Password',
+        Type   : 'package/sequry/template/bin/js/controls/password/Password',
 
         Binds: [
             '$onInject'
@@ -54,8 +52,6 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
             var self = this;
 
             PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
-
-                console.log(result)
 
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
@@ -121,7 +117,7 @@ define('package/sequry/template/bin/js/controls/Panels/Password', [
         },
 
         getTypeClass: function () {
-            return 'package/sequry/template/bin/js/controls/Panels/Password' + this.getType();
+            return 'package/sequry/template/bin/js/controls/password/Password' + this.getType();
         },
 
         getTemplate: function () {

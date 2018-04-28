@@ -1,7 +1,7 @@
 /**
- * @module package/sequry/template/bin/js/controls/List
+ * @module package/sequry/template/bin/js/controls/main/List
  */
-define('package/sequry/template/bin/js/controls/List', [
+define('package/sequry/template/bin/js/controls/main/List', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -9,12 +9,12 @@ define('package/sequry/template/bin/js/controls/List', [
     'Mustache',
 
     'package/sequry/template/bin/js/classes/List',
-    'package/sequry/template/bin/js/controls/Panels/PasswordPanel',
-    'package/sequry/template/bin/js/controls/Panels/PasswordCreate',
+    'package/sequry/template/bin/js/controls/panels/PasswordPanel',
+    'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
 
-    'text!package/sequry/template/bin/js/controls/List.html',
-    'text!package/sequry/template/bin/js/controls/List.Entry.html',
-    'css!package/sequry/template/bin/js/controls/List.css'
+    'text!package/sequry/template/bin/js/controls/main/List.html',
+    'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
+    'css!package/sequry/template/bin/js/controls/main/List.css'
 
 ], function (
     QUI,
@@ -23,7 +23,7 @@ define('package/sequry/template/bin/js/controls/List', [
     Mustache,
     ClassesList,
     PasswordPanel,
-    PasswordCreate,
+    PasswordCreatePanel,
     template,
     ListEntryTemplate
 ) {
@@ -32,7 +32,7 @@ define('package/sequry/template/bin/js/controls/List', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/List',
+        Type   : 'package/sequry/template/bin/js/controls/main/List',
 
         Binds: [
             '$onInject',
@@ -137,7 +137,7 @@ define('package/sequry/template/bin/js/controls/List', [
          * todo @michael function description
          */
         addPassword: function () {
-            //new PasswordCreatePanel().open();
+            new PasswordCreatePanel().open();
         },
 
         /**

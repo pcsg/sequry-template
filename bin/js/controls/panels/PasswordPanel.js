@@ -1,14 +1,14 @@
 /**
- * @module package/sequry/template/bin/js/controls/Panels/Password
+ * @module package/sequry/template/bin/js/controls/panels/PasswordPanel
  */
-define('package/sequry/template/bin/js/controls/Panels/PasswordPanel', [
+define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
     'qui/QUI',
     'qui/controls/Control',
     'Ajax',
 
-    'package/sequry/template/bin/js/controls/Panels/Panel',
-    'package/sequry/template/bin/js/controls/Panels/Password'
+    'package/sequry/template/bin/js/controls/panels/Panel',
+    'package/sequry/template/bin/js/controls/password/Password'
 ], function (
     QUI,
     QUIControl,
@@ -21,7 +21,7 @@ define('package/sequry/template/bin/js/controls/Panels/PasswordPanel', [
     return new Class({
 
         Extends: Panel,
-        Type   : 'package/sequry/template/bin/js/controls/Panels/Password',
+        Type   : 'package/sequry/template/bin/js/controls/panels/PasswordPanel',
 
         Binds: [
             '$onSubmit',
@@ -30,11 +30,14 @@ define('package/sequry/template/bin/js/controls/Panels/PasswordPanel', [
         ],
 
         options: {
-            title             : false,	// {false|string} [optional] title of the window
-            backgroundClosable: true, // {bool} [optional] closes the window on click? standard = true
-            closeButton       : true, // {bool} show the close button
-            closeButtonText   : 'Abbrechen',
-            id                : false
+            title                  : false,
+            actionButton           : true,
+            actionButtonText       : 'Teilen',
+            closeButton            : true,
+            closeButtonText        : 'Schließen',
+            iconHeaderButton       : true,
+            iconHeaderButtonFaClass: 'fa fa-edit',
+            iconHeaderButtonText   : 'Passwort bearbeiten'
         },
 
         initialize: function (options) {
@@ -48,7 +51,6 @@ define('package/sequry/template/bin/js/controls/Panels/PasswordPanel', [
                 obSubmit : this.$onSubmit
             });
 
-
 //            this.PasswordClass = new Password();
         },
 
@@ -58,6 +60,7 @@ define('package/sequry/template/bin/js/controls/Panels/PasswordPanel', [
          */
         $onOpen: function () {
             var self = this;
+
 
             this.$Password = new Password({
                 id    : this.getAttribute('id'),

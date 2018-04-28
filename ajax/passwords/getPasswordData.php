@@ -164,7 +164,7 @@ function dummyData()
         [
             'id'                 => 7,
             'title'              => 'Pinterest',
-            'description'        => 'Quisque velit nisi, pretium ut lacinia in, elementum id enim.',
+            'description'        => '',
             'payload'            => [
                 'user'     => 'konkarkana',
                 'password' => 'passKon_ka_ra_na',

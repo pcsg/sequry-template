@@ -41,6 +41,11 @@ body .sidebar-panel-header {
     font-weight: normal;
 }
 
+.sidebar-panel-container .password-field-row-right button:hover {
+    color: #51b7a3;
+}
+
+
 /**********/
 /* button */
 /**********/

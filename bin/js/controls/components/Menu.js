@@ -1,14 +1,14 @@
 /**
- * @module package/sequry/template/bin/js/controls/Menu
+ * @module package/sequry/template/bin/js/controls/components/Menu
  */
-define('package/sequry/template/bin/js/controls/Menu', [
+define('package/sequry/template/bin/js/controls/components/Menu', [
 
     'qui/QUI',
     'qui/controls/Control',
     'Mustache',
 
-    'text!package/sequry/template/bin/js/controls/Menu.html',
-    'css!package/sequry/template/bin/js/controls/Menu.css'
+    'text!package/sequry/template/bin/js/controls/components/Menu.html',
+    'css!package/sequry/template/bin/js/controls/components/Menu.css'
 
 ], function (QUI, QUIControl, Mustache, Template) {
     "use strict";
@@ -16,7 +16,7 @@ define('package/sequry/template/bin/js/controls/Menu', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/Menu',
+        Type   : 'package/sequry/template/bin/js/controls/components/Menu',
 
         Binds: [
             '$onInject'

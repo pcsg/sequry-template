@@ -1,7 +1,7 @@
 /**
- * @module package/sequry/template/bin/js/controls/Panels/Panel
+ * @module package/sequry/template/bin/js/controls/panels/Panel
  */
-define('package/sequry/template/bin/js/controls/Panels/Panel', [
+define('package/sequry/template/bin/js/controls/panels/Panel', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -9,8 +9,8 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
     'qui/controls/utils/Background',
     'Mustache',
 
-    'text!package/sequry/template/bin/js/controls/Panels/Panel.html',
-    'css!package/sequry/template/bin/js/controls/Panels/Panel.css'
+    'text!package/sequry/template/bin/js/controls/panels/Panel.html',
+    'css!package/sequry/template/bin/js/controls/panels/Panel.css'
 
 ], function (
     QUI,
@@ -18,14 +18,14 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
     QUILoader,
     QUIBackground,
     Mustache,
-    Template
+    template
 ) {
     "use strict";
 
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/Panels/Panel',
+        Type   : 'package/sequry/template/bin/js/controls/panels/Panel',
 
         Binds: [
             '$onInject',
@@ -33,18 +33,20 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
             'cancel',
             '$close',
             'changeFavorite',
-            'submit'
+            'submit',
+            'createButtons'
         ],
 
         options: {
-            title             : false,	// {false|string} [optional] title of the window
-            actionButton      : false, // main action, e.g. save, OK
-            actionButtonText  : 'Button',
-            iconButton        : false, // [optional] icon button on the right top corner
-            iconButtonText    : "Bearbeiten", // [optional] title attribute
-            closeButton       : true, // {bool} show the close button
-            closeButtonText   : 'Abbrechen',
-            backgroundClosable: true // {bool} [optional] closes the window on click? standard = true
+            title                  : false,	// {false|string} [optional] title of the window
+            actionButton           : false, // main action, e.g. save, OK
+            actionButtonText       : '',
+            closeButton            : true, // {bool} show the close button
+            closeButtonText        : 'Abbrechen',
+            iconHeaderButton       : false, // [optional] icon button on the right top corner
+            iconHeaderButtonFaClass: '', // [optional] icon type css class
+            iconHeaderButtonText   : '', // [optional] title attribute
+            backgroundClosable     : true // {bool} [optional] closes the window on click? standard = true
         },
 
         initialize: function (options) {
@@ -72,8 +74,10 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
 
             this.$Elm = new Element('div', {
                 'class': 'sidebar-panel',
-                'html' : Mustache.render(Template)
+                'html' : Mustache.render(template)
             });
+
+            this.createButtons();
 
             this.Loader.inject(this.$Elm);
 
@@ -93,14 +97,6 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
                     }
                 });
             });
-        },
-
-        /**
-         *
-         */
-        onOpenComplete: function () {
-            this.Loader.hide();
-            console.log("onOpenComplete!")
         },
 
         /**
@@ -132,20 +128,44 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
             });
         },
 
+        createButtons: function () {
+
+            if (this.getAttribute('iconHeaderButton')) {
+                new Element('button', {
+                    'class': this.getAttribute('iconHeaderButtonFaClass'),
+                    'title': this.getAttribute('iconHeaderButtonText')
+                }).inject(this.$Elm.getElement('.sidebar-panel-header'))
+            }
+
+
+            var container = this.$Elm.getElement('.sidebar-panel-action-buttons');
+
+            if (this.getAttribute('actionButton')) {
+                new Element('button', {
+                    'class': 'panel-actionButton',
+                    'html' : this.getAttribute('actionButtonText')
+                }).inject(container)
+            }
+
+            if (this.getAttribute('closeButton')) {
+                new Element('button', {
+                    'class': 'btn-light panel-closeButton',
+                    'html' : this.getAttribute('closeButtonText')
+                }).inject(container)
+            }
+
+        },
+
         /**
          *
          */
         cancel: function () {
             this.fireEvent('cancel', [this]);
-            this.$close();
+            this.close();
         },
 
         submit: function () {
             this.fireEvent('submit', [this]);
-        },
-
-        getTitle: function () {
-
         },
 
         setTitle: function (title) {
@@ -161,9 +181,9 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
 
         getContent: function () {
             return this.$Elm.getElement('.sidebar-panel-content');
-        },
+        }
 
-        $close: function () {
+        /*$close: function () {
             console.error('deprecated');
             return this.close();
         },
@@ -171,6 +191,6 @@ define('package/sequry/template/bin/js/controls/Panels/Panel', [
         $open: function () {
             console.error('deprecated');
             return this.open();
-        }
+        }*/
     });
 });

@@ -1,0 +1,178 @@
+/*****************/
+/* sidebar panel */
+/*****************/
+.sidebar-panel {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    background: #fff;
+    height: 100vh;
+    width: 600px;
+    max-width: 100%;
+    transition: 0.5s all ease-in-out;
+    z-index: 1002;
+}
+
+.sidebar-panel-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 100px 1fr auto;
+    height: 100%;
+}
+
+/**********/
+/* header */
+/**********/
+.sidebar-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background: #eee;
+}
+
+.sidebar-panel-header button {
+    background: transparent;
+    border: none;
+    padding: 1rem;
+    border-radius: 0;
+}
+
+.sidebar-panel-header button:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.sidebar-panel-header-title {
+    margin: 0;
+}
+
+.sidebar-panel-content {
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/***********/
+/* content */
+/***********/
+.password-field-row {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.password-field-row.password-field-row-note {
+    padding-top: 10px;
+}
+
+.password-field-row.password-field-row-alignTop {
+    align-items: flex-start;
+}
+
+.password-field-row-left {
+    width: 30%;
+    color: #777;
+}
+
+.password-field-row-right {
+    flex-grow: 1;
+    width: 70%;
+}
+
+.password-field-row .password-field-row-right {
+    display: flex;
+}
+
+.password-field-row-right .password-field-row-right-input {
+    background: none;
+    padding: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    color: inherit;
+    line-height: inherit;
+    width: 100%;
+    transition: 0.2s all ease-out;
+    outline: none;
+}
+
+.password-field-row-right button {
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    color: #ddd;
+    background: none;
+    transition: 0.2s all ease-out;
+}
+
+.password-field-row-right:hover .password-field-row-right-input,
+.password-field-row-right:hover button,
+.password-field-row-right-input:focus,
+.password-field-row-right-input:focus ~ button {
+    border-bottom-color: #aaa;
+}
+
+.password-field-row-right:hover button {
+    color: #aaa;
+}
+
+.password-field-row-right button:hover {
+    color: inherit;
+}
+
+.password-field-row-right .note-container {
+    padding: 0 10px;
+}
+
+.password-field-row-right textarea {
+    width: 395px;
+    max-width: 100%;
+    min-height: 120px;
+    border: 1px solid rgb(221, 221, 221);
+    margin: 0px;
+    height: 163px;
+    outline: none;
+    transition: 0.2s all ease-out;
+    background: none;
+    padding: 10px;
+}
+
+.password-field-row-right textarea:hover,
+.password-field-row-right textarea:active,
+.password-field-row-right textarea:focus {
+    border-color: #aaa;
+}
+
+
+.form-section {
+    margin-bottom: 3rem;
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+}
+
+.form-section-header {
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+
+/* actions buttons */
+.sidebar-panel-action-buttons {
+    padding: 1rem 2rem;
+    text-align: right;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+.sidebar-panel-action-buttons button  {
+    margin-right: 1rem;
+}
+
+.sidebar-panel-action-buttons button:last-child {
+    margin-right: 0;
+}
