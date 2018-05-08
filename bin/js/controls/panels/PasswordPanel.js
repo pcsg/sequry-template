@@ -75,7 +75,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             }).inject(this.getContent());
 
             this.createActionButton();
-            this.createCloseButton();
             this.createHeaderButton();
         },
 

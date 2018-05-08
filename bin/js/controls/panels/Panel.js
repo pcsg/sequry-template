@@ -36,8 +36,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             'cancel',
             '$close',
             'changeFavorite',
-            'submit',
-            'createButtons'
+            'submit'
         ],
 
         options: {
@@ -86,7 +85,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
 
-//            this.createButtons();
+            this.createCloseButton();
 //            this.$Elm.getElement('button').addEvent('click', this.submit);
 
             // inject node element to body
@@ -135,14 +134,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     }
                 });
             });
-        },
-
-        /**
-         * Create all wanted buttons.
-         * It checks the options to ensure witch buttons are needed.
-         */
-        createButtons: function () {
-
         },
 
         /**
