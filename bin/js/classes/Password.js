@@ -40,7 +40,6 @@ define('package/sequry/template/bin/js/classes/Password', [
         /**
          * Return all passwords data.
          *
-         * @param passId (integer)
          * @return {Promise}
          */
         getDataAll: function () {

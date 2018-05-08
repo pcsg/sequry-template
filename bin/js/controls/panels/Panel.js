@@ -111,7 +111,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         close: function () {
             var self = this;
-
+console.log(this.$Elm);
             self.fireEvent('closeBegin', [self]);
 
             return new Promise(function (resolve) {
@@ -139,6 +139,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * It checks the options to ensure witch buttons are needed.
          */
         createButtons: function () {
+            var self = this;
 
             if (this.getAttribute('iconHeaderButton')) {
                 new Element('button', {
@@ -154,14 +155,17 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 new Element('button', {
                     'class': 'panel-actionButton',
                     'html' : this.getAttribute('actionButton')
-                }).inject(container)
+                }).inject(container);
             }
 
             if (this.getAttribute('closeButton')) {
                 new Element('button', {
                     'class': 'btn-light panel-closeButton',
-                    'html' : this.getAttribute('closeButton')
-                }).inject(container)
+                    'html' : this.getAttribute('closeButton'),
+                    events: {
+                        click: self.cancel
+                    }
+                }).inject(container);
             }
 
         },
@@ -196,6 +200,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Submit form and fire submitevent.
          */
         submit: function () {
+            console.log("save");
             this.fireEvent('submit', [this]);
         }
     });
