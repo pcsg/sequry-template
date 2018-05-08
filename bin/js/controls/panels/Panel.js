@@ -52,6 +52,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         initialize: function (options) {
             this.parent(options);
 
+            this.panelMenu = null;
             // don't scroll the page while panel is open
             document.body.setStyle('overflow', 'hidden');
 
@@ -82,9 +83,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'html' : Mustache.render(template)
             });
 
+            this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
-            this.createButtons();
-            this.$Elm.getElement('button').addEvent('click', this.submit);
+
+//            this.createButtons();
+//            this.$Elm.getElement('button').addEvent('click', this.submit);
 
             // inject node element to body
             document.body.appendChild(this.$Elm);
@@ -111,7 +114,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         close: function () {
             var self = this;
-console.log(this.$Elm);
+
             self.fireEvent('closeBegin', [self]);
 
             return new Promise(function (resolve) {
@@ -139,34 +142,6 @@ console.log(this.$Elm);
          * It checks the options to ensure witch buttons are needed.
          */
         createButtons: function () {
-            var self = this;
-
-            if (this.getAttribute('iconHeaderButton')) {
-                new Element('button', {
-                    'class': this.getAttribute('iconHeaderButtonFaClass'),
-                    'title': this.getAttribute('iconHeaderButton')
-                }).inject(this.$Elm.getElement('.sidebar-panel-header'))
-            }
-
-
-            var container = this.$Elm.getElement('.sidebar-panel-action-buttons');
-
-            if (this.getAttribute('actionButton')) {
-                new Element('button', {
-                    'class': 'panel-actionButton',
-                    'html' : this.getAttribute('actionButton')
-                }).inject(container);
-            }
-
-            if (this.getAttribute('closeButton')) {
-                new Element('button', {
-                    'class': 'btn-light panel-closeButton',
-                    'html' : this.getAttribute('closeButton'),
-                    events: {
-                        click: self.cancel
-                    }
-                }).inject(container);
-            }
 
         },
 
@@ -202,6 +177,41 @@ console.log(this.$Elm);
         submit: function () {
             console.log("save");
             this.fireEvent('submit', [this]);
+        },
+
+        /**
+         * Create a close button
+         */
+        createCloseButton: function () {
+            var self = this;
+            new Element('button', {
+                'class': 'btn-light panel-closeButton',
+                'html' : this.getAttribute('closeButton'),
+                events : {
+                    click: self.cancel
+                }
+            }).inject(this.panelMenu);
+        },
+
+        /**
+         * Create an action button (e.g. save, share, etc.)
+         */
+        createActionButton: function () {
+            new Element('button', {
+                'class': 'panel-actionButton',
+                'html' : this.getAttribute('actionButton')
+            }).inject(this.panelMenu)
+        },
+
+        /**
+         * Create a button on the top of the panel (header).
+         * Example: "edit" to open new panel and edit the password.
+         */
+        createHeaderButton: function () {
+            new Element('button', {
+                'class': this.getAttribute('iconHeaderButtonFaClass'),
+                'title': this.getAttribute('iconHeaderButton')
+            }).inject(this.$Elm.getElement('.sidebar-panel-header'))
         }
     });
 });
