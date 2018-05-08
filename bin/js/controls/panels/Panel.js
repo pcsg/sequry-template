@@ -57,6 +57,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             this.Loader = new QUILoader();
             this.Background = new QUIBackground();
+            console.log(this)
         },
 
 
@@ -171,7 +172,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Create a close button
+         * Create a close button.
          */
         createCloseButton: function () {
             var self = this;
@@ -185,23 +186,33 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Create an action button (e.g. save, share, etc.)
+         * Create an action button (e.g. save, share, etc.).
+         *
+         * @param eventFunction - the function will be execute when the user clicks on a button.
          */
-        createActionButton: function () {
+        createActionButton: function (eventFunction) {
             new Element('button', {
                 'class': 'panel-actionButton',
-                'html' : this.getAttribute('actionButton')
+                'html' : this.getAttribute('actionButton'),
+                events: {
+                    click: eventFunction
+                }
             }).inject(this.panelMenu)
         },
 
         /**
          * Create a button on the top of the panel (header).
          * Example: "edit" to open new panel and edit the password.
+         *
+         * @param eventFunction - the function will be execute when the user clicks on a button.
          */
-        createHeaderButton: function () {
+        createHeaderButton: function (eventFunction) {
             new Element('button', {
                 'class': this.getAttribute('iconHeaderButtonFaClass'),
-                'title': this.getAttribute('iconHeaderButton')
+                'title': this.getAttribute('iconHeaderButton'),
+                events: {
+                    click: eventFunction
+                }
             }).inject(this.$Elm.getElement('.sidebar-panel-header'))
         }
     });

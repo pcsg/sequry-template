@@ -29,7 +29,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
         Binds: [
             '$onSubmit',
             '$openBegin',
-            '$onOpen'
+            '$onOpen',
+            'openSharePassword',
+            'openEditPassword'
         ],
 
         options: {
@@ -74,8 +76,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 }
             }).inject(this.getContent());
 
-            this.createActionButton();
-            this.createHeaderButton();
+            this.createActionButton(this.openSharePassword);
+            this.createHeaderButton(this.openEditPassword);
         },
 
         /**
@@ -92,6 +94,16 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
         $onSubmit: function () {
             // password speichern
             console.log(this);
+        },
+
+        openSharePassword: function() {
+            console.log("Password wird geteilt");
+            this.cancel();
+        },
+
+        openEditPassword: function() {
+            console.log("Password wird bearbeitet!");
+            this.cancel();
         }
 
     });
