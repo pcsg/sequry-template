@@ -78,6 +78,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
 
+            // inject node element to body
             document.body.appendChild(this.$Elm);
         },
 
@@ -90,14 +91,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         open: function () {
             var self = this;
-
-
-
-
-//            this.$Elm.getElement('button').addEvent('click', this.submit);
-
-            // inject node element to body
-
 
             this.fireEvent('openBegin', [this]);
 
@@ -173,10 +166,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Submit form and fire submitevent.
+         * Submit form and fire submit event.
          */
         submit: function () {
-            console.log("save");
+            console.log("panels/Panel --> save und fireEvent SUBMIT");
             this.fireEvent('submit', [this]);
         },
 
@@ -198,15 +191,16 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * * Create an action button (e.g. save, share, etc.).
          *
-         * @param eventFunction - the function will be execute when the user clicks on a button.
-         * @param label -
+         * @param {string} [label] - label for action button.
          */
-        createActionButton: function (label, eventFunction) {
+        createActionButton: function (label) {
+            var self = this;
+
             new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,
                 events: {
-                    click: eventFunction
+                    click: self.submit
                 }
             }).inject(this.panelMenu)
         },
@@ -215,7 +209,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Create a button on the top of the panel (header).
          * Example: "edit" to open new panel and edit the password.
          *
-         * @param eventFunction - the function will be execute when the user clicks on a button.
+         * @param {string} [label] - label for header button.
+         * @param {string} [icon] - icon for header button. FontAwesome recommended.
+         * @param eventFunction - the function will be execute when the user clicks on the button.
          */
         createHeaderButton: function (label, icon, eventFunction) {
             new Element('button', {

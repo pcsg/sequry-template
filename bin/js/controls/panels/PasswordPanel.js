@@ -76,15 +76,24 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 }
             }).inject(this.getContent());
 
+
             // create buttons
+            // action button (save, share)
             if (this.getAttribute('actionButton')) {
-                this.createActionButton(this.getAttribute('actionButton'))
+                this.createActionButton(
+                    this.getAttribute('actionButton')
+//                    this.$Password.share
+                )
+
             }
 
+            // close button
             if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
+                this.createCloseButton(this.getAttribute('closeButton')
+                )
             }
 
+            // header button
             if (this.getAttribute('iconHeaderButton')) {
                 this.createHeaderButton(
                     this.getAttribute('iconHeaderButton'),
@@ -106,8 +115,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * event: on submit form
          */
         $onSubmit: function () {
-            // password speichern
-            console.log(this);
+            this.$Password.share();
         },
 
         openSharePassword: function () {

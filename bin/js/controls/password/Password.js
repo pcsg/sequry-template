@@ -131,9 +131,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             });
         },
 
-        save: function () {
-            console.log("password/Password.js --> SAVE");
-            PasswordHandler.save(this.getAttribute('id'), data);
+        share: function () {
+            console.log("password/Password.js --> Jetzt wird geshared!");
+//            PasswordHandler.save(this.getAttribute('id'), data);
         }
 
     });
