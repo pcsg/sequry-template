@@ -49,9 +49,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
             // panel events
             this.addEvents({
-                onOpen   : this.$onOpen,
-                openBegin: this.$openBegin,
-                onSubmit : this.$onSubmit
+                onOpen           : this.$onOpen,
+                openBegin        : this.$openBegin,
+                onSubmit         : this.$onSubmit,
+                onSubmitSecondary: this.$onSubmitSecondary
             });
         },
 
@@ -115,17 +116,15 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * event: on submit form
          */
         $onSubmit: function () {
-            this.$Password.share();
-        },
-
-        openSharePassword: function () {
             console.log("Password wird geteilt");
+            this.$Password.share();
             this.cancel();
         },
 
-        openEditPassword: function () {
+        $onSubmitSecondary: function () {
             console.log("Password wird bearbeitet!");
             this.cancel();
+            this.$Password.edit();
         }
 
     });

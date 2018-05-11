@@ -34,9 +34,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             '$onInject',
             'open',
             'cancel',
-            '$close',
+            'close',
             'changeFavorite',
-            'submit'
+            'submit',
+            'submitSecondary'
         ],
 
         options: {
@@ -62,8 +63,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         create: function() {
-            this.Background.create();
-            this.Background.show();
 
             // should click on background close panel?
             if (this.getAttribute('backgroundClosable')) {
@@ -91,6 +90,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         open: function () {
             var self = this;
+
+            this.Background.create();
+            this.Background.show();
 
             this.fireEvent('openBegin', [this]);
 
@@ -167,10 +169,20 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         /**
          * Submit form and fire submit event.
+         * Primary submit button.
          */
         submit: function () {
-            console.log("panels/Panel --> save und fireEvent SUBMIT");
+            console.log("panels/Panel --> fireEvent SUBMIT");
             this.fireEvent('submit', [this]);
+        },
+
+        /**
+         * Submit form and fire submitIcon event.
+         * Secondary submit button (header icon).
+         */
+        submitSecondary: function() {
+            console.log("panels/Panel --> fireEvent SUBMIT SECONDARY");
+            this.fireEvent('submitSecondary', [this]);
         },
 
         /**
@@ -189,7 +201,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * * Create an action button (e.g. save, share, etc.).
+         * Create an action button (e.g. save, share, etc.).
          *
          * @param {string} [label] - label for action button.
          */
@@ -211,14 +223,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          *
          * @param {string} [label] - label for header button.
          * @param {string} [icon] - icon for header button. FontAwesome recommended.
-         * @param eventFunction - the function will be execute when the user clicks on the button.
          */
-        createHeaderButton: function (label, icon, eventFunction) {
+        createHeaderButton: function (label, icon) {
+            var self = this;
+
             new Element('button', {
                 'class': icon,
                 'title': label,
                 events: {
-                    click: eventFunction
+                    click: self.submitSecondary
                 }
             }).inject(this.$Elm.getElement('.sidebar-panel-header'))
         }

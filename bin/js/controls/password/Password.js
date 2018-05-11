@@ -8,15 +8,15 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     'Mustache',
 
     'package/sequry/template/bin/js/Password',
+    'package/sequry/template/bin/js/controls/panels/PasswordPanel',
 
     'text!package/sequry/template/bin/js/controls/password/Password.html'
-//    'css!package/sequry/template/bin/js/controls/password/Panel.css'
-
 ], function (
     QUI,
     QUIControl,
     Mustache,
     PasswordHandler,
+    PasswordPanel,
     template
 ) {
     "use strict";
@@ -27,7 +27,8 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         Type   : 'package/sequry/template/bin/js/controls/password/Password',
 
         Binds: [
-            '$onInject'
+            '$onInject',
+            'share'
         ],
 
         options: {
@@ -56,7 +57,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
                 self.getElm().set('html', Mustache.render(template, {
-                    'description'         : result.description,
+                    'description'  : result.description,
                     'userText'     : 'Benutzer',
                     'userValue'    : result.payload.user,
                     'passwordText' : 'Passwort',
@@ -100,7 +101,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         /**
          * Return the typeof the password
          *
-         * @returns {string|false}
+         * @returns {string|boolean}
          */
         getType: function () {
             var data = this.getAttribute('data');
@@ -134,6 +135,14 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         share: function () {
             console.log("password/Password.js --> Jetzt wird geshared!");
 //            PasswordHandler.save(this.getAttribute('id'), data);
+
+            require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function(PP) {
+                new PP({id: 2}).open();
+            })
+        },
+
+        edit: function () {
+            console.log("password/Password.js --> Password bearbeiten");
         }
 
     });
