@@ -136,9 +136,15 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @param Entry
          */
         open: function (Entry) {
-            new PasswordPanel({
+            /*new PasswordPanel({
                 id: Entry.id
-            }).open();
+            }).open();*/
+
+            var Pass = new PasswordPanel({
+                id: Entry.id
+            });
+
+            Pass.open();
         },
 
         /**

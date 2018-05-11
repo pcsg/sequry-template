@@ -42,7 +42,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         options: {
             title                  : false,	// {false|string} [optional] title of the window
             actionButton           : false, // {false|string} main action button, e.g. save, OK
-            closeButton            : true,  // {false|string} show the close button
+            closeButton            : 'Schließen',  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
             backgroundClosable     : true   // {bool} [optional] closes the window on click?
@@ -57,19 +57,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             this.Loader = new QUILoader();
             this.Background = new QUIBackground();
-            console.log(this)
+
+            this.create();
         },
 
-
-        /**
-         * Open panel.
-         * When animation is finished it returns a javascript promise.
-         *
-         * @return {Promise}
-         */
-        open: function () {
-            var self = this;
-
+        create: function() {
             this.Background.create();
             this.Background.show();
 
@@ -86,11 +78,26 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
 
-            this.createCloseButton();
+            document.body.appendChild(this.$Elm);
+        },
+
+
+        /**
+         * Open panel.
+         * When animation is finished it returns a javascript promise.
+         *
+         * @return {Promise}
+         */
+        open: function () {
+            var self = this;
+
+
+
+
 //            this.$Elm.getElement('button').addEvent('click', this.submit);
 
             // inject node element to body
-            document.body.appendChild(this.$Elm);
+
 
             this.fireEvent('openBegin', [this]);
 
@@ -98,6 +105,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 moofx(self.$Elm).animate({
                     right: 0
                 }, {
+                    equation: 'ease-in-out',
                     callback: function () {
                         self.fireEvent('open', [self]);
                         resolve();
@@ -121,6 +129,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 moofx(self.$Elm).animate({
                     right: '-100%'
                 }, {
+                    equation: 'ease-in-out',
                     callback: function () {
                         // return scroll bar of the page
                         document.body.setStyle('overflow', '');
@@ -174,11 +183,12 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * Create a close button.
          */
-        createCloseButton: function () {
+        createCloseButton: function (label) {
             var self = this;
+
             new Element('button', {
                 'class': 'btn-light panel-closeButton',
-                'html' : this.getAttribute('closeButton'),
+                'html' : label,
                 events : {
                     click: self.cancel
                 }
@@ -186,14 +196,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Create an action button (e.g. save, share, etc.).
+         * * Create an action button (e.g. save, share, etc.).
          *
          * @param eventFunction - the function will be execute when the user clicks on a button.
+         * @param label -
          */
-        createActionButton: function (eventFunction) {
+        createActionButton: function (label, eventFunction) {
             new Element('button', {
                 'class': 'panel-actionButton',
-                'html' : this.getAttribute('actionButton'),
+                'html' : label,
                 events: {
                     click: eventFunction
                 }
@@ -206,10 +217,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          *
          * @param eventFunction - the function will be execute when the user clicks on a button.
          */
-        createHeaderButton: function (eventFunction) {
+        createHeaderButton: function (label, icon, eventFunction) {
             new Element('button', {
-                'class': this.getAttribute('iconHeaderButtonFaClass'),
-                'title': this.getAttribute('iconHeaderButton'),
+                'class': icon,
+                'title': label,
                 events: {
                     click: eventFunction
                 }

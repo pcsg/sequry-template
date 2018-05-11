@@ -51,11 +51,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             this.addEvents({
                 onOpen   : this.$onOpen,
                 openBegin: this.$openBegin,
-                obSubmit : this.$onSubmit
+                onSubmit : this.$onSubmit
             });
         },
 
-        $onLoad: function() {
+        $onLoad: function () {
             console.log("Password Panel onLoad");
         },
 
@@ -76,8 +76,22 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 }
             }).inject(this.getContent());
 
-            this.createActionButton(this.openSharePassword);
-            this.createHeaderButton(this.openEditPassword);
+            // create buttons
+            if (this.getAttribute('actionButton')) {
+                this.createActionButton(this.getAttribute('actionButton'))
+            }
+
+            if (this.getAttribute('closeButton')) {
+                this.createCloseButton(this.getAttribute('closeButton'))
+            }
+
+            if (this.getAttribute('iconHeaderButton')) {
+                this.createHeaderButton(
+                    this.getAttribute('iconHeaderButton'),
+                    this.getAttribute('iconHeaderButtonFaClass')
+                )
+            }
+
         },
 
         /**
@@ -96,12 +110,12 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             console.log(this);
         },
 
-        openSharePassword: function() {
+        openSharePassword: function () {
             console.log("Password wird geteilt");
             this.cancel();
         },
 
-        openEditPassword: function() {
+        openEditPassword: function () {
             console.log("Password wird bearbeitet!");
             this.cancel();
         }
