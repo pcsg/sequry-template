@@ -1,6 +1,7 @@
 <?php
 
 use QUI\FrontendUsers\Controls\Auth\FrontendLogin;
+use Sequry\Core\Constants\Sequry as SequryConstants;
 
 $Logo = $Project->getMedia()->getLogoImage();
 
@@ -13,8 +14,9 @@ $isAuth      = boolval($SessionUser->getId());
 
 
 $Engine->assign([
-    'Logo'          => $Logo,
-    'FrontendLogin' => $FrontendLogin,
-    'isAuth'        => $isAuth,
-    'SessionUser'   => $SessionUser
+    'Logo'               => $Logo,
+    'FrontendLogin'      => $FrontendLogin,
+    'isAuth'             => $isAuth,
+    'SessionUser'        => $SessionUser,
+    'isPasswordLinkSite' => $Site->getAttribute('type') === SequryConstants::SITE_TYPE_PASSWORDLINK
 ]);

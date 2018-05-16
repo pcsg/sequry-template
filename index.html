@@ -34,9 +34,11 @@
 </head>
 <body class="page-{$Site->getId()}">
 
-{*$Template->getLayout()*}
+{if $isPasswordLinkSite}
 
-{if $isAuth}
+    {$Template->getLayout()}
+
+{elseif $isAuth}
 
     {*include file="`$TPL_DIR`sequry.html"*}
 
@@ -64,10 +66,9 @@
             </button>-->
     </section>
 
-
 {else}
 
-{include file="`$TPL_DIR`login.html"}
+    {include file="`$TPL_DIR`login.html"}
 
 {/if}
 
