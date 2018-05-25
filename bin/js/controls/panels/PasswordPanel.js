@@ -125,6 +125,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             console.log("Password wird bearbeitet!");
             this.cancel();
             this.$Password.edit();
+        },
+
+        test: function() {
+            alert("das ist nur ein test")
         }
 
     });

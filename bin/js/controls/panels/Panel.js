@@ -64,7 +64,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         create: function() {
 
-            // should click on background close panel?
+            // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
                 this.Background.getElm().addEvent('click', this.cancel);
             }

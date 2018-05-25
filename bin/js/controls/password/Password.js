@@ -9,6 +9,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
+    'package/sequry/template/bin/js/controls/utils/InputButtons',
 
     'text!package/sequry/template/bin/js/controls/password/Password.html'
 ], function (
@@ -17,6 +18,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     Mustache,
     PasswordHandler,
     PasswordPanel,
+    InputButtons,
     template
 ) {
     "use strict";
@@ -67,6 +69,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     'noteText'     : 'Notiz',
                     'noteValue'    : result.payload.note
                 }));
+
+                InputButtons.$parse(self.getElm());
+                console.log(document.getElements('.password-copyitem'))
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
@@ -76,6 +81,8 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
                 self.setAttribute('data', result);
                 self.fireEvent('load', [self]);
+
+
             });
         },
 
@@ -136,13 +143,15 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             console.log("password/Password.js --> Jetzt wird geshared!");
 //            PasswordHandler.save(this.getAttribute('id'), data);
 
-            require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function(PP) {
-                new PP({id: 2}).open();
-            })
+
         },
 
         edit: function () {
             console.log("password/Password.js --> Password bearbeiten");
+
+            require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function(PP) {
+                new PP({id: 2}).open();
+            })
         }
 
     });
