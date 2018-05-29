@@ -1,13 +1,18 @@
+require.config({
+    paths: {
+        "ClipboardJS"  : URL_OPT_DIR + 'bin/clipboard/dist/clipboard',
+        "html5tooltips": URL_OPT_DIR + 'quiqqer/tooltips/bin/html5tooltips'
+    }
+});
+
 /**
  * @module package/sequry/template/bin/js/controls/utils/InputButtons
+ * @author www.pcsg.de (Michael Danielczok)
  */
 define('package/sequry/template/bin/js/controls/utils/InputButtons', [
-
-    'qui/QUI',
-    'qui/controls/Control'
+    'ClipboardJS'
 ], function (
-    QUI,
-    QUIControl
+    Clipboard
 ) {
     "use strict";
 
@@ -15,49 +20,127 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
         Type   : 'package/sequry/template/bin/js/controls/utils/InputButtons',
 
-        Binds: [
-        ],
+        /**
+         * Parse DOM elements of the view and add specific controls
+         * (e.g. copy / show password buttons)
+         */
+        parse: function (ParseElm) {
+            var i, len;
 
-        initialize: function (options) {
-//            this.parent(options);
-            console.log("Input Buttons initialisiert!");
+            // copy elements
+            var copyElms = ParseElm.getElements('.password-copy');
+
+            for (i = 0, len = copyElms.length; i < len; i++) {
+                this.parseCopyElm(copyElms[i]);
+            }
+
+            // show elements (switch between show and hide)
+            var showElms = ParseElm.getElements('.password-show');
+
+            for (i = 0, len = showElms.length; i < len; i++) {
+                this.parseShowElm(showElms[i]);
+            }
+
+            // url elements
+            var urlElms = ParseElm.getElements('.password-openurl');
+
+            for (i = 0, len = urlElms.length; i < len; i++) {
+                this.parseOpenUrlElm(urlElms[i]);
+            }
+        },
+
+        /**
+         * Parse copy password buttons
+         *
+         * @param CopyBtn
+         */
+        parseCopyElm: function (CopyBtn) {
+            var parent = CopyBtn.getParent(),
+                Input  = parent.getElement('input');
+
+            CopyBtn.addEvent('click', function () {
+                //todo click-feedback
+            });
+
+            new Clipboard(CopyBtn, {
+                text: function () {
+                    return Input.value;
+                }
+            });
+        },
+
+        /**
+         * Parse show password buttons
+         *
+         * @param ShowBtn
+         */
+        parseShowElm: function (ShowBtn) {
+            var parent   = ShowBtn.getParent(),
+                Input    = parent.getElement('input'),
+                showPass = false;
+
+            ShowBtn.addEvent('click', function () {
+                //todo click-feedback
+
+                if (showPass) {
+                    ShowBtn.removeClass('fa-eye-slash');
+                    ShowBtn.addClass('fa-eye');
+                    Input.setProperty('type', 'password');
+                    showPass = false;
+                    return;
+                }
+
+                ShowBtn.addClass('fa-eye-slash');
+                ShowBtn.removeClass('fa-eye');
+                Input.setProperty('type', 'text');
+                showPass = true;
+
+            })
 
         },
 
         /**
-         * Parse DOM elements of the view and add specific controls (e.g. copy / show password buttons)
+         * Parse open url buttons
+         *
+         * @param OpenUrlBtn
          */
-        $parse: function () {
-            var i, len;
+        parseOpenUrlElm: function (OpenUrlBtn) {
+            var parent = OpenUrlBtn.getParent(),
+                Input  = parent.getElement('input');
 
-            console.log("pare funktion von input buttons");
+            OpenUrlBtn.addEvent('click', function () {
+                var href;
 
+                if (Input.get('href')) {
+                    href = Input.href;
+                } else {
+                    var LinkElm = Input.getElement('a');
 
-            // copy elements
-//            var copyElms = this.$Elm.getElements('.password-copyitem');
+                    if (LinkElm && LinkElm.get('href')) {
+                        href = Input.href;
+                    }
+                }
 
-//            for (i = 0, len = copyElms.length; i < len; i++) {
-//                ButtonParser.parse(copyElms[i], ['copy']);
-//                console.log(copyElms[i])
-//            }
+                if (!href) {
+                    href = Input.value;
+                }
 
-            /*// show elements (switch between show and hide)
-            var showElms = this.$Elm.getElements('.gpm-passwordtypes-show');
+                if (!href) {
+                    href = Input.innerHTML;
+                }
 
-            for (i = 0, len = showElms.length; i < len; i++) {
-                ButtonParser.parse(showElms[i], ['viewtoggle']);
-            }
+                if (!href) {
+                    return;
+                }
 
-            // url elements
-            var urlElms = this.$Elm.getElements('.gpm-passwordtypes-url');
+                var AnchorElm = new Element('a', {
+                    href  : href,
+                    target: '_blank'
+                });
 
-            for (i = 0, len = urlElms.length; i < len; i++) {
-                ButtonParser.parse(urlElms[i], ['openurl']);
-            }*/
-        },
-        
-        parseCopyElm: function () {
-            
+                AnchorElm.click();
+                AnchorElm.destroy();
+            })
         }
 
     });

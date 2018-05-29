@@ -70,8 +70,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     'noteValue'    : result.payload.note
                 }));
 
-                InputButtons.$parse(self.getElm());
-                console.log(document.getElements('.password-copyitem'))
+                var BtnParser = new InputButtons;
+
+                BtnParser.parse(self.getElm());
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
