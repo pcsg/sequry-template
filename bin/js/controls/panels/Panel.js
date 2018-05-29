@@ -11,6 +11,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     'qui/controls/loader/Loader',
     'qui/controls/utils/Background',
     'Mustache',
+    'Locale',
 
     'text!package/sequry/template/bin/js/controls/panels/Panel.html',
     'css!package/sequry/template/bin/js/controls/panels/Panel.css'
@@ -21,9 +22,13 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     QUILoader,
     QUIBackground,
     Mustache,
+    QUILocale,
     template
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
+
 
     return new Class({
 
@@ -43,7 +48,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         options: {
             title                  : false,	// {false|string} [optional] title of the window
             actionButton           : false, // {false|string} main action button, e.g. save, OK
-            closeButton            : 'Schließen',  // {false|string} show the close button
+            closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
             backgroundClosable     : true   // {bool} [optional] closes the window on click?

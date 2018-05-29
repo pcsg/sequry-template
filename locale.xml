@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
-  <groups name="sequry/template" datatype="php,js">
+    <groups name="sequry/template" datatype="php,js">
 
-    <locale name="package.title">
-      <de><![CDATA[Sequry Basis-Template]]></de>
-      <en><![CDATA[Sequry basic template]]></en>
-    </locale>
+        <locale name="package.title">
+            <de><![CDATA[Sequry Basis-Template]]></de>
+            <en><![CDATA[Sequry basic template]]></en>
+        </locale>
 
-    <locale name="package.description">
-      <de><![CDATA[Das Sequry Basis-Template bietet ein einfaches, zugängliches Design für das Sequry Frontend.]]></de>
-      <en><![CDATA[The Sequry basic template offers an easy, accessable design for the Sequry frontend.]]></en>
-    </locale>
+        <locale name="package.description">
+            <de>
+                <![CDATA[Das Sequry Basis-Template bietet ein einfaches, zugängliches Design für das Sequry Frontend.]]></de>
+            <en><![CDATA[The Sequry basic template offers an easy, accessable design for the Sequry frontend.]]></en>
+        </locale>
 
-    <!-- site type -->
-    <locale name="admin.types.sequry">
-      <de><![CDATA[Sequry]]></de>
-      <en><![CDATA[Sequry]]></en>
-    </locale>
+        <!-- site type -->
+        <locale name="admin.types.sequry">
+            <de><![CDATA[Sequry]]></de>
+            <en><![CDATA[Sequry]]></en>
+        </locale>
 
-  </groups>
+    </groups>
+
+    <groups name="sequry/template" datatype="js">
+
+
+        <!-- buttons -->
+        <locale name="sequry.panel.button.share">
+            <de><![CDATA[Teilen]]></de>
+            <en><![CDATA[Share]]></en>
+        </locale>
+        <locale name="sequry.panel.button.close">
+            <de><![CDATA[Schließen]]></de>
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="sequry.panel.button.edit">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+        <locale name="sequry.panel.button.save">
+            <de><![CDATA[Speichern]]></de>
+            <en><![CDATA[Save]]></en>
+        </locale>
+
+        <!-- passwort panel template -->
+        <locale name="sequry.panel.template.user">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.panel.template.password">
+            <de><![CDATA[Passwort]]></de>
+            <en><![CDATA[Password]]></en>
+        </locale>
+        <locale name="sequry.panel.template.url">
+            <de><![CDATA[Url]]></de>
+            <en><![CDATA[Url]]></en>
+        </locale>
+        <locale name="sequry.panel.template.notice">
+            <de><![CDATA[Notiz]]></de>
+            <en><![CDATA[Notice]]></en>
+        </locale>
+    </groups>
 </locales>

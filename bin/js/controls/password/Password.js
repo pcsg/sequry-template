@@ -6,6 +6,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     'qui/QUI',
     'qui/controls/Control',
     'Mustache',
+    'Locale',
 
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
@@ -16,12 +17,15 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     QUI,
     QUIControl,
     Mustache,
+    QUILocale,
     PasswordHandler,
     PasswordPanel,
     InputButtons,
     template
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -60,19 +64,17 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 // das hier ist nur eine zwischenlösung
                 self.getElm().set('html', Mustache.render(template, {
                     'description'  : result.description,
-                    'userText'     : 'Benutzer',
+                    'userText'     : QUILocale.get(lg, 'sequry.panel.template.user'),
                     'userValue'    : result.payload.user,
-                    'passwordText' : 'Passwort',
+                    'passwordText' : QUILocale.get(lg, 'sequry.panel.template.password'),
                     'passwordValue': result.payload.password,
-                    'urlText'      : 'Url',
+                    'urlText'      : QUILocale.get(lg, 'sequry.panel.template.url'),
                     'urlValue'     : result.payload.url,
-                    'noteText'     : 'Notiz',
+                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.notice'),
                     'noteValue'    : result.payload.note
                 }));
 
-                var BtnParser = new InputButtons;
 
-                BtnParser.parse(self.getElm());
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());

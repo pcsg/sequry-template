@@ -9,17 +9,24 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     'qui/QUI',
     'qui/controls/Control',
     'Ajax',
+    'Locale',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/password/Password'
+    'package/sequry/template/bin/js/controls/password/Password',
+    'package/sequry/template/bin/js/controls/utils/InputButtons'
 ], function (
     QUI,
     QUIControl,
     QUIAjax,
+    QUILocale,
+
     Panel,
-    Password
+    Password,
+    InputButtons
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -36,9 +43,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
         options: {
             title                  : false,
-            actionButton           : 'Teilen',
-            closeButton            : 'Schließen',
-            iconHeaderButton       : 'Passwort bearbeiten',
+            actionButton           : QUILocale.get(lg, 'sequry.panel.button.share'),
+            closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),
+            iconHeaderButton       : QUILocale.get(lg, 'sequry.panel.button.edit'),
             iconHeaderButtonFaClass: 'fa fa-edit'
         },
 
@@ -56,10 +63,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             });
         },
 
-        $onLoad: function () {
-            console.log("Password Panel onLoad");
-        },
-
         /**
          * event: on open
          * Integrate password
@@ -73,6 +76,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                     onLoad: function (PW) {
                         self.setTitle(PW.getTitle());
                         self.Loader.hide();
+                        var BtnParser = new InputButtons;
+
+                        BtnParser.parse(self.getElm());
                     }
                 }
             }).inject(this.getContent());
