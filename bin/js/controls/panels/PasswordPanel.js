@@ -12,16 +12,14 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     'Locale',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/password/Password',
-    'package/sequry/template/bin/js/controls/utils/InputButtons'
+    'package/sequry/template/bin/js/controls/password/Password'
 ], function (
     QUI,
     QUIControl,
     QUIAjax,
     QUILocale,
     Panel,
-    Password,
-    InputButtons
+    Password
 ) {
     "use strict";
 
@@ -75,17 +73,13 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                     onLoad: function (PW) {
                         self.setTitle(PW.getTitle());
 
-                        var BtnParser = new InputButtons;
-                        BtnParser.parse(self.getElm());
-
+                        self.ButtonParser.parse(self.getElm());
                         self.Loader.hide();
                     }
                 }
             }).inject(this.getContent());
 
-
-            // create buttons
-            // action button (save, share)
+            // action button - share
             if (this.getAttribute('actionButton')) {
                 this.createActionButton(
                     this.getAttribute('actionButton')

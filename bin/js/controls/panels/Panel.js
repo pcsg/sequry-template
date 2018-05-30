@@ -13,6 +13,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     'Mustache',
     'Locale',
 
+    'package/sequry/template/bin/js/controls/utils/InputButtons',
     'text!package/sequry/template/bin/js/controls/panels/Panel.html',
     'css!package/sequry/template/bin/js/controls/panels/Panel.css'
 
@@ -23,6 +24,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     QUIBackground,
     Mustache,
     QUILocale,
+    ButtonParser,
     template
 ) {
     "use strict";
@@ -63,6 +65,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             this.Loader = new QUILoader();
             this.Background = new QUIBackground();
+            this.ButtonParser = new ButtonParser();
 
             this.create();
         },

@@ -74,11 +74,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 }));
 
 
-//
+
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
 //                });
-//
+
                 // result.type
 
                 self.setAttribute('data', result);

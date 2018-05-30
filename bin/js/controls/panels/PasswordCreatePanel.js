@@ -9,6 +9,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     'qui/QUI',
     'qui/controls/Control',
     'Ajax',
+    'Locale',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/password/PasswordCreate'
@@ -16,10 +17,13 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     QUI,
     QUIControl,
     QUIAjax,
+    QUILocale,
     Panel,
     PasswordCreate
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -34,8 +38,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
         options: {
             title       : false,
-            actionButton: 'Speichern',
-            closeButton : 'Schließen'
+            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton : QUILocale.get(lg, 'sequry.panel.button.close')
         },
 
         initialize: function (options) {
@@ -62,11 +66,27 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                 id    : this.getAttribute('id'),
                 events: {
                     onLoad: function () {
-                        self.setTitle('Neues Passwort erstellen');
+                        self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.title'));
+                        self.ButtonParser.parse(self.getElm());
                         self.Loader.hide();
                     }
                 }
             }).inject(this.getContent());
+
+            // action button - save
+            if (this.getAttribute('actionButton')) {
+                this.createActionButton(
+                    this.getAttribute('actionButton')
+//                    this.$Password.share
+                )
+
+            }
+
+            // close button
+            if (this.getAttribute('closeButton')) {
+                this.createCloseButton(this.getAttribute('closeButton')
+                )
+            }
         },
 
         /**

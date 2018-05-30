@@ -59,5 +59,9 @@
             <de><![CDATA[Notiz]]></de>
             <en><![CDATA[Notice]]></en>
         </locale>
+        <locale name="sequry.panel.createPassword.title">
+            <de><![CDATA[Passwort hinzufügen]]></de>
+            <en><![CDATA[Add password]]></en>
+        </locale>
     </groups>
 </locales>
