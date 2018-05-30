@@ -59,7 +59,6 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             var self = this;
 
             PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
-
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
                 self.getElm().set('html', Mustache.render(template, {
@@ -145,16 +144,20 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         share: function () {
             console.log("password/Password.js --> Jetzt wird geshared!");
 //            PasswordHandler.save(this.getAttribute('id'), data);
-
-
         },
 
         edit: function () {
             console.log("password/Password.js --> Password bearbeiten");
+            var self = this;
 
-            require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function(PP) {
-                new PP({id: 2}).open();
-            })
+            require(
+                ['package/sequry/template/bin/js/controls/panels/PasswordPanel'],
+                function (PP) {
+                    new PP({
+                        id: self.getAttribute('data').id
+                    }).open();
+                }
+            )
         }
 
     });

@@ -19,7 +19,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     QUIControl,
     QUIAjax,
     QUILocale,
-
     Panel,
     Password,
     InputButtons
@@ -75,10 +74,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 events: {
                     onLoad: function (PW) {
                         self.setTitle(PW.getTitle());
-                        self.Loader.hide();
-                        var BtnParser = new InputButtons;
 
+                        var BtnParser = new InputButtons;
                         BtnParser.parse(self.getElm());
+
+                        self.Loader.hide();
                     }
                 }
             }).inject(this.getContent());
@@ -133,7 +133,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             this.$Password.edit();
         },
 
-        test: function() {
+        test: function () {
             alert("das ist nur ein test")
         }
 
