@@ -71,6 +71,7 @@
 .password-field-row-left {
     width: 30%;
     color: #777;
+    flex-shrink: 0;
 }
 
 .password-field-row-right {

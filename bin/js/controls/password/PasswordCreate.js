@@ -15,8 +15,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
 
-    'text!package/sequry/template/bin/js/controls/password/PasswordCreate.html'
-//    'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
+    'text!package/sequry/template/bin/js/controls/password/PasswordCreate.html',
+    'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
 
 ], function (
     QUI,
@@ -93,7 +93,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 );
 
                 self.$OwnerSelectElm = self.$Elm.getElement(
-                    '.pass-user'
+                    '.password-user-select'
                 );
 
                 self.$SecurityClassSelect = new SecurityClassSelectSlider({
