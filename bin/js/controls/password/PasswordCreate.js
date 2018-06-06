@@ -26,7 +26,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     Mustache,
     QUIAjax,
     QUILocale,
-
     PasswordHandler,
     Authentication,
     ActorSelect,
@@ -34,7 +33,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     PasswordTypesSelect,
     SecurityClassSelectSlider,
     Actors,
-
     template
 ) {
     "use strict";
@@ -80,64 +78,52 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
             this.$Elm = this.getElm();
 
-            PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
 
-                // @todo password muss von sequry kommen!
-                // das hier ist nur eine zwischenlösung
-                self.$Elm.set('html', Mustache.render(template, {
-                    'userText'    : 'Benutzer',
-                    'passwordText': 'Passwort',
-                    'urlText'     : 'Url',
-                    'noteText'    : 'Notiz'
-                }));
+            // @todo password muss von sequry kommen!
+            // das hier ist nur eine zwischenlösung
+            this.$Elm.set('html', Mustache.render(template, {
+                'userText'    : 'Benutzer',
+                'passwordText': 'Passwort',
+                'urlText'     : 'Url',
+                'noteText'    : 'Notiz'
+            }));
 
-                // insert security class select
-                var SecurityClassElm = self.$Elm.getElement(
-                    '.password-security-class'
-                );
+            // insert security class select
+            var SecurityClassElm = this.$Elm.getElement(
+                '.password-security-class'
+            );
 
-                // user select
-                self.$OwnerSelectElm = self.$Elm.getElement(
-                    '.password-user-select'
-                );
+            // user select
+            this.$OwnerSelectElm = this.$Elm.getElement(
+                '.password-user-select'
+            );
 
-                self.$SecurityClassSelect = new SecurityClassSelectSlider({
-                    events: {
-                        onLoaded: self.$onSecurityClassSelectLoaded
-                    }
-                }).inject(SecurityClassElm);
+            this.$SecurityClassSelect = new SecurityClassSelectSlider({
+                events: {
+                    onLoaded: this.$onSecurityClassSelectLoaded
+                }
+            }).inject(SecurityClassElm);
 
-                // password types
-                /*self.$PasswordTypes = new PasswordTypes({
-                    mode: 'edit'
-                }).inject(
-                    self.$Elm.getElement(
-                        'div.pcsg-gpm-password-payload'
-                    )
-                );*/
-
-                // password types select
-                self.$PasswordTypesSelect = new PasswordTypesSelect({
-                    initialValue: self.getAttribute('type')/*,
-                    events      : {
-                        onChange: self.$loadContent
-                    }*/
-                }).inject(
-                    self.$Elm.getElement(
-                        'div.pcsg-gpm-password-payload'
-                    )
-                );
+            // password types select
+            this.$PasswordTypesSelect = new PasswordTypesSelect({
+                initialValue: this.getAttribute('type'),
+                events      : {
+                    onChange: self.$loadContent
+                }
+            }).inject(
+                this.$Elm.getElement(
+                    '.password-type-select'
+                )
+            );
 
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
 //                });
 //
-                // result.type
+            // result.type
 
-                self.setAttribute('data', result);
-                self.fireEvent('load', [self]);
-            });
+            this.fireEvent('load', [self]);
         },
 
         /**
@@ -357,7 +343,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          * On owner change
          */
         $onOwnerChange: function () {
-            var self   = this;
+            var self = this;
             var actors = this.$OwnerSelect.getActors();
 
             if (!actors.length) {
@@ -426,6 +412,21 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     QUILocale.get(lg, 'password.create.set.owner.info_all')
             }).inject(this.$OwnerSelectElm);
         },
+
+        /**
+         * Load ri
+         *
+         * @param type
+         */
+        $loadContent: function (type) {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get('package_sequry_template_ajax_passwords_getTemplate', resolve, {
+                    'package': 'sequry/template',
+                    onError  : reject,
+                    'type'   : type
+                });
+            })
+        }
 
     });
 });
