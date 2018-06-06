@@ -69,14 +69,16 @@
 }
 
 .password-field-row-left {
-    width: 30%;
     color: #777;
     flex-shrink: 0;
+    margin-right: 20px;
+    width: 30%;
 }
 
 .password-field-row-right {
     flex-grow: 1;
     width: 70%;
+    overflow: hidden;
 }
 
 .password-field-row .password-field-row-right {
@@ -129,12 +131,11 @@
 }
 
 .password-field-row-right textarea {
-    width: 395px;
+    width: 100%;
     max-width: 100%;
     min-height: 120px;
     border: 1px solid rgb(221, 221, 221);
-    margin: 0px;
-    height: 163px;
+    margin: 0;
     outline: none;
     transition: 0.2s all ease-out;
     background: none;
@@ -149,7 +150,7 @@
 
 
 .form-section {
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 .form-section:last-child {

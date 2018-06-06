@@ -12,6 +12,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/actors/Select',
+    'package/sequry/core/bin/controls/passwordtypes/Content',
+    'package/sequry/core/bin/controls/passwordtypes/Select',
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
 
@@ -28,6 +30,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     PasswordHandler,
     Authentication,
     ActorSelect,
+    PasswordTypes,
+    PasswordTypesSelect,
     SecurityClassSelectSlider,
     Actors,
 
@@ -89,9 +93,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
                 // insert security class select
                 var SecurityClassElm = self.$Elm.getElement(
-                    '.pass-stuffe'
+                    '.password-security-class'
                 );
 
+                // user select
                 self.$OwnerSelectElm = self.$Elm.getElement(
                     '.password-user-select'
                 );
@@ -100,8 +105,27 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     events: {
                         onLoaded: self.$onSecurityClassSelectLoaded
                     }
+                }).inject(SecurityClassElm);
+
+                // password types
+                /*self.$PasswordTypes = new PasswordTypes({
+                    mode: 'edit'
                 }).inject(
-                    SecurityClassElm
+                    self.$Elm.getElement(
+                        'div.pcsg-gpm-password-payload'
+                    )
+                );*/
+
+                // password types select
+                self.$PasswordTypesSelect = new PasswordTypesSelect({
+                    initialValue: self.getAttribute('type')/*,
+                    events      : {
+                        onChange: self.$loadContent
+                    }*/
+                }).inject(
+                    self.$Elm.getElement(
+                        'div.pcsg-gpm-password-payload'
+                    )
                 );
 
 //
