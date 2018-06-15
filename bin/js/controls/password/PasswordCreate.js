@@ -49,7 +49,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             '$onSecurityClassSelectLoaded',
             '$onSecurityClassChange',
             '$onOwnerChange',
-            '$showSetOwnerInformation'
+            '$showSetOwnerInformation',
+            '$loadContent'
 
         ],
 
@@ -419,6 +420,17 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          * @param type
          */
         $loadContent: function (type) {
+            this.getPasswordTemplate(type).then(function () {
+                console.log("wow!");
+            })
+        },
+
+        /**
+         *
+         * @param type
+         * @returns {Promise}
+         */
+        getPasswordTemplate: function (type) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_sequry_template_ajax_passwords_getTemplate', resolve, {
                     'package': 'sequry/template',
