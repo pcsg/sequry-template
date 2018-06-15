@@ -16,6 +16,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'package/sequry/core/bin/controls/passwordtypes/Select',
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
+    'package/sequry/core/bin/controls/categories/public/Select',
+    'package/sequry/core/bin/controls/categories/private/Select',
 
     'text!package/sequry/template/bin/js/controls/password/PasswordCreate.html',
     'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
@@ -33,6 +35,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     PasswordTypesSelect,
     SecurityClassSelectSlider,
     Actors,
+    CategorySelect,
+    CategorySelectPrivate,
     template
 ) {
     "use strict";
@@ -114,6 +118,20 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             }).inject(
                 this.$Elm.getElement(
                     '.password-type-select'
+                )
+            );
+
+            // category
+            this.$CategorySelect = new CategorySelect().inject(
+                this.$Elm.getElement(
+                    '.password-category'
+                )
+            );
+
+            // category private
+            this.$CategorySelectPrivate = new CategorySelectPrivate().inject(
+                this.$Elm.getElement(
+                    '.password-category-private'
                 )
             );
 
