@@ -19,6 +19,50 @@
             <en><![CDATA[Sequry]]></en>
         </locale>
 
+        <!-- passwort panel template -->
+        <locale name="sequry.panel.template.user">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.panel.template.userPlaceholder">
+            <de><![CDATA[Benutzername hinzufügen]]></de>
+            <en><![CDATA[Add user name]]></en>
+        </locale>
+        <locale name="sequry.panel.template.password">
+            <de><![CDATA[Passwort]]></de>
+            <en><![CDATA[Password]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passwordPlaceholder">
+            <de><![CDATA[Benutzerpasswort hinzufügen]]></de>
+            <en><![CDATA[Add password]]></en>
+        </locale>
+        <locale name="sequry.panel.template.url">
+            <de><![CDATA[Url]]></de>
+            <en><![CDATA[Url]]></en>
+        </locale>
+        <locale name="sequry.panel.template.urlPlaceholder">
+            <de><![CDATA[Url hinzufügen]]></de>
+            <en><![CDATA[Add url]]></en>
+        </locale>
+        <locale name="sequry.panel.template.note">
+            <de><![CDATA[Notiz]]></de>
+            <en><![CDATA[Notice]]></en>
+        </locale>
+        <locale name="sequry.panel.template.notePlaceholder">
+            <de><![CDATA[Notiz]]></de>
+            <en><![CDATA[Notice]]></en>
+        </locale>
+
+
+        <locale name="sequry.panel.template.passwordTypeNotSupported">
+            <de><![CDATA[Dieser Passwordtyp ist vom Template nicht unterstützt.]]></de>
+            <en><![CDATA[This password type is not supported by template.]]></en>
+        </locale>
+        <locale name="sequry.panel.createPassword.title">
+            <de><![CDATA[Passwort hinzufügen]]></de>
+            <en><![CDATA[Add password]]></en>
+        </locale>
+
     </groups>
 
     <groups name="sequry/template" datatype="js">
@@ -42,26 +86,6 @@
             <en><![CDATA[Save]]></en>
         </locale>
 
-        <!-- passwort panel template -->
-        <locale name="sequry.panel.template.user">
-            <de><![CDATA[Benutzer]]></de>
-            <en><![CDATA[User]]></en>
-        </locale>
-        <locale name="sequry.panel.template.password">
-            <de><![CDATA[Passwort]]></de>
-            <en><![CDATA[Password]]></en>
-        </locale>
-        <locale name="sequry.panel.template.url">
-            <de><![CDATA[Url]]></de>
-            <en><![CDATA[Url]]></en>
-        </locale>
-        <locale name="sequry.panel.template.notice">
-            <de><![CDATA[Notiz]]></de>
-            <en><![CDATA[Notice]]></en>
-        </locale>
-        <locale name="sequry.panel.createPassword.title">
-            <de><![CDATA[Passwort hinzufügen]]></de>
-            <en><![CDATA[Add password]]></en>
-        </locale>
+
     </groups>
 </locales>

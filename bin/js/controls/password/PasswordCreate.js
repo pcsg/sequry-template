@@ -436,7 +436,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          */
         getPasswordTemplate: function (type) {
             return new Promise(function (resolve, reject) {
-                QUIAjax.get('package_sequry_template_ajax_passwords_getTemplate', resolve, {
+                QUIAjax.get('package_sequry_template_ajax_passwords_getEditTemplate', resolve, {
                     'package': 'sequry/template',
                     onError  : reject,
                     'type'   : type

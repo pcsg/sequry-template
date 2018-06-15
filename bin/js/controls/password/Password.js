@@ -69,7 +69,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     'passwordValue': result.payload.password,
                     'urlText'      : QUILocale.get(lg, 'sequry.panel.template.url'),
                     'urlValue'     : result.payload.url,
-                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.notice'),
+                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.note'),
                     'noteValue'    : result.payload.note
                 }));
 
