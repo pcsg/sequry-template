@@ -1,5 +1,7 @@
 <?php
 
+use Sequry\Core\PasswordTypes\Handler;
+
 /**
  *
  * @return array
@@ -9,11 +11,10 @@ QUI::$Ajax->registerFunction(
     'package_sequry_template_ajax_passwords_getTemplate',
     function ($type) {
 
-        \QUI\System\Log::writeRecursive('-----------------------------------');
-        \QUI\System\Log::writeRecursive($type);
-        \QUI\System\Log::writeRecursive('-----------------------------------');
+        // this template name
+        $layout = 'core';
 
-        return true;
+        return Handler::getEditTemplateFrontend($type, $layout);
     },
     ['type'],
     false

@@ -49,6 +49,7 @@
 .sidebar-panel-content {
     padding: 2rem;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /***********/

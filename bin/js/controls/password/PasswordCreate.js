@@ -117,6 +117,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 )
             );
 
+            this.$EditContent = this.$Elm.getElement('.password-type-container');
+
 //
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
@@ -420,8 +422,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          * @param type
          */
         $loadContent: function (type) {
-            this.getPasswordTemplate(type).then(function () {
-                console.log("wow!");
+            var self = this;
+
+            this.getPasswordTemplate(type).then(function (templateHtml) {
+                self.$EditContent.set('html', templateHtml);
             })
         },
 
