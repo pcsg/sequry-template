@@ -82,8 +82,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             // action button - share
             if (this.getAttribute('actionButton')) {
                 this.createActionButton(
-                    this.getAttribute('actionButton')
-//                    this.$Password.share
+                    this.getAttribute('actionButton'),
+                    this.$Password.share
                 )
 
             }

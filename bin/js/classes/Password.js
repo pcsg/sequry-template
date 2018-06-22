@@ -19,7 +19,7 @@ define('package/sequry/template/bin/js/classes/Password', [
         Type: 'package/sequry/template/bin/js/classes/Password',
 
         /**
-         * Get the data from a password
+         * Get the data from password
          *
          * @param passId (integer)
          * @return {Promise}

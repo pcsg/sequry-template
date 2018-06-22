@@ -40,6 +40,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         Binds: [
             '$onInject',
             'open',
+            'create',
             'cancel',
             'close',
             'changeFavorite',
@@ -60,8 +61,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.parent(options);
 
             this.panelMenu = null;
-            // don't scroll the page while panel is open
-            document.body.setStyle('overflow', 'hidden');
+
 
             this.Loader = new QUILoader();
             this.Background = new QUIBackground();
@@ -70,7 +70,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.create();
         },
 
-        create: function() {
+        create: function () {
 
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
@@ -97,6 +97,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * @return {Promise}
          */
         open: function () {
+            this.setPageFix();
             var self = this;
 
             this.Background.create();
@@ -135,7 +136,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     equation: 'ease-in-out',
                     callback: function () {
                         // return scroll bar of the page
-                        document.body.setStyle('overflow', '');
+                        self.setPageScroll();
 
                         self.Background.destroy();
                         self.$Elm.destroy();
@@ -146,6 +147,44 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                         resolve(self);
                     }
                 });
+            });
+        },
+
+        /**
+         * Don't scroll the page while panel is open
+         */
+        setPageFix: function () {
+            // its easier - but requires more tests
+            document.body.setStyle('overflow', 'hidden');
+            return;
+
+            // touch body fix
+            QUI.Windows.calcWindowSize();
+
+            document.body.setStyles({
+                width   : document.body.getSize().x,
+                minWidth: document.body.getSize().x
+            });
+
+            document.body.setStyles({
+                overflow: 'hidden',
+                position: 'absolute'
+            });
+        },
+
+        /**
+         * Restore page scroll after panel ist closed.
+         */
+        setPageScroll: function () {
+            // its easier - but requires more tests
+            document.body.setStyle('overflow', '');
+            return;
+
+            document.body.setStyles({
+                width   : '',
+                minWidth: '',
+                overflow: '',
+                position: ''
             });
         },
 
@@ -188,7 +227,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Submit form and fire submitIcon event.
          * Secondary submit button (header icon).
          */
-        submitSecondary: function() {
+        submitSecondary: function () {
             console.log("panels/Panel --> fireEvent SUBMIT SECONDARY");
             this.fireEvent('submitSecondary', [this]);
         },
@@ -219,7 +258,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,
-                events: {
+                events : {
                     click: self.submit
                 }
             }).inject(this.panelMenu)
@@ -238,7 +277,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             new Element('button', {
                 'class': icon,
                 'title': label,
-                events: {
+                events : {
                     click: self.submitSecondary
                 }
             }).inject(this.$Elm.getElement('.sidebar-panel-header'))
