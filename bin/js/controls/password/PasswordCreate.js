@@ -9,6 +9,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'Ajax',
     'Locale',
 
+    'package/sequry/template/bin/js/controls/utils/InputButtons',
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/actors/Select',
@@ -28,6 +29,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     Mustache,
     QUIAjax,
     QUILocale,
+    ButtonParser,
     PasswordHandler,
     Authentication,
     ActorSelect,
@@ -67,6 +69,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             this.parent(options);
 
             this.$OwnerSelectElm = null;
+            this.ButtonParser = new ButtonParser();
 
             this.addEvents({
                 onInject: this.$onInject
@@ -83,9 +86,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
             this.$Elm = this.getElm();
 
-
-            // @todo password muss von sequry kommen!
-            // das hier ist nur eine zwischenlösung
             this.$Elm.set('html', Mustache.render(template, {
                 'userText'    : 'Benutzer',
                 'passwordText': 'Passwort',
@@ -444,6 +444,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
             this.getPasswordTemplate(type).then(function (templateHtml) {
                 self.$EditContent.set('html', templateHtml);
+                self.ButtonParser.parse(self.getElm());
             })
         },
 

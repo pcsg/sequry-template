@@ -92,7 +92,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         /**
          * Open panel.
-         * When animation is finished it returns a javascript promise.
+         * When animation is finished return javascript promise.
          *
          * @return {Promise}
          */
@@ -120,7 +120,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         /**
          * Close panel.
-         * When animation is finished it returns a javascript promise.
+         * When animation is finished return javascript promise.
          *
          * @return {Promise}
          */

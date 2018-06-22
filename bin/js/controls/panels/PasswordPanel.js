@@ -85,7 +85,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                     this.getAttribute('actionButton'),
                     this.$Password.share
                 )
-
             }
 
             // close button
@@ -101,7 +100,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                     this.getAttribute('iconHeaderButtonFaClass')
                 )
             }
-
         },
 
         /**
