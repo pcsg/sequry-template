@@ -52,6 +52,14 @@
             <de><![CDATA[Notiz]]></de>
             <en><![CDATA[Notice]]></en>
         </locale>
+        <locale name="sequry.panel.template.keyLabel">
+            <de><![CDATA[Schlüssel]]></de>
+            <en><![CDATA[Key]]></en>
+        </locale>
+        <locale name="sequry.panel.template.keyPlaceholder">
+            <de><![CDATA[Schlüssel hinzufügen]]></de>
+            <en><![CDATA[Add API Key]]></en>
+        </locale>
 
 
         <locale name="sequry.panel.template.passwordTypeNotSupported">
