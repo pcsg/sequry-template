@@ -107,14 +107,18 @@ input[type="radio"]:checked:active {
 
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #bbb;
+    color: #aaa;
+    font-weight: 300;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-    color: #bbb;
+    color: #aaa;
+    font-weight: 300;
 }
 :-ms-input-placeholder { /* IE 10+ */
-    color: #bbb;
+    color: #aaa;
+    font-weight: 300;
 }
 :-moz-placeholder { /* Firefox 18- */
-    color: #bbb;
+    color: #aaa;
+    font-weight: 300;
 }

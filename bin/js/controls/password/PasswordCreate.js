@@ -68,6 +68,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
         initialize: function (options) {
             this.parent(options);
 
+            this.$passwordType = null; // website, Ftp, SecretKey, ApiKey, etc.
             this.$OwnerSelectElm = null;
             this.ButtonParser = new ButtonParser();
 
@@ -441,7 +442,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          */
         $loadContent: function (type) {
             var self = this;
+            this.$passwordType = type;
 
+            // todo load content sollte neues Objetk sein
+            // mit Methoden wie getData(), setData() für edit mode
             this.getPasswordTemplate(type).then(function (templateHtml) {
                 self.$EditContent.set('html', templateHtml);
                 self.ButtonParser.parse(self.getElm());

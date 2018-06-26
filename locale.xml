@@ -52,13 +52,29 @@
             <de><![CDATA[Notiz]]></de>
             <en><![CDATA[Notice]]></en>
         </locale>
-        <locale name="sequry.panel.template.keyLabel">
+        <locale name="sequry.panel.template.key">
             <de><![CDATA[Schlüssel]]></de>
             <en><![CDATA[Key]]></en>
         </locale>
         <locale name="sequry.panel.template.keyPlaceholder">
             <de><![CDATA[Schlüssel hinzufügen]]></de>
             <en><![CDATA[Add API Key]]></en>
+        </locale>
+        <locale name="sequry.panel.template.host">
+            <de><![CDATA[Host]]></de>
+            <en><![CDATA[Host]]></en>
+        </locale>
+        <locale name="sequry.panel.template.hostPlaceholder">
+            <de><![CDATA[Host hinzufügen]]></de>
+            <en><![CDATA[Add Hoshost]]></en>
+        </locale>
+        <locale name="sequry.panel.template.text">
+            <de><![CDATA[Geheimtext]]></de>
+            <en><![CDATA[Confidential text]]></en>
+        </locale>
+        <locale name="sequry.panel.template.textPlaceholder">
+            <de><![CDATA[Ihr Geheimtext]]></de>
+            <en><![CDATA[Your confidential text]]></en>
         </locale>
 
 

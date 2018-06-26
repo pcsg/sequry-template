@@ -149,6 +149,10 @@
     border-color: #aaa;
 }
 
+.password-field-row-right textarea.secretkey-textarea {
+    min-height: 250px;
+}
+
 
 .form-section {
     margin-bottom: 4rem;
@@ -162,6 +166,7 @@
     font-weight: normal;
     margin-bottom: 20px;
 }
+
 
 
 /* actions buttons */

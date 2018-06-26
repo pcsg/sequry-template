@@ -46,12 +46,14 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             this.parent(options);
 
             this.$Password = null;
+            this.$PasswordData = null;
+
 
             // panel events
             this.addEvents({
                 onOpen   : this.$onOpen,
                 openBegin: this.$openBegin,
-                obSubmit : this.$onSubmit
+                onSubmit : this.$onSubmit
             });
         },
 
@@ -102,7 +104,57 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
          */
         $onSubmit: function () {
             // password speichern
+            var test = this.$Password.$SecurityClassSelect.getValue();
+            console.log(test)
+            console.log("password speichern!");
             console.log(this);
+
+            var self = this;
+
+            this.$PasswordData = {
+                securityClassId   : this.$Password.$SecurityClassSelect.getValue(),
+                title             : this.$Password.$Elm.getElement('input.pcsg-gpm-password-title').value,
+                description       : this.$Password.$Elm.getElement('input.pcsg-gpm-password-description').value,
+                dataType          : this.$Password.$passwordType,
+                payload           : this.$Password.$PasswordTypes.getData(),
+                categoryIds       : this.$Password.$CategorySelect.getValue(),
+                categoryIdsPrivate: this.$Password.$CategorySelectPrivate.getValue()
+            };
+
+            var actors = this.$OwnerSelect.getActors();
+
+            if (!actors.length) {
+                QUI.getMessageHandler(function (MH) {
+                    MH.addAttention(
+                        QUILocale.get(lg, 'password.create.submit.no.owner.assigned')
+                    );
+                });
+
+                return Promise.resolve();
+            }
+
+            this.$PasswordData.owner = actors[0];
+
+            return new Promise(function (resolve, reject) {
+                Passwords.createPassword(
+                    self.$PasswordData
+                ).then(
+                    function (newPasswordId) {
+                        if (!newPasswordId) {
+                            reject();
+                            return;
+                        }
+
+                        if (window.PasswordCategories) {
+                            window.PasswordCategories.refreshCategories();
+                        }
+
+                        self.$PasswordData = null;
+                        self.fireEvent('finish');
+                        resolve();
+                    }
+                );
+            });
         }
 
     });
