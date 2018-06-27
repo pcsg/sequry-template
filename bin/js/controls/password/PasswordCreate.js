@@ -13,12 +13,13 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/actors/Select',
-    'package/sequry/core/bin/controls/passwordtypes/Content',
-    'package/sequry/core/bin/controls/passwordtypes/Select',
+    'package/sequry/core/bin/controls/passwordtypes/Content', // todo löschen (war gar nicht benutzt)
+    'package/sequry/core/bin/controls/passwordtypes/Select', // todo löschen
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/controls/categories/public/Select',
     'package/sequry/core/bin/controls/categories/private/Select',
+    'package/sequry/template/bin/js/controls/passwordTypes/Content',
 
     'text!package/sequry/template/bin/js/controls/password/PasswordCreate.html',
     'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
@@ -33,12 +34,13 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     PasswordHandler,
     Authentication,
     ActorSelect,
-    PasswordTypes,
-    PasswordTypesSelect,
+    PasswordTypesKI, // todo löschen (war gar nicht benutzt)
+    PasswordTypesSelect, // todo löschen
     SecurityClassSelectSlider,
     Actors,
     CategorySelect,
     CategorySelectPrivate,
+    PasswordTypes, // controls/passwordTypes/Content
     template
 ) {
     "use strict";
@@ -110,17 +112,13 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 }
             }).inject(SecurityClassElm);
 
-            // password types select
-            this.$PasswordTypesSelect = new PasswordTypesSelect({
-                initialValue: this.getAttribute('type'),
-                events      : {
-                    onChange: self.$loadContent
-                }
-            }).inject(
-                this.$Elm.getElement(
-                    '.password-type-select'
-                )
-            );
+            // password types
+            this.$PasswordTypes = new PasswordTypes({
+                mode: 'edit'
+            }).inject(this.$Elm.getElement(
+                'div.password-payload'
+            ));
+
 
             // category
             this.$CategorySelect = new CategorySelect().inject(
@@ -135,8 +133,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     '.password-category-private'
                 )
             );
-
-            this.$EditContent = this.$Elm.getElement('.password-type-container');
 
 //
 //                require([result.type], function(PWControl) {
@@ -305,10 +301,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 ).then(
                     function (isEligible) {
                         if (isEligible) {
-                            console.log(999);
                             self.$OwnerSelect.addItem('u' + QUIQQER_USER.id.toInt());
-                            console.log(111)
-
                         } else {
                             self.$showSetOwnerInformation();
                         }
@@ -433,14 +426,15 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     QUILocale.get(lg, 'password.create.set.owner.info_group') :
                     QUILocale.get(lg, 'password.create.set.owner.info_all')
             }).inject(this.$OwnerSelectElm);
-        },
+        }
 
-        /**
+        /*/!**
          * Load ri
          *
          * @param type
-         */
+         *!/
         $loadContent: function (type) {
+
             var self = this;
             this.$passwordType = type;
 
@@ -452,11 +446,11 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             })
         },
 
-        /**
+        /!**
          *
          * @param type
          * @returns {Promise}
-         */
+         *!/
         getPasswordTemplate: function (type) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_sequry_template_ajax_passwords_getEditTemplate', resolve, {
@@ -465,7 +459,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     'type'   : type
                 });
             })
-        }
+        }*/
 
     });
 });

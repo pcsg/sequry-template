@@ -106,8 +106,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             // password speichern
             var test = this.$Password.$SecurityClassSelect.getValue();
             console.log(test)
-            console.log("password speichern!");
-            console.log(this);
+
 
             var self = this;
 
@@ -121,7 +120,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                 categoryIdsPrivate: this.$Password.$CategorySelectPrivate.getValue()
             };
 
-            var actors = this.$OwnerSelect.getActors();
+            console.log(this.$PasswordData);
+
+            var actors = this.$Password.$OwnerSelect.getActors();
 
             if (!actors.length) {
                 QUI.getMessageHandler(function (MH) {
