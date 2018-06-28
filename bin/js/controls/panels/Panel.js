@@ -43,6 +43,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             'create',
             'cancel',
             'close',
+            'confirmClose',
             'changeFavorite',
             'submit',
             'submitSecondary'
@@ -74,7 +75,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
-                this.Background.getElm().addEvent('click', this.cancel);
+                this.Background.getElm().addEvent('click', this.confirmClose);
             }
 
             this.$Elm = new Element('div', {
@@ -150,6 +151,41 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             });
         },
 
+        confirmClose: function () {
+            var self = this;
+
+            var confirmContent = '<span class="fa fa-question popup-icon"></span>';
+            confirmContent += '<span class="popup-title">Passwortfenster schließen</span>';
+            confirmContent += '<p class="popup-content">Das Passwortfenster wird geschloßen und alle bereits eingegebene Daten gehen verloren.</p>';
+
+            require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
+                var Popup = new QUIConfirm({
+                    'class'           : 'sequry-customPopup',
+                    maxWidth          : 400, // please note extra styling in style.css
+                    backgroundClosable: false,
+//                    title             : 'Passwort-Panel schließen',
+                    title             : false,
+                    titleCloseButton  : false,
+                    icon              : false,
+                    texticon          : false,
+                    content           : confirmContent,
+                    cancel_button     : {
+                        text     : 'Zurück',
+                        textimage: false
+                    },
+                    ok_button         : {
+                        text     : 'Schließen',
+                        textimage: false
+                    },
+                    events            : {
+                        onSubmit: self.cancel
+                    }
+                });
+
+                Popup.open();
+            })
+        },
+
         /**
          * Don't scroll the page while panel is open
          */
@@ -222,7 +258,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.fireEvent('submit', [this]);
         },
 
-        $onFinish: function() {
+        $onFinish: function () {
             this.close();
         },
 
@@ -245,7 +281,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'class': 'btn-light panel-closeButton',
                 'html' : label,
                 events : {
-                    click: self.cancel
+                    click: self.confirmClose
                 }
             }).inject(this.panelMenu);
         },

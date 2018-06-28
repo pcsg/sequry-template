@@ -99,47 +99,68 @@ ul, ol {
     }
 }
 
-/** grid
- ===================================== */
+/***********************/
+/* sequry custom popup */
+/***********************/
+.sequry-customPopup {
+    /*max-width: calc(100% - 40px) !important;*/
+    /*width: 400px !important;*/
+    /*margin: 0 20px;*/
+    box-shadow: 0 0 50px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+}
 
-.template-columns {
+/* icon */
+.sequry-customPopup .popup-icon {
+    display: block;
+    margin: 0 auto 20px;
+    text-align: center;
+    font-size: 50px;
+    color: #53b7a4;
+    color: #434545;
+    box-shadow: 0 0 0 2px;
+    width: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+}
+
+/* content */
+.sequry-customPopup .popup-title {
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* buttons */
+.sequry-customPopup .qui-window-popup-buttons {
+    width: 100%;
     display: flex;
+    justify-content: space-around;
+    background: none;
 }
 
-.template-column {
-    padding-left: 20px;
-    padding-right: 20px;
+.sequry-customPopup .qui-window-popup-buttons:after,
+.sequry-customPopup .qui-window-popup-sheet-buttons:after {
+    height: 1px;
+    background: #ddd;
+    left: 20px;
+    width: calc(100% - 40px);
+    opacity: 1;
 }
 
-.template-grid-row {
-    padding-top: 3em;
-    padding-bottom: 3em;
+.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
+    background: none;
+    border: none;
+    color: #51b7a3;
+    color: #434545;
 }
 
-.template-grid-row.brick-no-padding {
-    padding-top: 0;
-    padding-bottom: 0;
+.sequry-customPopup .qui-window-popup-buttons .qui-button:last-child {
+    background: none;
+    border: none;
+    color: #999;
 }
 
-.template-grid-container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1200px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.template-grid-container.brick-full-width {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.brick-full-width .control-header,
-.brick-full-width .control-content {
-    padding-left: 20px;
-    padding-right: 20px;
-}
 
