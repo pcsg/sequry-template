@@ -156,11 +156,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Override it if you need a custom close confirm popup.
          */
         confirmClose: function () {
-            var self = this;
+            var self      = this,
+                title     = QUILocale.get(lg, 'sequry.customPopup.confirm.title'),
+                content   = QUILocale.get(lg, 'sequry.customPopup.confirm.content'),
+                btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.button.ok'),
+                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.button.cancel');
 
             var confirmContent = '<span class="fa fa-question popup-icon"></span>';
-            confirmContent += '<span class="popup-title">Aktion abbrechen</span>';
-            confirmContent += 'Wollen Sie wirklich abbrechen und das Fenster schließen?';
+            confirmContent += '<span class="popup-title">' + title + '</span>';
+            confirmContent += content;
 
             require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
                 var Popup = new QUIConfirm({
@@ -174,11 +178,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     content           : confirmContent,
 
                     ok_button    : {
-                        text     : 'Ja',
+                        text     : btnOk,
                         textimage: false
                     },
                     cancel_button: {
-                        text     : 'Nein',
+                        text     : btnCancel,
                         textimage: false
                     },
                     events       : {

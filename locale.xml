@@ -110,6 +110,41 @@
             <en><![CDATA[Save]]></en>
         </locale>
 
+        <!-- custom confirm popup: default text -->
+        <locale name="sequry.customPopup.confirm.title">
+            <de><![CDATA[Aktion abbrechen]]></de>
+            <en><![CDATA[Cancel action]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.content">
+            <de><![CDATA[Wollen Sie wirklich abbrechen und das Fenster schließen?]]></de>
+            <en><![CDATA[Do you really want to abort and close the window?]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.button.ok">
+            <de><![CDATA[Ja]]></de>
+            <en><![CDATA[Yes]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.button.cancel">
+            <de><![CDATA[Nein]]></de>
+            <en><![CDATA[No]]></en>
+        </locale>
+
+        <!-- custom confirm popup: create password text -->
+        <locale name="sequry.customPopup.confirm.create.title">
+            <de><![CDATA[Passwortfenster schließen]]></de>
+            <en><![CDATA[Close password window]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.content">
+            <de><![CDATA[Das Passwortfenster wird jetzt geschlossen. Alle bereits eingegebene Daten gehen verloren.]]></de>
+            <en><![CDATA[The password window will be closed. All data already entered will be lost.]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.button.ok">
+            <de><![CDATA[Schließen]]></de>
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.button.cancel">
+            <de><![CDATA[Zurück]]></de>
+            <en><![CDATA[Back]]></en>
+        </locale>
 
     </groups>
 </locales>

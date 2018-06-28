@@ -158,11 +158,15 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
          * Avoid accidentally close the panel
          */
         confirmClose: function () {
-            var self = this;
+            var self = this,
+                title     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.title'),
+                content   = QUILocale.get(lg, 'sequry.customPopup.confirm.create.content'),
+                btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.ok'),
+                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.cancel');;
 
             var confirmContent = '<span class="fa fa-question popup-icon"></span>';
-            confirmContent += '<span class="popup-title">Passwortfenster schließen</span>';
-            confirmContent += '<p class="popup-content">Das Passwortfenster wird jetzt geschloßen. Alle bereits eingegebene Daten gehen verloren.</p>';
+            confirmContent += '<span class="popup-title">' + title + '</span>';
+            confirmContent += '<p class="popup-content">' + content + '</p>';
 
             require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
                 var Popup = new QUIConfirm({
@@ -174,12 +178,12 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                     icon              : false,
                     texticon          : false,
                     content           : confirmContent,
-                    cancel_button     : {
-                        text     : 'Zurück',
+                    ok_button         : {
+                        text     : btnOk,
                         textimage: false
                     },
-                    ok_button         : {
-                        text     : 'Schließen',
+                    cancel_button     : {
+                        text     : btnCancel,
                         textimage: false
                     },
                     events            : {
