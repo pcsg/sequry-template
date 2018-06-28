@@ -116,7 +116,6 @@ ul, ol {
     margin: 0 auto 20px;
     text-align: center;
     font-size: 50px;
-    color: #53b7a4;
     color: #434545;
     box-shadow: 0 0 0 2px;
     width: 60px;
@@ -153,7 +152,6 @@ ul, ol {
 .sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
     background: none;
     border: none;
-    color: #51b7a3;
     color: #434545;
 }
 

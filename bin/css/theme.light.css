@@ -7,7 +7,6 @@ a:hover {
     color: #51b7a3;
 }
 
-
 .control-color {
     color: #51b7a3;
 }
@@ -45,7 +44,16 @@ body .sidebar-panel-header {
     color: #51b7a3;
 }
 
+/******************/
+/* custom confirm */
+/******************/
+.sequry-customPopup .popup-icon {
+    color: #6d7474;
+}
 
+.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
+    color: #51b7a3;
+}
 /**********/
 /* button */
 /**********/
