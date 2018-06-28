@@ -151,33 +151,37 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             });
         },
 
+        /**
+         * Avoid accidentally close the panel.
+         * Override it if you need a custom close confirm popup.
+         */
         confirmClose: function () {
             var self = this;
 
             var confirmContent = '<span class="fa fa-question popup-icon"></span>';
-            confirmContent += '<span class="popup-title">Passwortfenster schließen</span>';
-            confirmContent += '<p class="popup-content">Das Passwortfenster wird geschloßen und alle bereits eingegebene Daten gehen verloren.</p>';
+            confirmContent += '<span class="popup-title">Aktion abbrechen</span>';
+            confirmContent += 'Wollen Sie wirklich abbrechen und das Fenster schließen?';
 
             require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
                 var Popup = new QUIConfirm({
                     'class'           : 'sequry-customPopup',
                     maxWidth          : 400, // please note extra styling in style.css
                     backgroundClosable: false,
-//                    title             : 'Passwort-Panel schließen',
                     title             : false,
                     titleCloseButton  : false,
                     icon              : false,
                     texticon          : false,
                     content           : confirmContent,
-                    cancel_button     : {
-                        text     : 'Zurück',
+
+                    ok_button    : {
+                        text     : 'Ja',
                         textimage: false
                     },
-                    ok_button         : {
-                        text     : 'Schließen',
+                    cancel_button: {
+                        text     : 'Nein',
                         textimage: false
                     },
-                    events            : {
+                    events       : {
                         onSubmit: self.cancel
                     }
                 });
@@ -189,24 +193,28 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * Don't scroll the page while panel is open
          */
-        setPageFix: function () {
-            // its easier - but requires more tests
-            document.body.setStyle('overflow', 'hidden');
-            return;
+        setPageFix:
 
-            // touch body fix
-            QUI.Windows.calcWindowSize();
+            function () {
+                // its easier - but requires more tests
+                document.body.setStyle('overflow', 'hidden');
+                return;
 
-            document.body.setStyles({
-                width   : document.body.getSize().x,
-                minWidth: document.body.getSize().x
-            });
+                // touch body fix
+                QUI.Windows.calcWindowSize();
 
-            document.body.setStyles({
-                overflow: 'hidden',
-                position: 'absolute'
-            });
-        },
+                document.body.setStyles({
+                    width   : document.body.getSize().x,
+                    minWidth: document.body.getSize().x
+                });
+
+                document.body.setStyles({
+                    overflow: 'hidden',
+                    position: 'absolute'
+                });
+            }
+
+        ,
 
         /**
          * Restore page scroll after panel ist closed.
@@ -222,7 +230,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 overflow: '',
                 position: ''
             });
-        },
+        }
+        ,
 
         /**
          * Set title of the panel.
@@ -231,7 +240,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         setTitle: function (title) {
             this.$Elm.getElement('.sidebar-panel-header-title').set('html', title);
-        },
+        }
+        ,
 
         /**
          * Return the content DOMNode
@@ -240,7 +250,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         getContent: function () {
             return this.$Elm.getElement('.sidebar-panel-content');
-        },
+        }
+        ,
 
         /**
          * Cancel action and fire cancel event.
@@ -248,7 +259,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         cancel: function () {
             this.fireEvent('cancel', [this]);
             this.close();
-        },
+        }
+        ,
 
         /**
          * Submit form and fire submit event.
@@ -256,11 +268,13 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         submit: function () {
             this.fireEvent('submit', [this]);
-        },
+        }
+        ,
 
         $onFinish: function () {
             this.close();
-        },
+        }
+        ,
 
         /**
          * Submit form and fire submitIcon event.
@@ -269,7 +283,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         submitSecondary: function () {
             console.log("panels/Panel --> fireEvent SUBMIT SECONDARY");
             this.fireEvent('submitSecondary', [this]);
-        },
+        }
+        ,
 
         /**
          * Create a close button.
@@ -284,7 +299,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     click: self.confirmClose
                 }
             }).inject(this.panelMenu);
-        },
+        }
+        ,
 
         /**
          * Create an action button (e.g. save, share, etc.).
@@ -301,7 +317,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     click: self.submit
                 }
             }).inject(this.panelMenu)
-        },
+        }
+        ,
 
         /**
          * Create a button on the top of the panel (header).
@@ -322,4 +339,5 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             }).inject(this.$Elm.getElement('.sidebar-panel-header'))
         }
     });
-});
+})
+;

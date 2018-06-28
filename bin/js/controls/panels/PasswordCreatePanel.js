@@ -40,9 +40,12 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         ],
 
         options: {
-            title       : false,
-            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton : QUILocale.get(lg, 'sequry.panel.button.close')
+            title              : false,
+            actionButton       : QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton        : QUILocale.get(lg, 'sequry.panel.button.close'),
+            popupConfirmIcon   : '<span class="fa fa-question popup-icon"></span>',
+            popupConfirmTitle  : '<span class="popup-title">Aktion abbrechen</span>',
+            popupConfirmContent: '<p class="popup-content">Das Passwortfenster wird geschloßen und alle bereits eingegebene Daten gehen verloren.</p>'
         },
 
         initialize: function (options) {
@@ -54,10 +57,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
             // panel events
             this.addEvents({
-                onOpen   : this.$onOpen,
+                onOpen     : this.$onOpen,
                 onOpenBegin: this.$openBegin,
-                onSubmit : this.$onSubmit,
-                onFinish: this.$onFinish
+                onSubmit   : this.$onSubmit,
+                onFinish   : this.$onFinish
             });
         },
 
@@ -149,7 +152,43 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                     }
                 );
             });
-        }
+        },
 
+        /**
+         * Avoid accidentally close the panel
+         */
+        confirmClose: function () {
+            var self = this;
+
+            var confirmContent = '<span class="fa fa-question popup-icon"></span>';
+            confirmContent += '<span class="popup-title">Passwortfenster schließen</span>';
+            confirmContent += '<p class="popup-content">Das Passwortfenster wird jetzt geschloßen. Alle bereits eingegebene Daten gehen verloren.</p>';
+
+            require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
+                var Popup = new QUIConfirm({
+                    'class'           : 'sequry-customPopup',
+                    maxWidth          : 400, // please note extra styling in style.css
+                    backgroundClosable: false,
+                    title             : false,
+                    titleCloseButton  : false,
+                    icon              : false,
+                    texticon          : false,
+                    content           : confirmContent,
+                    cancel_button     : {
+                        text     : 'Zurück',
+                        textimage: false
+                    },
+                    ok_button         : {
+                        text     : 'Schließen',
+                        textimage: false
+                    },
+                    events            : {
+                        onSubmit: self.cancel
+                    }
+                });
+
+                Popup.open();
+            })
+        }
     });
 });
