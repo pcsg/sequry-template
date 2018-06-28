@@ -219,8 +219,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Primary submit button.
          */
         submit: function () {
-            console.log("panels/Panel --> fireEvent SUBMIT");
             this.fireEvent('submit', [this]);
+        },
+
+        $onFinish: function() {
+            this.close();
         },
 
         /**

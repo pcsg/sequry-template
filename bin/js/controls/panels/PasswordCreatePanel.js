@@ -12,14 +12,17 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     'Locale',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/password/PasswordCreate'
+    'package/sequry/template/bin/js/controls/password/PasswordCreate',
+    'package/sequry/core/bin/Passwords'
+
 ], function (
     QUI,
     QUIControl,
     QUIAjax,
     QUILocale,
     Panel,
-    PasswordCreate
+    PasswordCreate,
+    Passwords
 ) {
     "use strict";
 
@@ -52,8 +55,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             // panel events
             this.addEvents({
                 onOpen   : this.$onOpen,
-                openBegin: this.$openBegin,
-                onSubmit : this.$onSubmit
+                onOpenBegin: this.$openBegin,
+                onSubmit : this.$onSubmit,
+                onFinish: this.$onFinish
             });
         },
 
@@ -103,24 +107,17 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
          * event: on submit form
          */
         $onSubmit: function () {
-            // password speichern
-            var test = this.$Password.$SecurityClassSelect.getValue();
-            console.log(test)
-
-
             var self = this;
 
             this.$PasswordData = {
                 securityClassId   : this.$Password.$SecurityClassSelect.getValue(),
                 title             : this.$Password.$Elm.getElement('input.pcsg-gpm-password-title').value,
                 description       : this.$Password.$Elm.getElement('input.pcsg-gpm-password-description').value,
-                dataType          : this.$Password.$passwordType,
+                dataType          : this.$Password.$PasswordTypes.getPasswordType(),
                 payload           : this.$Password.$PasswordTypes.getData(),
                 categoryIds       : this.$Password.$CategorySelect.getValue(),
                 categoryIdsPrivate: this.$Password.$CategorySelectPrivate.getValue()
             };
-
-            console.log(this.$PasswordData);
 
             var actors = this.$Password.$OwnerSelect.getActors();
 
@@ -144,10 +141,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                         if (!newPasswordId) {
                             reject();
                             return;
-                        }
-
-                        if (window.PasswordCategories) {
-                            window.PasswordCategories.refreshCategories();
                         }
 
                         self.$PasswordData = null;

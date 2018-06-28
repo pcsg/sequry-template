@@ -427,39 +427,5 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     QUILocale.get(lg, 'password.create.set.owner.info_all')
             }).inject(this.$OwnerSelectElm);
         }
-
-        /*/!**
-         * Load ri
-         *
-         * @param type
-         *!/
-        $loadContent: function (type) {
-
-            var self = this;
-            this.$passwordType = type;
-
-            // todo load content sollte neues Objetk sein
-            // mit Methoden wie getData(), setData() für edit mode
-            this.getPasswordTemplate(type).then(function (templateHtml) {
-                self.$EditContent.set('html', templateHtml);
-                self.ButtonParser.parse(self.getElm());
-            })
-        },
-
-        /!**
-         *
-         * @param type
-         * @returns {Promise}
-         *!/
-        getPasswordTemplate: function (type) {
-            return new Promise(function (resolve, reject) {
-                QUIAjax.get('package_sequry_template_ajax_passwords_getEditTemplate', resolve, {
-                    'package': 'sequry/template',
-                    onError  : reject,
-                    'type'   : type
-                });
-            })
-        }*/
-
     });
 });
