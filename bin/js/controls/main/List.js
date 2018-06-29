@@ -12,6 +12,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
     'package/sequry/template/bin/js/classes/List',
     'package/sequry/template/bin/js/Password',
+    'package/sequry/core/bin/Passwords',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
 
@@ -26,6 +27,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     Mustache,
     ClassesList,
     Password,
+    Passwords,
     PasswordPanel,
     PasswordCreatePanel,
     template,
@@ -74,19 +76,39 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.inject(this.$Elm);
             this.Loader.show();
 
-            this.$renderEntries();
+//            this.$renderEntries();
+            this.$renderEntriesNew();
         },
+
+
 
         /**
          * Render the list HTML with passwords
          */
         $renderEntries: function () {
             var self = this;
+
             Password.getDataAll().then(function (Entries) {
                 self.Loader.hide();
                 Entries.each(function (Entry) {
                     self.$renderEntry(Entry);
                 })
+            });
+        },
+
+        $renderEntriesNew: function () {
+            var self = this;
+
+            Passwords.getPasswords().then(function(response) {
+                var entries = response.data;
+
+                console.log(entries);
+                self.Loader.hide();
+
+                entries.each(function (Entry) {
+                    self.$renderEntryNew(Entry);
+                })
+
             });
         },
 
@@ -97,6 +119,40 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         $renderEntry: function (Entry) {
 
+            var self = this;
+            var favIconName = 'fa-star-o';
+
+            // is password favorite?
+            if (Entry.favorite) {
+                favIconName = 'fa-star'
+            }
+
+            var Li = new Element('li', {
+                'class'    : 'main-list-entry',
+                'data-pwid': Entry.id
+            });
+
+            // render html
+            Li.set('html', Mustache.render(ListEntryTemplate, {
+                'favIconName': favIconName,
+                'dataFavo'   : Entry.favorite,
+                'title'      : Entry.title,
+                'description': Entry.description,
+                'dataType'   : Entry.dataType
+            }));
+
+            // open event
+            Li.addEvent('click', function () {
+                self.open(Entry);
+            });
+
+            // change favorite
+            Li.getElement('.list-favorite .fa').addEvent('click', self.changeFavorite);
+
+            Li.inject(this.listContainer);
+        },
+
+        $renderEntryNew: function(Entry) {
             var self = this;
             var favIconName = 'fa-star-o';
 
