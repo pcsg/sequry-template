@@ -5,18 +5,17 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/loader/Loader',
     'Locale',
     'Ajax',
 
     'package/sequry/core/bin/controls/passwordtypes/Select',
     'package/sequry/template/bin/js/controls/passwordTypes/Edit'
 
-//    'text!package/sequry/template/bin/js/controls/password/PasswordCreate.html',
-//    'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
-
 ], function (
     QUI,
     QUIControl,
+    QUILoader,
     QUILocale,
     QUIAjax,
     TypeSelect,
@@ -50,6 +49,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.$EditContent = null; // html container for password type data (template)
             this.$PasswordTypeControl = null; // Object that brings password types template
             this.$passwordType = null;
+            this.$PasswordInner = null; // $PasswordTypeControl inner html
+            this.$PasswordInnerHeight = 0;
+
+            this.Loader = new QUILoader({
+                type: 'fa-gear'
+            });
 
             this.addEvents({
                 onInject : this.$onInject,
@@ -69,6 +74,8 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.TypeSelectElm = this.PayloadContainer.getElement('.password-type-select');
             this.$EditContent = this.PayloadContainer.getElement('.password-type-content');
 
+
+
             this.$TypeSelect = new TypeSelect({
                 initialValue: this.getAttribute('type'),
                 events      : {
@@ -85,16 +92,15 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
          */
         $loadContent: function (type) {
             var self = this;
-
-            var height = this.$EditContent.getHeight();
-            this.$EditContent.setStyle('height', 'auto');
+            console.log(1)
 
             this.$EditContent.set('html', '');
+            this.Loader.inject(this.$EditContent);
 
+            this.Loader.show();
 
             this.$CurrentData = Object.merge(this.$CurrentData, this.getData());
 
-            // todo Height berechnen und "jump" effekt verhindern
             this.$PasswordTypeControl = new PasswordTypeControl({
                 type  : type,
                 events: {
@@ -104,16 +110,55 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
                             self.$loaded = true;
                         }
 
+                        self.$PasswordInnerHeight = self.$PasswordInner.getHeight();
+
+                        // animate $EditContent container (height)
+                        self.setEditContentHeight(self.$EditContent).then(function() {
+                            self.Loader.hide();
+                            self.show(self.$PasswordInner);
+                        });
+
                         if (Object.getLength(self.$CurrentData)) {
                             self.setData(self.$CurrentData);
                         }
+                    },
+                    onInject: function () {
+                        self.$PasswordInner = this.getElm();
+                        self.hide(self.$PasswordInner);
                     }
                 }
             }).inject(self.$EditContent);
 
-            self.$EditContent.setStyle('height', this.$EditContent.getHeight());
-
             this.$passwordType = type;
+        },
+
+        show: function (Element) {
+            return new Promise(function(resolve) {
+               moofx(Element).animate({
+                   opacity: 1,
+                   visibility: 'visible'
+               }, {
+                   callback: resolve
+               });
+            });
+        },
+
+        hide: function (Element) {
+            Element.setStyles({
+                opacity: 0,
+                visibility: 'hidden'
+            });
+        },
+
+        setEditContentHeight: function(Element) {
+            var self = this;
+            return new Promise(function(resolve) {
+                moofx(Element).animate({
+                    height: self.$PasswordInnerHeight
+                }, {
+                    callback: resolve
+                })
+            })
         },
 
         /**

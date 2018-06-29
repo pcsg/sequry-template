@@ -39,6 +39,8 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Edit', [
         initialize: function (options) {
             this.parent(options);
 
+            this.setAttribute('class', 'huhuhu');
+
             this.ButtonParser = new ButtonParser();
 
             this.addEvents({
@@ -68,6 +70,7 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Edit', [
             this.$loadTemplate().then(function (templateHtml) {
                 self.$Elm.set('html', templateHtml);
                 self.ButtonParser.parse(self.getElm());
+                self.fireEvent('loaded', [self])
             });
         },
 
