@@ -158,11 +158,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
          * Avoid accidentally close the panel
          */
         confirmClose: function () {
-            var self = this,
+            var self      = this,
                 title     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.title'),
                 content   = QUILocale.get(lg, 'sequry.customPopup.confirm.create.content'),
                 btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.ok'),
-                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.cancel');;
+                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.cancel');
 
             var confirmContent = '<span class="fa fa-question popup-icon"></span>';
             confirmContent += '<span class="popup-title">' + title + '</span>';

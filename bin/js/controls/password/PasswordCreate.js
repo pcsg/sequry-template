@@ -119,7 +119,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 'div.password-payload'
             ));
 
-
             // category
             this.$CategorySelect = new CategorySelect().inject(
                 this.$Elm.getElement(
@@ -133,13 +132,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     '.password-category-private'
                 )
             );
-
-//
-//                require([result.type], function(PWControl) {
-//                    new PWControl().inject(self.getElm());
-//                });
-//
-            // result.type
 
             this.fireEvent('load', [self]);
         },

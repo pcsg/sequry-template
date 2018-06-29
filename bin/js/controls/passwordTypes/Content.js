@@ -49,7 +49,7 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.TypeSelectElm = null; // html container for password type select button
             this.$EditContent = null; // html container for password type data (template)
             this.$PasswordTypeControl = null; // Object that brings password types template
-            this.passwordType = null;
+            this.$passwordType = null;
 
             this.addEvents({
                 onInject : this.$onInject,
@@ -86,7 +86,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
         $loadContent: function (type) {
             var self = this;
 
+            var height = this.$EditContent.getHeight();
+            this.$EditContent.setStyle('height', 'auto');
+
             this.$EditContent.set('html', '');
+
+
             this.$CurrentData = Object.merge(this.$CurrentData, this.getData());
 
             // todo Height berechnen und "jump" effekt verhindern
@@ -99,12 +104,14 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
                             self.$loaded = true;
                         }
 
-                        /*if (Object.getLength(self.$CurrentData)) {
+                        if (Object.getLength(self.$CurrentData)) {
                             self.setData(self.$CurrentData);
-                        }*/
+                        }
                     }
                 }
             }).inject(self.$EditContent);
+
+            self.$EditContent.setStyle('height', this.$EditContent.getHeight());
 
             this.$passwordType = type;
         },
