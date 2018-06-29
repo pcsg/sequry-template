@@ -2,7 +2,8 @@
  * Panel control to create a new password.
  * It inherits from Panel.js
  *
- * * @module package/sequry/template/bin/js/controls/panels/PasswordCreatePanel
+ * @module package/sequry/template/bin/js/controls/panels/PasswordCreatePanel
+ * @author www.pcsg.de (Michael Danielczok)
  */
 define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
@@ -42,10 +43,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         options: {
             title              : false,
             actionButton       : QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton        : QUILocale.get(lg, 'sequry.panel.button.close'),
-            popupConfirmIcon   : '<span class="fa fa-question popup-icon"></span>',
-            popupConfirmTitle  : '<span class="popup-title">Aktion abbrechen</span>',
-            popupConfirmContent: '<p class="popup-content">Das Passwortfenster wird geschloßen und alle bereits eingegebene Daten gehen verloren.</p>'
+            closeButton        : QUILocale.get(lg, 'sequry.panel.button.close')
         },
 
         initialize: function (options) {
@@ -53,7 +51,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
             this.$Password = null;
             this.$PasswordData = null;
-
 
             // panel events
             this.addEvents({
@@ -86,9 +83,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             if (this.getAttribute('actionButton')) {
                 this.createActionButton(
                     this.getAttribute('actionButton')
-//                    this.$Password.share
                 )
-
             }
 
             // close button
@@ -164,7 +159,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                 btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.ok'),
                 btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.cancel');
 
-            var confirmContent = '<span class="fa fa-question popup-icon"></span>';
+            var confirmContent = '<span class="fa fa-times popup-icon"></span>';
             confirmContent += '<span class="popup-title">' + title + '</span>';
             confirmContent += '<p class="popup-content">' + content + '</p>';
 

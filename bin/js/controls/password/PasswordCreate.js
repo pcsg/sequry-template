@@ -9,12 +9,9 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'Ajax',
     'Locale',
 
-    'package/sequry/template/bin/js/controls/utils/InputButtons',
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/actors/Select',
-    'package/sequry/core/bin/controls/passwordtypes/Content', // todo löschen (war gar nicht benutzt)
-    'package/sequry/core/bin/controls/passwordtypes/Select', // todo löschen
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/controls/categories/public/Select',
@@ -30,12 +27,9 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     Mustache,
     QUIAjax,
     QUILocale,
-    ButtonParser,
     PasswordHandler,
     Authentication,
     ActorSelect,
-    PasswordTypesKI, // todo löschen (war gar nicht benutzt)
-    PasswordTypesSelect, // todo löschen
     SecurityClassSelectSlider,
     Actors,
     CategorySelect,
@@ -46,6 +40,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     "use strict";
 
     var lg = 'sequry/core';
+    var lgTpl = 'sequry/template';
 
     return new Class({
 
@@ -70,9 +65,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$passwordType = null; // website, Ftp, SecretKey, ApiKey, etc.
             this.$OwnerSelectElm = null;
-            this.ButtonParser = new ButtonParser();
 
             this.addEvents({
                 onInject: this.$onInject
@@ -90,10 +83,18 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             this.$Elm = this.getElm();
 
             this.$Elm.set('html', Mustache.render(template, {
-                'userText'    : 'Benutzer',
-                'passwordText': 'Passwort',
-                'urlText'     : 'Url',
-                'noteText'    : 'Notiz'
+                'basicData'           : QUILocale.get(lgTpl, 'sequry.panel.template.basicData'),
+                'authLevel'           : QUILocale.get(lgTpl, 'sequry.panel.template.authLevel'),
+                'passTitle'           : QUILocale.get(lgTpl, 'sequry.panel.template.passTitle'),
+                'passTitlePlaceholder': QUILocale.get(lgTpl, 'sequry.panel.template.passTitlePlaceholder'),
+                'desc'                : QUILocale.get(lgTpl, 'sequry.panel.template.desc'),
+                'descPlaceholder'     : QUILocale.get(lgTpl, 'sequry.panel.template.descPlaceholder'),
+                'owner'               : QUILocale.get(lgTpl, 'sequry.panel.template.owner'),
+                'payloadTitle'        : QUILocale.get(lgTpl, 'sequry.panel.template.payload.title'),
+                'passType'            : QUILocale.get(lgTpl, 'sequry.panel.template.payload.passType'),
+                'extraTitle'          : QUILocale.get(lgTpl, 'sequry.panel.template.extra.title'),
+                'categories'          : QUILocale.get(lgTpl, 'sequry.panel.template.categories.title'),
+                'categoriesPrivate'   : QUILocale.get(lgTpl, 'sequry.panel.template.categories.private.title'),
             }));
 
             // insert security class select
@@ -112,7 +113,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 }
             }).inject(SecurityClassElm);
 
-            // password types
+            // password types control
             this.$PasswordTypes = new PasswordTypes({
                 mode: 'edit'
             }).inject(this.$Elm.getElement(
@@ -172,21 +173,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             }
 
             return data.type;
-        },
-
-        /**
-         * Get the string for type class.
-         *
-         * @returns {string}
-         */
-        getTypeClass: function () {
-            return 'package/sequry/template/bin/js/controls/password/Password' + this.getType();
-        },
-
-        getTemplate: function () {
-            require([this.getTypeClass()], function (Panel) {
-
-            });
         },
 
         save: function () {

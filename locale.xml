@@ -20,6 +20,49 @@
         </locale>
 
         <!-- passwort panel template -->
+        <locale name="sequry.panel.template.basicData">
+            <de><![CDATA[Stammdaten]]></de>
+            <en><![CDATA[Basic data]]></en>
+        </locale>
+        <locale name="sequry.panel.template.authLevel">
+            <de><![CDATA[Authentifizierungs-Stufe]]></de>
+            <en><![CDATA[Authentication level]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passTitle">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passTitlePlaceholder">
+            <de><![CDATA[Titel hinzufügen]]></de>
+            <en><![CDATA[Add title]]></en>
+        </locale>
+        <locale name="sequry.panel.template.desc">
+            <de><![CDATA[Beschreibung]]></de>
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.descPlaceholder">
+            <de><![CDATA[Beschreibung hinzufügen]]></de>
+            <en><![CDATA[Add description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.descPlaceholder">
+            <de><![CDATA[Beschreibung hinzufügen]]></de>
+            <en><![CDATA[Add description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.owner">
+            <de><![CDATA[Eigentümer]]></de>
+            <en><![CDATA[Owner]]></en>
+        </locale>
+
+
+        <locale name="sequry.panel.template.payload.title">
+            <de><![CDATA[Inhalt - Diese Informationen werden verschlüsselt!]]></de>
+            <en><![CDATA[Content - This information will be encrypted]]></en>
+        </locale>
+        <locale name="sequry.panel.template.payload.passType">
+            <de><![CDATA[Passwort-Typ]]></de>
+            <en><![CDATA[Password type]]></en>
+        </locale>
+
         <locale name="sequry.panel.template.user">
             <de><![CDATA[Benutzer]]></de>
             <en><![CDATA[User]]></en>
@@ -77,9 +120,22 @@
             <en><![CDATA[Your confidential text]]></en>
         </locale>
 
+        <locale name="sequry.panel.template.extra.title">
+            <de><![CDATA[Erweiterte Daten]]></de>
+            <en><![CDATA[Extended data]]></en>
+        </locale>
+        <locale name="sequry.panel.template.categories.title">
+            <de><![CDATA[Passwort-Kategorien]]></de>
+            <en><![CDATA[Password categories]]></en>
+        </locale>
+        <locale name="sequry.panel.template.categories.private.title">
+            <de><![CDATA[Passwort-Kategorien (persönlich)]]></de>
+            <en><![CDATA[Password categories (private)]]></en>
+        </locale>
+
 
         <locale name="sequry.panel.template.passwordTypeNotSupported">
-            <de><![CDATA[Dieser Passwordtyp ist vom Template nicht unterstützt.]]></de>
+            <de><![CDATA[Dieser Passwort-Typ ist vom Template nicht unterstützt.]]></de>
             <en><![CDATA[This password type is not supported by template.]]></en>
         </locale>
         <locale name="sequry.panel.createPassword.title">

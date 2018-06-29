@@ -48,7 +48,7 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.TypeSelectElm = null; // html container for password type select button
             this.$EditContent = null; // html container for password type data (template)
             this.$PasswordTypeControl = null; // Object that brings password types template
-            this.$passwordType = null;
+            this.$passwordType = null; // website, Ftp, SecretKey, ApiKey, etc.
             this.$PasswordInner = null; // $PasswordTypeControl inner html
             this.$PasswordInnerHeight = 0;
 
@@ -92,7 +92,6 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
          */
         $loadContent: function (type) {
             var self = this;
-            console.log(1)
 
             this.$EditContent.set('html', '');
             this.Loader.inject(this.$EditContent);

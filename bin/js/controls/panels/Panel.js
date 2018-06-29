@@ -234,8 +234,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 overflow: '',
                 position: ''
             });
-        }
-        ,
+        },
 
         /**
          * Set title of the panel.
@@ -244,8 +243,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         setTitle: function (title) {
             this.$Elm.getElement('.sidebar-panel-header-title').set('html', title);
-        }
-        ,
+        },
 
         /**
          * Return the content DOMNode
@@ -254,8 +252,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         getContent: function () {
             return this.$Elm.getElement('.sidebar-panel-content');
-        }
-        ,
+        },
 
         /**
          * Cancel action and fire cancel event.
@@ -263,8 +260,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         cancel: function () {
             this.fireEvent('cancel', [this]);
             this.close();
-        }
-        ,
+        },
 
         /**
          * Submit form and fire submit event.
@@ -272,13 +268,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         submit: function () {
             this.fireEvent('submit', [this]);
-        }
-        ,
+        },
 
         $onFinish: function () {
             this.close();
-        }
-        ,
+        },
 
         /**
          * Submit form and fire submitIcon event.
@@ -287,8 +281,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         submitSecondary: function () {
             console.log("panels/Panel --> fireEvent SUBMIT SECONDARY");
             this.fireEvent('submitSecondary', [this]);
-        }
-        ,
+        },
 
         /**
          * Create a close button.
@@ -303,8 +296,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     click: self.confirmClose
                 }
             }).inject(this.panelMenu);
-        }
-        ,
+        },
 
         /**
          * Create an action button (e.g. save, share, etc.).
@@ -321,8 +313,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     click: self.submit
                 }
             }).inject(this.panelMenu)
-        }
-        ,
+        },
 
         /**
          * Create a button on the top of the panel (header).
@@ -343,5 +334,4 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             }).inject(this.$Elm.getElement('.sidebar-panel-header'))
         }
     });
-})
-;
+});
