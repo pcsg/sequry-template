@@ -88,8 +88,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
             // close button
             if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton')
-                )
+                this.createCloseButton(this.getAttribute('closeButton'), true)
             }
         },
 

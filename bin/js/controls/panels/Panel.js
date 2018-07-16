@@ -286,14 +286,21 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * Create a close button.
          */
-        createCloseButton: function (label) {
+        createCloseButton: function (label, confirmClose) {
             var self = this;
 
             new Element('button', {
                 'class': 'btn-light panel-closeButton',
                 'html' : label,
                 events : {
-                    click: self.confirmClose
+                    click: function() {
+                        if (confirmClose) {
+                            self.confirmClose();
+                            return;
+                        }
+
+                        self.cancel();
+                    }
                 }
             }).inject(this.panelMenu);
         },
