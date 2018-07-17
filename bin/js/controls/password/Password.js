@@ -79,11 +79,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 }));
 
 
-                self.setAttribute('passwordData', result);
+                self.setAttribute('passwordData', ViewData);
                 self.fireEvent('load', [self]);
 
             }, function() {
-                console.log("Doch schließen...")
+                // Passwordfenster ohne Authentifizieren schließen...
                 self.fireEvent('close', [self]);
             });
 

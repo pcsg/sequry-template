@@ -71,7 +71,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             var passwordId = this.getAttribute('id');
 
             Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
-                console.log(AccessInfo)
+
                 if (!AccessInfo.canAccess) {
                     Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
                     self.fireEvent('loaded');
@@ -86,6 +86,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
                             self.ButtonParser.parse(self.getElm());
                             self.Loader.hide();
+                        },
+                        onClose: function() {
+                            self.Loader.hide();
+                            self.cancel();
                         }
                     }
                 }).inject(self.getContent());
