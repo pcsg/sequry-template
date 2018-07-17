@@ -27,7 +27,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     Mustache,
     ClassesList,
     Password,
-    Passwords,
+    Passwords, // package/sequry/core/bin/Passwords
     PasswordPanel,
     PasswordCreatePanel,
     template,
@@ -157,10 +157,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
             var favIconName = 'fa-star-o';
 
             // is password favorite?
-            if (Entry.favorite) {
+            if (parseInt(Entry.favorite)) {
                 favIconName = 'fa-star'
             }
-
+            
             var Li = new Element('li', {
                 'class'    : 'main-list-entry',
                 'data-pwid': Entry.id
