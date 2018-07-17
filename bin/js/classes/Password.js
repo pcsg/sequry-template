@@ -6,11 +6,13 @@
 define('package/sequry/template/bin/js/classes/Password', [
 
     'qui/QUI',
-    'Ajax'
+    'Ajax',
+    'package/sequry/core/bin/AuthAjax'
 
 ], function (
     QUI,
-    QUIAjax
+    QUIAjax,
+    AuthAjax
 ) {
     "use strict";
 
@@ -34,6 +36,18 @@ define('package/sequry/template/bin/js/classes/Password', [
                         onError  : reject
                     }
                 );
+            });
+        },
+
+        /**
+         * Get all data of single password object (authentication required!)
+         *
+         * @param {number} passwordId
+         * @returns {Promise}
+         */
+        getDataNew: function (passwordId) {
+            return AuthAjax.get('package_sequry_core_ajax_passwords_get', {
+                passwordId: passwordId
             });
         },
 

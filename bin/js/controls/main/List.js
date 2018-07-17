@@ -160,7 +160,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             if (parseInt(Entry.favorite)) {
                 favIconName = 'fa-star'
             }
-            
+
             var Li = new Element('li', {
                 'class'    : 'main-list-entry',
                 'data-pwid': Entry.id

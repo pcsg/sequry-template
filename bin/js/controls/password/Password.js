@@ -39,7 +39,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
         options: {
             id  : false,
-            data: false
+            passwordData: false
         },
 
         initialize: function (options) {
@@ -56,9 +56,38 @@ define('package/sequry/template/bin/js/controls/password/Password', [
          * Create the password html stuff
          */
         $onInject: function () {
-            var self = this;
+            var self       = this,
+                passwordId = this.getAttribute('id');
 
-            PasswordHandler.getData(this.getAttribute('id')).then(function (result) {
+            PasswordHandler.getDataNew(passwordId).then(function (ViewData) {
+                if (!ViewData) {
+                    return;
+                }
+                console.log(ViewData)
+                var payload = ViewData.payload;
+
+                self.getElm().set('html', Mustache.render(template, {
+                    'description'  : ViewData.description,
+                    'userText'     : QUILocale.get(lg, 'sequry.panel.template.user'),
+                    'userValue'    : ViewData.payload.user,
+                    'passwordText' : QUILocale.get(lg, 'sequry.panel.template.password'),
+                    'passwordValue': ViewData.payload.password,
+                    'urlText'      : QUILocale.get(lg, 'sequry.panel.template.url'),
+                    'urlValue'     : ViewData.payload.url,
+                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.note'),
+                    'noteValue'    : ViewData.payload.note
+                }));
+
+
+                self.setAttribute('passwordData', result);
+                self.fireEvent('load', [self]);
+
+            }, function() {
+                console.log("Doch schließen...")
+                self.fireEvent('close', [self]);
+            });
+
+            /*PasswordHandler.getData(passwordId).then(function (result) {
                 // @todo password muss von sequry kommen!
                 // das hier ist nur eine zwischenlösung
                 self.getElm().set('html', Mustache.render(template, {
@@ -74,18 +103,17 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 }));
 
 
-
 //                require([result.type], function(PWControl) {
 //                    new PWControl().inject(self.getElm());
 //                });
 
                 // result.type
 
-                self.setAttribute('data', result);
+                self.setAttribute('passwordData', result);
                 self.fireEvent('load', [self]);
 
 
-            });
+            });*/
         },
 
         /**
@@ -94,7 +122,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
          * @returns {string}
          */
         getTitle: function () {
-            var data = this.getAttribute('data');
+            var data = this.getAttribute('passwordData');
 
             if (!data) {
                 return '';
@@ -113,7 +141,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
          * @returns {string|boolean}
          */
         getType: function () {
-            var data = this.getAttribute('data');
+            var data = this.getAttribute('passwordData');
 
             if (!data) {
                 return false;
@@ -143,7 +171,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
         share: function () {
             console.log("password/Password.js --> Jetzt wird geshared!");
-//            PasswordHandler.save(this.getAttribute('id'), data);
+//            PasswordHandler.save(this.getAttribute('id'), passwordData);
         },
 
         edit: function () {

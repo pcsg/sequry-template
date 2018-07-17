@@ -11,6 +11,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     'Ajax',
     'Locale',
 
+    'package/sequry/core/bin/Actors',
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/password/Password'
 ], function (
@@ -18,6 +19,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     QUIControl,
     QUIAjax,
     QUILocale,
+    Actors,
     Panel,
     Password
 ) {
@@ -66,40 +68,50 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          */
         $onOpen: function () {
             var self = this;
+            var passwordId = this.getAttribute('id');
 
-            this.$Password = new Password({
-                id    : this.getAttribute('id'),
-                events: {
-                    onLoad: function (PW) {
-                        self.setTitle(PW.getTitle());
-
-                        self.ButtonParser.parse(self.getElm());
-                        self.Loader.hide();
-                    }
+            Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
+                console.log(AccessInfo)
+                if (!AccessInfo.canAccess) {
+                    Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
+                    self.fireEvent('loaded');
+                    return;
                 }
-            }).inject(this.getContent());
 
-            // action button - share
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton'),
-                    this.$Password.share
-                )
-            }
+                self.$Password = new Password({
+                    id    : self.getAttribute('id'),
+                    events: {
+                        onLoad: function (PW) {
+                            self.setTitle(PW.getTitle());
 
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton')
-                )
-            }
+                            self.ButtonParser.parse(self.getElm());
+                            self.Loader.hide();
+                        }
+                    }
+                }).inject(self.getContent());
 
-            // header button
-            if (this.getAttribute('iconHeaderButton')) {
-                this.createHeaderButton(
-                    this.getAttribute('iconHeaderButton'),
-                    this.getAttribute('iconHeaderButtonFaClass')
-                )
-            }
+                // action button - share
+                if (self.getAttribute('actionButton')) {
+                    self.createActionButton(
+                        self.getAttribute('actionButton'),
+                        self.$Password.share
+                    )
+                }
+
+                // close button
+                if (self.getAttribute('closeButton')) {
+                    self.createCloseButton(self.getAttribute('closeButton')
+                    )
+                }
+
+                // header button
+                if (self.getAttribute('iconHeaderButton')) {
+                    self.createHeaderButton(
+                        self.getAttribute('iconHeaderButton'),
+                        self.getAttribute('iconHeaderButtonFaClass')
+                    )
+                }
+            });
         },
 
         /**
