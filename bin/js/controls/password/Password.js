@@ -7,6 +7,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     'qui/controls/Control',
     'Mustache',
     'Locale',
+    'Ajax',
 
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
@@ -18,6 +19,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     QUIControl,
     Mustache,
     QUILocale,
+    QUIAjax,
     PasswordHandler,
     PasswordPanel,
     InputButtons,
@@ -62,13 +64,30 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 passwordId = this.getAttribute('id');
 
             this.$Elm = this.getElm();
-            this.payloadContainer = this.getElm()
+            this.payloadContainer = this.getElm();
 
-            PasswordHandler.getDataNew(passwordId).then(function (ViewData) {
+            var passData = PasswordHandler.getDataNew(passwordId);
+
+            var passTemplate = new Promise(function (resolve, reject) {
+                QUIAjax.get(
+                    'package_sequry_template_ajax_passwords_getViewTemplate',
+                    resolve, {
+                        'package' : 'sequry/template',
+                        'type' :
+                        onError: reject
+                    }
+                )
+            });
+
+            Promise.all([passData, passTemplate]).then(function (response) {
+                var ViewData = response[0];
+
+                console.log(response)
+
                 if (!ViewData) {
                     return;
                 }
-                console.log(ViewData)
+
                 var payload = ViewData.payload;
 
                 self.$Elm.set('html', Mustache.render(template, {
@@ -170,9 +189,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         },
 
         getTemplate: function () {
-            require([this.getTypeClass()], function (Panel) {
-
-            });
+            
         },
 
         share: function () {

@@ -113,7 +113,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 }
             }).inject(SecurityClassElm);
 
-            // password types control
+            // password types control / encrypted password data
             this.$PasswordTypes = new PasswordTypes({
                 mode: 'edit'
             }).inject(this.$Elm.getElement(

@@ -74,8 +74,6 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.TypeSelectElm = this.PayloadContainer.getElement('.password-type-select');
             this.$EditContent = this.PayloadContainer.getElement('.password-type-content');
 
-
-
             this.$TypeSelect = new TypeSelect({
                 initialValue: this.getAttribute('type'),
                 events      : {

@@ -72,12 +72,6 @@ define('package/sequry/template/bin/js/classes/Password', [
             });
         },
 
-        /**
-         *
-         */
-        saveData: function () {
-            console.log("Passwort gespeichert");
-        },
 
         /**
          * Return translations for password type
@@ -87,8 +81,6 @@ define('package/sequry/template/bin/js/classes/Password', [
          */
         getTypeTranslations: function(locale) {
             var localeStr = 'passwordtypes.' + locale + '.label.title';
-            console.log(localeStr)
-            console.log(QUILocale.get('sequry/template', 'sequry.panel.template.user'));
             return QUILocale.get('sequry/core', localeStr);
         }
 

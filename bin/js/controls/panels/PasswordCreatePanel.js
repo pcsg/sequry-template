@@ -50,7 +50,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             this.parent(options);
 
             this.setAttribute('confirmClosePopup',  true);
-            
+
             this.$Password = null;
             this.$PasswordData = null;
 
