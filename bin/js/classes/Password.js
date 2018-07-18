@@ -7,14 +7,18 @@ define('package/sequry/template/bin/js/classes/Password', [
 
     'qui/QUI',
     'Ajax',
-    'package/sequry/core/bin/AuthAjax'
+    'package/sequry/core/bin/AuthAjax',
+    'Locale'
 
 ], function (
     QUI,
     QUIAjax,
-    AuthAjax
+    AuthAjax,
+    QUILocale
 ) {
     "use strict";
+
+    var group = 'sequry/template';
 
     return new Class({
 
@@ -73,6 +77,19 @@ define('package/sequry/template/bin/js/classes/Password', [
          */
         saveData: function () {
             console.log("Passwort gespeichert");
+        },
+
+        /**
+         * Return translations for password type
+         *
+         * @param locale
+         * @returns string - password type name (title)
+         */
+        getTypeTranslations: function(locale) {
+            var localeStr = 'passwordtypes.' + locale + '.label.title';
+            console.log(localeStr)
+            console.log(QUILocale.get('sequry/template', 'sequry.panel.template.user'));
+            return QUILocale.get('sequry/core', localeStr);
         }
 
     });

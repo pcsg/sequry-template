@@ -83,6 +83,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                     events: {
                         onLoad: function (PW) {
                             self.setTitle(PW.getTitle());
+                            self.setSubtitle(PW.getType());
 
                             self.ButtonParser.parse(self.getElm());
                             self.Loader.hide();

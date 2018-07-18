@@ -39,8 +39,6 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Edit', [
         initialize: function (options) {
             this.parent(options);
 
-            this.setAttribute('class', 'huhuhu');
-
             this.ButtonParser = new ButtonParser();
 
             this.addEvents({

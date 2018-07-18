@@ -31,6 +31,18 @@
     background: #eee;
 }
 
+.sidebar-panel-header-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.sidebar-panel-header-subtitle {
+    font-size: 12px;
+    opacity: 0.5;
+    line-height: 18px;
+}
+
 .sidebar-panel-header button {
     background: transparent;
     border: none;

@@ -246,6 +246,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
+         * Set sub title of the panel.
+         *
+         * @param subtitle (string)
+         */
+        setSubtitle: function (subtitle) {
+            this.$Elm.getElement('.sidebar-panel-header-subtitle').set('html', subtitle);
+        },
+
+        /**
          * Return the content DOMNode
          *
          * @return {HTMLElement} DIV

@@ -45,6 +45,8 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         initialize: function (options) {
             this.parent(options);
 
+            this.$Elm = null;
+
             this.addEvents({
                 onInject: this.$onInject
             });
@@ -59,6 +61,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             var self       = this,
                 passwordId = this.getAttribute('id');
 
+            this.$Elm = this.getElm();
+            this.payloadContainer = this.getElm()
+
             PasswordHandler.getDataNew(passwordId).then(function (ViewData) {
                 if (!ViewData) {
                     return;
@@ -66,7 +71,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 console.log(ViewData)
                 var payload = ViewData.payload;
 
-                self.getElm().set('html', Mustache.render(template, {
+                self.$Elm.set('html', Mustache.render(template, {
                     'description'  : ViewData.description,
                     'userText'     : QUILocale.get(lg, 'sequry.panel.template.user'),
                     'userValue'    : ViewData.payload.user,
@@ -83,7 +88,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 self.fireEvent('load', [self]);
 
             }, function() {
-                // Passwordfenster ohne Authentifizieren schließen...
+                // Close password panel if auth popup will be closed by user
                 self.fireEvent('close', [self]);
             });
 
@@ -135,10 +140,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             return data.title;
         },
 
+
         /**
          * Return the typeof the password
          *
-         * @returns {string|boolean}
+         * @returns {string|boolean} - translated name of the password type
          */
         getType: function () {
             var data = this.getAttribute('passwordData');
@@ -147,11 +153,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 return false;
             }
 
-            if (typeof data.type === 'undefined') {
+            if (typeof data.dataType === 'undefined') {
                 return false;
             }
 
-            return data.type;
+            return PasswordHandler.getTypeTranslations(data.dataType.toLowerCase());
         },
 
         /**
