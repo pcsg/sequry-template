@@ -49,6 +49,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         initialize: function (options) {
             this.parent(options);
 
+            this.setAttribute('confirmClosePopup',  true);
+            
             this.$Password = null;
             this.$PasswordData = null;
 
@@ -88,7 +90,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
             // close button
             if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'), true)
+                this.createCloseButton(this.getAttribute('closeButton'))
             }
         },
 
@@ -149,7 +151,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         },
 
         /**
-         * Avoid accidentally close the panel
+         * Prevent accidentally closing the panel
          */
         confirmClose: function () {
             var self      = this,
@@ -181,7 +183,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                         textimage: false
                     },
                     events            : {
-                        onSubmit: self.cancel
+                        onSubmit: self.close
                     }
                 });
 

@@ -39,8 +39,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 ) {
     "use strict";
 
-    var lg = 'sequry/core';
-    var lgTpl = 'sequry/template';
+    var lg    = 'sequry/core',
+        lgTpl = 'sequry/template';
 
     return new Class({
 

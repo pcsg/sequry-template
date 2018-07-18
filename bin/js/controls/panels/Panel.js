@@ -55,15 +55,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
-            backgroundClosable     : true   // {bool} [optional] closes the window on click?
+            backgroundClosable     : true,   // {bool} [optional] closes the window on click?
+            confirmClosePopup      : false // {bool} [optional] if true, it prevent accidentally closing the panel
         },
 
         initialize: function (options) {
             this.parent(options);
 
             this.panelMenu = null;
-
-
             this.Loader = new QUILoader();
             this.Background = new QUIBackground();
             this.ButtonParser = new ButtonParser();
@@ -75,7 +74,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
-                this.Background.getElm().addEvent('click', this.confirmClose);
+                this.Background.getElm().addEvent('click', this.cancel);
             }
 
             this.$Elm = new Element('div', {
@@ -152,10 +151,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Avoid accidentally close the panel.
+         * Prevent accidentally closing the panel.
          * Override it if you need a custom close confirm popup.
          */
         confirmClose: function () {
+
             var self      = this,
                 title     = QUILocale.get(lg, 'sequry.customPopup.confirm.title'),
                 content   = QUILocale.get(lg, 'sequry.customPopup.confirm.content'),
@@ -186,7 +186,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                         textimage: false
                     },
                     events       : {
-                        onSubmit: self.cancel
+                        onSubmit: self.close
                     }
                 });
 
@@ -268,6 +268,13 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         cancel: function () {
             this.fireEvent('cancel', [this]);
+
+            // display close confirm popup?
+            if (this.getAttribute('confirmClosePopup')) {
+                this.confirmClose();
+                return;
+            }
+
             this.close();
         },
 
@@ -302,7 +309,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'class': 'btn-light panel-closeButton',
                 'html' : label,
                 events : {
-                    click: function() {
+                    click: function () {
                         if (confirmClose) {
                             self.confirmClose();
                             return;

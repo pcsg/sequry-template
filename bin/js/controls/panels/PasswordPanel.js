@@ -81,14 +81,14 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 self.$Password = new Password({
                     id    : self.getAttribute('id'),
                     events: {
-                        onLoad: function (PW) {
+                        onLoad : function (PW) {
                             self.setTitle(PW.getTitle());
                             self.setSubtitle(PW.getType());
 
                             self.ButtonParser.parse(self.getElm());
                             self.Loader.hide();
                         },
-                        onClose: function() {
+                        onClose: function () {
                             self.Loader.hide();
                             self.cancel();
                         }
@@ -105,8 +105,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
                 // close button
                 if (self.getAttribute('closeButton')) {
-                    self.createCloseButton(self.getAttribute('closeButton')
-                    )
+                    self.createCloseButton(self.getAttribute('closeButton'))
                 }
 
                 // header button
