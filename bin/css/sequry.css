@@ -274,6 +274,11 @@
     }
 }
 
+button.fa {
+    width: 42px;
+    flex-shrink: 0;
+}
+
 /* für später */
 /* floating button */
 

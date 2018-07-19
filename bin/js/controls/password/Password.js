@@ -14,7 +14,8 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     'package/sequry/template/bin/js/controls/passwordTypes/View',
     'package/sequry/template/bin/js/controls/utils/InputButtons',
 
-    'text!package/sequry/template/bin/js/controls/password/Password.html'
+    'text!package/sequry/template/bin/js/controls/password/Password.html',
+    'css!package/sequry/template/bin/js/controls/password/Password.css'
 ], function (
     QUI,
     QUIControl,
