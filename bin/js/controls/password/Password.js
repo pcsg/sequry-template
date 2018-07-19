@@ -12,6 +12,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/passwordTypes/View',
+    'package/sequry/core/bin/controls/categories/public/Select',
+    'package/sequry/core/bin/controls/categories/private/Select',
+    'package/sequry/core/bin/Categories',
     'package/sequry/template/bin/js/controls/utils/InputButtons',
 
     'text!package/sequry/template/bin/js/controls/password/Password.html',
@@ -25,6 +28,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     PasswordHandler,
     PasswordPanel, // controls/panels/PasswordPanel
     PWTypeView, // controls/passwordTypes/View
+    CategorySelect, // /core/bin/controls/categories/public/Select
+    CategorySelectPrivate, // /core/bin/controls/categories/private/Select
+    Categories, // /core/bin/Categories
     InputButtons, // controls/utils/InputButtons
     template
 ) {
@@ -39,7 +45,8 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
         Binds: [
             '$onInject',
-            'share'
+            'share',
+            '$setPrivateCategories'
         ],
 
         options: {
@@ -73,13 +80,19 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     return;
                 }
 
+                console.log(ViewData)
+
                 self.$Elm.set('html', Mustache.render(template, {
-                    'description': ViewData.description
+                    'description'      : ViewData.description,
+                    'extraTitle'       : QUILocale.get(lg, 'sequry.panel.template.extra.title'),
+                    'categories'       : QUILocale.get(lg, 'sequry.panel.template.categories.title'),
+                    'categoriesPrivate': QUILocale.get(lg, 'sequry.panel.template.categories.private.title')
                 }));
 
                 var payloadContainer = self.$Elm.getElement('.show-password-data'),
                     PayloadData      = ViewData.payload;
 
+                // encrypted part from password (user, pass, note, etc.)
                 new PWTypeView({
                     type  : ViewData.dataType,
                     events: {
@@ -89,6 +102,29 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     }
                 }).inject(payloadContainer);
 
+                var CategoryPrivateElm = self.$Elm.getElement(
+                    '.password-category-private'
+                );
+
+                var CategoryPrivate = new CategorySelectPrivate({
+                    events: {
+                        onChange: self.$setPrivateCategories
+                    }
+                }).inject(CategoryPrivateElm);
+
+                /*var catIdsPrivate = CategoryPrivateElm.getProperty(
+                    'data-catids'
+                );*/
+
+                console.log(ViewData.categoryIdsPrivate)
+
+                var catIdsPrivate = ViewData.categoryIdsPrivate;
+
+                if (catIdsPrivate) {
+//                    catIdsPrivate = catIdsPrivate.split(',');
+                    CategoryPrivate.setValue(catIdsPrivate);
+                }
+
                 self.setAttribute('passwordData', ViewData);
                 self.fireEvent('load', [self]);
 
@@ -97,6 +133,33 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 self.fireEvent('close', [self]);
             });
         },
+
+        /**
+         * Set private password categories
+         *
+         * @return {Promise}
+         */
+        $setPrivateCategories: function (categoryIds) {
+            var self = this;
+
+            this.Loader.show();
+
+            return new Promise(function (resolve, reject) {
+                Categories.setPrivatePasswordCategories(
+                    self.getAttribute('passwordId'),
+                    categoryIds
+                ).then(function () {
+                    self.Loader.hide();
+
+                    if (window.PasswordCategories) {
+                        window.PasswordCategories.refreshCategories();
+                    }
+
+                    resolve();
+                }, reject);
+            });
+        },
+
 
         /**
          * Return the title of the password
