@@ -18,7 +18,7 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
     return new Class({
 
-        Type   : 'package/sequry/template/bin/js/controls/utils/InputButtons',
+        Type: 'package/sequry/template/bin/js/controls/utils/InputButtons',
 
         /**
          * Parse DOM elements of the view and add specific controls
@@ -55,8 +55,8 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
          * @param CopyBtn
          */
         parseCopyElm: function (CopyBtn) {
-            var parent = CopyBtn.getParent(),
-                Input  = parent.getElement('input');
+            var parent        = CopyBtn.getParent(),
+                Input         = parent.getElement('input');
 
             CopyBtn.addEvent('click', function () {
                 //todo click-feedback
@@ -64,7 +64,11 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
             new Clipboard(CopyBtn, {
                 text: function () {
-                    return Input.value;
+                    if (Input) {
+                        return Input.value;
+                    }
+
+                    return parent.getElement('.password-field-value').get('html');
                 }
             });
         },
