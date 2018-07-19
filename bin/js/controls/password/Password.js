@@ -79,7 +79,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 var payloadContainer = self.$Elm.getElement('.show-password-data'),
                     PayloadData      = ViewData.payload;
 
-                PWTypeView({
+                new PWTypeView({
                     type  : ViewData.dataType,
                     events: {
                         onLoaded: function (PW) {
