@@ -64,7 +64,7 @@ define('package/sequry/template/bin/js/controls/passwordTypes/View', [
         /**
          *
          */
-        $getTemplate: function() {
+        $getTemplate: function () {
             var self = this;
 
             this.$loadTemplate().then(function (templateHtml) {
@@ -106,10 +106,15 @@ define('package/sequry/template/bin/js/controls/passwordTypes/View', [
             var fields = this.$getFields();
 
             for (var i = 0, len = fields.length; i < len; i++) {
-                var FieldElm  = fields[i];
-                var fieldName = FieldElm.getProperty('name');
+                var FieldElm  = fields[i],
+                    tagName   = FieldElm.tagName,
+                    fieldName = FieldElm.getProperty('name');
 
                 if (fieldName in Data) {
+                    if (tagName === 'P') {
+                        FieldElm.set('html', Data[fieldName]);
+                        continue;
+                    }
                     FieldElm.value = Data[fieldName];
                 }
             }
@@ -122,10 +127,10 @@ define('package/sequry/template/bin/js/controls/passwordTypes/View', [
          */
         getData: function () {
             var fields = this.$getFields();
-            var Data   = {};
+            var Data = {};
 
             for (var i = 0, len = fields.length; i < len; i++) {
-                var FieldElm                       = fields[i];
+                var FieldElm = fields[i];
                 Data[FieldElm.getProperty('name')] = FieldElm.value;
             }
 
