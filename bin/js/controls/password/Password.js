@@ -11,6 +11,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
+    'package/sequry/template/bin/js/controls/passwordTypes/View',
     'package/sequry/template/bin/js/controls/utils/InputButtons',
 
     'text!package/sequry/template/bin/js/controls/password/Password.html'
@@ -21,8 +22,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
     QUILocale,
     QUIAjax,
     PasswordHandler,
-    PasswordPanel,
-    InputButtons,
+    PasswordPanel, // controls/panels/PasswordPanel
+    PWTypeView, // controls/passwordTypes/View
+    InputButtons, // controls/utils/InputButtons
     template
 ) {
     "use strict";
@@ -40,7 +42,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         ],
 
         options: {
-            id  : false,
+            id          : false,
             passwordData: false
         },
 
@@ -64,80 +66,35 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 passwordId = this.getAttribute('id');
 
             this.$Elm = this.getElm();
-            this.payloadContainer = this.getElm();
 
-            var passData = PasswordHandler.getDataNew(passwordId);
-
-            var passTemplate = new Promise(function (resolve, reject) {
-                QUIAjax.get(
-                    'package_sequry_template_ajax_passwords_getViewTemplate',
-                    resolve, {
-                        'package' : 'sequry/template',
-                        'type' :
-                        onError: reject
-                    }
-                )
-            });
-
-            Promise.all([passData, passTemplate]).then(function (response) {
-                var ViewData = response[0];
-
-                console.log(response)
-
+            PasswordHandler.getDataNew(passwordId).then(function (ViewData) {
                 if (!ViewData) {
                     return;
                 }
 
-                var payload = ViewData.payload;
-
                 self.$Elm.set('html', Mustache.render(template, {
-                    'description'  : ViewData.description,
-                    'userText'     : QUILocale.get(lg, 'sequry.panel.template.user'),
-                    'userValue'    : ViewData.payload.user,
-                    'passwordText' : QUILocale.get(lg, 'sequry.panel.template.password'),
-                    'passwordValue': ViewData.payload.password,
-                    'urlText'      : QUILocale.get(lg, 'sequry.panel.template.url'),
-                    'urlValue'     : ViewData.payload.url,
-                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.note'),
-                    'noteValue'    : ViewData.payload.note
+                    'description': ViewData.description
                 }));
 
+                var payloadContainer = self.$Elm.getElement('.show-password-data'),
+                    PayloadData      = ViewData.payload;
+
+                PWTypeView({
+                    type  : ViewData.dataType,
+                    events: {
+                        onLoaded: function (PW) {
+                            PW.setData(PayloadData)
+                        }
+                    }
+                }).inject(payloadContainer);
 
                 self.setAttribute('passwordData', ViewData);
                 self.fireEvent('load', [self]);
 
-            }, function() {
+            }, function () {
                 // Close password panel if auth popup will be closed by user
                 self.fireEvent('close', [self]);
             });
-
-            /*PasswordHandler.getData(passwordId).then(function (result) {
-                // @todo password muss von sequry kommen!
-                // das hier ist nur eine zwischenlösung
-                self.getElm().set('html', Mustache.render(template, {
-                    'description'  : result.description,
-                    'userText'     : QUILocale.get(lg, 'sequry.panel.template.user'),
-                    'userValue'    : result.payload.user,
-                    'passwordText' : QUILocale.get(lg, 'sequry.panel.template.password'),
-                    'passwordValue': result.payload.password,
-                    'urlText'      : QUILocale.get(lg, 'sequry.panel.template.url'),
-                    'urlValue'     : result.payload.url,
-                    'noteText'     : QUILocale.get(lg, 'sequry.panel.template.note'),
-                    'noteValue'    : result.payload.note
-                }));
-
-
-//                require([result.type], function(PWControl) {
-//                    new PWControl().inject(self.getElm());
-//                });
-
-                // result.type
-
-                self.setAttribute('passwordData', result);
-                self.fireEvent('load', [self]);
-
-
-            });*/
         },
 
         /**
@@ -177,19 +134,6 @@ define('package/sequry/template/bin/js/controls/password/Password', [
             }
 
             return PasswordHandler.getTypeTranslations(data.dataType.toLowerCase());
-        },
-
-        /**
-         * Get the string for type class.
-         *
-         * @returns {string}
-         */
-        getTypeClass: function () {
-            return 'package/sequry/template/bin/js/controls/password/Password' + this.getType();
-        },
-
-        getTemplate: function () {
-            
         },
 
         share: function () {
