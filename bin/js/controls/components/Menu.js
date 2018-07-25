@@ -38,6 +38,13 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 //            console.log('on inject');
 
             this.$Elm.set('html', Mustache.render(Template, {}));
+
+            // favorite
+            this.Favorite = this.$Elm.getElement('#favorite');
+
+            this.Favorite.addEvent('click', function () {
+                window.PasswordList.showFavorite();
+            })
         }
     });
 });

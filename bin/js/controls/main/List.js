@@ -43,7 +43,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
         Binds: [
             '$onInject',
             'open',
-            'changeFavorite'
+            'addPassword',
+            'changeFavorite',
+            'showFavorite'
         ],
 
         initialize: function (options) {
@@ -57,6 +59,18 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.ListManager = new ClassesList();
             this.addButton = null;
             this.listContainer = null;
+
+            this.$SearchParams = {
+                search           : {},
+                categoryId       : false,
+                categoryIdPrivate: false,
+                filters          : {
+                    filters: [],
+                    types  : []
+                }
+            };
+
+            console.log(this.$SearchParams)
         },
 
         /**
@@ -70,8 +84,12 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             // event add new password
             if (this.addButton) {
-                this.addButton.addEvent('click', this.addPassword)
+                this.addButton.addEvents({
+                    click: this.addPassword
+                });
             }
+
+            window.PasswordList = this;
 
             this.Loader.inject(this.$Elm);
             this.Loader.show();
@@ -79,15 +97,45 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$renderEntries();
         },
 
-
+        $listRefresh: function () {
+            this.Loader.show();
+            this.listContainer.set('html', '');
+            this.$renderEntries();
+        },
 
         /**
          * Render the list HTML with passwords
+         *
+         * Search params structure:
+         *
+         * searchParams: {
+         *  "sortOn":null,
+         *  "sortBy":"ASC",
+         *  "perPage":100,
+         *  "page":1,
+         *  "search":{
+         *      "searchterm":""
+         *  },
+         *  "categoryId":"3",
+         *  "categoryIdPrivate":false,
+         *  "filters":{
+         *      "filters":["favorites","new"],
+         *      "types":[]
+         *  }
          */
         $renderEntries: function () {
             var self = this;
 
-            Passwords.getPasswords().then(function(response) {
+            var ListParams = {
+                sortOn : null,
+                sortBy : 'ASC',
+                perPage: 100,
+                page   : 1
+            };
+
+            Passwords.getPasswords(
+                Object.merge(ListParams, this.$SearchParams)
+            ).then(function (response) {
                 var entries = response.data;
 
                 console.log(entries);
@@ -105,7 +153,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *
          * @param Entry (it contains password data)
          */
-        $renderEntry: function(Entry) {
+        $renderEntry: function (Entry) {
             var self = this;
             var favIconName = 'fa-star-o';
 
@@ -154,7 +202,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * Open panel to create new password
          */
         addPassword: function () {
-            new PasswordCreatePanel().open();
+            var self = this;
+            new PasswordCreatePanel({
+                events: {
+                    finish: function () {
+                        self.$listRefresh();
+                    }
+                }
+            }).open();
         },
 
         /**
@@ -187,6 +242,12 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 Elm.removeClass('fa-star');
                 Elm.addClass('fa-star-o');
             });
+        },
+
+        showFavorite: function () {
+            console.log(this.$SearchParams)
+            this.$SearchParams.filters.filters = ['favorites'];
+            this.$listRefresh();
         }
     });
 });
