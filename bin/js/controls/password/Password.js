@@ -142,19 +142,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         $setPrivateCategories: function (categoryIds) {
             var self = this;
 
-            this.Loader.show();
-
             return new Promise(function (resolve, reject) {
                 Categories.setPrivatePasswordCategories(
-                    self.getAttribute('passwordId'),
+                    self.getAttribute('id'),
                     categoryIds
                 ).then(function () {
-                    self.Loader.hide();
-
-                    if (window.PasswordCategories) {
-                        window.PasswordCategories.refreshCategories();
-                    }
-
                     resolve();
                 }, reject);
             });
