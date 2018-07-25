@@ -102,6 +102,11 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     }
                 }).inject(payloadContainer);
 
+
+                /**
+                 * category handling
+                 */
+                // private categories
                 var CategoryPrivateElm = self.$Elm.getElement(
                     '.password-category-private'
                 );
@@ -112,18 +117,28 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     }
                 }).inject(CategoryPrivateElm);
 
-                /*var catIdsPrivate = CategoryPrivateElm.getProperty(
-                    'data-catids'
-                );*/
-
-                console.log(ViewData.categoryIdsPrivate)
-
                 var catIdsPrivate = ViewData.categoryIdsPrivate;
 
                 if (catIdsPrivate) {
-//                    catIdsPrivate = catIdsPrivate.split(',');
                     CategoryPrivate.setValue(catIdsPrivate);
                 }
+
+                // public categories
+                var CategoriesPublicElm = self.$Elm.getElement(
+                    '.password-category-public'
+                );
+
+                var Categories = new CategorySelect({
+//                    editMode: self.getAttribute('editPublicCategories')
+                    editMode: false
+                }).inject(CategoriesPublicElm);
+
+                var catIdsPublic = ViewData.categoryIds;
+
+                if (catIdsPublic) {
+                    Categories.setValue(catIdsPublic);
+                }
+
 
                 self.setAttribute('passwordData', ViewData);
                 self.fireEvent('load', [self]);
