@@ -76,8 +76,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.inject(this.$Elm);
             this.Loader.show();
 
-//            this.$renderEntries();
-            this.$renderEntriesNew();
+            this.$renderEntries();
         },
 
 
@@ -88,17 +87,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
         $renderEntries: function () {
             var self = this;
 
-            Password.getDataAll().then(function (Entries) {
-                self.Loader.hide();
-                Entries.each(function (Entry) {
-                    self.$renderEntry(Entry);
-                })
-            });
-        },
-
-        $renderEntriesNew: function () {
-            var self = this;
-
             Passwords.getPasswords().then(function(response) {
                 var entries = response.data;
 
@@ -106,7 +94,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 self.Loader.hide();
 
                 entries.each(function (Entry) {
-                    self.$renderEntryNew(Entry);
+                    self.$renderEntry(Entry);
                 })
 
             });
@@ -117,42 +105,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *
          * @param Entry (it contains password data)
          */
-        $renderEntry: function (Entry) {
-
-            var self = this;
-            var favIconName = 'fa-star-o';
-
-            // is password favorite?
-            if (Entry.favorite) {
-                favIconName = 'fa-star'
-            }
-
-            var Li = new Element('li', {
-                'class'    : 'main-list-entry',
-                'data-pwid': Entry.id
-            });
-
-            // render html
-            Li.set('html', Mustache.render(ListEntryTemplate, {
-                'favIconName': favIconName,
-                'dataFavo'   : Entry.favorite,
-                'title'      : Entry.title,
-                'description': Entry.description,
-                'dataType'   : Entry.dataType
-            }));
-
-            // open event
-            Li.addEvent('click', function () {
-                self.open(Entry);
-            });
-
-            // change favorite
-            Li.getElement('.list-favorite .fa').addEvent('click', self.changeFavorite);
-
-            Li.inject(this.listContainer);
-        },
-
-        $renderEntryNew: function(Entry) {
+        $renderEntry: function(Entry) {
             var self = this;
             var favIconName = 'fa-star-o';
 
