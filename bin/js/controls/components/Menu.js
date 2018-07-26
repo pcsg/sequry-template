@@ -24,44 +24,89 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             'createEntry'
         ],
 
+        options: {
+            filters: {
+                'all': {
+                    label: 'Alle Passwörter',
+                    icon: 'fa fa-lock',
+                    func: function() {
+                        window.PasswordList.showAll();
+                    }
+                },
+                'favorites': {
+                    label: 'Favoriten',
+                    icon: 'fa fa-star-o',
+                    func: function() {
+                        window.PasswordList.showFavorite();
+                    }
+                },
+                'owned': {
+                    label: 'Eigene',
+                    icon: 'fa fa-user-o',
+                    func: function() {
+                        console.log("kurwa");
+                    }
+                },
+                'mostUsed': {
+                    label: 'Meistgenutzte',
+                    icon: 'fa fa-bookmark-o',
+                    func: function() {
+                        console.log("kurwa");
+                    }
+                },
+                'new': {
+                    label: 'Neueste',
+                    icon: 'fa fa-clock-o',
+                    func: function() {
+                        console.log("kurwa");
+                    }
+                }
+            },
+            types: {
+                'website': {
+                    label: 'Neueste',
+                    icon: 'fa ',
+                    func: function() {
+
+                    }
+                },
+                'secretkey': {
+                    label: 'Neueste',
+                    icon: 'fa ',
+                    func: function() {
+
+                    }
+                },
+                'ftp': {
+                    label: 'Neueste',
+                    icon: 'fa ',
+                    func: function() {
+
+                    }
+                },
+                'apikey': {
+                    label: 'Neueste',
+                    icon: 'fa ',
+                    func: function() {
+
+                    }
+                },
+                'text': {
+                    label: 'Neueste',
+                    icon: 'fa ',
+                    func: function() {
+
+                    }
+                }
+            }
+        },
+
         initialize: function (options) {
             this.parent(options);
 
             this.FilterContainer = null;
             this.TypesContainer = null;
             this.TagsContainer = null;
-
-            // available filters
-            this.$filters = {
-                'all': {
-                    label: 'Alle Passwörter',
-                    icon: 'fa fa-lock'
-                },
-                'favorites': {
-                    label: 'Favoriten',
-                    icon: 'fa fa-star-o'
-                },
-                'owned': {
-                    label: 'Eigene',
-                    icon: 'fa fa-user-o'
-                },
-                'mostUsed': {
-                    label: 'Meistgenutzte',
-                    icon: 'fa fa-bookmark-o'
-                },
-                'new': {
-                    label: 'Neueste',
-                    icon: 'fa fa-clock-o'
-                }
-            };
-
-            this.$types = [
-                'website',
-                'secretkey',
-                'ftp',
-                'apikey',
-                'text'
-            ];
 
             this.addEvents({
                 onInject: this.$onInject
@@ -79,35 +124,44 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TagsContainer = this.$Elm.getElement('.sequry-tags .navigation');
 
             this.$buildFilters();
-
-            // favorite
-            /*this.Favorite = this.$Elm.getElement('#favorite');
-
-            this.Favorite.addEvent('click', function () {
-                window.PasswordList.showFavorite();
-            })*/
         },
 
         $buildFilters: function () {
-            var self = this;
-            Object.each(this.$filters, function(key) {
-              self.createEntry(key)
+            var self = this,
+                Filters = this.getAttribute('filters');
+
+            Object.each(Filters, function(Entry) {
+
+              self.createEntry(Entry.label, Entry.icon, Entry.func)
             })
         },
 
-        createEntry: function (entry) {
-            var icon = '<span class="navigation-entry-icon ' + entry.icon + '"></span>',
-                label = '<span class="navigation-entry-text">' + entry.label + '</span>';
+        /**
+         * Entry structure:
+         *
+         * {
+         *   icon: 'fa fa-icon',
+         *   label: 'Label',
+         *   func: function() {}
+         * }
+         *
+         * @param entry
+         * @param func
+         */
+        createEntry: function (label, icon, func) {
+            var iconHTML = '<span class="navigation-entry-icon ' + icon + '"></span>',
+                labelHTML = '<span class="navigation-entry-text">' + label + '</span>';
 
             var listEntry = new Element('li', {
-                'class': 'navigation-entry aaaaaaaa'
+                'class': 'navigation-entry'
             });
 
             new Element('a', {
-                html: icon + label,
+                html: iconHTML + labelHTML,
                 events: {
                     click: function() {
-                        console.log(entry.label);
+                        console.log(label);
+                        func();
                     }
                 }
             }).inject(listEntry);

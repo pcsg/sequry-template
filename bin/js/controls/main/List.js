@@ -45,6 +45,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             'open',
             'addPassword',
             'changeFavorite',
+            'showAll',
             'showFavorite'
         ],
 
@@ -55,22 +56,12 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 onInject: this.$onInject
             });
 
+            this.initSearchParams();
+
             this.Loader = new QUILoader();
             this.ListManager = new ClassesList();
             this.addButton = null;
             this.listContainer = null;
-
-            this.$SearchParams = {
-                search           : {},
-                categoryId       : false,
-                categoryIdPrivate: false,
-                filters          : {
-                    filters: [],
-                    types  : []
-                }
-            };
-
-            console.log(this.$SearchParams)
         },
 
         /**
@@ -106,22 +97,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
         /**
          * Render the list HTML with passwords
          *
-         * Search params structure:
-         *
-         * searchParams: {
-         *  "sortOn":null,
-         *  "sortBy":"ASC",
-         *  "perPage":100,
-         *  "page":1,
-         *  "search":{
-         *      "searchterm":""
-         *  },
-         *  "categoryId":"3",
-         *  "categoryIdPrivate":false,
-         *  "filters":{
-         *      "filters":["favorites","new"],
-         *      "types":[]
-         *  }
          */
         $renderEntries: function () {
             var self = this;
@@ -244,8 +219,42 @@ define('package/sequry/template/bin/js/controls/main/List', [
             });
         },
 
+        /**
+         * Search params structure:
+         *
+         * searchParams: {
+         *  "sortOn":null,
+         *  "sortBy":"ASC",
+         *  "perPage":100,
+         *  "page":1,
+         *  "search":{
+         *      "searchterm":""
+         *  },
+         *  "categoryId":"3",
+         *  "categoryIdPrivate":false,
+         *  "filters":{
+         *      "filters":["favorites","new"],
+         *      "types":[]
+         *  }
+         */
+        initSearchParams: function() {
+            this.$SearchParams = {
+                search           : {},
+                categoryId       : false,
+                categoryIdPrivate: false,
+                filters          : {
+                    filters: [],
+                    types  : []
+                }
+            };
+        },
+
+        showAll: function () {
+            this.initSearchParams();
+            this.$listRefresh();
+        },
+
         showFavorite: function () {
-            console.log(this.$SearchParams)
             this.$SearchParams.filters.filters = ['favorites'];
             this.$listRefresh();
         }
