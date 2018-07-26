@@ -129,12 +129,14 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.$buildFilters();
         },
 
+        /**
+         * Build filter buttons
+         */
         $buildFilters: function () {
             var self    = this,
                 Filters = this.getAttribute('filters');
 
             Object.each(Filters, function (Entry) {
-
                 self.createEntry(Entry.label, Entry.icon, Entry.func)
             })
         },
@@ -155,7 +157,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          */
         createEntry: function (label, icon, func) {
             var iconHTML  = '<span class="navigation-entry-icon ' + icon + '"></span>',
-                labelHTML = '<span class="navigation-entry-text">' + label + '</span>';
+                labelHTML = '<span class="navigation-entry-text">' + label + '</span>',
+                self      = this;
 
             var listEntry = new Element('li', {
                 'class': 'navigation-entry'
@@ -164,16 +167,30 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             new Element('a', {
                 html  : iconHTML + labelHTML,
                 events: {
-                    click: function () {
-                        console.log(label);
+                    click: function (Elm) {
+//                        self.toggleBtnStatus(Elm);
                         func();
                     }
                 }
             }).inject(listEntry);
 
             listEntry.inject(this.FilterContainer);
-        }
+        },
 
+        /*toggleBtnStatus: function (Elm) {
+            console.log(Elm)
+            var Target = Elm.target;
+            if (Target.tagName != 'A') {
+                Target = Target.getParent();
+            }
+
+            if (Target)
+            console.log(Elm.target)
+        },
+
+        setBtnActive: function(Elm) {
+            Elm.addClass('active');
+        }*/
 
     });
 });
