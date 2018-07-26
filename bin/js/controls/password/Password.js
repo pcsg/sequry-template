@@ -75,12 +75,10 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
             this.$Elm = this.getElm();
 
-            PasswordHandler.getDataNew(passwordId).then(function (ViewData) {
+            PasswordHandler.getData(passwordId).then(function (ViewData) {
                 if (!ViewData) {
                     return;
                 }
-
-                console.log(ViewData)
 
                 self.$Elm.set('html', Mustache.render(template, {
                     'description'      : ViewData.description,

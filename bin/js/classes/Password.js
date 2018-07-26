@@ -18,30 +18,9 @@ define('package/sequry/template/bin/js/classes/Password', [
 ) {
     "use strict";
 
-    var group = 'sequry/template';
-
     return new Class({
 
         Type: 'package/sequry/template/bin/js/classes/Password',
-
-        /**
-         * Get the data from password
-         *
-         * @param passId (integer)
-         * @return {Promise}
-         */
-        getData: function (passId) {
-            return new Promise(function (resolve, reject) {
-                QUIAjax.get(
-                    'package_sequry_template_ajax_passwords_getPasswordData',
-                    resolve, {
-                        'package': 'sequry/template',
-                        'passId' : passId,
-                        onError  : reject
-                    }
-                );
-            });
-        },
 
         /**
          * Get all data of single password object (authentication required!)
@@ -49,8 +28,8 @@ define('package/sequry/template/bin/js/classes/Password', [
          * @param {number} passwordId
          * @returns {Promise}
          */
-        getDataNew: function (passwordId) {
-            return AuthAjax.get('package_sequry_core_ajax_passwords_get', {
+        getData: function (passwordId) {
+            return AuthAjax.get('package_sequry_core_ajax_passwords_getViewData', {
                 passwordId: passwordId
             });
         },
@@ -72,7 +51,6 @@ define('package/sequry/template/bin/js/classes/Password', [
             });
         },
 
-
         /**
          * Return translations for password type
          *
@@ -80,6 +58,7 @@ define('package/sequry/template/bin/js/classes/Password', [
          * @returns string - password type name (title)
          */
         getTypeTranslations: function(locale) {
+            console.log(locale)
             var localeStr = 'passwordtypes.' + locale + '.label.title';
             return QUILocale.get('sequry/core', localeStr);
         }
