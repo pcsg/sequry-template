@@ -16,16 +16,17 @@ define('package/sequry/template/bin/js/classes/List', [
         Type: 'package/sequry/template/bin/js/classes/List',
 
         /**
-         * todo @michael function description
+         * Set favorite status
+         *
          * @param passwordId
          * @param status
          */
         setFavoriteStatus: function (passwordId, status) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.post(
-                    'package_sequry_template_ajax_passwords_setFavoriteStatus',
+                    'package_sequry_core_ajax_passwords_setFavoriteStatus',
                     resolve, {
-                        'package' : 'sequry/template',
+                        'package' : 'sequry/core',
                         onError   : reject,
                         passwordId: passwordId,
                         status    : status ? 1 : 0
