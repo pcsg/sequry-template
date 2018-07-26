@@ -5,13 +5,16 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'Locale',
     'Mustache',
 
     'text!package/sequry/template/bin/js/controls/components/Menu.html',
     'css!package/sequry/template/bin/js/controls/components/Menu.css'
 
-], function (QUI, QUIControl, Mustache, Template) {
+], function (QUI, QUIControl, QUILocale, Mustache, Template) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -26,75 +29,75 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
         options: {
             filters: {
-                'all': {
-                    label: 'Alle Passwörter',
-                    icon: 'fa fa-lock',
-                    func: function() {
+                'all'      : {
+                    label: QUILocale.get(lg, 'sequry.menu.filters.all'),
+                    icon : 'fa fa-lock',
+                    func : function () {
                         window.PasswordList.showAll();
                     }
                 },
                 'favorites': {
-                    label: 'Favoriten',
-                    icon: 'fa fa-star-o',
-                    func: function() {
+                    label: QUILocale.get(lg, 'sequry.menu.filters.favorite'),
+                    icon : 'fa fa-star-o',
+                    func : function () {
                         window.PasswordList.showFavorite();
                     }
                 },
-                'owned': {
-                    label: 'Eigene',
-                    icon: 'fa fa-user-o',
-                    func: function() {
-                        console.log("kurwa");
+                'owned'    : {
+                    label: QUILocale.get(lg, 'sequry.menu.filters.owned'),
+                    icon : 'fa fa-user-o',
+                    func : function () {
+                        window.PasswordList.showOwned();
                     }
                 },
-                'mostUsed': {
-                    label: 'Meistgenutzte',
-                    icon: 'fa fa-bookmark-o',
-                    func: function() {
-                        console.log("kurwa");
+                'mostUsed' : {
+                    label: QUILocale.get(lg, 'sequry.menu.filters.mostUsed'),
+                    icon : 'fa fa-bookmark-o',
+                    func : function () {
+                        window.PasswordList.showMostUsed();
                     }
                 },
-                'new': {
-                    label: 'Neueste',
-                    icon: 'fa fa-clock-o',
-                    func: function() {
-                        console.log("kurwa");
+                'new'      : {
+                    label: QUILocale.get(lg, 'sequry.menu.filters.new'),
+                    icon : 'fa fa-clock-o',
+                    func : function () {
+                        window.PasswordList.showNew();
                     }
                 }
             },
-            types: {
-                'website': {
+            types  : {
+                'website'  : {
                     label: 'Neueste',
-                    icon: 'fa ',
-                    func: function() {
+                    icon : 'fa ',
+                    func : function () {
 
                     }
                 },
                 'secretkey': {
                     label: 'Neueste',
-                    icon: 'fa ',
-                    func: function() {
+                    icon : 'fa ',
+                    func : function () {
 
                     }
                 },
-                'ftp': {
+                'ftp'      : {
                     label: 'Neueste',
-                    icon: 'fa ',
-                    func: function() {
+                    icon : 'fa ',
+                    func : function () {
 
                     }
                 },
-                'apikey': {
+                'apikey'   : {
                     label: 'Neueste',
-                    icon: 'fa ',
-                    func: function() {
+                    icon : 'fa ',
+                    func : function () {
 
                     }
                 },
-                'text': {
+                'text'     : {
                     label: 'Neueste',
-                    icon: 'fa ',
-                    func: function() {
+                    icon : 'fa ',
+                    func : function () {
 
                     }
                 }
@@ -127,29 +130,31 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         $buildFilters: function () {
-            var self = this,
+            var self    = this,
                 Filters = this.getAttribute('filters');
 
-            Object.each(Filters, function(Entry) {
+            Object.each(Filters, function (Entry) {
 
-              self.createEntry(Entry.label, Entry.icon, Entry.func)
+                self.createEntry(Entry.label, Entry.icon, Entry.func)
             })
         },
 
         /**
-         * Entry structure:
+         * Create list entry.
          *
-         * {
-         *   icon: 'fa fa-icon',
-         *   label: 'Label',
-         *   func: function() {}
-         * }
+         * <li class="navigation-entry">
+         *     <a>
+         *         <span class="navigation-entry-icon fa fa-star-o"></span>
+         *         <span class="navigation-entry-text">Favorite</span>
+         *     </a>
+         * </li>
          *
-         * @param entry
-         * @param func
+         * @param label {string} - 'fa fa-icon'
+         * @param icon {string} - 'Label'
+         * @param func {function}- function () {}
          */
         createEntry: function (label, icon, func) {
-            var iconHTML = '<span class="navigation-entry-icon ' + icon + '"></span>',
+            var iconHTML  = '<span class="navigation-entry-icon ' + icon + '"></span>',
                 labelHTML = '<span class="navigation-entry-text">' + label + '</span>';
 
             var listEntry = new Element('li', {
@@ -157,9 +162,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             });
 
             new Element('a', {
-                html: iconHTML + labelHTML,
+                html  : iconHTML + labelHTML,
                 events: {
-                    click: function() {
+                    click: function () {
                         console.log(label);
                         func();
                     }
@@ -167,7 +172,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             }).inject(listEntry);
 
             listEntry.inject(this.FilterContainer);
-
         }
 
 

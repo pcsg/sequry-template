@@ -249,13 +249,44 @@ define('package/sequry/template/bin/js/controls/main/List', [
             };
         },
 
+        /**
+         * Show all passwords.
+         * (initialise search params)
+         */
         showAll: function () {
             this.initSearchParams();
             this.$listRefresh();
         },
 
+        /**
+         * Show favorite passwords.
+         */
         showFavorite: function () {
             this.$SearchParams.filters.filters = ['favorites'];
+            this.$listRefresh();
+        },
+
+        /**
+         * Show owned passwords.
+         */
+        showOwned: function () {
+            this.$SearchParams.filters.filters = ['owned'];
+            this.$listRefresh();
+        },
+
+        /**
+         * Show owned passwords.
+         */
+        showMostUsed: function () {
+            this.$SearchParams.filters.filters = ['mostUed'];
+            this.$listRefresh();
+        },
+
+        /**
+         * Show owned passwords.
+         */
+        showNew: function () {
+            this.$SearchParams.filters.filters = ['new'];
             this.$listRefresh();
         }
     });

@@ -202,5 +202,27 @@
             <en><![CDATA[Back]]></en>
         </locale>
 
+        <!-- left menu -->
+        <locale name="sequry.menu.filters.all">
+            <de><![CDATA[Alle Passwörter]]></de>
+            <en><![CDATA[All passwords]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.favorite">
+            <de><![CDATA[Favoriten]]></de>
+            <en><![CDATA[Favorite]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.owned">
+            <de><![CDATA[Eigene]]></de>
+            <en><![CDATA[Owned]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.mostUsed">
+            <de><![CDATA[Meistgenutzte]]></de>
+            <en><![CDATA[Most used]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.new">
+            <de><![CDATA[Neueste]]></de>
+            <en><![CDATA[New]]></en>
+        </locale>
+
     </groups>
 </locales>
