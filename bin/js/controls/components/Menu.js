@@ -24,7 +24,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         Binds: [
             '$onInject',
             '$buildFilters',
-            'createEntry'
+            'createEntry',
+            'toggleBtnStatus'
         ],
 
         options: {
@@ -112,7 +113,10 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TagsContainer = null;
 
             this.addEvents({
-                onInject: this.$onInject
+                onInject: this.$onInject,
+                onDeselect: function () {
+                    console.log("initialize deselect")
+                }
             });
         },
 
@@ -164,33 +168,52 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 'class': 'navigation-entry'
             });
 
-            new Element('a', {
+            var Button = new Element('a', {
+                'class' : 'menu-button',
                 html  : iconHTML + labelHTML,
                 events: {
                     click: function (Elm) {
-//                        self.toggleBtnStatus(Elm);
-                        func();
+                        self.toggleBtnStatus(Elm, func);
                     }
                 }
             }).inject(listEntry);
 
+            Button.setAttribute('data-multiple-select', 'false');
+
             listEntry.inject(this.FilterContainer);
         },
 
-        /*toggleBtnStatus: function (Elm) {
-            console.log(Elm)
+        toggleBtnStatus: function (Elm, func) {
             var Target = Elm.target;
+
             if (Target.tagName != 'A') {
                 Target = Target.getParent();
             }
 
-            if (Target)
-            console.log(Elm.target)
+            if (Target.hasClass('active')) {
+                this.removeActiveStatus(Target);
+                window.PasswordList.showAll();
+                return;
+            }
+
+            var Buttons = this.$Elm.getElements('.menu-button');
+
+            Array.each(Buttons, function(Elm) {
+                this.removeActiveStatus(Elm);
+            }.bind(this));
+
+            this.setActiveStatus(Target);
+            func();
         },
 
-        setBtnActive: function(Elm) {
-            Elm.addClass('active');
-        }*/
+        setActiveStatus: function(Btn) {
+            Btn.addClass('active');
+            Btn.setAttribute('data-status', 'on');
+        },
 
+        removeActiveStatus: function(Btn) {
+            Btn.removeClass('active');
+            Btn.setAttribute('data-status', 'off');
+        }
     });
 });

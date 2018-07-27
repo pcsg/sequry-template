@@ -52,6 +52,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         initialize: function (options) {
             this.parent(options);
 
+
             this.addEvents({
                 onInject: this.$onInject
             });
