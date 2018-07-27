@@ -8,10 +8,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
     'Locale',
     'Mustache',
 
+    'package/sequry/core/bin/classes/Passwords',
+
     'text!package/sequry/template/bin/js/controls/components/Menu.html',
     'css!package/sequry/template/bin/js/controls/components/Menu.css'
 
-], function (QUI, QUIControl, QUILocale, Mustache, Template) {
+], function (QUI, QUIControl, QUILocale, Mustache, PasswordHandler, Template) {
     "use strict";
 
     var lg = 'sequry/template';
@@ -29,80 +31,34 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         ],
 
         options: {
-            filters: {
-                'all'      : {
-                    label: QUILocale.get(lg, 'sequry.menu.filters.all'),
-                    icon : 'fa fa-lock',
-                    func : function () {
-                        window.PasswordList.showAll();
-                    }
+            // available filters
+            filters: [
+                {
+                    name : 'all',
+                    title: QUILocale.get(lg, 'sequry.menu.filters.all'),
+                    icon : 'fa fa-lock'
                 },
-                'favorites': {
-                    label: QUILocale.get(lg, 'sequry.menu.filters.favorite'),
-                    icon : 'fa fa-star-o',
-                    func : function () {
-                        window.PasswordList.showFavorite();
-                    }
+                {
+                    name : 'favorites',
+                    title: QUILocale.get(lg, 'sequry.menu.filters.favorite'),
+                    icon : 'fa fa-star-o'
                 },
-                'owned'    : {
-                    label: QUILocale.get(lg, 'sequry.menu.filters.owned'),
-                    icon : 'fa fa-user-o',
-                    func : function () {
-                        window.PasswordList.showOwned();
-                    }
+                {
+                    name : 'owned',
+                    title: QUILocale.get(lg, 'sequry.menu.filters.owned'),
+                    icon : 'fa fa-user-o'
                 },
-                'mostUsed' : {
-                    label: QUILocale.get(lg, 'sequry.menu.filters.mostUsed'),
-                    icon : 'fa fa-bookmark-o',
-                    func : function () {
-                        window.PasswordList.showMostUsed();
-                    }
+                {
+                    name : 'mostUsed',
+                    title: QUILocale.get(lg, 'sequry.menu.filters.mostUsed'),
+                    icon : 'fa fa-bookmark-o'
                 },
-                'new'      : {
-                    label: QUILocale.get(lg, 'sequry.menu.filters.new'),
-                    icon : 'fa fa-clock-o',
-                    func : function () {
-                        window.PasswordList.showNew();
-                    }
+                {
+                    name : 'new',
+                    title: QUILocale.get(lg, 'sequry.menu.filters.new'),
+                    icon : 'fa fa-clock-o'
                 }
-            },
-            types  : {
-                'website'  : {
-                    label: 'Neueste',
-                    icon : 'fa ',
-                    func : function () {
-
-                    }
-                },
-                'secretkey': {
-                    label: 'Neueste',
-                    icon : 'fa ',
-                    func : function () {
-
-                    }
-                },
-                'ftp'      : {
-                    label: 'Neueste',
-                    icon : 'fa ',
-                    func : function () {
-
-                    }
-                },
-                'apikey'   : {
-                    label: 'Neueste',
-                    icon : 'fa ',
-                    func : function () {
-
-                    }
-                },
-                'text'     : {
-                    label: 'Neueste',
-                    icon : 'fa ',
-                    func : function () {
-
-                    }
-                }
-            }
+            ]
         },
 
         initialize: function (options) {
@@ -113,10 +69,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TagsContainer = null;
 
             this.addEvents({
-                onInject: this.$onInject,
-                onDeselect: function () {
-                    console.log("initialize deselect")
-                }
+                onInject: this.$onInject
             });
         },
 
@@ -131,18 +84,71 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TagsContainer = this.$Elm.getElement('.sequry-tags .navigation');
 
             this.$buildFilters();
+            this.$buildTypes();
         },
 
         /**
          * Build filter buttons
+         * (favorites, owned, most used, etc.)
          */
         $buildFilters: function () {
             var self    = this,
                 Filters = this.getAttribute('filters');
 
-            Object.each(Filters, function (Entry) {
-                self.createEntry(Entry.label, Entry.icon, Entry.func)
+            Filters.each(function (Entry) {
+                var func = self.filterFilter;
+
+                // Button: reset all filters
+                if (Entry.name === 'all') {
+                    func = function() {
+                        window.PasswordList.showAll();
+                    };
+                }
+
+                var Button = self.createEntry(Entry, func);
+                Button.inject(self.FilterContainer)
             })
+        },
+
+        /**
+         * Build types buttons
+         * (website, api key, ftp, etc.)
+         */
+        $buildTypes: function () {
+            var Passwords = new PasswordHandler,
+                self      = this;
+
+            Passwords.getTypes().then(function (types) {
+                types.forEach(function (Entry) {
+
+                    //todo @michael wenn peat icons in password types implementiert,
+                    // wird das hier nicht mehr benötigt
+                    switch (Entry.name) {
+                        case 'Website':
+                            Entry.icon = 'fa fa-globe';
+                            break;
+                        case 'ApiKey':
+                            Entry.icon = 'fa fa-key';
+                            break;
+                        case 'Ftp':
+                            Entry.icon = 'fa fa-server';
+                            break;
+                        case 'SecretKey':
+                            Entry.icon = 'fa fa-laptop';
+                            break;
+                        case 'Text':
+                            Entry.icon = 'fa fa-file-text-o';
+                            break;
+                        default:
+                            Entry.icon = 'fa fa-file-text-o';
+                            break;
+                    }
+
+                    var Button = self.createEntry(Entry, self.filterTypes);
+                    Button.inject(self.TypesContainer);
+
+                });
+            });
         },
 
         /**
@@ -154,35 +160,39 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          *         <span class="navigation-entry-text">Favorite</span>
          *     </a>
          * </li>
-         *
-         * @param label {string} - 'fa fa-icon'
-         * @param icon {string} - 'Label'
-         * @param func {function}- function () {}
          */
-        createEntry: function (label, icon, func) {
-            var iconHTML  = '<span class="navigation-entry-icon ' + icon + '"></span>',
-                labelHTML = '<span class="navigation-entry-text">' + label + '</span>',
+        createEntry: function (Entry, func) {
+            var iconHTML  = '<span class="navigation-entry-icon ' + Entry.icon + '"></span>',
+                labelHTML = '<span class="navigation-entry-text">' + Entry.title + '</span>',
                 self      = this;
 
-            var listEntry = new Element('li', {
+            var ListElm = new Element('li', {
                 'class': 'navigation-entry'
             });
 
             var Button = new Element('a', {
-                'class' : 'menu-button',
-                html  : iconHTML + labelHTML,
-                events: {
+                'class': 'menu-button',
+                html   : iconHTML + labelHTML,
+                events : {
                     click: function (Elm) {
                         self.toggleBtnStatus(Elm, func);
                     }
                 }
-            }).inject(listEntry);
+            }).inject(ListElm);
 
             Button.setAttribute('data-multiple-select', 'false');
+            Button.setAttribute('data-name', Entry.name);
 
-            listEntry.inject(this.FilterContainer);
+            return ListElm;
         },
 
+        /**
+         * Toggle button status
+         * Set / remove CSS class and fire function
+         *
+         * @param Elm
+         * @param func
+         */
         toggleBtnStatus: function (Elm, func) {
             var Target = Elm.target;
 
@@ -198,20 +208,53 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             var Buttons = this.$Elm.getElements('.menu-button');
 
-            Array.each(Buttons, function(Elm) {
+            Array.each(Buttons, function (Elm) {
                 this.removeActiveStatus(Elm);
             }.bind(this));
 
             this.setActiveStatus(Target);
-            func();
+
+            func(Target);
         },
 
-        setActiveStatus: function(Btn) {
+        /**
+         * Filter the filters (favorites, owned, most used, etc.)
+         * by button name
+         *
+         * @param Target
+         */
+        filterFilter: function (Target) {
+            var type = Target.getAttribute('data-name');
+            window.PasswordList.toggleFilter(type);
+        },
+
+        /**
+         * Filter the password types (website, api key, ftp, etc.)
+         * by button name
+         *
+         * @param Target
+         */
+        filterTypes: function (Target) {
+            var type = Target.getAttribute('data-name');
+            window.PasswordList.toggleType(type);
+        },
+
+        /**
+         * Set css class and change data-status flag (on)
+         *
+         * @param Btn
+         */
+        setActiveStatus: function (Btn) {
             Btn.addClass('active');
             Btn.setAttribute('data-status', 'on');
         },
 
-        removeActiveStatus: function(Btn) {
+        /**
+         * Set remove class and change data-status flag (off)
+         *
+         * @param Btn
+         */
+        removeActiveStatus: function (Btn) {
             Btn.removeClass('active');
             Btn.setAttribute('data-status', 'off');
         }

@@ -89,6 +89,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$renderEntries();
         },
 
+        /**
+         * Refresh list
+         */
         $listRefresh: function () {
             this.Loader.show();
             this.listContainer.set('html', '');
@@ -260,34 +263,22 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * Show favorite passwords.
+         * Toggle filters
+         *
+         * @param type {string} - favorites, owned, most used, etc.
          */
-        showFavorite: function () {
-            this.$SearchParams.filters.filters = ['favorites'];
+        toggleFilter: function(type) {
+            this.$SearchParams.filters.filters = [type];
             this.$listRefresh();
         },
 
         /**
-         * Show owned passwords.
+         * Togle password types
+         *
+         * @param type {string} - website, api key, ftp, etc.
          */
-        showOwned: function () {
-            this.$SearchParams.filters.filters = ['owned'];
-            this.$listRefresh();
-        },
-
-        /**
-         * Show owned passwords.
-         */
-        showMostUsed: function () {
-            this.$SearchParams.filters.filters = ['mostUed'];
-            this.$listRefresh();
-        },
-
-        /**
-         * Show owned passwords.
-         */
-        showNew: function () {
-            this.$SearchParams.filters.filters = ['new'];
+        toggleType: function(type) {
+            this.$SearchParams.filters.types = [type];
             this.$listRefresh();
         }
     });
