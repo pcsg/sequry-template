@@ -14,6 +14,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'package/sequry/core/bin/controls/actors/Select',
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
+    'package/sequry/core/bin/Categories',
     'package/sequry/core/bin/controls/categories/public/Select',
     'package/sequry/core/bin/controls/categories/private/Select',
     'package/sequry/template/bin/js/controls/passwordTypes/Content',
@@ -32,6 +33,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     ActorSelect,
     SecurityClassSelectSlider,
     Actors,
+    Categories,
     CategorySelect,
     CategorySelectPrivate,
     PasswordTypes, // controls/passwordTypes/Content
@@ -53,7 +55,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             '$onSecurityClassChange',
             '$onOwnerChange',
             '$showSetOwnerInformation',
-            '$loadContent'
+            '$loadContent',
+            '$setPrivateCategories'
 
         ],
 
@@ -128,11 +131,26 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             );
 
             // category private
-            this.$CategorySelectPrivate = new CategorySelectPrivate().inject(
+            this.$CategorySelectPrivate = new CategorySelectPrivate({
+                events: {
+                    onChange: self.$setPrivateCategories
+                }
+            }).inject(
                 this.$Elm.getElement(
                     '.password-category-private'
                 )
             );
+            /*this.$CategorySelectPrivate = new CategorySelectPrivate().inject(
+                this.$Elm.getElement(
+                    '.password-category-private'
+                )
+            );*/
+
+            var catIdsPrivate = this.getAttribute('data').categoryIdsPrivate;
+
+            if (catIdsPrivate) {
+                this.$CategorySelectPrivate.setValue(catIdsPrivate);
+            }
 
             this.fireEvent('load', [self]);
         },
@@ -168,11 +186,45 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 return false;
             }
 
-            if (typeof data.type === 'undefined') {
+            if (typeof data.dataType === 'undefined') {
                 return false;
             }
 
-            return data.type;
+            return data.dataType;
+        },
+
+        /**
+         * Get all passwordtype fields
+         */
+        $getFields: function () {
+            return this.$Elm.getElements('.password-field-row-right-input');
+        },
+
+        /**
+         * Set content to current control
+         *
+         * @param {Object} Data
+         */
+        setData: function () {
+            var fields = this.$getFields(),
+                Data = this.getAttribute('data');
+
+            console.log(fields)
+
+            for (var i = 0, len = fields.length; i < len; i++) {
+                console.log(1)
+                var FieldElm  = fields[i];
+                var fieldName = FieldElm.getProperty('name');
+
+                if (fieldName in Data) {
+                    FieldElm.value = Data[fieldName];
+                    continue;
+                }
+
+                if (fieldName in Data['payload']) {
+                    FieldElm.value = Data['payload'][fieldName];
+                }
+            }
         },
 
         save: function () {
@@ -404,6 +456,26 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     QUILocale.get(lg, 'password.create.set.owner.info_group') :
                     QUILocale.get(lg, 'password.create.set.owner.info_all')
             }).inject(this.$OwnerSelectElm);
+        },
+
+        /**
+         * Set private password categories
+         *
+         * @return {Promise}
+         */
+        $setPrivateCategories: function (categoryIds) {
+            var self = this;
+
+            console.log(categoryIds)
+
+            return new Promise(function (resolve, reject) {
+                Categories.setPrivatePasswordCategories(
+                    self.getAttribute('id'),
+                    self.getAttribute('data').categoryIdsPrivate
+                ).then(function () {
+                    resolve();
+                }, reject);
+            });
         }
     });
 });

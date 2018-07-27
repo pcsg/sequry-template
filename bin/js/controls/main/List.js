@@ -142,7 +142,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }
 
             var Li = new Element('li', {
-                'class'    : 'main-list-entry',
+                'class'    : 'main-list-entry password-entry',
                 'data-pwid': Entry.id
             });
 
@@ -154,6 +154,25 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 'description': Entry.description,
                 'dataType'   : Entry.dataType
             }));
+
+
+            // action buttons
+            var actionContainer = Li.getElement('.list-action');
+
+            var BtnEdit = new Element('span', {
+                'class' : 'fa fa-pencil list-action-edit',
+                attributes: {
+                    'data-super': 'test'
+                },
+                events: {
+                    click: function(event) {
+                        self.edit(event);
+                    }
+                }
+            });
+
+            BtnEdit.inject(actionContainer);
+
 
             // open event
             Li.addEvent('click', function () {
@@ -177,6 +196,22 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }).open();
         },
 
+        edit: function(event) {
+            event.stop();
+            var Target = event.target,
+                pwId = Target.getParent('.password-entry').getAttribute('data-pwid');
+
+            new PasswordCreatePanel({
+                passwordId: pwId,
+                mode: 'edit',
+                events: {
+                    finish: function () {
+                        self.$listRefresh();
+                    }
+                }
+            }).open();
+        },
+
         /**
          * Open panel to create new password
          */
@@ -197,8 +232,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @param event
          */
         changeFavorite: function (event) {
-
             event.stop();
+
             this.Loader.show();
 
             var self = this,
@@ -273,7 +308,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * Togle password types
+         * Toggle password types
          *
          * @param type {string} - website, api key, ftp, etc.
          */

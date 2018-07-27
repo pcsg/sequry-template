@@ -12,6 +12,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     'Ajax',
     'Locale',
 
+    'package/sequry/core/bin/Actors',
+    'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/password/PasswordCreate',
     'package/sequry/core/bin/Passwords'
@@ -21,6 +23,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     QUIControl,
     QUIAjax,
     QUILocale,
+    Actors,
+    PasswordManager,
     Panel,
     PasswordCreate,
     Passwords
@@ -41,15 +45,17 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         ],
 
         options: {
-            title              : false,
-            actionButton       : QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton        : QUILocale.get(lg, 'sequry.panel.button.close')
+            title       : false,
+            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton : QUILocale.get(lg, 'sequry.panel.button.close'),
+            mode        : 'create',
+            passwordId  : false
         },
 
         initialize: function (options) {
             this.parent(options);
 
-            this.setAttribute('confirmClosePopup',  true);
+            this.setAttribute('confirmClosePopup', true);
 
             this.$Password = null;
             this.$PasswordData = null;
@@ -70,16 +76,55 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         $onOpen: function () {
             var self = this;
 
-            this.$Password = new PasswordCreate({
-                id    : this.getAttribute('id'),
-                events: {
-                    onLoad: function () {
-                        self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.title'));
-                        self.ButtonParser.parse(self.getElm());
-                        self.Loader.hide();
+            /**
+             * edit or create new password?
+             */
+            if (this.getAttribute('mode') === 'edit') {
+                // edit
+                console.log("edit mode")
+                var passwordId = this.getAttribute('passwordId');
+
+                Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
+
+                    if (!AccessInfo.canAccess) {
+                        Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
+                        self.fireEvent('loaded');
+                        return;
                     }
-                }
-            }).inject(this.getContent());
+
+                    PasswordManager.getData(passwordId).then(function (PasswordData) {
+                        console.log(PasswordData)
+
+                        self.$Password = new PasswordCreate({
+                            id    : passwordId,
+                            data  : PasswordData,
+                            events: {
+                                onLoad: function (PWCreate) {
+                                    self.setTitle(PWCreate.getTitle());
+                                    self.setSubtitle(PWCreate.getType());
+                                    PWCreate.setData();
+                                    self.ButtonParser.parse(self.getElm());
+                                    self.Loader.hide();
+                                }
+                            }
+                        }).inject(self.getContent());
+                    });
+                });
+
+            } else {
+                // create
+                console.log("create mode")
+                this.$Password = new PasswordCreate({
+                    id    : this.getAttribute('id'),
+                    events: {
+                        onLoad: function () {
+                            self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.title'));
+                            self.ButtonParser.parse(self.getElm());
+                            self.Loader.hide();
+                        }
+                    }
+                }).inject(this.getContent());
+            }
 
             // action button - save
             if (this.getAttribute('actionButton')) {
