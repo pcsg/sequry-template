@@ -135,7 +135,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 }, {
                     equation: 'ease-in-out',
                     callback: function () {
-                        // return scroll bar of the page
+                        // restore page scroll bar
                         self.setPageScroll();
 
                         self.Background.destroy();

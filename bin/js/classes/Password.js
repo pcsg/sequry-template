@@ -47,30 +47,12 @@ define('package/sequry/template/bin/js/classes/Password', [
         },
 
         /**
-         * Return all passwords data.
-         *
-         * @return {Promise}
-         */
-        getDataAll: function () {
-            return new Promise(function (resolve, reject) {
-                QUIAjax.get(
-                    'package_sequry_template_ajax_passwords_getList',
-                    resolve, {
-                        'package': 'sequry/template',
-                        onError  : reject
-                    }
-                );
-            });
-        },
-
-        /**
          * Return translations for password type
          *
          * @param locale
          * @returns string - password type name (title)
          */
         getTypeTranslations: function(locale) {
-            console.log(locale)
             var localeStr = 'passwordtypes.' + locale + '.label.title';
             return QUILocale.get('sequry/core', localeStr);
         }

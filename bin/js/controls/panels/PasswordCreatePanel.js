@@ -81,7 +81,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
              */
             if (this.getAttribute('mode') === 'edit') {
                 // edit
-                console.log("edit mode")
                 var passwordId = this.getAttribute('passwordId');
 
                 Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
@@ -93,7 +92,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                     }
 
                     PasswordManager.getData(passwordId).then(function (PasswordData) {
-                        console.log(PasswordData)
+                        if (!PasswordData) {
+                            self.close();
+                            return false;
+                        }
 
                         self.$Password = new PasswordCreate({
                             id    : passwordId,
@@ -109,12 +111,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                                 }
                             }
                         }).inject(self.getContent());
-                    });
+                    })
                 });
 
             } else {
                 // create
-                console.log("create mode")
                 this.$Password = new PasswordCreate({
                     id    : this.getAttribute('id'),
                     events: {
