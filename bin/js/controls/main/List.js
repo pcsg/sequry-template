@@ -161,19 +161,28 @@ define('package/sequry/template/bin/js/controls/main/List', [
             var actionContainer = Li.getElement('.list-action');
 
             var BtnEdit = new Element('span', {
-                'class' : 'fa fa-pencil list-action-edit',
+                'class'   : 'fa fa-pencil list-action-edit',
                 attributes: {
                     'data-super': 'test'
-                },
+                }/*,
                 events: {
                     click: function(event) {
                         self.edit(event);
                     }
-                }
+                }*/
             });
 
-            BtnEdit.inject(actionContainer);
 
+            if (Entry.isOwner) {
+                BtnEdit.addEvent('click', this.edit)
+            } else {
+                BtnEdit.addEvent('click', function (event) {
+                    event.stop();
+                });
+                BtnEdit.addClass('list-action-edit-inactive');
+            }
+
+            BtnEdit.inject(actionContainer);
 
             // open event
             Li.addEvent('click', function () {
@@ -197,16 +206,16 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }).open();
         },
 
-        edit: function(event) {
+        edit: function (event) {
             event.stop();
             var self = this;
             var Target = event.target,
-                pwId = Target.getParent('.password-entry').getAttribute('data-pwid');
+                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
 
             new PasswordCreatePanel({
                 passwordId: pwId,
-                mode: 'edit',
-                events: {
+                mode      : 'edit',
+                events    : {
                     finish: function () {
                         self.$listRefresh();
                     }
@@ -278,7 +287,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *      "types":[]
          *  }
          */
-        initSearchParams: function() {
+        initSearchParams: function () {
             this.$SearchParams = {
                 search           : {},
                 categoryId       : false,
@@ -304,7 +313,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *
          * @param type {string} - favorites, owned, most used, etc.
          */
-        toggleFilter: function(type) {
+        toggleFilter: function (type) {
             this.$SearchParams.filters.filters = [type];
             this.$listRefresh();
         },
@@ -314,7 +323,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *
          * @param type {string} - website, api key, ftp, etc.
          */
-        toggleType: function(type) {
+        toggleType: function (type) {
             this.$SearchParams.filters.types = [type];
             this.$listRefresh();
         }

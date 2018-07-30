@@ -121,6 +121,12 @@
     color: #222;
 }
 
+.main-list-entry .list-action .fa.list-action-edit-inactive:hover {
+    cursor: not-allowed;
+    color: #999;
+    transform: scale(1);
+}
+
 .button-add-password {
     position: fixed;
     right: 2rem;
