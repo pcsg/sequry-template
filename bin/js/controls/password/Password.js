@@ -75,7 +75,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
             this.$Elm = this.getElm();
 
-            PasswordHandler.getData(passwordId).then(function (ViewData) {
+            PasswordHandler.getDataView(passwordId).then(function (ViewData) {
                 if (!ViewData) {
                     return;
                 }

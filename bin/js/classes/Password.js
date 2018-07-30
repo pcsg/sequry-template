@@ -29,6 +29,18 @@ define('package/sequry/template/bin/js/classes/Password', [
          * @returns {Promise}
          */
         getData: function (passwordId) {
+            return AuthAjax.get('package_sequry_core_ajax_passwords_get', {
+                passwordId: passwordId
+            });
+        },
+
+        /**
+         * Get all data of single password object (authentication required!)
+         *
+         * @param {number} passwordId
+         * @returns {Promise}
+         */
+        getDataView: function (passwordId) {
             return AuthAjax.get('package_sequry_core_ajax_passwords_getViewData', {
                 passwordId: passwordId
             });
