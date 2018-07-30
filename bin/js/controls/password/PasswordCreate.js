@@ -149,11 +149,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     '.password-category-private'
                 )
             );
-            /*this.$CategorySelectPrivate = new CategorySelectPrivate().inject(
-                this.$Elm.getElement(
-                    '.password-category-private'
-                )
-            );*/
 
             var catIdsPrivate = this.getAttribute('data').categoryIdsPrivate;
 
@@ -214,13 +209,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          */
         setData: function () {
             var fields = this.$getFields(),
-                Data = this.getAttribute('data');
-
-            console.log(fields)
+                Data   = this.getAttribute('data');
 
             for (var i = 0, len = fields.length; i < len; i++) {
-                console.log(1)
-                var FieldElm  = fields[i];
+                var FieldElm = fields[i];
                 var fieldName = FieldElm.getProperty('name');
 
                 if (fieldName in Data) {
@@ -245,7 +237,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             var self = this;
 
             Promise.all([
-                Authentication.getDefaultSecurityClassId(),
+                this.$getSecurityClass(),
                 self.$getSettings()
             ]).then(function (result) {
                 var securityClassId = result[0];
@@ -263,9 +255,21 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                     securityClassId = self.$SecurityClassSelect.getValue();
                     self.$SecurityClassSelect.setValue(securityClassId);
                 }
-
-                self.fireEvent('loaded');
             });
+        },
+
+        /**
+         * Depend on mode (edit or create new password) return security class
+         * edit => depend on password id
+         * create => default security class
+         *
+         * @returns {*}
+         */
+        $getSecurityClass: function () {
+            if (this.getAttribute('mode') === 'edit') {
+                return this.getAttribute('data').securityClassId;
+            }
+            return Authentication.getDefaultSecurityClassId();
         },
 
         /**

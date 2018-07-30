@@ -98,6 +98,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                         self.$Password = new PasswordCreate({
                             id    : passwordId,
                             data  : PasswordData,
+                            mode  : 'edit',
                             events: {
                                 onLoad: function (PWCreate) {
                                     self.setTitle(PWCreate.getTitle());
@@ -178,41 +179,34 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             this.$PasswordData.owner = actors[0];
 
             return new Promise(function (resolve, reject) {
+                self.submitAction().then(function (passwordId) {
+                    if (!passwordId) {
+                        reject();
+                        return;
+                    }
 
-                if (self.getAttribute('mode') === 'edit') {
-                    // edit
-                    Passwords.editPassword(
-                        self.getAttribute('passwordId'),
-                        self.$PasswordData
-                    ).then(function (passwordId) {
-                        self.submitFinish(passwordId);
-                        resolve();
-                    });
-                } else {
-                    // create
-                    Passwords.createPassword(
-                        self.$PasswordData
-                    ).then(function (passwordId) {
-                        self.submitFinish(passwordId);
-                        resolve();
-                    });
-                }
+                    self.$PasswordData = null;
+                    self.fireEvent('finish');
+                })
             });
         },
 
         /**
-         * Reset password data and fire finish event
+         * Depend on mode (edit or create new password) execute the right function
          *
-         * @param passwordId
+         * @return {Promise}
          */
-        submitFinish: function (passwordId) {
-            if (!passwordId) {
-                reject();
-                return;
+        submitAction: function () {
+            if (this.getAttribute('mode') === 'edit') {
+                return Passwords.editPassword(
+                    this.getAttribute('passwordId'),
+                    this.$PasswordData
+                )
             }
 
-            this.$PasswordData = null;
-            this.fireEvent('finish');
+            return Passwords.createPassword(
+                this.$PasswordData
+            )
         },
 
         /**
