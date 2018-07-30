@@ -34,7 +34,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     SecurityClassSelectSlider,
     Actors,
     Categories,
-    CategorySelect,
+    CategorySelect, // package/sequry/core/bin/controls/categories/public/Select
     CategorySelectPrivate,
     PasswordTypes, // controls/passwordTypes/Content
     template
@@ -123,12 +123,21 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 'div.password-payload'
             ));
 
-            // category
+            /**
+             * category handling
+             */
+            // category public
             this.$CategorySelect = new CategorySelect().inject(
                 this.$Elm.getElement(
                     '.password-category'
                 )
             );
+
+            var catIdsPublic = this.getAttribute('data').categoryIds;
+
+            if (catIdsPublic) {
+                this.$CategorySelect.setValue(catIdsPublic);
+            }
 
             // category private
             this.$CategorySelectPrivate = new CategorySelectPrivate({
@@ -202,8 +211,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
         /**
          * Set content to current control
-         *
-         * @param {Object} Data
          */
         setData: function () {
             var fields = this.$getFields(),

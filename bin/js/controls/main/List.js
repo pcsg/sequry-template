@@ -43,6 +43,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         Binds: [
             '$onInject',
             'open',
+            'edit',
             'addPassword',
             'changeFavorite',
             'showAll',
@@ -198,6 +199,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
         edit: function(event) {
             event.stop();
+            var self = this;
             var Target = event.target,
                 pwId = Target.getParent('.password-entry').getAttribute('data-pwid');
 

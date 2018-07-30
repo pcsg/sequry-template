@@ -178,21 +178,41 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             this.$PasswordData.owner = actors[0];
 
             return new Promise(function (resolve, reject) {
-                Passwords.createPassword(
-                    self.$PasswordData
-                ).then(
-                    function (newPasswordId) {
-                        if (!newPasswordId) {
-                            reject();
-                            return;
-                        }
 
-                        self.$PasswordData = null;
-                        self.fireEvent('finish');
+                if (self.getAttribute('mode') === 'edit') {
+                    // edit
+                    Passwords.editPassword(
+                        self.getAttribute('passwordId'),
+                        self.$PasswordData
+                    ).then(function (passwordId) {
+                        self.submitFinish(passwordId);
                         resolve();
-                    }
-                );
+                    });
+                } else {
+                    // create
+                    Passwords.createPassword(
+                        self.$PasswordData
+                    ).then(function (passwordId) {
+                        self.submitFinish(passwordId);
+                        resolve();
+                    });
+                }
             });
+        },
+
+        /**
+         * Reset password data and fire finish event
+         *
+         * @param passwordId
+         */
+        submitFinish: function (passwordId) {
+            if (!passwordId) {
+                reject();
+                return;
+            }
+
+            this.$PasswordData = null;
+            this.fireEvent('finish');
         },
 
         /**
