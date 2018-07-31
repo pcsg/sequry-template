@@ -118,7 +118,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
             // password types control / encrypted password data
             this.$PasswordTypes = new PasswordTypes({
-                mode: 'edit'
+                mode: 'edit',
+                data: this.getAttribute('data')
             }).inject(this.$Elm.getElement(
                 'div.password-payload'
             ));

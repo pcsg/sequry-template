@@ -74,13 +74,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.TypeSelectElm = this.PayloadContainer.getElement('.password-type-select');
             this.$EditContent = this.PayloadContainer.getElement('.password-type-content');
 
-            this.$TypeSelect = new TypeSelect({
-                initialValue: this.getAttribute('type'),
+            new TypeSelect({
+                initialValue: this.getAttribute('data').dataType,
                 events      : {
                     onChange: this.$loadContent
                 }
             }).inject(this.TypeSelectElm);
-
         },
 
         /**
@@ -96,10 +95,13 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
 
             this.Loader.show();
 
-            this.$CurrentData = Object.merge(this.$CurrentData, this.getData());
+//            this.$CurrentData = Object.merge(this.$CurrentData, this.getData());
+            this.$CurrentData = Object.merge(this.$CurrentData, this.getAttribute('data').payload);
+
 
             this.$PasswordTypeControl = new PasswordTypeControl({
                 type  : type,
+                mode: 'edit',
                 events: {
                     onLoaded: function () {
                         if (!self.$loaded) {
