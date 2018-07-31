@@ -50,6 +50,10 @@
     border-radius: 0;
 }
 
+.sidebar-panel-header button.inactive {
+    cursor: not-allowed;
+}
+
 .sidebar-panel-header button:hover {
     background: rgba(0,0,0,0.1);
 }

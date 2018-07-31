@@ -103,8 +103,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                             mode  : 'edit',
                             events: {
                                 onLoad: function (PWCreate) {
-                                    self.setTitle(PWCreate.getTitle());
-                                    self.setSubtitle(PWCreate.getType());
+                                    self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.edit.title'));
                                     PWCreate.setData();
                                     self.ButtonParser.parse(self.getElm());
                                     self.Loader.hide();

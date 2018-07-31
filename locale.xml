@@ -142,6 +142,10 @@
             <de><![CDATA[Passwort hinzufügen]]></de>
             <en><![CDATA[Add password]]></en>
         </locale>
+        <locale name="sequry.panel.createPassword.edit.title">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
 
     </groups>
 

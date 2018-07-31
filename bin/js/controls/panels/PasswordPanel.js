@@ -69,8 +69,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * Integrate password
          */
         $onOpen: function () {
-            var self = this;
-            var passwordId = this.getAttribute('id');
+            var self = this,
+                passwordId = this.getAttribute('id');
 
             Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
 
@@ -114,7 +114,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 if (self.getAttribute('iconHeaderButton')) {
                     self.createHeaderButton(
                         self.getAttribute('iconHeaderButton'),
-                        self.getAttribute('iconHeaderButtonFaClass')
+                        self.getAttribute('iconHeaderButtonFaClass'),
+                        self.getAttribute('isOwner')
                     )
                 }
             });

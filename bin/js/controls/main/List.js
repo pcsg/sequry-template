@@ -202,7 +202,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         open: function (Entry) {
             new PasswordPanel({
-                id: Entry.id
+                id: Entry.id,
+                isOwner: Entry.isOwner
             }).open();
         },
 

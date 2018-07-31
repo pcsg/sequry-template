@@ -356,17 +356,26 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          *
          * @param {string} [label] - label for header button.
          * @param {string} [icon] - icon for header button. FontAwesome recommended.
+         * @param {bool} [isOwner] - only owner is allowed to edit the password.
          */
-        createHeaderButton: function (label, icon) {
-            var self = this;
+        createHeaderButton: function (label, icon, isOwner) {
+            var status = 'on',
+                func   = this.submitSecondary;
 
-            new Element('button', {
-                'class': icon,
-                'title': label,
-                events : {
-                    click: self.submitSecondary
-                }
-            }).inject(this.$Elm.getElement('.sidebar-panel-header'))
+            if (!isOwner) {
+                icon += ' inactive';
+                status = 'off';
+                func = null;
+            }
+
+            var Button = new Element('button', {
+                'class'          : icon,
+                'title'          : label,
+                'data-qui-status': status
+            });
+
+            Button.addEvent('click', func);
+            Button.inject(this.$Elm.getElement('.sidebar-panel-header'));
         }
     });
 });
