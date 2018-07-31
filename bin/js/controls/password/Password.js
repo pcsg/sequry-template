@@ -208,20 +208,6 @@ define('package/sequry/template/bin/js/controls/password/Password', [
         share: function () {
             console.log("password/Password.js --> Jetzt wird geshared!");
 //            PasswordHandler.save(this.getAttribute('id'), passwordData);
-        },
-
-        edit: function () {
-            console.log("password/Password.js --> Password bearbeiten");
-            var self = this;
-
-            require(
-                ['package/sequry/template/bin/js/controls/panels/PasswordPanel'],
-                function (PP) {
-                    new PP({
-                        id: self.getAttribute('data').id
-                    }).open();
-                }
-            )
         }
 
     });

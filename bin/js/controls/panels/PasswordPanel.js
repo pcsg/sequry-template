@@ -13,7 +13,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
     'package/sequry/core/bin/Actors',
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/password/Password'
+    'package/sequry/template/bin/js/controls/password/Password',
+    'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel'
 ], function (
     QUI,
     QUIControl,
@@ -21,7 +22,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     QUILocale,
     Actors,
     Panel,
-    Password
+    Password,
+    PasswordCreatePanel
 ) {
     "use strict";
 
@@ -136,14 +138,19 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
         },
 
         $onSubmitSecondary: function () {
-            console.log("Password wird bearbeitet!");
-            this.cancel();
-            this.$Password.edit();
-        },
+            // Don't destroy the current background control...
+            this.setAttribute('doNotDestroyBackground', true);
 
-        test: function () {
-            alert("das ist nur ein test")
+            new PasswordCreatePanel({
+                passwordId: this.getAttribute('id'),
+                mode      : 'edit',
+                Background: this.Background, // ... but pass it as attribute to the new panel control
+                events    : {
+                    open: function () {
+                        this.close();
+                    }.bind(this)
+                }
+            }).open();
         }
-
     });
 });

@@ -56,24 +56,32 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
-            confirmClosePopup      : false // {bool} [optional] if true, it prevent accidentally closing the panel
+            confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
+            doNotDestroyBackground : false // {bool} [optional] if true background will be not destroyed. May be helpful if you want to edit password form existing panel
         },
 
         initialize: function (options) {
             this.parent(options);
 
+            if (this.getAttribute('Background')) {
+                this.Background = this.getAttribute('Background');
+            } else {
+                this.Background = new QUIBackground();
+            }
+
             this.panelMenu = null;
             this.Loader = new QUILoader();
-            this.Background = new QUIBackground();
             this.ButtonParser = new ButtonParser();
 
             this.create();
         },
 
         create: function () {
+            var self = this;
 
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
+                // todo @michael JS error wenn passwordShow-->passwordEdit-->close über click auf background
                 this.Background.getElm().addEvent('click', this.cancel);
             }
 
@@ -119,6 +127,21 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
+         * Cancel action and fire cancel event.
+         */
+        cancel: function () {
+            this.fireEvent('cancel', [this]);
+
+            // display close confirm popup?
+            if (this.getAttribute('confirmClosePopup')) {
+                this.confirmClose();
+                return;
+            }
+
+            this.close();
+        },
+
+        /**
          * Close panel.
          * When animation is finished return javascript promise.
          *
@@ -130,15 +153,20 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             self.fireEvent('closeBegin', [self]);
 
             return new Promise(function (resolve) {
+
                 moofx(self.$Elm).animate({
                     right: '-100%'
                 }, {
                     equation: 'ease-in-out',
                     callback: function () {
-                        // restore page scroll bar
-                        self.setPageScroll();
 
-                        self.Background.destroy();
+                        if (!self.getAttribute('doNotDestroyBackground')) {
+                            // restore page scroll bar
+                            self.setPageScroll();
+
+                            self.Background.destroy();
+                        }
+
                         self.$Elm.destroy();
                         self.$Elm = null;
 
@@ -147,7 +175,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                         resolve(self);
                     }
                 });
-            });
+            }.bind(this));
         },
 
         /**
@@ -264,21 +292,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         /**
-         * Cancel action and fire cancel event.
-         */
-        cancel: function () {
-            this.fireEvent('cancel', [this]);
-
-            // display close confirm popup?
-            if (this.getAttribute('confirmClosePopup')) {
-                this.confirmClose();
-                return;
-            }
-
-            this.close();
-        },
-
-        /**
          * Submit form and fire submit event.
          * Primary submit button.
          */
@@ -295,7 +308,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Secondary submit button (header icon).
          */
         submitSecondary: function () {
-            console.log("panels/Panel --> fireEvent SUBMIT SECONDARY");
             this.fireEvent('submitSecondary', [this]);
         },
 
