@@ -5,15 +5,24 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/windows/Confirm',
+    'qui/controls/utils/Background',
     'Locale',
     'Mustache',
 
     'package/sequry/core/bin/classes/Passwords',
+    'package/sequry/core/bin/controls/categories/public/Select',
+    'package/sequry/core/bin/controls/categories/private/Select',
 
     'text!package/sequry/template/bin/js/controls/components/Menu.html',
     'css!package/sequry/template/bin/js/controls/components/Menu.css'
 
-], function (QUI, QUIControl, QUILocale, Mustache, PasswordHandler, Template) {
+], function (QUI, QUIControl, QUIConfirm, QUIBackground, QUILocale, Mustache,
+    PasswordHandler,
+    CategorySelect,
+    CategorySelectPrivate,
+    Template
+) {
     "use strict";
 
     var lg = 'sequry/template';
@@ -27,7 +36,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             '$onInject',
             '$buildFilters',
             'createEntry',
-            'toggleBtnStatus'
+            'toggleBtnStatus',
+            '$openCategoryDialog'
         ],
 
         options: {
@@ -79,12 +89,29 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         $onInject: function () {
             this.$Elm.set('html', Mustache.render(Template, {}));
 
+            var self = this,
+                Tags = this.$Elm.getElement('.sequry-tags');
+
             this.FilterContainer = this.$Elm.getElement('.sequry-filter .navigation');
             this.TypesContainer = this.$Elm.getElement('.sequry-passwordType .navigation');
-            this.TagsContainer = this.$Elm.getElement('.sequry-tags .navigation');
+            this.TagsContainer = Tags.getElement('.navigation');
+
+            // Tags / category menu button
+
+
+            var TagBtn = new Element('span', {
+                'class': 'fa fa-plus header-button-icon',
+                events : {
+                    click: self.$openCategoryDialog
+                }
+            });
+
+            TagBtn.inject(Tags.getElement('.header-button'));
 
             this.$buildFilters();
             this.$buildTypes();
+
+
         },
 
         /**
@@ -100,7 +127,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                 // Button: reset all filters
                 if (Entry.name === 'all') {
-                    func = function() {
+                    func = function () {
                         window.PasswordList.showAll();
                     };
                 }
@@ -149,6 +176,136 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                 });
             });
+        },
+
+        $openCategoryDialog: function () {
+            var publicCatIds = [], privateCatIds = [];
+            var self = this;
+            var refreshList = false;
+
+            var FuncSetPublicCategories = function (AuthData) {
+                Popup.Loader.show();
+
+                Categories.setPublicPasswordsCategories(
+                    pwIds,
+                    publicCatIds,
+                    AuthData
+                ).then(function () {
+                    Popup.Loader.hide();
+                    Popup.close();
+                });
+            };
+
+            var FuncSetPrivateCategories = function () {
+                Popup.Loader.show();
+
+                Categories.setPrivatePasswordsCategories(pwIds, privateCatIds).then(function () {
+                    Popup.Loader.hide();
+                    Popup.close();
+                });
+            };
+
+            var FuncSubmit = function () {
+                if (!privateCatIds.length && !publicCatIds.length) {
+                    Popup.close();
+                    return;
+                }
+
+                if (privateCatIds) {
+                    // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
+                    window.PasswordList.addCategorytoParam(privateCatIds[0]);
+
+                    console.log(privateCatIds)
+                    privateCatIds.each(function (catId) {
+console.log(catId)
+                        var Entry = {
+                            icon : 'fa fa-tag',
+                            title: catId
+                        };
+
+                        var func = function() {
+                            console.log("wow !")
+                        }
+
+                        var Tag = self.createEntry(Entry, func);
+                        Tag.inject(self.TagsContainer);
+                    });
+
+                    refreshList = true;
+                }
+
+                if (publicCatIds) {
+                    // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
+                    window.PasswordList.addCategorytoParam(publicCatIds[0]);
+                    refreshList = true;
+                }
+            };
+
+            // open popup
+            var Popup = new QUIConfirm({
+                'class'    : 'pcsg-gpm-passwords-panel-categories',
+                'maxHeight': 300,
+                maxWidth   : 600,
+                'autoclose': true,
+
+                'title'   : QUILocale.get(lg, 'controls.gpm.passwords.panel.categories.title'),
+                'texticon': 'fa fa-book',
+                'icon'    : 'fa fa-book',
+
+                events: {
+                    onOpen  : function () {
+                        var Content = Popup.getContent();
+
+                        Content.set(
+                            'html',
+                            '<div class="pcsg-gpm-passwords-panel-categories-info">' +
+                            QUILocale.get(lg, 'controls.gpm.passwords.panel.categories.info') +
+                            '</div>' +
+                            '<div class="pcsg-gpm-passwords-panel-categories-public">' +
+                            '<span><b>' + QUILocale.get(lg, 'controls.categories.panel.public.title') + '</b></span>' +
+                            '</div>' +
+                            '<div class="pcsg-gpm-passwords-panel-categories-private">' +
+                            '<span><b>' + QUILocale.get(lg, 'controls.categories.panel.private.title') + '</b></span>' +
+                            '</div>'
+                        );
+
+                        new CategorySelect({
+                            events: {
+                                onChange: function (catIds) {
+                                    publicCatIds = catIds;
+                                }
+                            }
+                        }).inject(
+                            Content.getElement(
+                                '.pcsg-gpm-passwords-panel-categories-public'
+                            )
+                        );
+
+                        new CategorySelectPrivate({
+                            events: {
+                                onChange: function (catIds) {
+                                    privateCatIds = catIds;
+                                }
+                            }
+                        }).inject(
+                            Content.getElement(
+                                '.pcsg-gpm-passwords-panel-categories-private'
+                            )
+                        );
+
+                    },
+                    onSubmit: FuncSubmit,
+                    onClose : function () {
+                        console.log("on close popup!")
+                        if (refreshList) {
+                            window.PasswordList.$listRefresh();
+                        }
+                    }
+                }
+            });
+
+            Popup.open();
+
         },
 
         /**

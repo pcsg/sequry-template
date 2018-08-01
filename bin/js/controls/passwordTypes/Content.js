@@ -96,12 +96,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.Loader.show();
 
 //            this.$CurrentData = Object.merge(this.$CurrentData, this.getData());
-            this.$CurrentData = Object.merge(this.$CurrentData, this.getAttribute('data').payload);
-
+            this.$CurrentData = Object.merge(
+                this.$CurrentData, this.getAttribute('data').payload
+            );
 
             this.$PasswordTypeControl = new PasswordTypeControl({
                 type  : type,
-                mode: 'edit',
                 events: {
                     onLoaded: function () {
                         if (!self.$loaded) {
@@ -131,6 +131,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             this.$passwordType = type;
         },
 
+        /**
+         * Show an element
+         *
+         * @param Element
+         * @returns {Promise}
+         */
         show: function (Element) {
             return new Promise(function(resolve) {
                moofx(Element).animate({
@@ -142,6 +148,11 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             });
         },
 
+        /**
+         * Hide an element
+         *
+         * @param Element
+         */
         hide: function (Element) {
             Element.setStyles({
                 opacity: 0,
@@ -149,6 +160,12 @@ define('package/sequry/template/bin/js/controls/passwordTypes/Content', [
             });
         },
 
+        /**
+         * Set and animate content height
+         *
+         * @param Element
+         * @returns {Promise}
+         */
         setEditContentHeight: function(Element) {
             var self = this;
             return new Promise(function(resolve) {

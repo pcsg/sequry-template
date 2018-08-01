@@ -202,7 +202,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         open: function (Entry) {
             new PasswordPanel({
-                id: Entry.id,
+                id     : Entry.id,
                 isOwner: Entry.isOwner
             }).open();
         },
@@ -327,6 +327,32 @@ define('package/sequry/template/bin/js/controls/main/List', [
         toggleType: function (type) {
             this.$SearchParams.filters.types = [type];
             this.$listRefresh();
+        },
+
+        addCategorytoParam: function (catId) {
+            this.$SearchParams.categoryID = catId;
+        },
+
+        addCategoryPrivatetoParam: function (catId) {
+            this.$SearchParams.categoryIdPrivate = catId;
+        },
+
+        /**
+         * Remove category from param list.
+         * todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
+         * @param catId {int}
+         */
+        removeCategoryFromParam: function(catId) {
+            if (this.$SearchParams.categoryID == catId) {
+                this.$SearchParams.categoryID = '';
+                return;
+            }
+
+            if (this.$SearchParams.categoryIdPrivate == catId) {
+                this.$SearchParams.categoryIdPrivate = '';
+                return;
+            }
         }
+
     });
 });

@@ -9,7 +9,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     'qui/QUI',
     'qui/controls/Control',
     'qui/controls/loader/Loader',
-    'qui/controls/utils/Background',
     'Mustache',
     'Locale',
 
@@ -21,7 +20,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     QUI,
     QUIControl,
     QUILoader,
-    QUIBackground,
     Mustache,
     QUILocale,
     ButtonParser,
