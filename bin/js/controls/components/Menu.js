@@ -11,6 +11,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
     'Mustache',
 
     'package/sequry/core/bin/classes/Passwords',
+    'package/sequry/template/bin/js/controls/panels/CategoryPanel',
     'package/sequry/core/bin/controls/categories/public/Select',
     'package/sequry/core/bin/controls/categories/private/Select',
 
@@ -19,6 +20,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
 ], function (QUI, QUIControl, QUIConfirm, QUIBackground, QUILocale, Mustache,
     PasswordHandler,
+    CategoryPanel,
     CategorySelect,
     CategorySelectPrivate,
     Template
@@ -101,12 +103,23 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             var TagBtn = new Element('span', {
                 'class': 'fa fa-plus header-button-icon',
+                styles: {
+                    marginLeft: 'auto'
+                },
                 events : {
                     click: self.$openCategoryDialog
                 }
             });
 
+            var TagBtnNew = new Element('span', {
+                'class': 'fa fa-cog header-button-icon',
+                events : {
+                    click: self.$openCategoryDialogNew
+                }
+            });
+
             TagBtn.inject(Tags.getElement('.header-button'));
+            TagBtnNew.inject(Tags.getElement('.header-button'));
 
             this.$buildFilters();
             this.$buildTypes();
@@ -238,6 +251,22 @@ console.log(catId)
                 if (publicCatIds) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
                     window.PasswordList.addCategorytoParam(publicCatIds[0]);
+
+                    publicCatIds.each(function (catId) {
+                        console.log(catId)
+                        var Entry = {
+                            icon : 'fa fa-tag',
+                            title: catId
+                        };
+
+                        var func = function() {
+                            console.log("wow !")
+                        }
+
+                        var Tag = self.createEntry(Entry, func);
+                        Tag.inject(self.TagsContainer);
+                    });
+
                     refreshList = true;
                 }
             };
@@ -306,6 +335,23 @@ console.log(catId)
             });
 
             Popup.open();
+
+        },
+
+        $openCategoryDialogNew: function () {
+            var publicCatIds = [], privateCatIds = [];
+            var self = this;
+            var refreshList = false;
+
+            var CatPanel = new CategoryPanel({
+                direction: 'left',
+                width: 300
+            });
+
+            CatPanel.open();
+
+
+
 
         },
 

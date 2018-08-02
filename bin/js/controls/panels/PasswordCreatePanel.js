@@ -13,7 +13,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     'Locale',
 
     'package/sequry/core/bin/Actors',
-    'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/password/PasswordCreate',
     'package/sequry/core/bin/Passwords'
@@ -24,7 +23,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     QUIAjax,
     QUILocale,
     Actors,
-    PasswordManager,
     Panel,
     PasswordCreate,
     Passwords

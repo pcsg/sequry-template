@@ -169,6 +169,14 @@
             <de><![CDATA[Speichern]]></de>
             <en><![CDATA[Save]]></en>
         </locale>
+        <locale name="sequry.panel.button.ok">
+            <de><![CDATA[Ok]]></de>
+            <en><![CDATA[Ok]]></en>
+        </locale>
+        <locale name="sequry.panel.button.cancel">
+            <de><![CDATA[Abbrechen]]></de>
+            <en><![CDATA[Cancel]]></en>
+        </locale>
 
         <!-- custom confirm popup: default text -->
         <locale name="sequry.customPopup.confirm.title">
