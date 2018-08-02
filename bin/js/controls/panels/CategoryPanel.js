@@ -83,9 +83,13 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
                 this.CatPublic = new CategoryMap({
                     editMode: false,
+                    // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            console.log(catId)
+                            this.getCategory(catId).then(function(Category) {
+                                console.log(Category)
+                                self.fireEvent('selectPublic', Category)
+                            })
                         }
                     }
                 });
@@ -104,9 +108,10 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
                 this.CatPrivate = new CategoryMapPrivate({
                     editMode: false,
+                    // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            console.log(catId)
+                            self.fireEvent('selectPrivate', catId)
                         }
                     }
                 });
@@ -141,10 +146,17 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
         /**
          * event: on submit form
+         *
+         * Returns category ids
+         *
+         * CatIds: {
+         *     public: ["1", "8", "15"],
+         *     private: ["3", "13",]
+         * }
          */
         $onSubmit: function () {
             var CatIds = {
-                public: this.CatPublic.getSelectedCategoryIds(),
+                public : this.CatPublic.getSelectedCategoryIds(),
                 private: this.CatPrivate.getSelectedCategoryIds()
             };
 

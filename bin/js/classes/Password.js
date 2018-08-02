@@ -56,6 +56,5 @@ define('package/sequry/template/bin/js/classes/Password', [
             var localeStr = 'passwordtypes.' + locale + '.label.title';
             return QUILocale.get('sequry/core', localeStr);
         }
-
     });
 });

@@ -95,6 +95,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         $listRefresh: function () {
             this.Loader.show();
+            console.log(this.$SearchParams)
             this.listContainer.set('html', '');
             this.$renderEntries();
         },
@@ -329,12 +330,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$listRefresh();
         },
 
-        addCategorytoParam: function (catId) {
-            this.$SearchParams.categoryID = catId;
+        addCategoryToParam: function (catId) {
+            console.log(catId)
+            this.$SearchParams.categoryId = catId.toString();
+            console.log(this.$SearchParams.categoryId)
         },
 
-        addCategoryPrivatetoParam: function (catId) {
-            this.$SearchParams.categoryIdPrivate = catId;
+        addCategoryPrivateToParam: function (catId) {
+            this.$SearchParams.categoryIdPrivate = catId.toString();
         },
 
         /**
@@ -343,8 +346,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @param catId {int}
          */
         removeCategoryFromParam: function(catId) {
-            if (this.$SearchParams.categoryID == catId) {
-                this.$SearchParams.categoryID = '';
+            if (this.$SearchParams.categoryId == catId) {
+                this.$SearchParams.categoryId = '';
                 return;
             }
 

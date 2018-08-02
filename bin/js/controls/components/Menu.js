@@ -12,6 +12,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
     'package/sequry/core/bin/classes/Passwords',
     'package/sequry/template/bin/js/controls/panels/CategoryPanel',
+    'package/sequry/core/bin/Categories',
     'package/sequry/core/bin/controls/categories/public/Select',
     'package/sequry/core/bin/controls/categories/private/Select',
 
@@ -21,6 +22,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 ], function (QUI, QUIControl, QUIConfirm, QUIBackground, QUILocale, Mustache,
     PasswordHandler,
     CategoryPanel,
+    Categories,
     CategorySelect,
     CategorySelectPrivate,
     Template
@@ -79,6 +81,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.FilterContainer = null;
             this.TypesContainer = null;
             this.TagsContainer = null;
+            this.Categories = null;
 
             this.addEvents({
                 onInject: this.$onInject
@@ -98,12 +101,17 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TypesContainer = this.$Elm.getElement('.sequry-passwordType .navigation');
             this.TagsContainer = Tags.getElement('.navigation');
 
+            this.Categories = {
+                'public' : [],
+                'private': []
+            };
+
             // Tags / category menu button
 
 
             var TagBtn = new Element('span', {
                 'class': 'fa fa-plus header-button-icon',
-                styles: {
+                styles : {
                     marginLeft: 'auto'
                 },
                 events : {
@@ -111,15 +119,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 }
             });
 
-            var TagBtnNew = new Element('span', {
-                'class': 'fa fa-cog header-button-icon',
-                events : {
-                    click: self.$openCategoryDialogNew
-                }
-            });
-
             TagBtn.inject(Tags.getElement('.header-button'));
-            TagBtnNew.inject(Tags.getElement('.header-button'));
 
             this.$buildFilters();
             this.$buildTypes();
@@ -192,57 +192,35 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         $openCategoryDialog: function () {
-            var publicCatIds = [], privateCatIds = [];
-            var self = this;
-            var refreshList = false;
-            var lgCore = 'sequry/core';
+            var self        = this,
+                refreshList = false;
 
-            var FuncSetPublicCategories = function (AuthData) {
-                Popup.Loader.show();
+            var funcFinish = function (publicCatIds, privateCatIds) {
 
-                Categories.setPublicPasswordsCategories(
-                    pwIds,
-                    publicCatIds,
-                    AuthData
-                ).then(function () {
-                    Popup.Loader.hide();
-                    Popup.close();
-                });
-            };
-
-            var FuncSetPrivateCategories = function () {
-                Popup.Loader.show();
-
-                Categories.setPrivatePasswordsCategories(pwIds, privateCatIds).then(function () {
-                    Popup.Loader.hide();
-                    Popup.close();
-                });
-            };
-
-            var FuncSubmit = function () {
                 if (!privateCatIds.length && !publicCatIds.length) {
-                    Popup.close();
                     return;
                 }
 
                 if (privateCatIds) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
-                    window.PasswordList.addCategorytoParam(privateCatIds[0]);
+//                    window.PasswordList.addCategoryPrivateToParam(privateCatIds[0]);
 
-                    console.log(privateCatIds)
-                    privateCatIds.each(function (catId) {
-console.log(catId)
-                        var Entry = {
-                            icon : 'fa fa-tag',
-                            title: catId
-                        };
+                    Categories.getPrivate(privateCatIds).then(function (CategoriesData) {
+                        CategoriesData.each(function (Category) {
+                            var Entry = {
+                                icon              : 'fa fa-tag',
+                                title             : Category.title,
+                                'data-category-id': Category.id
+                            };
 
-                        var func = function() {
-                            console.log("wow !")
-                        }
+                            var func = function (event) {
+                                console.log(this)
+                                console.log("wow !")
+                            }
 
-                        var Tag = self.createEntry(Entry, func);
-                        Tag.inject(self.TagsContainer);
+                            var Tag = self.createEntry(Entry, func);
+                            Tag.inject(self.TagsContainer);
+                        });
                     });
 
                     refreshList = true;
@@ -250,119 +228,67 @@ console.log(catId)
 
                 if (publicCatIds) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
-                    window.PasswordList.addCategorytoParam(publicCatIds[0]);
+//                    window.PasswordList.addCategoryToParam(publicCatIds[0]);
 
-                    publicCatIds.each(function (catId) {
-                        console.log(catId)
-                        var Entry = {
-                            icon : 'fa fa-tag',
-                            title: catId
-                        };
+                    Categories.getPublic(publicCatIds).then(function (CategoriesData) {
+                        CategoriesData.each(function (Category) {
+                            var Entry = {
+                                icon              : 'fa fa-tag',
+                                title             : Category.title,
+                                'data-category-id': Category.id
+                            };
 
-                        var func = function() {
-                            console.log("wow !")
-                        }
+                            var func = function (event) {
+                                console.log(this)
+                                console.log("wow !")
+                            }
 
-                        var Tag = self.createEntry(Entry, func);
-                        Tag.inject(self.TagsContainer);
+                            var Tag = self.createEntry(Entry, func);
+                            Tag.inject(self.TagsContainer);
+                        });
                     });
 
                     refreshList = true;
                 }
             };
 
-            // open popup
-            var Popup = new QUIConfirm({
-                'class'    : 'pcsg-gpm-passwords-panel-categories sequry-customPopup',
-                'maxHeight': 300,
-                maxWidth   : 600,
-                'autoclose': true,
-
-                'title'   : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.categories.title'),
-                'texticon': 'fa fa-book',
-                'icon'    : 'fa fa-book',
-
-                events: {
-                    onOpen  : function () {
-                        var Content = Popup.getContent();
-
-                        Content.set(
-                            'html',
-                            '<div class="pcsg-gpm-passwords-panel-categories-info">' +
-                            QUILocale.get(lgCore, 'controls.gpm.passwords.panel.categories.info') +
-                            '</div>' +
-                            '<div class="pcsg-gpm-passwords-panel-categories-public">' +
-                            '<span><b>' + QUILocale.get(lgCore, 'controls.categories.panel.public.title') + '</b></span>' +
-                            '</div>' +
-                            '<div class="pcsg-gpm-passwords-panel-categories-private">' +
-                            '<span><b>' + QUILocale.get(lgCore, 'controls.categories.panel.private.title') + '</b></span>' +
-                            '</div>'
-                        );
-
-                        new CategorySelect({
-                            events: {
-                                onChange: function (catIds) {
-                                    publicCatIds = catIds;
-                                }
-                            }
-                        }).inject(
-                            Content.getElement(
-                                '.pcsg-gpm-passwords-panel-categories-public'
-                            )
-                        );
-
-                        new CategorySelectPrivate({
-                            events: {
-                                onChange: function (catIds) {
-                                    privateCatIds = catIds;
-                                }
-                            }
-                        }).inject(
-                            Content.getElement(
-                                '.pcsg-gpm-passwords-panel-categories-private'
-                            )
-                        );
-
-                    },
-                    onSubmit: FuncSubmit,
-                    onClose : function () {
-                        console.log("on close popup!")
-                        if (refreshList) {
-                            window.PasswordList.$listRefresh();
-                        }
-                    }
-                }
-            });
-
-            Popup.open();
-
-        },
-
-        $openCategoryDialogNew: function () {
-            var publicCatIds = [], privateCatIds = [];
-            var self = this;
-            var refreshList = false;
-            var lgCore = 'sequry/core';
-
             var CatPanel = new CategoryPanel({
                 direction: 'left',
-                width: 300,
-                events: {
-                    onOpen: function(Panel) {
+                width    : 300,
+                events   : {
+                    onOpen  : function (Panel) {
                         Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
                     },
                     onFinish: function (CatIds) {
-                        console.log(CatIds)
+                        window.PasswordList.addCategoryToParam(CatIds['public']);
+                        window.PasswordList.addCategoryPrivateToParam(CatIds['private']);
+                        funcFinish(
+                            CatIds['public'],
+                            CatIds['private']
+                        )
+                    },
+                    onClose : function () {
+                        if (refreshList) {
+                            /*(function() {
+                                window.PasswordList.$listRefresh();
+                            }).delay(1000)*/
+                            window.PasswordList.$listRefresh();
+
+
+                        }
+                    },
+                    onSelectPublic: function(id) {
+                        self.setCategory(id, 'public')
+                    },
+                    onSelectPrivate: function(id) {
+                        self.setCategory(id, 'private')
                     }
                 }
             });
 
             CatPanel.open();
-
-
-
-
         },
+
 
         /**
          * Create list entry.
@@ -470,6 +396,18 @@ console.log(catId)
         removeActiveStatus: function (Btn) {
             Btn.removeClass('active');
             Btn.setAttribute('data-status', 'off');
+        },
+
+        setCategory: function(catId, type) {
+
+            if (type === 'public') {
+                window.PasswordList.addCategoryToParam(catId);
+                window.PasswordList.$listRefresh();
+                return;
+            }
+
+            window.PasswordList.addCategoryPrivateToParam(catId);
+            window.PasswordList.$listRefresh()
         }
     });
 });
