@@ -342,10 +342,19 @@ console.log(catId)
             var publicCatIds = [], privateCatIds = [];
             var self = this;
             var refreshList = false;
+            var lgCore = 'sequry/core';
 
             var CatPanel = new CategoryPanel({
                 direction: 'left',
-                width: 300
+                width: 300,
+                events: {
+                    onOpen: function(Panel) {
+                        Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
+                    },
+                    onFinish: function (CatIds) {
+                        console.log(CatIds)
+                    }
+                }
             });
 
             CatPanel.open();

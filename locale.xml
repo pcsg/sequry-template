@@ -147,6 +147,11 @@
             <en><![CDATA[Edit password]]></en>
         </locale>
 
+        <locale name="sequry.panel.category.title">
+            <de><![CDATA[Kategorien auswählen]]></de>
+            <en><![CDATA[Select categories]]></en>
+        </locale>
+
     </groups>
 
     <groups name="sequry/template" datatype="js">

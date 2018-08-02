@@ -12,14 +12,18 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
     'Ajax',
     'Locale',
 
-    'package/sequry/template/bin/js/controls/panels/Panel'
+    'package/sequry/template/bin/js/controls/panels/Panel',
+    'package/sequry/core/bin/controls/categories/public/Map',
+    'package/sequry/core/bin/controls/categories/private/Map'
 
 ], function (
     QUI,
     QUIControl,
     QUIAjax,
     QUILocale,
-    Panel
+    Panel,
+    CategoryMap,
+    CategoryMapPrivate
 ) {
     "use strict";
 
@@ -37,18 +41,18 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
         ],
 
         options: {
-            title       : false,
-            actionButton: QUILocale.get(lg, 'sequry.panel.button.ok'),
-            closeButton : QUILocale.get(lg, 'sequry.panel.button.cancel'),
-            mode        : 'create',
-            passwordId  : false
+            title                : false,
+            actionButton         : QUILocale.get(lg, 'sequry.panel.button.ok'),
+            closeButton          : QUILocale.get(lg, 'sequry.panel.button.cancel'),
+            showPublicCategories : true,
+            showPrivateCategories: true
         },
 
         initialize: function (options) {
             this.parent(options);
 
-            this.$Password = null;
-            this.$PasswordData = null;
+            this.CatPublic = null;
+            this.CatPrivate = null;
 
             // panel events
             this.addEvents({
@@ -64,9 +68,54 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
          * integrate password
          */
         $onOpen: function () {
-            var self = this;
+            var self             = this,
+                PublicContainer  = null,
+                PrivateContainer = null,
+                Content          = this.getContent();
 
-console.log(this.$Elm);
+            // public categories
+            if (this.getAttribute('showPublicCategories')) {
+
+                PublicContainer = new Element('div', {
+                    'class': 'panel-category-container panel-category-public',
+                    html   : '<h3>' + 'Kategorien' + '</h3>'
+                });
+
+                this.CatPublic = new CategoryMap({
+                    editMode: false,
+                    events  : {
+                        onCategorySelect: function (catId) {
+                            console.log(catId)
+                        }
+                    }
+                });
+
+                this.CatPublic.inject(PublicContainer);
+                PublicContainer.inject(Content);
+            }
+
+            // private categories
+            if (this.getAttribute('showPublicCategories')) {
+
+                PrivateContainer = new Element('div', {
+                    'class': 'panel-category-container panel-category-private',
+                    html   : '<h3>' + 'Kategorien (persönlich)' + '</h3>'
+                });
+
+                this.CatPrivate = new CategoryMapPrivate({
+                    editMode: false,
+                    events  : {
+                        onCategorySelect: function (catId) {
+                            console.log(catId)
+                        }
+                    }
+                });
+
+                this.CatPrivate.inject(PrivateContainer);
+                PrivateContainer.inject(Content);
+            }
+
+
             self.Loader.hide();
 
             // action button - ok
@@ -94,70 +143,12 @@ console.log(this.$Elm);
          * event: on submit form
          */
         $onSubmit: function () {
-            var self = this;
+            var CatIds = {
+                public: this.CatPublic.getSelectedCategoryIds(),
+                private: this.CatPrivate.getSelectedCategoryIds()
+            };
 
-
-
-            self.fireEvent('finish');
-        },
-
-        /**
-         * Depend on mode (edit or create new password) execute the right function
-         *
-         * @return {Promise}
-         */
-        submitAction: function () {
-            if (this.getAttribute('mode') === 'edit') {
-                return Passwords.editPassword(
-                    this.getAttribute('passwordId'),
-                    this.$PasswordData
-                )
-            }
-
-            return Passwords.createPassword(
-                this.$PasswordData
-            )
-        },
-
-        /**
-         * Prevent accidentally closing the panel
-         */
-        confirmClose: function () {
-            var self      = this,
-                title     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.title'),
-                content   = QUILocale.get(lg, 'sequry.customPopup.confirm.create.content'),
-                btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.ok'),
-                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.create.button.cancel');
-
-            var confirmContent = '<span class="fa fa-times popup-icon"></span>';
-            confirmContent += '<span class="popup-title">' + title + '</span>';
-            confirmContent += '<p class="popup-content">' + content + '</p>';
-
-            require(['qui/controls/windows/Confirm'], function (QUIConfirm) {
-                var Popup = new QUIConfirm({
-                    'class'           : 'sequry-customPopup',
-                    maxWidth          : 400, // please note extra styling in style.css
-                    backgroundClosable: false,
-                    title             : false,
-                    titleCloseButton  : false,
-                    icon              : false,
-                    texticon          : false,
-                    content           : confirmContent,
-                    ok_button         : {
-                        text     : btnOk,
-                        textimage: false
-                    },
-                    cancel_button     : {
-                        text     : btnCancel,
-                        textimage: false
-                    },
-                    events            : {
-                        onSubmit: self.close
-                    }
-                });
-
-                Popup.open();
-            })
+            this.fireEvent('finish', CatIds);
         }
     });
 });
