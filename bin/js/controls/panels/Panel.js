@@ -9,6 +9,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     'qui/QUI',
     'qui/controls/Control',
     'qui/controls/loader/Loader',
+    'qui/controls/utils/Background',
     'Mustache',
     'Locale',
 
@@ -20,6 +21,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
     QUI,
     QUIControl,
     QUILoader,
+    QUIBackground,
     Mustache,
     QUILocale,
     ButtonParser,
@@ -55,7 +57,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
-            doNotDestroyBackground : false // {bool} [optional] if true background will be not destroyed. May be helpful if you want to edit password form existing panel
+            doNotDestroyBackground : false, // {bool} [optional] if true background will be not destroyed. May be helpful if you want to edit password form existing panel
+            width                  : null, // {int/string} [optional] if no defined standard is 600px (value examples: 300, '300px', '30%', '30vw')
+            direction              : 'right' // {string} [optional] slide direction (support: left / right)
         },
 
         initialize: function (options) {
@@ -83,10 +87,20 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 this.Background.getElm().addEvent('click', this.cancel);
             }
 
+            var width       = self.getAttribute('width'),
+                direction   = this.getAttribute('direction'),
+                styleParams = {
+                    width: width ? width : 600
+                };
+
+            styleParams[direction] = '-100%';
+
             this.$Elm = new Element('div', {
                 'class': 'sidebar-panel',
-                'html' : Mustache.render(template)
+                'html' : Mustache.render(template),
+                styles : styleParams
             });
+
 
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
@@ -112,9 +126,12 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.fireEvent('openBegin', [this]);
 
             return new Promise(function (resolve) {
-                moofx(self.$Elm).animate({
-                    right: 0
-                }, {
+                var direction     = self.getAttribute('direction'),
+                    animateParams = {};
+
+                animateParams[direction] = 0;
+
+                moofx(self.$Elm).animate(animateParams, {
                     equation: 'ease-in-out',
                     callback: function () {
                         self.fireEvent('open', [self]);
@@ -151,10 +168,12 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             self.fireEvent('closeBegin', [self]);
 
             return new Promise(function (resolve) {
+                var direction     = self.getAttribute('direction'),
+                    animateParams = {};
 
-                moofx(self.$Elm).animate({
-                    right: '-100%'
-                }, {
+                animateParams[direction] = '-100%';
+
+                moofx(self.$Elm).animate(animateParams, {
                     equation: 'ease-in-out',
                     callback: function () {
 

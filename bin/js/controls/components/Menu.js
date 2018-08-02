@@ -182,6 +182,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             var publicCatIds = [], privateCatIds = [];
             var self = this;
             var refreshList = false;
+            var lgCore = 'sequry/core';
 
             var FuncSetPublicCategories = function (AuthData) {
                 Popup.Loader.show();
@@ -243,12 +244,12 @@ console.log(catId)
 
             // open popup
             var Popup = new QUIConfirm({
-                'class'    : 'pcsg-gpm-passwords-panel-categories',
+                'class'    : 'pcsg-gpm-passwords-panel-categories sequry-customPopup',
                 'maxHeight': 300,
                 maxWidth   : 600,
                 'autoclose': true,
 
-                'title'   : QUILocale.get(lg, 'controls.gpm.passwords.panel.categories.title'),
+                'title'   : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.categories.title'),
                 'texticon': 'fa fa-book',
                 'icon'    : 'fa fa-book',
 
@@ -259,13 +260,13 @@ console.log(catId)
                         Content.set(
                             'html',
                             '<div class="pcsg-gpm-passwords-panel-categories-info">' +
-                            QUILocale.get(lg, 'controls.gpm.passwords.panel.categories.info') +
+                            QUILocale.get(lgCore, 'controls.gpm.passwords.panel.categories.info') +
                             '</div>' +
                             '<div class="pcsg-gpm-passwords-panel-categories-public">' +
-                            '<span><b>' + QUILocale.get(lg, 'controls.categories.panel.public.title') + '</b></span>' +
+                            '<span><b>' + QUILocale.get(lgCore, 'controls.categories.panel.public.title') + '</b></span>' +
                             '</div>' +
                             '<div class="pcsg-gpm-passwords-panel-categories-private">' +
-                            '<span><b>' + QUILocale.get(lg, 'controls.categories.panel.private.title') + '</b></span>' +
+                            '<span><b>' + QUILocale.get(lgCore, 'controls.categories.panel.private.title') + '</b></span>' +
                             '</div>'
                         );
 
