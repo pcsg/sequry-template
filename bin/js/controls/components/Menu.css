@@ -28,6 +28,7 @@
 .sequry-desktop-menu .header-button-icon {
     padding: 1rem;
     cursor: pointer;
+    width: 3rem;
 }
 
 .sequry-desktop-menu .header-button-icon:hover {
@@ -45,11 +46,13 @@
 }
 
 .navigation-entry a {
-    display: block;
-    padding: 10px 2em;
+    display: flex;
+    padding-left: 2rem;
     white-space: nowrap;
     cursor: pointer;
     position: relative;
+    line-height: 3rem;
+    align-items: center;
 }
 
 .navigation-entry a.active,
@@ -61,4 +64,11 @@
 .navigation-entry-icon {
     width: 1rem;
     margin-right: 1rem;
+}
+
+.navigation-entry-icon-remove {
+    margin-left: auto;
+    width: 3rem;
+    line-height: inherit;
+    padding: 0 1rem;
 }

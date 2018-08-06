@@ -218,7 +218,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                                 console.log("wow !")
                             }
 
-                            var Tag = self.createEntry(Entry, func);
+                            var Tag = self.createEntry(Entry, func, true);
                             Tag.inject(self.TagsContainer);
                         });
                     });
@@ -300,7 +300,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          *     </a>
          * </li>
          */
-        createEntry: function (Entry, func) {
+        createEntry: function (Entry, func, remove) {
             var iconHTML  = '<span class="navigation-entry-icon ' + Entry.icon + '"></span>',
                 labelHTML = '<span class="navigation-entry-text">' + Entry.title + '</span>',
                 self      = this;
@@ -318,6 +318,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     }
                 }
             }).inject(ListElm);
+
+            if (remove) {
+                new Element('span', {
+                    'class': 'fa fa-remove navigation-entry-icon-remove'
+                }).inject(Button);
+            }
 
             Button.setAttribute('data-multiple-select', 'false');
             Button.setAttribute('data-name', Entry.name);
