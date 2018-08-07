@@ -83,9 +83,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TagsContainer = null;
             this.Categories = null;
             this.SelectedCategories = {
-                public : '',
-                private: ''
-            }
+                public : [],
+                private: []
+            };
 
             this.addEvents({
                 onInject: this.$onInject
@@ -127,8 +127,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             this.$buildFilters();
             this.$buildTypes();
-
-
         },
 
         /**
@@ -205,7 +203,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     return;
                 }
 
-                if (privateCatIds) {
+                if (privateCatIds.length) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
                     self.addCategoryToFilter(privateCatIds, 'private');
 
@@ -231,7 +229,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     refreshList = true;
                 }
 
-                if (publicCatIds) {
+                if (publicCatIds.length) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
                     self.addCategoryToFilter(publicCatIds, 'public');
 
@@ -275,15 +273,17 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     onClose        : function () {
                         console.log("on close");
                         if (refreshList) {
-                            window.PasswordList.addCategoryToParam(self.SelectedCategories['public']);
-                            window.PasswordList.addCategoryPrivateToParam(self.SelectedCategories['private']);
+                            window.PasswordList.setCategoryParam(self.SelectedCategories['public']);
+                            window.PasswordList.setCategoryPrivateParam(self.SelectedCategories['private']);
                             window.PasswordList.$listRefresh();
                         }
                     },
                     onSelectPublic : function (Category) {
+                        // filter direkt nach Klicken?
 //                        self.setCategory(Category.id, 'public')
                     },
                     onSelectPrivate: function (Category) {
+                        // filter direkt nach Klicken?
 //                        self.setCategory(Category.id, 'private')
                     }
                 }
@@ -312,9 +312,15 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 'class': 'navigation-entry'
             });
 
+            var test = '';
+
+            if (Entry.id) {
+                test = ' (' + Entry.id + ")";
+            }
+
             var Button = new Element('a', {
                 'class'               : 'menu-button',
-                html                  : iconHTML + labelHTML,
+                html                  : iconHTML + labelHTML + test,
                 'data-multiple-select': false
             });
 
@@ -329,6 +335,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             if (Entry.name) {
                 Button.setAttribute('data-name', Entry.name);
             }
+
+
 
             Button.inject(ListElm);
             return ListElm;
@@ -370,11 +378,19 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         addCategoryToFilter: function (id, type) {
-            this.SelectedCategories[type] = id.toString();
+            this.SelectedCategories[type].push(id.toString());
         },
 
         removeCategoryFromFilter: function (id, type) {
-            this.SelectedCategories[type] = false;
+            var catList = this.SelectedCategories[type];
+
+            catList.splice(catList.indexOf(id.toString()), 1);
+
+            if (type === 'public') {
+                window.PasswordList.setCategoryParam(catList);
+            } else {
+                window.PasswordList.setCategoryPrivateParam(catList);
+            }
         },
 
         /**
@@ -387,7 +403,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         toggleBtnStatus: function (Elm, func) {
             var Target = Elm.target;
 
-            if (Target.tagName != 'A') {
+            if (Target.tagName !== 'A') {
                 Target = Target.getParent();
             }
 
@@ -448,18 +464,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         removeActiveStatus: function (Btn) {
             Btn.removeClass('active');
             Btn.setAttribute('data-status', 'off');
-        },
-
-        setCategory: function (catId, type) {
-
-            if (type === 'public') {
-                window.PasswordList.addCategoryToParam(catId);
-                window.PasswordList.$listRefresh();
-                return;
-            }
-
-            window.PasswordList.addCategoryPrivateToParam(catId);
-            window.PasswordList.$listRefresh()
         }
     });
 });

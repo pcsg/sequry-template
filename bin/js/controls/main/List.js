@@ -330,11 +330,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$listRefresh();
         },
 
-        addCategoryToParam: function (catId) {
+        setCategoryParam: function (catId) {
             this.$SearchParams.categoryId = catId.toString();
         },
 
-        addCategoryPrivateToParam: function (catId) {
+        setCategoryPrivateParam: function (catId) {
             this.$SearchParams.categoryIdPrivate = catId.toString();
         },
 
