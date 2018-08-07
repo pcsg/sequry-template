@@ -82,6 +82,10 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             this.TypesContainer = null;
             this.TagsContainer = null;
             this.Categories = null;
+            this.SelectedCategories = {
+                public : '',
+                private: ''
+            }
 
             this.addEvents({
                 onInject: this.$onInject
@@ -203,22 +207,23 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                 if (privateCatIds) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
-//                    window.PasswordList.addCategoryPrivateToParam(privateCatIds[0]);
+                    self.addCategoryToFilter(privateCatIds, 'private');
 
                     Categories.getPrivate(privateCatIds).then(function (CategoriesData) {
                         CategoriesData.each(function (Category) {
                             var Entry = {
-                                icon              : 'fa fa-tag',
-                                title             : Category.title,
-                                'data-category-id': Category.id
+                                id   : Category.id,
+                                icon : 'fa fa-tag',
+                                title: Category.title
                             };
 
-                            var func = function (event) {
-                                console.log(this)
-                                console.log("wow !")
-                            }
+                            var Tag = self.createEntry(Entry);
+                            self.extendTagsEntry(Tag, Entry.id, 'private');
 
-                            var Tag = self.createEntry(Entry, func, true);
+                            Tag.addEvent('click', function () {
+                                self.deleteCategory(event, Entry.id, 'private')
+                            });
+
                             Tag.inject(self.TagsContainer);
                         });
                     });
@@ -228,22 +233,23 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                 if (publicCatIds) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
-//                    window.PasswordList.addCategoryToParam(publicCatIds[0]);
+                    self.addCategoryToFilter(publicCatIds, 'public');
 
                     Categories.getPublic(publicCatIds).then(function (CategoriesData) {
                         CategoriesData.each(function (Category) {
                             var Entry = {
-                                icon              : 'fa fa-tag',
-                                title             : Category.title,
-                                'data-category-id': Category.id
+                                id   : Category.id,
+                                icon : 'fa fa-tag',
+                                title: Category.title
                             };
 
-                            var func = function (event) {
-                                console.log(this)
-                                console.log("wow !")
-                            }
+                            var Tag = self.createEntry(Entry);
+                            self.extendTagsEntry(Tag, Entry.id, 'public');
 
-                            var Tag = self.createEntry(Entry, func);
+                            Tag.addEvent('click', function () {
+                                self.deleteCategory(event, Entry.id, 'public')
+                            });
+
                             Tag.inject(self.TagsContainer);
                         });
                     });
@@ -256,33 +262,29 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 direction: 'left',
                 width    : 300,
                 events   : {
-                    onOpen  : function (Panel) {
+                    onOpen         : function (Panel) {
                         Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
                     },
-                    onFinish: function (CatIds) {
-                        window.PasswordList.addCategoryToParam(CatIds['public']);
-                        window.PasswordList.addCategoryPrivateToParam(CatIds['private']);
+                    onFinish       : function (CatIds) {
+                        console.log("on finish");
                         funcFinish(
                             CatIds['public'],
                             CatIds['private']
                         )
                     },
-                    onClose : function () {
+                    onClose        : function () {
+                        console.log("on close");
                         if (refreshList) {
-                            /*(function() {
-                                window.PasswordList.$listRefresh();
-                            }).delay(1000)*/
+                            window.PasswordList.addCategoryToParam(self.SelectedCategories['public']);
+                            window.PasswordList.addCategoryPrivateToParam(self.SelectedCategories['private']);
                             window.PasswordList.$listRefresh();
-
-
                         }
                     },
-                    onSelectPublic: function(Category) {
-                        console.log(Category)
-                        self.setCategory(Category.id, 'public')
+                    onSelectPublic : function (Category) {
+//                        self.setCategory(Category.id, 'public')
                     },
-                    onSelectPrivate: function(Category) {
-                        self.setCategory(Category.id, 'private')
+                    onSelectPrivate: function (Category) {
+//                        self.setCategory(Category.id, 'private')
                     }
                 }
             });
@@ -301,7 +303,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          *     </a>
          * </li>
          */
-        createEntry: function (Entry, func, remove) {
+        createEntry: function (Entry, func) {
             var iconHTML  = '<span class="navigation-entry-icon ' + Entry.icon + '"></span>',
                 labelHTML = '<span class="navigation-entry-text">' + Entry.title + '</span>',
                 self      = this;
@@ -311,25 +313,68 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             });
 
             var Button = new Element('a', {
-                'class': 'menu-button',
-                html   : iconHTML + labelHTML,
-                events : {
-                    click: function (Elm) {
+                'class'               : 'menu-button',
+                html                  : iconHTML + labelHTML,
+                'data-multiple-select': false
+            });
+
+            if (func) {
+                Button.addEvent(
+                    'click', function (Elm) {
                         self.toggleBtnStatus(Elm, func);
                     }
-                }
-            }).inject(ListElm);
-
-            if (remove) {
-                new Element('span', {
-                    'class': 'fa fa-remove navigation-entry-icon-remove'
-                }).inject(Button);
+                )
             }
 
-            Button.setAttribute('data-multiple-select', 'false');
-            Button.setAttribute('data-name', Entry.name);
+            if (Entry.name) {
+                Button.setAttribute('data-name', Entry.name);
+            }
 
+            Button.inject(ListElm);
             return ListElm;
+        },
+
+        /**
+         * Extends the menu button category
+         *
+         * @param ListElm
+         * @param id
+         * @param type {string} category type: public / private
+         */
+        extendTagsEntry: function (ListElm, id, type) {
+            var Button = ListElm.getElement('a');
+
+            new Element('span', {
+                'class': 'fa fa-remove navigation-entry-icon-remove'
+            }).inject(Button);
+
+            Button.setAttribute('data-category-id', id);
+            Button.setAttribute('data-category-type', type);
+        },
+
+        deleteCategory: function (event, id, type) {
+            var Target = event.target;
+
+            if (Target.nodeName !== 'SPAN' ||
+                !Target.hasClass('navigation-entry-icon-remove')) {
+                return;
+            }
+
+            if (Target.nodeName !== 'LI') {
+                Target = Target.getParent('li');
+            }
+
+            this.removeCategoryFromFilter(id, type);
+            Target.destroy();
+            window.PasswordList.$listRefresh();
+        },
+
+        addCategoryToFilter: function (id, type) {
+            this.SelectedCategories[type] = id.toString();
+        },
+
+        removeCategoryFromFilter: function (id, type) {
+            this.SelectedCategories[type] = false;
         },
 
         /**
@@ -405,7 +450,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             Btn.setAttribute('data-status', 'off');
         },
 
-        setCategory: function(catId, type) {
+        setCategory: function (catId, type) {
 
             if (type === 'public') {
                 window.PasswordList.addCategoryToParam(catId);
