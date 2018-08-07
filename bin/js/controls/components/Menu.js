@@ -277,11 +277,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                         }
                     },
-                    onSelectPublic: function(id) {
-                        self.setCategory(id, 'public')
+                    onSelectPublic: function(Category) {
+                        console.log(Category)
+                        self.setCategory(Category.id, 'public')
                     },
-                    onSelectPrivate: function(id) {
-                        self.setCategory(id, 'private')
+                    onSelectPrivate: function(Category) {
+                        self.setCategory(Category.id, 'private')
                     }
                 }
             });

@@ -1,0 +1,26 @@
+.category-panel h4 {
+    font-weight: normal;
+}
+
+/**************/
+/* category map */
+/**************/
+.category-panel .qui-sitemap-map {
+    margin: 0 0 20px 0;
+}
+
+.qui-sitemap-map > .qui-sitemap-entry.box > .qui-sitemap-entry-opener {
+    display: none;
+}
+
+.qui-sitemap-map > .qui-sitemap-entry.box > .qui-sitemap-entry-container {
+    display: none;
+}
+
+.qui-sitemap-map .qui-sitemap-entry-icon {
+    display: none;
+}
+
+.qui-sitemap-map > .qui-sitemap-entry.box > .qui-sitemap-entry-children {
+    margin-left: 0;
+}

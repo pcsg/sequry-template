@@ -14,7 +14,9 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/core/bin/controls/categories/public/Map',
-    'package/sequry/core/bin/controls/categories/private/Map'
+    'package/sequry/core/bin/controls/categories/private/Map',
+
+    'css!package/sequry/template/bin/js/controls/panels/CategoryPanel.css'
 
 ], function (
     QUI,
@@ -50,9 +52,11 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
         initialize: function (options) {
             this.parent(options);
+            this.$Elm.addClass('category-panel');
 
             this.CatPublic = null;
             this.CatPrivate = null;
+
 
             // panel events
             this.addEvents({
@@ -77,8 +81,7 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
             if (this.getAttribute('showPublicCategories')) {
 
                 PublicContainer = new Element('div', {
-                    'class': 'panel-category-container panel-category-public',
-                    html   : '<h3>' + 'Kategorien' + '</h3>'
+                    'class': 'panel-category-container panel-category-public'
                 });
 
                 this.CatPublic = new CategoryMap({
@@ -86,8 +89,14 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
                     // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            this.getCategory(catId).then(function(Category) {
-                                console.log(Category)
+                            self.CatPrivate.deselectAll();
+                            this.getCategory(catId).then(function (Category) {
+                                /**
+                                 * Category = {
+                                 *     id: int,
+                                 *     title: 'string'
+                                 * }
+                                 */
                                 self.fireEvent('selectPublic', Category)
                             })
                         }
@@ -103,7 +112,7 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
                 PrivateContainer = new Element('div', {
                     'class': 'panel-category-container panel-category-private',
-                    html   : '<h3>' + 'Kategorien (persönlich)' + '</h3>'
+                    html   : '<h4>' + 'Persönliche Kategorien' + '</h4>'
                 });
 
                 this.CatPrivate = new CategoryMapPrivate({
@@ -111,7 +120,16 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
                     // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            self.fireEvent('selectPrivate', catId)
+                            self.CatPublic.deselectAll();
+                            this.getCategory(catId).then(function (Category) {
+                                /**
+                                 * Category = {
+                                 *     id: int,
+                                 *     title: 'string'
+                                 * }
+                                 */
+                                self.fireEvent('selectPrivate', Category);
+                            })
                         }
                     }
                 });

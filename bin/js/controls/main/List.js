@@ -331,9 +331,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         addCategoryToParam: function (catId) {
+            console.log("addCategoryToParam")
             console.log(catId)
             this.$SearchParams.categoryId = catId.toString();
-            console.log(this.$SearchParams.categoryId)
+            console.log(this.$SearchParams)
         },
 
         addCategoryPrivateToParam: function (catId) {

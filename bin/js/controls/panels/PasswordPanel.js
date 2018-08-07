@@ -140,7 +140,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
 
         $onSubmitSecondary: function () {
             // Don't destroy the current background control...
-            this.setAttribute('doNotDestroyBackground', true);
+            this.setAttribute('keepBackground', true);
 
             new PasswordCreatePanel({
                 passwordId: this.getAttribute('id'),

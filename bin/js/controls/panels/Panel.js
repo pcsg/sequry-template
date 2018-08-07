@@ -53,11 +53,11 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             title                  : false,	// {false|string} [optional] title of the window
             actionButton           : false, // {false|string} main action button, e.g. save, OK
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
-            iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner
+            iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner. String = title
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
-            doNotDestroyBackground : false, // {bool} [optional] if true background will be not destroyed. May be helpful if you want to edit password form existing panel
+            keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
             width                  : null, // {int/string} [optional] if no defined standard is 600px (value examples: 300, '300px', '30%', '30vw')
             direction              : 'right' // {string} [optional] slide direction (support: left / right)
         },
@@ -177,10 +177,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     equation: 'ease-in-out',
                     callback: function () {
 
-                        if (!self.getAttribute('doNotDestroyBackground')) {
+                        if (!self.getAttribute('keepBackground')) {
                             // restore page scroll bar
                             self.setPageScroll();
-
                             self.Background.destroy();
                         }
 
