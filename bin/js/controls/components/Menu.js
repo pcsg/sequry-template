@@ -139,12 +139,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 btnType = 'filters';
 
             Filters.each(function (Entry) {
-                var func = self.filterFilter;
+                var func = self.setFilters;
 
                 // Button: reset all filters
                 if (Entry.name === 'all') {
                     func = function () {
-                        window.PasswordList.showAll();
+                        self.showAll();
                     };
                 }
 
@@ -188,7 +188,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                             break;
                     }
 
-                    var Button = self.createEntry(Entry, btnType, self.filterTypes);
+                    var Button = self.createEntry(Entry, btnType, self.setFilters);
                     Button.inject(self.TypesContainer);
 
                 });
@@ -396,6 +396,16 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             }
         },
 
+        removeAllCategoriesFromFilter: function() {
+            this.Categories = {
+                'public' : [],
+                'private': []
+            };
+
+            window.PasswordList.setCategoryParam(false);
+            window.PasswordList.setCategoryPrivateParam(false);
+        },
+
         /**
          * Toggle button status
          * Set / remove CSS class and fire function
@@ -410,20 +420,27 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 Target = Target.getParent();
             }
 
+            var type = Target.getProperty('data-type'),
+                name = Target.getProperty('data-name');
+
             if (Target.hasClass('active')) {
-//                this.removeActiveStatus(Target);
-//                window.PasswordList.showAll();
+
+                if (name === 'all') {
+                    return;
+                }
+
+                this.removeActiveStatus(Target);
+                window.PasswordList.setFilters(type, '');
                 return;
             }
 
-            var dataAttr = '[data-type="' + Target.getProperty('data-type') + '"]';
-
-            var Buttons = this.$Elm.getElements(dataAttr);
-            console.log(Buttons)
+            var dataAttr = '[data-type="' + type + '"]',
+                Buttons  = this.$Elm.getElements(dataAttr);
 
             Array.each(Buttons, function (Elm) {
                 this.removeActiveStatus(Elm);
             }.bind(this));
+
 
             this.setActiveStatus(Target);
 
@@ -431,25 +448,15 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         /**
-         * Filter list by filters (favorites, owned, most used, etc.)
-         * by button name
+         * Set PasswordList search parameter
          *
-         * @param Target
+         * @param Target {HTMLElement}
          */
-        filterFilter: function (Target) {
-            var type = Target.getAttribute('data-name');
-            window.PasswordList.toggleFilter(type);
-        },
+        setFilters: function (Target) {
+            var type = Target.getAttribute('data-type'),
+                name = Target.getAttribute('data-name');
 
-        /**
-         * Filter list by password types (website, api key, ftp, etc.)
-         * by button name
-         *
-         * @param Target
-         */
-        filterTypes: function (Target) {
-            var type = Target.getAttribute('data-name');
-            window.PasswordList.toggleType(type);
+            window.PasswordList.setFilters(type, name);
         },
 
         /**
@@ -470,6 +477,29 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         removeActiveStatus: function (Btn) {
             Btn.removeClass('active');
             Btn.setAttribute('data-status', 'off');
+        },
+
+        showAll: function() {
+            var Buttons  = this.$Elm.getElements('.menu-button');
+
+            Array.each(Buttons, function (Btn) {
+
+                if (Btn.getProperty('data-name') === 'all') {
+                    return;
+                }
+
+                // delete categories
+                if (Btn.getProperty('data-type') === 'categories') {
+                    Btn.getParent('li').destroy();
+                    return;
+                }
+
+                // only change status (without deleting)
+                this.removeActiveStatus(Btn);
+            }.bind(this));
+
+            this.removeAllCategoriesFromFilter();
+            window.PasswordList.showAll();
         }
     });
 });

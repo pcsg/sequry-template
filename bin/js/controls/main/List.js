@@ -310,28 +310,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$listRefresh();
         },
 
-        /**
-         * Toggle filters
-         *
-         * @param type {string} - favorites, owned, most used, etc.
-         */
-        toggleFilter: function (type) {
-            this.$SearchParams.filters.filters = [type];
-            this.$listRefresh();
-        },
-
-        /**
-         * Toggle password types
-         *
-         * @param type {string} - website, api key, ftp, etc.
-         */
-        toggleType: function (type) {
-            this.$SearchParams.filters.types = [type];
+        setFilters: function(type, name) {
+            this.$SearchParams.filters[type] = name.split();
             this.$listRefresh();
         },
 
         setCategoryParam: function (catId) {
-            this.$SearchParams.categoryId = catId.toString();
+            this.$SearchParams.categoryId = catId ? catId.toString() : false;
+            console.log(typeof this.$SearchParams.categoryId)
         },
 
         setCategoryPrivateParam: function (catId) {
