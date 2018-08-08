@@ -135,7 +135,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          */
         $buildFilters: function () {
             var self    = this,
-                Filters = this.getAttribute('filters');
+                Filters = this.getAttribute('filters'),
+                btnType = 'filters';
 
             Filters.each(function (Entry) {
                 var func = self.filterFilter;
@@ -147,7 +148,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     };
                 }
 
-                var Button = self.createEntry(Entry, func);
+                var Button = self.createEntry(Entry, btnType, func);
                 Button.inject(self.FilterContainer)
             })
         },
@@ -157,8 +158,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          * (website, api key, ftp, etc.)
          */
         $buildTypes: function () {
-            var Passwords = new PasswordHandler,
-                self      = this;
+            var self      = this,
+                Passwords = new PasswordHandler,
+                btnType   = 'types';
 
             Passwords.getTypes().then(function (types) {
                 types.forEach(function (Entry) {
@@ -186,7 +188,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                             break;
                     }
 
-                    var Button = self.createEntry(Entry, self.filterTypes);
+                    var Button = self.createEntry(Entry, btnType, self.filterTypes);
                     Button.inject(self.TypesContainer);
 
                 });
@@ -203,6 +205,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     return;
                 }
 
+                var btnType = 'categories';
+
                 if (privateCatIds.length) {
                     // todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
                     self.addCategoryToFilter(privateCatIds, 'private');
@@ -215,7 +219,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                                 title: Category.title
                             };
 
-                            var Tag = self.createEntry(Entry);
+                            var Tag = self.createEntry(Entry, btnType);
                             self.extendTagsEntry(Tag, Entry.id, 'private');
 
                             Tag.addEvent('click', function () {
@@ -241,7 +245,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                                 title: Category.title
                             };
 
-                            var Tag = self.createEntry(Entry);
+                            var Tag = self.createEntry(Entry, btnType);
                             self.extendTagsEntry(Tag, Entry.id, 'public');
 
                             Tag.addEvent('click', function () {
@@ -303,10 +307,10 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
          *     </a>
          * </li>
          */
-        createEntry: function (Entry, func) {
-            var iconHTML  = '<span class="navigation-entry-icon ' + Entry.icon + '"></span>',
-                labelHTML = '<span class="navigation-entry-text">' + Entry.title + '</span>',
-                self      = this;
+        createEntry: function (Entry, btnType, func) {
+            var self      = this,
+                iconHTML  = '<span class="navigation-entry-icon ' + Entry.icon + '"></span>',
+                labelHTML = '<span class="navigation-entry-text">' + Entry.title + '</span>';
 
             var ListElm = new Element('li', {
                 'class': 'navigation-entry'
@@ -319,9 +323,10 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             }
 
             var Button = new Element('a', {
-                'class'               : 'menu-button',
+                'class'               : 'menu-button ',
                 html                  : iconHTML + labelHTML + test,
-                'data-multiple-select': false
+                'data-multiple-select': false,
+                'data-type'           : btnType
             });
 
             if (func) {
@@ -335,8 +340,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             if (Entry.name) {
                 Button.setAttribute('data-name', Entry.name);
             }
-
-
 
             Button.inject(ListElm);
             return ListElm;
@@ -408,12 +411,15 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             }
 
             if (Target.hasClass('active')) {
-                this.removeActiveStatus(Target);
-                window.PasswordList.showAll();
+//                this.removeActiveStatus(Target);
+//                window.PasswordList.showAll();
                 return;
             }
 
-            var Buttons = this.$Elm.getElements('.menu-button');
+            var dataAttr = '[data-type="' + Target.getProperty('data-type') + '"]';
+
+            var Buttons = this.$Elm.getElements(dataAttr);
+            console.log(Buttons)
 
             Array.each(Buttons, function (Elm) {
                 this.removeActiveStatus(Elm);
@@ -425,7 +431,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         /**
-         * Filter the filters (favorites, owned, most used, etc.)
+         * Filter list by filters (favorites, owned, most used, etc.)
          * by button name
          *
          * @param Target
@@ -436,7 +442,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         /**
-         * Filter the password types (website, api key, ftp, etc.)
+         * Filter list by password types (website, api key, ftp, etc.)
          * by button name
          *
          * @param Target
