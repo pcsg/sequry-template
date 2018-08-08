@@ -322,5 +322,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
         setCategoryPrivateParam: function (catId) {
             this.$SearchParams.categoryIdPrivate = catId.toString();
         },
+
+        setSearchTerm: function(term) {
+            this.$SearchParams.search.searchterm = term.trim();
+        }
     });
 });

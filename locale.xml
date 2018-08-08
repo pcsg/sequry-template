@@ -247,5 +247,14 @@
             <en><![CDATA[private]]></en>
         </locale>
 
+        <!-- header -->
+        <locale name="sequry.header.logout">
+            <de><![CDATA[Abmelden]]></de>
+            <en><![CDATA[Log out]]></en>
+        </locale>
+        <locale name="sequry.header.search.input.placeholder">
+            <de><![CDATA[Filtern...]]></de>
+            <en><![CDATA[Filter...]]></en>
+        </locale>
     </groups>
 </locales>
