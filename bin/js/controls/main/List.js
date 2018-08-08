@@ -311,7 +311,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         setFilters: function(type, name) {
-            this.$SearchParams.filters[type] = name.split();
+            this.$SearchParams.filters[type] = name ? name.split() : false;
             this.$listRefresh();
         },
 
