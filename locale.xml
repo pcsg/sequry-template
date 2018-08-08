@@ -241,5 +241,11 @@
             <en><![CDATA[New]]></en>
         </locale>
 
+
+        <locale name="sequry.menu.category.private.label">
+            <de><![CDATA[privat]]></de>
+            <en><![CDATA[private]]></en>
+        </locale>
+
     </groups>
 </locales>

@@ -317,29 +317,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
         setCategoryParam: function (catId) {
             this.$SearchParams.categoryId = catId ? catId.toString() : false;
-            console.log(typeof this.$SearchParams.categoryId)
         },
 
         setCategoryPrivateParam: function (catId) {
             this.$SearchParams.categoryIdPrivate = catId.toString();
         },
-
-        /**
-         * Remove category from param list.
-         * todo @michael Umschreiben, wenn API mehrere Kategorien unterstützt.
-         * @param catId {int}
-         */
-        removeCategoryFromParam: function(catId) {
-            if (this.$SearchParams.categoryId == catId) {
-                this.$SearchParams.categoryId = '';
-                return;
-            }
-
-            if (this.$SearchParams.categoryIdPrivate == catId) {
-                this.$SearchParams.categoryIdPrivate = '';
-                return;
-            }
-        }
-
     });
 });

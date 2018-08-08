@@ -268,14 +268,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                         Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
                     },
                     onFinish       : function (CatIds) {
-                        console.log("on finish");
                         funcFinish(
                             CatIds['public'],
                             CatIds['private']
                         )
                     },
                     onClose        : function () {
-                        console.log("on close");
                         if (refreshList) {
                             window.PasswordList.setCategoryParam(self.SelectedCategories['public']);
                             window.PasswordList.setCategoryPrivateParam(self.SelectedCategories['private']);
@@ -316,15 +314,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 'class': 'navigation-entry'
             });
 
-            var test = '';
-
-            if (Entry.id) {
-                test = ' (' + Entry.id + ")";
-            }
-
             var Button = new Element('a', {
                 'class'               : 'menu-button ',
-                html                  : iconHTML + labelHTML + test,
+                html                  : iconHTML + labelHTML,
                 'data-multiple-select': false,
                 'data-type'           : btnType
             });
@@ -341,6 +333,10 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 Button.setAttribute('data-name', Entry.name);
             }
 
+            if (Entry.name === 'all') {
+                Button.addClass('active');
+            }
+
             Button.inject(ListElm);
             return ListElm;
         },
@@ -355,6 +351,12 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         extendTagsEntry: function (ListElm, id, type) {
             var Button = ListElm.getElement('a');
 
+            if (type === 'private') {
+                new Element('span', {
+                    html: '(' + QUILocale.get(lg, 'sequry.menu.category.private.label') + ')',
+                    class: 'navigation-entry-text-private'
+                }).inject(Button)
+            }
             new Element('span', {
                 'class': 'fa fa-remove navigation-entry-icon-remove'
             }).inject(Button);
@@ -434,6 +436,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 return;
             }
 
+            var AllBtn = this.$Elm.getElement('[data-name="all"]');
+
             var dataAttr = '[data-type="' + type + '"]',
                 Buttons  = this.$Elm.getElements(dataAttr);
 
@@ -441,6 +445,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 this.removeActiveStatus(Elm);
             }.bind(this));
 
+            if (AllBtn.hasClass('active')) {
+                this.removeActiveStatus(AllBtn);
+            }
 
             this.setActiveStatus(Target);
 
@@ -479,6 +486,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             Btn.setAttribute('data-status', 'off');
         },
 
+        /**
+         * Set all search parameters to default and destroy category buttons
+         */
         showAll: function() {
             var Buttons  = this.$Elm.getElements('.menu-button');
 
