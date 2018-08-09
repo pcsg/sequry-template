@@ -1,0 +1,63 @@
+.select-table-list {
+    margin: 0;
+    list-style: none;
+}
+
+.select-table-list-entry {
+    display: flex;
+    padding: 5px 20px;
+    margin: 5px auto;
+    background: #f8f8f8;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-left: 3px solid #ddd;
+    cursor: pointer;
+}
+
+.select-table-list-entry:hover {
+    border-left-color: #4091c7;
+}
+
+.select-table-list-entry-icon {
+    margin-left: 20px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    order: 2;
+    font-size: 1.5em;
+    opacity: 0.15;
+}
+
+.select-table-list-entry-content {
+    flex-grow: 1;
+    order: 1;
+}
+
+.select-table-list-entry-user-name {
+    font-weight: normal;
+    font-size: 1.1em;
+    padding-right: 5px;
+}
+
+.select-table-list-entry-user-id {
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+.select-table-list-entry-securityClass {
+    line-height: 130%;
+}
+
+.select-table-list-entry-securityClass-label {
+    color: green;
+    display: block;
+    font-size: 14px;
+}
+
+.not-eligible .select-table-list-entry-securityClass-label {
+    color: red;
+}
+
+.select-table-list-entry-securityClass-notice {
+    font-size: 12px;
+}

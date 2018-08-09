@@ -158,6 +158,19 @@
             <en><![CDATA[Select user or group]]></en>
         </locale>
 
+        <locale name="sequry.panel.select.actors.selecttable.tbl.eligible">
+            <de><![CDATA[geeignet]]></de>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible">
+            <de><![CDATA[nicht geeignet]]></de>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.user">
+            <de><![CDATA[Nicht für für alle nötigen Authentifizierungs-Faktoren registriert]]></de>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.group">
+            <de><![CDATA[Nicht für alle nötigen Sicherheitsklassen freigeschaltet]]></de>
+        </locale>
+
     </groups>
 
     <groups name="sequry/template" datatype="js">

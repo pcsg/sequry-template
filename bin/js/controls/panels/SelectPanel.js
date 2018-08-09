@@ -79,18 +79,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
         $onOpen: function () {
             var self    = this,
                 Content = this.getContent(),
-                title,
-                controlId = this.getId();
-
-
-            var panels = document.getElements('.sidebar-panel-container');
-
-            console.log(panels)
-
-            panels.each(function(Panel) {
-//                console.log(Panel.getId())
-
-            })
+                title;
 
             switch (this.getAttribute('actorType')) {
                 case 'users':
