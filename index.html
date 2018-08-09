@@ -51,7 +51,7 @@
         <!-- header -->
         <div class="header-main"
              data-qui="package/sequry/template/bin/js/controls/components/Header"
-        ></div>
+        >&nbsp;</div>
 
         <!-- desktop nav -->
         <nav class="sequry-desktop-menu"
@@ -62,14 +62,16 @@
         ></main>
 
     </section>
-
 {else}
 
     {include file="`$TPL_DIR`login.html"}
 
 {/if}
 
+<div class="header-user-avatar" style="display: none">
+    {$Avatar->create()}
+</div>
 <!-- Scripts -->
-<!--<script src="{$URL_TPL_DIR}bin/js/init.js"></script>-->
+<script src="{$URL_TPL_DIR}bin/js/init.js"></script>
 </body>
 </html>

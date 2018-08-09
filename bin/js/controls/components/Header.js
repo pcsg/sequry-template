@@ -33,19 +33,18 @@ define('package/sequry/template/bin/js/controls/components/Header', [
             this.searchValue = null;
 
             this.addEvents({
-                onInject: this.$onInject
+                onImport: this.$onImport
             });
         },
 
         /**
          * event: on inject
          */
-        $onInject: function () {
+        $onImport: function () {
             var self     = this,
-                inputEsc = false; //
+                inputEsc = false;
 
             this.$Elm.set('html', Mustache.render(Template, {
-                logout          : QUILocale.get(lg, 'sequry.header.logout'),
                 inputPlaceholder: QUILocale.get(lg, 'sequry.header.search.input.placeholder')
             }));
 
@@ -108,6 +107,14 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                 window.PasswordList.$listRefresh();
 
             }).delay(500);
+        },
+
+        /**
+         *
+         * @param {HTMLElement} Child
+         */
+        appendChild: function (Child) {
+            this.$Elm.appendChild(Child);
         }
     });
 });
