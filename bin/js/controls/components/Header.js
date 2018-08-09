@@ -78,15 +78,8 @@ define('package/sequry/template/bin/js/controls/components/Header', [
          * Excecute the search with a delay
          */
         search: function () {
-
             var searchValue = this.Input.value.trim();
-
             var self = this;
-            var test = this.$Elm.getElement('.test');
-
-            if (this.$Timer) {
-                clearInterval(this.$Timer);
-            }
 
             if (searchValue === '') {
                 this.Input.value = '';
@@ -99,17 +92,20 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                 return;
             }
 
-            this.$Timer = (function () {
+            if (this.$Timer) {
+                clearInterval(this.$Timer);
+            }
 
+            this.$Timer = (function () {
                 self.searchValue = searchValue;
 
                 window.PasswordList.setSearchTerm(searchValue);
                 window.PasswordList.$listRefresh();
-
             }).delay(500);
         },
 
         /**
+         * Append a DOMNode HTML Child to the Header
          *
          * @param {HTMLElement} Child
          */

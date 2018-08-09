@@ -84,15 +84,13 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         },
 
         create: function () {
-            var self = this;
-
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
                 // todo @michael JS error wenn passwordShow-->passwordEdit-->close über click auf background
                 this.Background.getElm().addEvent('click', this.cancel);
             }
 
-            var width       = self.getAttribute('width'),
+            var width       = this.getAttribute('width'),
                 direction   = this.getAttribute('direction'),
                 styleParams = {
                     width: width ? width : 600
@@ -101,9 +99,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             styleParams[direction] = '-100%';
 
             this.$Elm = new Element('div', {
-                'class': 'sidebar-panel',
-                'html' : Mustache.render(template),
-                styles : styleParams
+                'class'     : 'sidebar-panel',
+                'html'      : Mustache.render(template),
+                styles      : styleParams,
+                'data-quiid': this.getId()
             });
 
 
@@ -122,8 +121,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * @return {Promise}
          */
         open: function () {
-            this.setPageFix();
             var self = this;
+
+            this.setPageFix();
 
             this.Background.create();
             this.Background.show();
@@ -137,7 +137,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 animateParams[direction] = 0;
 
                 moofx(self.$Elm).animate(animateParams, {
-                    equation: 'ease-in-out',
                     callback: function () {
                         self.fireEvent('open', [self]);
                         resolve();
@@ -172,42 +171,35 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             self.fireEvent('closeBegin', [self]);
 
-            console.log(this.$Elm);
+            return new Promise(function (resolve) {
+                var direction     = self.getAttribute('direction'),
+                    animateParams = {};
 
-            (function() {
-                return new Promise(function (resolve) {
-                    var direction     = self.getAttribute('direction'),
-                        animateParams = {};
+                animateParams[direction] = self.$Elm.getSize().x * -1;
+                animateParams['opacity'] = 0;
 
-                    animateParams[direction] = '-100%';
+                moofx(self.$Elm).animate(animateParams, {
+                    duration: 250,
+                    callback: function () {
 
-                    moofx(self.$Elm).animate(animateParams, {
-                        equation: 'ease-in-out',
-                        callback: function () {
+                        if (!self.getAttribute('keepBackground')) {
+                            // restore page scroll bar
+                            self.Background.destroy();
 
-                            if (!self.getAttribute('keepBackground')) {
-                                console.log('restore page scroll bar')
-                                // restore page scroll bar
-                                self.Background.destroy();
-
-
-                                if (!self.getAttribute('subPanel')) {
-                                    self.setPageScroll();
-                                }
+                            if (!self.getAttribute('subPanel')) {
+                                self.setPageScroll();
                             }
-
-                            self.$Elm.destroy();
-                            self.$Elm = null;
-
-                            self.fireEvent('close', [self]);
-
-                            resolve(self);
                         }
-                    });
-                }.bind(this));
-            }).delay(100)
 
+                        self.$Elm.destroy();
+                        self.$Elm = null;
 
+                        self.fireEvent('close', [self]);
+
+                        resolve(self);
+                    }
+                });
+            });
         },
 
         /**

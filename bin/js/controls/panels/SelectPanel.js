@@ -12,7 +12,8 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
     'Ajax',
     'Locale',
 
-    'package/sequry/template/bin/js/controls/panels/Panel'
+    'package/sequry/template/bin/js/controls/panels/Panel',
+    'package/sequry/template/bin/js/controls/actors/SelectTable'
 
 //    'css!package/sequry/template/bin/js/controls/panels/CategoryPanel.css'
 
@@ -21,11 +22,13 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
     QUIControl,
     QUIAjax,
     QUILocale,
-    Panel
+    Panel,
+    SelectTable
 ) {
     "use strict";
 
     var lg = 'sequry/template';
+    var lgCore = 'sequry/core';
 
     return new Class({
 
@@ -56,8 +59,8 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
             this.parent(options);
             this.$Elm.addClass('category-panel');
 
-            this.CatPublic = null;
-            this.CatPrivate = null;
+            this.$SelectTable = null;
+
 
 
             // panel events
@@ -74,15 +77,48 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
          * integrate password
          */
         $onOpen: function () {
-            var self             = this,
-                PublicContainer  = null,
-                PrivateContainer = null,
-                Content          = this.getContent();
+            var self    = this,
+                Content = this.getContent(),
+                title,
+                controlId = this.getId();
 
-            // create user / group selection
-            new Element('div', {
-                html: "Das ist Select Panel!"
-            }).inject(Content);
+
+            var panels = document.getElements('.sidebar-panel-container');
+
+            console.log(panels)
+
+            panels.each(function(Panel) {
+//                console.log(Panel.getId())
+
+            })
+
+            switch (this.getAttribute('actorType')) {
+                case 'users':
+                    title = QUILocale.get(lgCore, 'controls.actors.selecttablepopup.title.users');
+                    break;
+
+                case 'groups':
+                    title = QUILocale.get(lgCore, 'controls.actors.selecttablepopup.title.groups');
+                    break;
+
+                default:
+                    title = QUILocale.get(lgCore, 'controls.actors.selecttablepopup.title.all');
+            }
+
+            this.setTitle(title);
+
+            this.$SelectTable = new SelectTable({
+                info             : this.getAttribute('info'),
+                securityClassIds : this.getAttribute('securityClassIds'),
+                multiselect      : this.getAttribute('multiselect'),
+                actorType        : this.getAttribute('actorType'),
+                filterActorIds   : this.getAttribute('filterActorIds'),
+                showEligibleOnly : this.getAttribute('showEligibleOnly'),
+                selectedActorType: this.getAttribute('selectedActorType'),
+                events           : {
+                    onSubmit: this.$onSubmit
+                }
+            }).inject(this.getContent());
 
 
             self.Loader.hide();
@@ -110,19 +146,15 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
         /**
          * event: on submit form
-         *
-         * Returns category ids
-         *
-         * CatIds: {
-         *     public: ["1", "8", "15"],
-         *     private: ["3", "13",]
-         * }
          */
         $onSubmit: function () {
-            // gibt ausgewählten user (gruppe) zurück
-            var id = 0;
 
-            this.fireEvent('finish', [id]);
+            // todo muss noch gemacht werden
+            this.fireEvent('submit', [
+                this.$SelectTable.getSelectedIds(),
+                this.$SelectTable.getActorType(),
+                this
+            ]);
         }
     });
 });

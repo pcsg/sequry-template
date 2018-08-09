@@ -161,9 +161,6 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 selectedActorType: this.getAttribute('selectedActorType'),
                 filterActorIds   : filterActorIds,
                 events           : {
-                    onOpen  : function (Panel) {
-                        Panel.setTitle(QUILocale.get(lg, 'sequry.panel.select.title.userAndGroup'))
-                    },
                     onSubmit: function (ids, actorType) {
                         var prefix = 'u';
 
