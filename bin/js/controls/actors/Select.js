@@ -8,15 +8,17 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
 
     'qui/controls/elements/Select',
 
+    'package/sequry/template/bin/js/controls/panels/SelectPanel',
     'package/sequry/core/bin/controls/actors/SelectTablePopup',
 
     'Ajax',
     'Locale'
 
-], function (QUIElementSelect, SelectTablePopup, QUIAjax, QUILocale) {
+], function (QUIElementSelect, SelectPanel, SelectTablePopup, QUIAjax, QUILocale) {
     "use strict";
 
-    var lg = 'sequry/core';
+    var lg     = 'sequry/template',
+        lgCore = 'sequry/core';
 
     return new Class({
 
@@ -47,7 +49,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                     this.setAttribute('icon', 'fa fa-user');
                     this.setAttribute(
                         'placeholder',
-                        QUILocale.get(lg, 'actors.select.placeholder.users')
+                        QUILocale.get(lgCore, 'actors.select.placeholder.users')
                     );
                     break;
 
@@ -55,7 +57,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                     this.setAttribute('icon', 'fa fa-users');
                     this.setAttribute(
                         'placeholder',
-                        QUILocale.get(lg, 'actors.select.placeholder.groups')
+                        QUILocale.get(lgCore, 'actors.select.placeholder.groups')
                     );
                     break;
 
@@ -63,7 +65,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                     this.setAttribute('icon', 'fa fa-users');
                     this.setAttribute(
                         'placeholder',
-                        QUILocale.get(lg, 'actors.select.placeholder.both')
+                        QUILocale.get(lgCore, 'actors.select.placeholder.both')
                     );
             }
 
@@ -142,14 +144,41 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
          * Event: onSearchButtonClick
          */
         $onSearchButtonClick: function () {
-            var self           = this;
+            var self = this;
             var filterActorIds = Array.clone(this.getAttribute('filterActorIds'));
 
             if (this.getValue() !== '') {
                 filterActorIds.combine(this.getValue().split(','));
             }
 
-            console.log("open panel")
+            new SelectPanel({
+                subPanel : true,
+                info             : this.getAttribute('popupInfo'),
+                securityClassIds : this.getAttribute('securityClassIds'),
+                multiselect      : this.getAttribute('multiple'),
+                actorType        : this.getAttribute('actorType'),
+                showEligibleOnly : this.getAttribute('showEligibleOnly'),
+                selectedActorType: this.getAttribute('selectedActorType'),
+                filterActorIds   : filterActorIds,
+                events           : {
+                    onOpen  : function (Panel) {
+                        Panel.setTitle(QUILocale.get(lg, 'sequry.panel.select.title.userAndGroup'))
+                    },
+                    onSubmit: function (ids, actorType) {
+                        var prefix = 'u';
+
+                        if (actorType === 'groups') {
+                            prefix = 'g';
+                        }
+
+                        for (var i = 0, len = ids.length; i < len; i++) {
+                            self.addItem(prefix + ids[i]);
+                        }
+                    }
+                }
+            }).open();
+
+            return;
 
             new SelectTablePopup({
                 info             : this.getAttribute('popupInfo'),

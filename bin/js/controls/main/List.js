@@ -95,7 +95,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         $listRefresh: function () {
             this.Loader.show();
-            console.log(this.$SearchParams)
+//            console.log(this.$SearchParams)
             this.listContainer.set('html', '');
             this.$renderEntries();
         },
@@ -119,7 +119,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             ).then(function (response) {
                 var entries = response.data;
 
-                console.log(entries);
+//                console.log(entries);
                 self.Loader.hide();
 
                 entries.each(function (Entry) {

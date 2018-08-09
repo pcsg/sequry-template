@@ -152,6 +152,12 @@
             <en><![CDATA[Select categories]]></en>
         </locale>
 
+        <!-- panel select -->
+        <locale name="sequry.panel.select.title.userAndGroup">
+            <de><![CDATA[Benutzer- und Gruppen-Auswahl]]></de>
+            <en><![CDATA[Select user or group]]></en>
+        </locale>
+
     </groups>
 
     <groups name="sequry/template" datatype="js">

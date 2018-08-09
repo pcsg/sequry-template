@@ -43,14 +43,13 @@
         Control.appendChild(UserContainer);
     });
 
-    // test - auto öffnen
+    // test - öffne password create automatisch
     var AddPassword = document.getElement(
         '[data-qui="package/sequry/template/bin/js/controls/main/List"]'
     );
-
     AddPassword.addEvent('load', function () {
         var Control = QUI.Controls.getById(AddPassword.get('data-quiid'));
-        console.log(Control.getElm().getElement('.button-add-password').click());
+        Control.getElm().getElement('.button-add-password').click();
     })
 
 })();

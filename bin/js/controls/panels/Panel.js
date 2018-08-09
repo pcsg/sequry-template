@@ -58,6 +58,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
             keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
+            subPanel               : false, // {bool} [optional] sub panel will be opened within the first panel.
             width                  : null, // {int/string} [optional] if no defined standard is 600px (value examples: 300, '300px', '30%', '30vw')
             direction              : 'right' // {string} [optional] slide direction (support: left / right)
         },
@@ -69,6 +70,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 this.Background = this.getAttribute('Background');
             } else {
                 this.Background = new QUIBackground();
+            }
+
+            if (this.getAttribute('subPanel')) {
+                this.Background.setStyle('background', 'rgba(0,0,0,0)');
             }
 
             this.panelMenu = null;
@@ -167,31 +172,42 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             self.fireEvent('closeBegin', [self]);
 
-            return new Promise(function (resolve) {
-                var direction     = self.getAttribute('direction'),
-                    animateParams = {};
+            console.log(this.$Elm);
 
-                animateParams[direction] = '-100%';
+            (function() {
+                return new Promise(function (resolve) {
+                    var direction     = self.getAttribute('direction'),
+                        animateParams = {};
 
-                moofx(self.$Elm).animate(animateParams, {
-                    equation: 'ease-in-out',
-                    callback: function () {
+                    animateParams[direction] = '-100%';
 
-                        if (!self.getAttribute('keepBackground')) {
-                            // restore page scroll bar
-                            self.setPageScroll();
-                            self.Background.destroy();
+                    moofx(self.$Elm).animate(animateParams, {
+                        equation: 'ease-in-out',
+                        callback: function () {
+
+                            if (!self.getAttribute('keepBackground')) {
+                                console.log('restore page scroll bar')
+                                // restore page scroll bar
+                                self.Background.destroy();
+
+
+                                if (!self.getAttribute('subPanel')) {
+                                    self.setPageScroll();
+                                }
+                            }
+
+                            self.$Elm.destroy();
+                            self.$Elm = null;
+
+                            self.fireEvent('close', [self]);
+
+                            resolve(self);
                         }
+                    });
+                }.bind(this));
+            }).delay(100)
 
-                        self.$Elm.destroy();
-                        self.$Elm = null;
 
-                        self.fireEvent('close', [self]);
-
-                        resolve(self);
-                    }
-                });
-            }.bind(this));
         },
 
         /**
@@ -330,7 +346,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * Create a close button.
          */
-        createCloseButton: function (label, confirmClose) {
+        createCloseButton: function (label) {
             var self = this;
 
             new Element('button', {
@@ -338,11 +354,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'html' : label,
                 events : {
                     click: function () {
-                        if (confirmClose) {
-                            self.confirmClose();
-                            return;
-                        }
-
                         self.cancel();
                     }
                 }
