@@ -11,7 +11,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Authentication',
-    'package/sequry/core/bin/controls/actors/Select',
+    'package/sequry/template/bin/js/controls/actors/Select',
     'package/sequry/core/bin/controls/securityclasses/SelectSlider',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Categories',
@@ -23,14 +23,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
     'css!package/sequry/template/bin/js/controls/password/PasswordCreate.css'
 
 ], function (
-    QUI,
-    QUIControl,
-    Mustache,
-    QUIAjax,
-    QUILocale,
+    QUI, QUIControl, Mustache, QUIAjax, QUILocale,
     PasswordHandler,
     Authentication,
-    ActorSelect,
+    ActorSelect, // package/sequry/template/bin/js/controls/actors/Select
     SecurityClassSelectSlider,
     Actors,
     Categories,
@@ -296,7 +292,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          */
         $onSecurityClassChange: function (securityClassId) {
             var self = this;
-
 
             this.$OwnerSelectElm.set('html', '');
             var ActorSelectAttributes = {

@@ -41,7 +41,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         Type   : 'package/sequry/template/bin/js/controls/main/List',
 
         Binds: [
-            '$onInject',
+            '$onImport',
             'open',
             'edit',
             'addPassword',
@@ -55,7 +55,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
 
             this.addEvents({
-                onInject: this.$onInject
+                onImport: this.$onImport
             });
 
             this.initSearchParams();
@@ -69,7 +69,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         /**
          * event: on inject
          */
-        $onInject: function () {
+        $onImport: function () {
 
             this.$Elm.set('html', Mustache.render(template, {}));
             this.listContainer = this.$Elm.getElement('.main-list-entries');
