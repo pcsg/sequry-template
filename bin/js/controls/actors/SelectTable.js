@@ -17,7 +17,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
     'package/sequry/core/bin/Authentication',
 
     'text!package/sequry/template/bin/js/controls/actors/SelectTable.Entry.html',
-    'css!package/sequry/template/bin/js/controls/actors/SelectTable.Entry.css'
+    'css!package/sequry/template/bin/js/controls/actors/SelectTable.Entry.css',
+    'css!package/sequry/template/bin/js/controls/actors/SelectTable.css'
 
 ], function (QUIControl, QUILoader, QUILocale, Mustache,
     Grid,
@@ -41,7 +42,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             'submit',
             '$listRefresh',
             '$setGridData',
-            'resize',
             'refresh',
             '$onTypeBtnClick',
             '$switchActorType',
@@ -80,7 +80,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             this.$search = false;
             this.$SecurityClass = null;
             this.$SearchInput = null;
-            this.$eligibleOnly = options.showEligibleOnly || false;
+            this.$eligibleOnly = options.showEligibleOnly || true;
             this.$InfoElm = null;
             this.$List = null;
         },
@@ -105,19 +105,78 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 }).inject(this.$Elm);
             }
 
+            this.actionButtonsContainer = new Element('div', {
+                'class': 'select-table-action'
+            }).inject(this.$Elm);
+
+            // users button
+            this.ButtonUser = new Element('button', {
+                'class': 'btn btn-secondary btn-small select-table-btn-users',
+                html   : QUILocale.get(
+                    lg, 'sequry.panel.select.actors.selecttable.filter.buttonUser'
+                ),
+                name   : 'users',
+                events : {
+                    click: self.$onTypeBtnClick
+                }
+            }).inject(this.actionButtonsContainer);
+
+            // groups button
+            this.ButtonGroup = new Element('button', {
+                'class': 'btn btn-secondary btn-outline btn-small select-table-btn-groups',
+                html   : QUILocale.get(
+                    lg, 'sequry.panel.select.actors.selecttable.filter.buttonGroups'
+                ),
+                name   : 'groups',
+                events : {
+                    click: self.$onTypeBtnClick
+                }
+            }).inject(this.actionButtonsContainer);
+
+
+            // eligibile button
+            var eligibleButtonIcon = '<span class="fa fa-check-square-o"></span>';
+
+            if (!this.$eligibleOnly) {
+                eligibleButtonIcon = '<span class="fa fa-square-o"></span>';
+            }
+
+            new Element('button', {
+                'class'        : 'btn btn-secondary btn-outline btn-small select-table-btn-eligibleOnly',
+                html           : eligibleButtonIcon + QUILocale.get(
+                    lg, 'sequry.panel.select.actors.selecttable.filter.buttonEligibleOnly'
+                ),
+                'data-selected': this.$eligibleOnly,
+                events         : {
+                    click: function () {
+                        var Icon = this.getElement('.fa');
+
+                        if (this.getProperty('data-selected') === 'true') {
+                            this.setProperty('data-selected', false);
+
+                            Icon.removeClass('fa-check-square-o');
+                            Icon.addClass('fa-square-o');
+
+                            self.$eligibleOnly = false;
+                        } else {
+                            this.setProperty('data-selected', true);
+
+                            Icon.removeClass('fa-square-o');
+                            Icon.addClass('fa-check-square-o');
+
+                            self.$eligibleOnly = true;
+                        }
+
+                        self.$listRefresh();
+                    }
+                }
+            }).inject(this.actionButtonsContainer);
+
+
             this.$List = new Element('ul', {
                 'class': 'select-table-list'
             }).inject(this.$Elm);
 
-
-            /*this.$Elm.set(
-                'html',
-                '<div class="pcsg-gpm-actors-selecttable-grid"></div>'
-            );
-
-            this.$GridParent = self.$Elm.getElement(
-                '.pcsg-gpm-actors-selecttable-grid'
-            );*/
 
             this.Loader.show();
 
@@ -131,38 +190,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             Promise.all(promises).then(function (securityClasses) {
 
                 // content
-                var buttons = [];
                 var actorType = self.getAttribute('actorType');
-
-                var UsersBtn = {
-                    name  : 'users',
-                    icon  : 'fa fa-user',
-                    events: {
-                        onClick: self.$onTypeBtnClick
-                    }
-                };
-
-                var GroupsBtn = {
-                    name  : 'groups',
-                    icon  : 'fa fa-users',
-                    events: {
-                        onClick: self.$onTypeBtnClick
-                    }
-                };
-
-                switch (actorType) {
-                    case 'users':
-                        buttons.push(UsersBtn);
-                        break;
-
-                    case 'groups':
-                        buttons.push(GroupsBtn);
-                        break;
-
-                    default:
-                        buttons.push(UsersBtn);
-                        buttons.push(GroupsBtn);
-                }
+                var buttons = [];
 
                 buttons.push({
                     name     : 'showeligibleonly',
@@ -187,7 +216,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                     html: QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.notice', {
                         securityClassTitles: securityClassTitles.join(' / ')
                     })
-                }).inject(self.$InfoElm)
+                }).inject(self.$InfoElm);
+
                 self.$listRefresh();
 
                 return;
@@ -274,7 +304,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                     }).inject(self.$GridParent, 'top');
                 }
 
-                self.resize();
                 //self.refresh();
 
                 self.$switchActorType(self.getAttribute('selectedActorType'));
@@ -285,9 +314,15 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         /**
          * Event: onClick (type switch buttons)
          *
-         * @param {Object} Btn - qui/controls/buttons/Button
+         * @param event
          */
-        $onTypeBtnClick: function (Btn) {
+        $onTypeBtnClick: function (event) {
+            var Btn = event.target;
+
+            if (Btn.nodeName !== 'BUTTON') {
+                Btn = Btn.getParent('button');
+            }
+
             var type = Btn.getAttribute('name');
 
             if (type === this.$actorType) {
@@ -304,46 +339,20 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
          */
         $switchActorType: function (actorType) {
             this.$search = false;
-            this.$SearchInput.value = '';
-            this.$SearchInput.focus();
+//            this.$SearchInput.value = '';
+//            this.$SearchInput.focus();
 
-            var TableButtons = this.$Grid.getAttribute('buttons');
 
             if (actorType === 'users') {
-                if (TableButtons.groups) {
-                    TableButtons.groups.setNormal();
-                }
+                this.ButtonUser.removeClass('btn-outline');
+                this.ButtonGroup.addClass('btn-outline');
             } else {
-                if (TableButtons.users) {
-                    TableButtons.users.setNormal();
-                }
+                this.ButtonUser.addClass('btn-outline');
+                this.ButtonGroup.removeClass('btn-outline');
             }
 
             this.$actorType = actorType;
-            this.refresh();
-        },
-
-        /**
-         * Refresh data
-         */
-        refresh: function () {
-            this.$Grid.refresh();
-        },
-
-        /**
-         * Resize control
-         */
-        resize: function () {
-            if (this.$Grid && this.$GridParent) {
-                var y = this.$GridParent.getSize().y;
-
-                if (this.$InfoElm) {
-                    y -= this.$InfoElm.getSize().y + parseInt(this.$InfoElm.getStyle('margin-bottom'));
-                }
-
-                this.$Grid.setHeight(y);
-                this.$Grid.resize();
-            }
+            this.$listRefresh();
         },
 
         /**
@@ -351,8 +360,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
          *
          */
         $listRefresh: function () {
-
             var self = this;
+            this.$List.set('html', '');
 
             var SearchParams = {
                 /*sortOn : Grid.getAttribute('sortOn'),
@@ -377,8 +386,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 SearchParams.search = this.$search;
             }
 
-            console.log(this.$actorType)
-
             SearchParams.eligibleOnly = this.$eligibleOnly;
             SearchParams.type = this.$actorType;
             SearchParams.securityClassIds = this.getAttribute('securityClassIds');
@@ -393,10 +400,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         },
 
         $renderEntries (Entries) {
-
-
-            console.log(this.getAttribute('multiselect'))
-
             for (var i = 0, len = Entries.data.length; i < len; i++) {
                 var Data                = Entries.data[i],
                     icon                = 'fa fa-user',

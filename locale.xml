@@ -170,6 +170,15 @@
         <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.group">
             <de><![CDATA[Nicht für alle nötigen Sicherheitsklassen freigeschaltet]]></de>
         </locale>
+        <locale name="sequry.panel.select.actors.selecttable.filter.buttonUser">
+            <de><![CDATA[Benutzer]]></de>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.filter.buttonGroups">
+            <de><![CDATA[Gruppen]]></de>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.filter.buttonEligibleOnly">
+            <de><![CDATA[Nur geeignete zeigen]]></de>
+        </locale>
 
     </groups>
 

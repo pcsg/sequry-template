@@ -11,7 +11,7 @@
     cursor: pointer;
     display: flex;
     margin: 5px auto;
-    padding: 5px 0 5px 20px;
+    padding: 5px 0;
 }
 
 .select-table-list-entry[data-eligible="true"]:hover {
@@ -28,8 +28,9 @@
     color: #aaa;
     display: flex;
     font-size: 1.3em;
-    margin-right: 20px;
     opacity: 0.5;
+    width: calc(1rem + 40px);
+    padding: 0 20px;
 }
 
 /* content*/
