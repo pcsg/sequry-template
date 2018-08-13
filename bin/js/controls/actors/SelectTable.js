@@ -2,8 +2,7 @@
  * Select actors for a SecurityClass via Grid
  *
  * @module package/sequry/core/bin/controls/actors/SelectTable
- *
- * @event onSubmit [selectedIds, actorType, this]
+ * @author www.pcsg.de (Michael Danielczok)
  */
 define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
@@ -39,9 +38,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         Binds: [
             '$onInject',
             '$onCreate',
-            'submit',
             '$listRefresh',
-            '$setGridData',
             'refresh',
             '$onTypeBtnClick',
             '$switchActorType',
@@ -74,11 +71,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             });
 
             this.Loader = new QUILoader();
-            this.$Grid = null;
-            this.$GridParent = null;
             this.$actorType = 'users';
             this.$search = false;
-            this.$SecurityClass = null;
             this.$SearchInput = null;
             this.$eligibleOnly = options.showEligibleOnly || true;
             this.$InfoElm = null;
@@ -105,7 +99,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 }).inject(this.$Elm);
             }
 
-            this.actionButtonsContainer = new Element('div', {
+            var ButtonBarElm = new Element('div', {
                 'class': 'select-table-action'
             }).inject(this.$Elm);
 
@@ -119,7 +113,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 events : {
                     click: self.$onTypeBtnClick
                 }
-            }).inject(this.actionButtonsContainer);
+            }).inject(ButtonBarElm);
 
             // groups button
             this.ButtonGroup = new Element('button', {
@@ -131,7 +125,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 events : {
                     click: self.$onTypeBtnClick
                 }
-            }).inject(this.actionButtonsContainer);
+            }).inject(ButtonBarElm);
 
 
             // eligibile button
@@ -156,22 +150,33 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
                             Icon.removeClass('fa-check-square-o');
                             Icon.addClass('fa-square-o');
-
-                            self.$eligibleOnly = false;
                         } else {
                             this.setProperty('data-selected', true);
 
                             Icon.removeClass('fa-square-o');
                             Icon.addClass('fa-check-square-o');
-
-                            self.$eligibleOnly = true;
                         }
 
+                        self.$eligibleOnly = !self.$eligibleOnly;
                         self.$listRefresh();
                     }
                 }
-            }).inject(this.actionButtonsContainer);
+            }).inject(ButtonBarElm);
 
+            // search
+            this.$SearchInput = new Element('input', {
+                'class'    : 'select-table-search',
+                placeholder: QUILocale.get(lgCore,
+                    'controls.actors.selecttable.search.input.placeholder'
+                ),
+                type       : 'search'
+            }).inject(ButtonBarElm);
+
+            this.$SearchInput.addEventListener('search', function (event) {
+                var Input = event.target;
+                self.$search = Input.value.trim();
+                self.$listRefresh();
+            });
 
             this.$List = new Element('ul', {
                 'class': 'select-table-list'
@@ -190,23 +195,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             Promise.all(promises).then(function (securityClasses) {
 
                 // content
-                var actorType = self.getAttribute('actorType');
-                var buttons = [];
-
-                buttons.push({
-                    name     : 'showeligibleonly',
-                    text     : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.btn.showeligibleonly'),
-                    textimage: 'fa fa-check-circle-o',
-                    events   : {
-                        onClick: function () {
-                            self.$eligibleOnly = !self.$eligibleOnly;
-                            self.refresh();
-                        }
-                    }
-                });
-
-
-                var securityClassTitles = [];
+                var actorType           = self.getAttribute('actorType'),
+                    securityClassTitles = [];
 
                 for (i = 0, len = securityClasses.length; i < len; i++) {
                     securityClassTitles.push(securityClasses[i].title);
@@ -219,95 +209,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 }).inject(self.$InfoElm);
 
                 self.$listRefresh();
-
-                return;
-
-                self.$Grid = new Grid(self.$GridParent, {
-                    buttons          : buttons,
-                    pagination       : true,
-                    selectable       : true,
-                    serverSort       : true,
-                    multipleSelection: self.getAttribute('multiselect'),
-                    columnModel      : [
-                        {
-                            header   : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.id'),
-                            dataIndex: 'id',
-                            dataType : 'integer',
-                            width    : 100
-                        }, {
-                            header   : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.name'),
-                            dataIndex: 'name',
-                            dataType : 'string',
-                            width    : 200
-                        }, {
-                            header   : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.notice', {
-                                securityClassTitles: securityClassTitles.join(' / ')
-                            }),
-                            dataIndex: 'notice',
-                            dataType : 'node',
-                            width    : 500
-                        }, {
-                            dataIndex: 'eligible',
-                            dataType : 'boolean',
-                            hidden   : true
-                        }
-                    ]
-                });
-
-                // add search input
-                var ButtonBarElm = self.$Grid.getElm().getElement('.tDiv');
-
-                self.$SearchInput = new Element('input', {
-                    'class'    : 'pcsg-gpm-actors-selecttable-searchinput',
-                    placeholder: QUILocale.get(lgCore,
-                        'controls.actors.selecttable.search.input.placeholder'
-                    ),
-                    type       : 'search'
-                }).inject(ButtonBarElm);
-
-                self.$SearchInput.addEventListener('search', function (event) {
-                    var Input = event.target;
-                    self.$search = Input.value.trim();
-                    self.refresh();
-                });
-
-                self.$Grid.addEvents({
-                    onDblClick: function () {
-                        if (!self.$Grid.getSelectedData()[0].eligible) {
-                            return;
-                        }
-
-                        self.fireEvent('submit', [
-                            self.getSelectedIds(), self.$actorType, self
-                        ]);
-                    },
-                    onRefresh : self.$listRefresh
-                });
-
-                var TableButtons = self.$Grid.getAttribute('buttons');
-
-                if (actorType === 'all' || actorType === 'users') {
-                    self.$actorType = 'users';
-                    TableButtons.users.setActive();
-                } else {
-                    self.$actorType = 'groups';
-                    TableButtons.groups.setActive();
-                }
-
-                // info
-                var info = self.getAttribute('info');
-
-                if (info) {
-                    self.$InfoElm = new Element('p', {
-                        'class': 'pcsg-gpm-actors-selecttable-info',
-                        html   : info
-                    }).inject(self.$GridParent, 'top');
-                }
-
-                //self.refresh();
-
-                self.$switchActorType(self.getAttribute('selectedActorType'));
-                self.$SearchInput.focus();
             });
         },
 
@@ -342,7 +243,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 //            this.$SearchInput.value = '';
 //            this.$SearchInput.focus();
 
-
             if (actorType === 'users') {
                 this.ButtonUser.removeClass('btn-outline');
                 this.ButtonGroup.addClass('btn-outline');
@@ -356,13 +256,13 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         },
 
         /**
-         * Refresh Grid
-         *
+         * Refresh entry list
          */
         $listRefresh: function () {
             var self = this;
             this.$List.set('html', '');
 
+            // todo @michael Irgendwann Sortierung integrieren.
             var SearchParams = {
                 /*sortOn : Grid.getAttribute('sortOn'),
                 sortBy : Grid.getAttribute('sortBy'),
@@ -399,6 +299,11 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             });
         },
 
+        /**
+         * Render one entry.
+         *
+         * @param Entries
+         */
         $renderEntries (Entries) {
             for (var i = 0, len = Entries.data.length; i < len; i++) {
                 var Data                = Entries.data[i],
@@ -459,8 +364,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
                 liElm.inject(this.$List)
             }
-
-
         },
 
         /**

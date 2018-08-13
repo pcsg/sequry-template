@@ -10,6 +10,7 @@
     border-radius: 5px;
     cursor: pointer;
     display: flex;
+    line-height: 120%;
     margin: 5px auto;
     padding: 5px 0;
 }
@@ -29,8 +30,8 @@
     display: flex;
     font-size: 1.3em;
     opacity: 0.5;
-    width: calc(1rem + 40px);
     padding: 0 20px;
+    width: calc(1rem + 40px);
 }
 
 /* content*/
@@ -39,7 +40,6 @@
 }
 
 .select-table-list-entry-user-name {
-    font-size: 1.1em;
     font-weight: normal;
     padding-right: 5px;
 }
@@ -81,7 +81,6 @@
 .select-table-list-entry[data-eligible="false"]:hover .select-table-list-entry-icon-checkbox {
     opacity: 0.5;
 }
-
 
 /* icon selected */
 .select-table-list-entry-icon-checkbox .fa-check-square-o {
