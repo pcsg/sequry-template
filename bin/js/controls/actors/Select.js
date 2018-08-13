@@ -163,38 +163,13 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 subPanel         : true,
                 info             : this.getAttribute('popupInfo'),
                 securityClassIds : this.getAttribute('securityClassIds'),
-                multiselect      : this.getAttribute('multiple'),
+                multiselect      : this.getAttribute('multiselect'),
                 actorType        : this.getAttribute('actorType'),
                 showEligibleOnly : this.getAttribute('showEligibleOnly'),
                 selectedActorType: this.getAttribute('selectedActorType'),
                 filterActorIds   : filterActorIds,
                 events           : {
                     onFinish: function (ids, actorType) {
-                        var prefix = 'u';
-                        
-                        if (actorType === 'groups') {
-                            prefix = 'g';
-                        }
-
-                        for (var i = 0, len = ids.length; i < len; i++) {
-                            self.addItem(prefix + ids[i]);
-                        }
-                    }
-                }
-            }).open();
-
-            return;
-
-            new SelectTablePopup({
-                info             : this.getAttribute('popupInfo'),
-                securityClassIds : this.getAttribute('securityClassIds'),
-                multiselect      : this.getAttribute('multiple'),
-                actorType        : this.getAttribute('actorType'),
-                showEligibleOnly : this.getAttribute('showEligibleOnly'),
-                selectedActorType: this.getAttribute('selectedActorType'),
-                filterActorIds   : filterActorIds,
-                events           : {
-                    onSubmit: function (ids, actorType) {
                         var prefix = 'u';
 
                         if (actorType === 'groups') {

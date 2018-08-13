@@ -44,7 +44,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             'resize',
             'refresh',
             '$onTypeBtnClick',
-            '$switchActorType'
+            '$switchActorType',
+            'changeSelectStatus'
         ],
 
         options: {
@@ -393,6 +394,9 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
         $renderEntries (Entries) {
 
+
+            console.log(this.getAttribute('multiselect'))
+
             for (var i = 0, len = Entries.data.length; i < len; i++) {
                 var Data                = Entries.data[i],
                     icon                = 'fa fa-user',
@@ -442,7 +446,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                     'data-id'           : Data.id,
                     'data-eligible'     : Data.eligible,
                     events              : {
-                        click: this.changeStatus
+                        click: this.changeSelectStatus
                     }
                 });
 
@@ -461,7 +465,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
          *
          * @param event
          */
-        changeStatus: function (event) {
+        changeSelectStatus: function (event) {
             var Target = event.target;
 
             if (Target.nodeName !== 'LI') {
@@ -470,82 +474,63 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
             // on / off
             var status   = Target.getProperty('data-select-status'),
-                eligible = Target.getProperty('data-eligible'),
-                IconElm  = Target.getElement('.select-table-list-entry-icon-checkbox .fa');
+                eligible = Target.getProperty('data-eligible');
 
             if (eligible === 'false') {
                 return;
             }
 
             if (status === 'on') {
-                Target.setProperty('data-select-status', 'off');
-                Target.addClass('selected');
-
-                IconElm.removeClass('fa-check-square-o');
-                IconElm.addClass('fa-square-o');
-
+                this.deselectItem(Target);
                 return;
             }
 
-            Target.setProperty('data-select-status', 'on');
-            Target.removeClass('selected');
-
-            IconElm.removeClass('fa-square-o');
-            IconElm.addClass('fa-check-square-o');
+            this.selectItem(Target);
         },
 
         /**
-         * Set user data to grid
-         * todo kann gelöscht werden
+         * Select item from list
          *
-         * @param {Object} GridData
+         * @param Elm - HTMLNode (li)
          */
-        $setGridData: function (GridData) {
-            for (var i = 0, len = GridData.data.length; i < len; i++) {
-                var Row = GridData.data[i];
-
-                if (Row.eligible) {
-                    Row.notice = new Element('div', {
-                        'class': 'pcsg-gpm-actors-selecttable-eligibility',
-                        html   : '<span class="pcsg-gpm-actors-selecttable-eligible">' +
-                            QUILocale.get(lgCore,
-                                'controls.actors.selecttable.tbl.eligible'
-                            ) + '</span>'
-                    });
-                } else {
-                    var reasonText;
-
-                    if (this.$actorType === 'users') {
-                        reasonText = QUILocale.get(lgCore,
-                            'controls.actors.selecttable.tbl.not.eligible.user'
-                        );
-                    } else {
-                        reasonText = QUILocale.get(lgCore,
-                            'controls.actors.selecttable.tbl.not.eligible.group'
-                        );
-                    }
-
-                    Row.notice = new Element('div', {
-                        'class': 'pcsg-gpm-actors-selecttable-eligibility',
-                        html   : '<span class="pcsg-gpm-actors-selecttable-noteligible">' +
-                            QUILocale.get(lgCore,
-                                'controls.actors.selecttable.tbl.not.eligible'
-                            ) + '</span>' +
-                            '<span>' + reasonText + '</span>'
-                    });
-                }
+        selectItem: function (Elm) {
+            if (!this.getAttribute('multiselect')) {
+                this.deselectAllItems();
             }
 
-            this.$Grid.setData(GridData);
+            Elm.setProperty('data-select-status', 'on');
+            Elm.addClass('selected');
 
-            var TableButtons = this.$Grid.getAttribute('buttons');
-            TableButtons[this.$actorType].setActive();
+            var Icon = Elm.getElement('.select-table-list-entry-icon-checkbox .fa');
 
-            if (this.$eligibleOnly) {
-                TableButtons.showeligibleonly.setActive();
-            } else {
-                TableButtons.showeligibleonly.setNormal();
-            }
+            Icon.removeClass('fa-square-o');
+            Icon.addClass('fa-check-square-o');
+        },
+
+        /**
+         * Deselect item form list
+         *
+         * @param Elm - HTMLNode (li)
+         */
+        deselectItem: function (Elm) {
+            Elm.setProperty('data-select-status', 'off');
+            Elm.removeClass('selected');
+
+            var Icon = Elm.getElement('.select-table-list-entry-icon-checkbox .fa');
+
+            Icon.removeClass('fa-check-square-o');
+            Icon.addClass('fa-square-o');
+        },
+
+        /**
+         * Get all list items and deselect them
+         */
+        deselectAllItems: function () {
+            var Entries = document.getElements('.select-table-list-entry');
+
+            Entries.each(function (Entry) {
+                this.deselectItem(Entry)
+            }.bind(this));
         },
 
         /**
@@ -584,7 +569,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             var nodeElms = this.$Elm.getElements('li[data-select-status="on"]'),
                 data     = [];
 
-            nodeElms.each(function(nodeElm){
+            nodeElms.each(function (nodeElm) {
                 data.push({
                     id      : nodeElm.getProperty('data-id'),
                     eligible: nodeElm.getProperty('data-eligible')
