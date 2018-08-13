@@ -376,6 +376,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 SearchParams.search = this.$search;
             }
 
+            console.log(this.$actorType)
+
             SearchParams.eligibleOnly = this.$eligibleOnly;
             SearchParams.type = this.$actorType;
             SearchParams.securityClassIds = this.getAttribute('securityClassIds');
@@ -385,13 +387,11 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
 
             Actors.search(SearchParams).then(function (ResultData) {
                 self.Loader.hide();
-                console.log(ResultData)
                 self.$renderEntries(ResultData);
             });
         },
 
         $renderEntries (Entries) {
-            console.log(Entries)
 
             for (var i = 0, len = Entries.data.length; i < len; i++) {
                 var Data                = Entries.data[i],
@@ -438,7 +438,12 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                         securityClassLabel : securityClassLabel,
                         securityClassNotice: securityClassNotice
                     }),
-                    'data-select-status': false
+                    'data-select-status': 'off',
+                    'data-id'           : Data.id,
+                    'data-eligible'     : Data.eligible,
+                    events              : {
+                        click: this.changeStatus
+                    }
                 });
 
                 if (!eligible) {
@@ -446,14 +451,52 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 }
 
                 liElm.inject(this.$List)
-
             }
 
 
         },
 
         /**
+         * Change entry status (on / off)
+         *
+         * @param event
+         */
+        changeStatus: function (event) {
+            var Target = event.target;
+
+            if (Target.nodeName !== 'LI') {
+                Target = Target.getParent('li');
+            }
+
+            // on / off
+            var status   = Target.getProperty('data-select-status'),
+                eligible = Target.getProperty('data-eligible'),
+                IconElm  = Target.getElement('.select-table-list-entry-icon-checkbox .fa');
+
+            if (eligible === 'false') {
+                return;
+            }
+
+            if (status === 'on') {
+                Target.setProperty('data-select-status', 'off');
+                Target.addClass('selected');
+
+                IconElm.removeClass('fa-check-square-o');
+                IconElm.addClass('fa-square-o');
+
+                return;
+            }
+
+            Target.setProperty('data-select-status', 'on');
+            Target.removeClass('selected');
+
+            IconElm.removeClass('fa-square-o');
+            IconElm.addClass('fa-check-square-o');
+        },
+
+        /**
          * Set user data to grid
+         * todo kann gelöscht werden
          *
          * @param {Object} GridData
          */
@@ -512,7 +555,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
          */
         getSelectedIds: function () {
             var selectedIds = [];
-            var selectedData = this.$Grid.getSelectedData();
+            var selectedData = this.getSelectedData();
+
 
             for (var i = 0, len = selectedData.length; i < len; i++) {
                 // ignore ineligible actors
@@ -524,6 +568,30 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             }
 
             return selectedIds;
+        },
+
+        /**
+         * Get data from selected entry.
+         * Returns array of objects
+         * {
+         *     id : 8937485,
+         *     eligible: "true"
+         * }
+         *
+         * @returns {Array}
+         */
+        getSelectedData: function () {
+            var nodeElms = this.$Elm.getElements('li[data-select-status="on"]'),
+                data     = [];
+
+            nodeElms.each(function(nodeElm){
+                data.push({
+                    id      : nodeElm.getProperty('data-id'),
+                    eligible: nodeElm.getProperty('data-eligible')
+                });
+            });
+
+            return data;
         },
 
         /**

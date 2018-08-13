@@ -83,7 +83,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
              * todo DEVELOPMENT
              * später löschen
              */
-            (function() {
+            (function () {
                 this.$onSearchButtonClick()
             }.bind(this)).delay(200)
         },
@@ -160,7 +160,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
             }
 
             new SelectPanel({
-                subPanel : true,
+                subPanel         : true,
                 info             : this.getAttribute('popupInfo'),
                 securityClassIds : this.getAttribute('securityClassIds'),
                 multiselect      : this.getAttribute('multiple'),
@@ -169,9 +169,9 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 selectedActorType: this.getAttribute('selectedActorType'),
                 filterActorIds   : filterActorIds,
                 events           : {
-                    onSubmit: function (ids, actorType) {
+                    onFinish: function (ids, actorType) {
                         var prefix = 'u';
-
+                        
                         if (actorType === 'groups') {
                             prefix = 'g';
                         }

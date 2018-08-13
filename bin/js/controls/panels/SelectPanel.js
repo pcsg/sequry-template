@@ -137,9 +137,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
          * event: on submit form
          */
         $onSubmit: function () {
-
-            // todo muss noch gemacht werden
-            this.fireEvent('submit', [
+            this.fireEvent('finish', [
                 this.$SelectTable.getSelectedIds(),
                 this.$SelectTable.getActorType(),
                 this
