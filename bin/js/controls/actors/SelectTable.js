@@ -46,37 +46,36 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         ],
 
         options: {
-            info             : '',        // info text that is shown above the table
-            multiselect      : false,     // can select multiple actors
-            securityClassIds : [],     // security class ids the actors have to be eligible for
-            filterActorIds   : [],        // IDs of actors that are filtered from list (entries must have
-                                          // prefix "u" (user) or "g" (group)
-            actorType        : 'all',     // can be "all", "users" or "groups"
-            showEligibleOnly : false,      // show eligible only or all
-            selectedActorType: 'users'   // pre-selected actor type
+            info              : '',        // info text that is shown above the table
+            multiselect       : false,     // can select multiple actors
+            securityClassIds  : [],     // security class ids the actors have to be eligible for
+            filterActorIds    : [],        // IDs of actors that are filtered from list (entries must have
+                                           // prefix "u" (user) or "g" (group)
+            actorType         : 'all',     // can be "all", "users" or "groups"
+            showEligibleOnly  : false,      // show eligible only or all
+            selectedActorType : 'users'   // pre-selected actor type
         },
 
         initialize: function (options) {
             this.parent(options);
 
-            this.setAttributes({
-                backgroundClosable: true,
-                closeButton       : true,
-                titleCloseButton  : true,
-                maxWidth          : 500
-            });
-
-            this.addEvents({
-                onInject: this.$onInject
-            });
-
             this.Loader = new QUILoader();
-            this.$actorType = 'users';
             this.$search = false;
             this.$SearchInput = null;
             this.$eligibleOnly = options.showEligibleOnly || true;
             this.$InfoElm = null;
             this.$List = null;
+            this.$actorType = this.getAttribute('actorType');
+            this.createFilterButton = false;
+
+            if (this.getAttribute('actorType') === 'all') {
+                this.createFilterButton = true;
+                this.$actorType = this.getAttribute('selectedActorType');
+            }
+
+            this.addEvents({
+                onInject: this.$onInject
+            });
         },
 
         /**
@@ -103,30 +102,44 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 'class': 'select-table-action'
             }).inject(this.$Elm);
 
-            // users button
-            this.ButtonUser = new Element('button', {
-                'class': 'btn btn-secondary btn-small select-table-btn-users',
-                html   : QUILocale.get(
-                    lg, 'sequry.panel.select.actors.selecttable.filter.buttonUser'
-                ),
-                name   : 'users',
-                events : {
-                    click: self.$onTypeBtnClick
-                }
-            }).inject(ButtonBarElm);
+            // Create user / groups button only if actorType is "all"
+            if (this.createFilterButton) {
+                // users button
+                this.ButtonUser = new Element('button', {
+                    'class': 'btn btn-secondary btn-outline btn-small select-table-btn-users',
+                    html   : QUILocale.get(
+                        lg, 'sequry.panel.select.actors.selecttable.filter.buttonUser'
+                    ),
+                    name   : 'users',
+                    events : {
+                        click: self.$onTypeBtnClick
+                    }
+                });
 
-            // groups button
-            this.ButtonGroup = new Element('button', {
-                'class': 'btn btn-secondary btn-outline btn-small select-table-btn-groups',
-                html   : QUILocale.get(
-                    lg, 'sequry.panel.select.actors.selecttable.filter.buttonGroups'
-                ),
-                name   : 'groups',
-                events : {
-                    click: self.$onTypeBtnClick
-                }
-            }).inject(ButtonBarElm);
+                // groups button
+                this.ButtonGroup = new Element('button', {
+                    'class': 'btn btn-secondary btn-outline btn-small select-table-btn-groups',
+                    html   : QUILocale.get(
+                        lg, 'sequry.panel.select.actors.selecttable.filter.buttonGroups'
+                    ),
+                    name   : 'groups',
+                    events : {
+                        click: self.$onTypeBtnClick
+                    }
+                });
 
+                // set button user / group active
+                switch (this.getAttribute('selectedActorType')) {
+                    case 'groups':
+                        this.ButtonGroup.removeClass('btn-outline');
+                        break;
+                    default:
+                        this.ButtonUser.removeClass('btn-outline');
+                }
+
+                this.ButtonUser.inject(ButtonBarElm);
+                this.ButtonGroup.inject(ButtonBarElm);
+            }
 
             // eligibile button
             var eligibleButtonIcon = '<span class="fa fa-check-square-o"></span>';
@@ -195,8 +208,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             Promise.all(promises).then(function (securityClasses) {
 
                 // content
-                var actorType           = self.getAttribute('actorType'),
-                    securityClassTitles = [];
+                var securityClassTitles = [];
 
                 for (i = 0, len = securityClasses.length; i < len; i++) {
                     securityClassTitles.push(securityClasses[i].title);

@@ -61,8 +61,6 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
             this.$SelectTable = null;
 
-
-
             // panel events
             this.addEvents({
                 onOpen     : this.$onOpen,
@@ -78,7 +76,6 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
          */
         $onOpen: function () {
             var self    = this,
-                Content = this.getContent(),
                 title;
 
             switch (this.getAttribute('actorType')) {
@@ -101,9 +98,9 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
                 securityClassIds : this.getAttribute('securityClassIds'),
                 multiselect      : this.getAttribute('multiselect'),
                 actorType        : this.getAttribute('actorType'),
+                selectedActorType: this.getAttribute('selectedActorType'),
                 filterActorIds   : this.getAttribute('filterActorIds'),
                 showEligibleOnly : this.getAttribute('showEligibleOnly'),
-                selectedActorType: this.getAttribute('selectedActorType'),
                 events           : {
                     onSubmit: this.$onSubmit
                 }

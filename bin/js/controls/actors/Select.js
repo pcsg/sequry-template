@@ -159,14 +159,15 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 filterActorIds.combine(this.getValue().split(','));
             }
 
+
             new SelectPanel({
                 subPanel         : true,
                 info             : this.getAttribute('popupInfo'),
                 securityClassIds : this.getAttribute('securityClassIds'),
                 multiselect      : this.getAttribute('multiselect'),
                 actorType        : this.getAttribute('actorType'),
-                showEligibleOnly : this.getAttribute('showEligibleOnly'),
                 selectedActorType: this.getAttribute('selectedActorType'),
+                showEligibleOnly : this.getAttribute('showEligibleOnly'),
                 filterActorIds   : filterActorIds,
                 events           : {
                     onFinish: function (ids, actorType) {
