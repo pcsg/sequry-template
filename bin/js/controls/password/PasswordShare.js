@@ -97,14 +97,9 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
                     self.fireEvent('load');
 
                 }, function () {
-                    console.log("test");
                     self.fireEvent('close', [self]);
-
-//                    self.fireEvent('close');
                 }
             );
-
-
         },
 
         /**
@@ -151,6 +146,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
                     this.$ActorSelectGroups.addItem('g' + id, type);
                     break;
             }
-        },
+        }
     });
 });

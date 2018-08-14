@@ -1,10 +1,10 @@
 /**
- * Panel control to share a password
+ * Panel control to link a password
  *
- * @module package/sequry/template/bin/js/controls/panels/PasswordSharePanel
+ * @module package/sequry/template/bin/js/controls/panels/PasswordLinkPanel
  * @author www.pcsg.de (Michael Danielczok)
  */
-define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
+define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -14,7 +14,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
     'package/sequry/core/bin/Actors',
     'package/sequry/template/bin/js/Password',
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/password/PasswordShare',
+    'package/sequry/template/bin/js/controls/password/link/List',
     'package/sequry/core/bin/Passwords'
 
 ], function (
@@ -22,7 +22,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
     Actors,
     PasswordManager,
     Panel,
-    PasswordShare,
+    PasswordLink,
     Passwords
 ) {
     "use strict";
@@ -32,7 +32,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
     return new Class({
 
         Extends: Panel,
-        Type   : 'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
+        Type   : 'package/sequry/template/bin/js/controls/panels/PasswordLinkPanel',
 
         Binds: [
             '$onSubmit',
@@ -42,11 +42,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
         ],
 
         options: {
-            title       : false,
-            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton : QUILocale.get(lg, 'sequry.panel.button.close'),
-            confirmClosePopup : true,
-            passwordId  : false
+            title            : false,
+            actionButton     : QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
+            confirmClosePopup: true,
+            passwordId       : false
         },
 
         initialize: function (options) {
@@ -71,20 +71,23 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
             var self = this,
                 pwId = this.getAttribute('passwordId');
 
-            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
+//            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
+            this.setTitle('Passwort verlinken');
 
             Actors.getPasswordAccessInfo(pwId).then(function (AccessInfo) {
 
                 if (!AccessInfo.canAccess) {
                     Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
                     self.close();
+                    console.log(11)
                     return;
                 }
-
-                self.$PasswordShare = new PasswordShare({
+console.log(13)
+                self.$PasswordLink = new PasswordLink({
                     passwordId: pwId,
                     events    : {
-                        onLoad: function () {
+                        onLoad : function () {
+                            console.log(12)
                             self.Loader.hide();
                         },
                         onClose: function () {

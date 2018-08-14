@@ -16,6 +16,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
+    'package/sequry/template/bin/js/controls/panels/PasswordLinkPanel',
 
     'text!package/sequry/template/bin/js/controls/main/List.html',
     'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
@@ -32,6 +33,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     PasswordPanel,
     PasswordCreatePanel,
     PasswordSharePanel,
+    PasswordLinkPanel,
     template,
     ListEntryTemplate
 ) {
@@ -137,6 +139,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @param Entry (it contains password data)
          */
         $renderEntry: function (Entry) {
+            console.log(Entry)
             var self = this;
             var favIconName = 'fa-star-o';
 
@@ -164,7 +167,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
             var actionContainer = Li.getElement('.list-action');
 
             var BtnShare = new Element('span', {
-                'class': 'fa fa-share-alt list-action-edit'
+                'class': 'fa fa-share-alt list-action-share'
+            });
+
+            var BtnLink = new Element('span', {
+                'class': 'fa fa-link list-action-link'
             });
 
             var BtnEdit = new Element('span', {
@@ -172,14 +179,24 @@ define('package/sequry/template/bin/js/controls/main/List', [
             });
 
             if (Entry.isOwner) {
-                BtnShare.addEvent('click', this.share);
+                if (Entry.canShare) {
+                    BtnShare.addEvent('click', this.share);
+                }
+
                 BtnEdit.addEvent('click', this.edit);
             } else {
                 this.setButtonInactive(BtnShare);
                 this.setButtonInactive(BtnEdit);
             }
 
+            if (Entry.canLink) {
+                BtnLink.addEvent('click', this.link);
+            } else {
+                this.setButtonInactive(BtnLink);
+            }
+
             BtnShare.inject(actionContainer);
+            BtnLink.inject(actionContainer);
             BtnEdit.inject(actionContainer);
 
             // open event
@@ -205,6 +222,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }).open();
         },
 
+        /**
+         * Open edit password panel
+         *
+         * @param event
+         */
         edit: function (event) {
             event.stop();
             var self = this;
@@ -222,6 +244,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }).open();
         },
 
+        /**
+         * Open share password panel
+         *
+         * @param event
+         */
         share: function (event) {
             event.stop();
 
@@ -229,6 +256,22 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
 
             new PasswordSharePanel({
+                passwordId: pwId
+            }).open();
+        },
+
+        /**
+         * Open link password panel
+         *
+         * @param event
+         */
+        link: function (event) {
+            event.stop();
+
+            var Target = event.target,
+                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+
+            new PasswordLinkPanel({
                 passwordId: pwId
             }).open();
         },
