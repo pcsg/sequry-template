@@ -44,7 +44,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.cancel'),
             info             : '',       // info text that is shown above the table
             securityClassIds : [],    // security class ids the actors have to be eligible for
-            multiselect      : false,
+            multiSelect      : false,
             actorType        : 'all',    // can be "all", "users" or "groups"
             filterActorIds   : [],       // IDs of actors that are filtered from list (entries must have
                                          // prefix "u" (user) or "g" (group)
@@ -93,7 +93,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
             this.$SelectTable = new SelectTable({
                 info             : this.getAttribute('info'),
                 securityClassIds : this.getAttribute('securityClassIds'),
-                multiselect      : this.getAttribute('multiselect'),
+                multiSelect      : this.getAttribute('multiSelect'),
                 actorType        : this.getAttribute('actorType'),
                 selectedActorType: this.getAttribute('selectedActorType'),
                 filterActorIds   : this.getAttribute('filterActorIds'),

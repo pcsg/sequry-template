@@ -46,14 +46,14 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         ],
 
         options: {
-            info              : '',        // info text that is shown above the table
-            multiselect       : false,     // can select multiple actors
-            securityClassIds  : [],     // security class ids the actors have to be eligible for
-            filterActorIds    : [],        // IDs of actors that are filtered from list (entries must have
-                                           // prefix "u" (user) or "g" (group)
-            actorType         : 'all',     // can be "all", "users" or "groups"
-            showEligibleOnly  : false,      // show eligible only or all
-            selectedActorType : 'users'   // pre-selected actor type
+            info             : '',        // info text that is shown above the table
+            multiSelect      : false,     // can select multiple actors
+            securityClassIds : [],     // security class ids the actors have to be eligible for
+            filterActorIds   : [],        // IDs of actors that are filtered from list (entries must have
+                                          // prefix "u" (user) or "g" (group)
+            actorType        : 'all',     // can be "all", "users" or "groups"
+            showEligibleOnly : false,      // show eligible only or all
+            selectedActorType: 'users'   // pre-selected actor type
         },
 
         initialize: function (options) {
@@ -63,6 +63,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             this.$search = false;
             this.$SearchInput = null;
             this.$eligibleOnly = options.showEligibleOnly || true;
+            this.info = false;
             this.$InfoElm = null;
             this.$List = null;
             this.$actorType = this.getAttribute('actorType');
@@ -92,10 +93,15 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             var info = self.getAttribute('info');
 
             if (info) {
-                this.$InfoElm = new Element('p', {
-                    'class': 'select-table-info',
-                    html   : info
+                this.info = true;
+
+                this.$InfoElm = new Element('div', {
+                    'class': 'select-table-info'
                 }).inject(this.$Elm);
+
+                new Element('p', {
+                    html: info
+                }).inject(this.$InfoElm);
             }
 
             var ButtonBarElm = new Element('div', {
@@ -214,11 +220,14 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                     securityClassTitles.push(securityClasses[i].title);
                 }
 
-                new Element('p', {
-                    html: QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.notice', {
-                        securityClassTitles: securityClassTitles.join(' / ')
-                    })
-                }).inject(self.$InfoElm);
+                if (self.info) {
+                    new Element('p', {
+                        'class': 'text-accent',
+                        html   : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.notice', {
+                            securityClassTitles: securityClassTitles.join(' / ')
+                        })
+                    }).inject(self.$InfoElm, 'top');
+                }
 
                 self.$listRefresh();
             });
@@ -412,7 +421,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
          * @param Elm - HTMLNode (li)
          */
         selectItem: function (Elm) {
-            if (!this.getAttribute('multiselect')) {
+            if (!this.getAttribute('multiSelect')) {
                 this.deselectAllItems();
             }
 

@@ -11,7 +11,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
-    'package/sequry/core/bin/controls/actors/Select',
+    'package/sequry/template/bin/js/controls/actors/Select',
 
     'text!package/sequry/template/bin/js/controls/password/PasswordShare.html',
     'css!package/sequry/template/bin/js/controls/password/PasswordShare.css'
@@ -20,14 +20,12 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
     QUI, QUIControl, Mustache, QUIAjax, QUILocale,
     Actors,
     Passwords,
-    ActorSelect,
+    ActorSelect, // package/sequry/template/bin/js/controls/actors/Select
     template
 ) {
     "use strict";
 
-    var lg     = 'sequry/template',
-        lgCore = 'sequry/core';
-
+    var lg     = 'sequry/template';
 
     return new Class({
 
@@ -84,13 +82,15 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
                     self.$ActorSelectUsers = new ActorSelect({
                         actorType       : 'users',
                         securityClassIds: [ShareData.securityClassId],
-                        showEligibleOnly: true
+                        showEligibleOnly: true,
+                        multiSelect     : true
                     }).inject(ActorUsersElm);
 
                     self.$ActorSelectGroups = new ActorSelect({
                         actorType       : 'groups',
                         securityClassIds: [ShareData.securityClassId],
-                        showEligibleOnly: true
+                        showEligibleOnly: true,
+                        multiSelect     : true
                     }).inject(ActorGroupsElm);
 
                     self.$insertData();
@@ -103,7 +103,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 //                    self.fireEvent('close');
                 }
             );
-
 
 
         },

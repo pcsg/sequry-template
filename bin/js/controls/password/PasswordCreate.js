@@ -300,7 +300,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 ),
                 max             : 1,
                 securityClassIds: [securityClassId],
-                multiselect     : false,
+                multiSelect     : false,
                 actorType       : 'all',
                 events          : {
                     onChange: this.$onOwnerChange

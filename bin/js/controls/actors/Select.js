@@ -35,6 +35,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
             actorType        : 'all',  // "users", "groups", "all"
             securityClassIds : [],     // ids of security classes this actors are searched for
             Search           : false,
+            multiSelect      : false,  // allow multiple entry select
             filterActorIds   : [],     // IDs of actors that are filtered from list (entries must have
             // prefix "u" (user) or "g" (group)
             showEligibleOnly : false,  // show eligible only or all
@@ -156,7 +157,7 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 subPanel         : true,
                 info             : this.getAttribute('popupInfo'),
                 securityClassIds : this.getAttribute('securityClassIds'),
-                multiselect      : this.getAttribute('multiselect'),
+                multiSelect      : this.getAttribute('multiSelect'),
                 actorType        : this.getAttribute('actorType'),
                 selectedActorType: this.getAttribute('selectedActorType'),
                 showEligibleOnly : this.getAttribute('showEligibleOnly'),
