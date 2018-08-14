@@ -38,8 +38,8 @@ button.btn.select-table-btn-eligibleOnly:active {
     border-top: none;
     margin-top: 1em;
     outline: none !important;
-    width: 100%;
     transition: 0.2s border-bottom-color;
+    width: 100%;
 }
 
 .select-table-search:hover,
