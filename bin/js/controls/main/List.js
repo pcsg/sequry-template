@@ -15,6 +15,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'package/sequry/core/bin/Passwords',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
+    'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
 
     'text!package/sequry/template/bin/js/controls/main/List.html',
     'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
@@ -30,6 +31,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     Passwords, // package/sequry/core/bin/Passwords
     PasswordPanel,
     PasswordCreatePanel,
+    PasswordSharePanel,
     template,
     ListEntryTemplate
 ) {
@@ -161,28 +163,23 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // action buttons
             var actionContainer = Li.getElement('.list-action');
 
-            var BtnEdit = new Element('span', {
-                'class'   : 'fa fa-pencil list-action-edit',
-                attributes: {
-                    'data-super': 'test'
-                }/*,
-                events: {
-                    click: function(event) {
-                        self.edit(event);
-                    }
-                }*/
+            var BtnShare = new Element('span', {
+                'class': 'fa fa-share-alt list-action-edit'
             });
 
+            var BtnEdit = new Element('span', {
+                'class': 'fa fa-pencil list-action-edit'
+            });
 
             if (Entry.isOwner) {
-                BtnEdit.addEvent('click', this.edit)
+                BtnShare.addEvent('click', this.share);
+                BtnEdit.addEvent('click', this.edit);
             } else {
-                BtnEdit.addEvent('click', function (event) {
-                    event.stop();
-                });
-                BtnEdit.addClass('list-action-edit-inactive');
+                this.setButtonInactive(BtnShare);
+                this.setButtonInactive(BtnEdit);
             }
 
+            BtnShare.inject(actionContainer);
             BtnEdit.inject(actionContainer);
 
             // open event
@@ -222,6 +219,17 @@ define('package/sequry/template/bin/js/controls/main/List', [
                         self.$listRefresh();
                     }
                 }
+            }).open();
+        },
+
+        share: function (event) {
+            event.stop();
+
+            var Target = event.target,
+                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+
+            new PasswordSharePanel({
+                passwordId: pwId
             }).open();
         },
 
@@ -301,6 +309,13 @@ define('package/sequry/template/bin/js/controls/main/List', [
             };
         },
 
+        setButtonInactive: function (Btn) {
+            Btn.addEvent('click', function (event) {
+                event.stop();
+            });
+            Btn.addClass('list-action-inactive');
+        },
+
         /**
          * Show all passwords.
          * (initialise search params)
@@ -310,7 +325,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$listRefresh();
         },
 
-        setFilters: function(type, name) {
+        setFilters: function (type, name) {
             this.$SearchParams.filters[type] = name ? name.split() : false;
             this.$listRefresh();
         },
@@ -323,7 +338,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$SearchParams.categoryIdPrivate = catId.toString();
         },
 
-        setSearchTerm: function(term) {
+        setSearchTerm: function (term) {
             this.$SearchParams.search.searchterm = term.trim();
         }
     });

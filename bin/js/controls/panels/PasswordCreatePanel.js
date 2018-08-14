@@ -45,17 +45,16 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         ],
 
         options: {
-            title       : false,
-            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton : QUILocale.get(lg, 'sequry.panel.button.close'),
-            mode        : 'create',
-            passwordId  : false
+            title            : false,
+            actionButton     : QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
+            mode             : 'create',
+            passwordId       : false,
+            confirmClosePopup: true
         },
 
         initialize: function (options) {
             this.parent(options);
-
-            this.setAttribute('confirmClosePopup', false);
 
             this.$Password = null;
             this.$PasswordData = null;

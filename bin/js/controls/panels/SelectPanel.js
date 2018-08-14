@@ -1,6 +1,5 @@
 /**
- * Panel control to create a new password.
- * It inherits from Panel.js
+ * Select panel control.
  *
  * @module package/sequry/template/bin/js/controls/panels/SelectPanel
  * @author www.pcsg.de (Michael Danielczok)
@@ -14,8 +13,6 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/actors/SelectTable'
-
-//    'css!package/sequry/template/bin/js/controls/panels/CategoryPanel.css'
 
 ], function (
     QUI,

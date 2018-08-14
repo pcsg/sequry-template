@@ -187,6 +187,14 @@
             <en><![CDATA[Show only eligible]]></en>
         </locale>
 
+        <!-- panel share -->
+        <locale name="sequry.panel.share.title">
+            <de><![CDATA[Passwort teilen]]></de>
+            <en><![CDATA[Share password]]></en>
+        </locale>
+        <locale name="sequry.panel.share.description">
+            <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort [passwordTitle] (#[passwordId]) anzusehen.]]></de>
+        </locale>
     </groups>
 
     <groups name="sequry/template" datatype="js">
