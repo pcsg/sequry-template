@@ -67,9 +67,12 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                     if (inputEsc) {
                         event.stop();
                         self.Input.value = '';
+                        self.search();
                     }
 
-                    self.search();
+                    if (event.key === 'enter') {
+                        self.search();
+                    }
                 }
             });
         },
@@ -92,7 +95,7 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                 return;
             }
 
-            if (this.$Timer) {
+            /*if (this.$Timer) {
                 clearInterval(this.$Timer);
             }
 
@@ -101,7 +104,12 @@ define('package/sequry/template/bin/js/controls/components/Header', [
 
                 window.PasswordList.setSearchTerm(searchValue);
                 window.PasswordList.$listRefresh();
-            }).delay(500);
+            }).delay(500);*/
+
+            this.searchValue = searchValue;
+
+            window.PasswordList.setSearchTerm(searchValue);
+            window.PasswordList.$listRefresh();
         },
 
         /**
