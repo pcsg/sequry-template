@@ -89,7 +89,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             }
 
             new Element('button', {
-                'class'        : 'btn btn-secondary btn-small link-table-createLink',
+                'class'        : 'btn btn-secondary btn-outline btn-small link-table-toggleInactive',
                 html           : toggleInactiveIcon + QUILocale.get(
                     lgCore, 'controls.password.linklist.tbl.btn.toggleInactive'
                 ),
@@ -117,8 +117,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                     }
                 }
             }).inject(ButtonBarElm);
-
-            console.log(1)
 
             Passwords.getShareData(pwId).then(function (ShareData) {
                     console.log("list password link");

@@ -139,7 +139,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @param Entry (it contains password data)
          */
         $renderEntry: function (Entry) {
-            console.log(Entry)
             var self = this;
             var favIconName = 'fa-star-o';
 
@@ -198,6 +197,13 @@ define('package/sequry/template/bin/js/controls/main/List', [
             BtnShare.inject(actionContainer);
             BtnLink.inject(actionContainer);
             BtnEdit.inject(actionContainer);
+
+            //todo development - löschen
+            // FB share link auto open
+            console.log(typeof Entry.id)
+            if (Entry.id === '69') {
+                BtnLink.click();
+            }
 
             // open event
             Li.addEvent('click', function () {
