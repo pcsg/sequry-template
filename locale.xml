@@ -160,24 +160,31 @@
 
         <locale name="sequry.panel.select.actors.selecttable.tbl.eligible">
             <de><![CDATA[geeignet]]></de>
+            <en><![CDATA[eligible]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible">
             <de><![CDATA[nicht geeignet]]></de>
+            <en><![CDATA[non eligible]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.user">
             <de><![CDATA[Nicht für für alle nötigen Authentifizierungs-Faktoren registriert]]></de>
+            <en><![CDATA[Not registered for all necessary authentication factors]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.group">
             <de><![CDATA[Nicht für alle nötigen Sicherheitsklassen freigeschaltet]]></de>
+            <en><![CDATA[Not activated for all necessary security classes]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.filter.buttonUser">
             <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.filter.buttonGroups">
             <de><![CDATA[Gruppen]]></de>
+            <en><![CDATA[Groups]]></en>
         </locale>
         <locale name="sequry.panel.select.actors.selecttable.filter.buttonEligibleOnly">
             <de><![CDATA[Nur geeignete zeigen]]></de>
+            <en><![CDATA[Show only eligible]]></en>
         </locale>
 
     </groups>
