@@ -14,7 +14,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     'package/sequry/core/bin/Actors',
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/password/Password',
-    'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel'
+    'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
+    'package/sequry/template/bin/js/controls/panels/PasswordSharePanel'
 ], function (
     QUI,
     QUIControl,
@@ -23,7 +24,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
     Actors,
     Panel,
     Password,
-    PasswordCreatePanel
+    PasswordCreatePanel,
+    PasswordSharePanel
 ) {
     "use strict";
 
@@ -133,9 +135,18 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * event: on submit form
          */
         $onSubmit: function () {
-            console.log("Password wird geteilt");
-            this.$Password.share();
-            this.cancel();
+            // Don't destroy the current background control...
+            this.setAttribute('keepBackground', true);
+
+            new PasswordSharePanel({
+                passwordId: this.getAttribute('id'),
+                Background: this.Background, // ... but pass it as attribute to the new panel control
+                events    : {
+                    open: function () {
+                        this.close();
+                    }.bind(this)
+                }
+            }).open();
         },
 
         $onSubmitSecondary: function () {

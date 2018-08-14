@@ -53,7 +53,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
             this.parent(options);
 
             this.$PasswordShare = null;
-            this.$ShareData = null;
 
             // panel events
             this.addEvents({
@@ -83,9 +82,13 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
                 self.$PasswordShare = new PasswordShare({
                     passwordId: pwId,
                     events    : {
-                        onLoad: function (PWShare) {
+                        onLoad: function () {
                             self.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
                             self.Loader.hide();
+                        },
+                        onClose: function () {
+                            self.Loader.hide();
+                            self.close();
                         }
                     }
                 }).inject(self.getContent());
@@ -128,7 +131,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
                     shareData
                 ).then(
                     function () {
-                        self.$ShareData = null;
                         self.fireEvent('finish');
                     },
                     reject

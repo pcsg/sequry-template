@@ -19,6 +19,16 @@
             <en><![CDATA[Sequry]]></en>
         </locale>
 
+
+        <locale name="sequry.control.label.users">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.control.label.groups">
+            <de><![CDATA[Gruppen]]></de>
+            <en><![CDATA[Groups]]></en>
+        </locale>
+
         <!-- passwort panel template -->
         <locale name="sequry.panel.template.basicData">
             <de><![CDATA[Stammdaten]]></de>
@@ -174,14 +184,6 @@
             <de><![CDATA[Nicht für alle nötigen Sicherheitsklassen freigeschaltet]]></de>
             <en><![CDATA[Not activated for all necessary security classes]]></en>
         </locale>
-        <locale name="sequry.panel.select.actors.selecttable.filter.buttonUser">
-            <de><![CDATA[Benutzer]]></de>
-            <en><![CDATA[User]]></en>
-        </locale>
-        <locale name="sequry.panel.select.actors.selecttable.filter.buttonGroups">
-            <de><![CDATA[Gruppen]]></de>
-            <en><![CDATA[Groups]]></en>
-        </locale>
         <locale name="sequry.panel.select.actors.selecttable.filter.buttonEligibleOnly">
             <de><![CDATA[Nur geeignete zeigen]]></de>
             <en><![CDATA[Show only eligible]]></en>
@@ -193,7 +195,7 @@
             <en><![CDATA[Share password]]></en>
         </locale>
         <locale name="sequry.panel.share.description">
-            <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort [passwordTitle] (#[passwordId]) anzusehen.]]></de>
+            <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort <span class="text-accent">[passwordTitle] (#[passwordId])</span> anzusehen.]]></de>
         </locale>
     </groups>
 

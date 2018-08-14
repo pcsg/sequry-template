@@ -64,8 +64,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
             Passwords.getShareData(pwId).then(
                 function (ShareData) {
 
-                    console.log(ShareData)
-
                     var description = QUILocale.get(lg,
                         'sequry.panel.share.description', {
                             passwordTitle: ShareData.title,
@@ -74,8 +72,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
                     self.$Elm.set('html', Mustache.render(template, {
                         description: description,
-                        ownerUsers : 'Benutzer',
-                        ownerGroups: 'Gruppen'
+                        ownerUsers : QUILocale.get(lg, 'sequry.control.label.users'),
+                        ownerGroups: QUILocale.get(lg, 'sequry.control.label.users')
                     }));
 
                     var ActorUsersElm  = self.$Elm.getElement('.password-share-user-select'),
@@ -96,14 +94,17 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
                     }).inject(ActorGroupsElm);
 
                     self.$insertData();
-                    self.fireEvent('loaded');
+                    self.fireEvent('load');
+
                 }, function () {
-                    self.fireEvent('close');
+                    console.log("test");
+                    self.fireEvent('close', [self]);
+
+//                    self.fireEvent('close');
                 }
             );
 
 
-            this.fireEvent('load', [self]);
 
         },
 

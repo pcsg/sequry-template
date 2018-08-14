@@ -66,6 +66,10 @@ ul, ol {
     margin-left: 1em;
 }
 
+.text-accent {
+    font-weight: normal;
+}
+
 /** helper
  ===================================== */
 

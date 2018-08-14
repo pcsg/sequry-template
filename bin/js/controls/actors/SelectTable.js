@@ -108,7 +108,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 this.ButtonUser = new Element('button', {
                     'class': 'btn btn-secondary btn-outline btn-small select-table-btn-users',
                     html   : QUILocale.get(
-                        lg, 'sequry.panel.select.actors.selecttable.filter.buttonUser'
+                        lg, 'sequry.control.label.users'
                     ),
                     name   : 'users',
                     events : {
@@ -120,7 +120,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 this.ButtonGroup = new Element('button', {
                     'class': 'btn btn-secondary btn-outline btn-small select-table-btn-groups',
                     html   : QUILocale.get(
-                        lg, 'sequry.panel.select.actors.selecttable.filter.buttonGroups'
+                        lg, 'sequry.control.label.groups'
                     ),
                     name   : 'groups',
                     events : {
