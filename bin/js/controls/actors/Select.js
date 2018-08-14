@@ -78,14 +78,6 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
             this.addEvents({
                 onSearchButtonClick: this.$onSearchButtonClick
             });
-
-            /**
-             * todo DEVELOPMENT
-             * später löschen
-             */
-            (function () {
-                this.$onSearchButtonClick()
-            }.bind(this)).delay(200)
         },
 
         /**

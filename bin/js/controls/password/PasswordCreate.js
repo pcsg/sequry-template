@@ -473,8 +473,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
         $setPrivateCategories: function (categoryIds) {
             var self = this;
 
-            console.log(categoryIds)
-
             return new Promise(function (resolve, reject) {
                 Categories.setPrivatePasswordCategories(
                     self.getAttribute('id'),
