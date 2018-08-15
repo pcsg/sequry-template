@@ -38,7 +38,12 @@ button.btn.link-table-toggleInactive:active {
 }
 
 .link-table-list-entry[data-active="true"]:hover {
-    border-left-color: #4091c7;
+    border-left-color: #666;
+}
+
+.link-table-list-entry[data-active="false"] {
+    border-left-color: #fba8a8;
+    background: #fff7f7;
 }
 
 /* link icon */
@@ -57,7 +62,8 @@ button.btn.link-table-toggleInactive:active {
     width: calc(1rem + 40px);
 }
 
-.link-table-list-entry[data-active="true"] .link-table-list-entry-icon:hover {
+.link-table-list-entry[data-active="true"] .link-table-list-entry-icon:hover,
+.link-table-list-entry-iconDetails:hover {
     color: inherit;
 }
 
@@ -74,12 +80,12 @@ button.btn.link-table-toggleInactive:active {
 
 .link-table-list-entry-content-value {
     font-weight: normal;
-    /*color: green;*/
 }
-/*
-.link-table-list-entry[data-active="false"] .link-table-list-entry-content-value {
+
+.link-table-list-entry-content-value.date-expired,
+.link-table-list-entry-content-value.max-calls-reached {
     color: red;
-}*/
+}
 
 .link-table-list-entry-content-calls-button {
     border: none;

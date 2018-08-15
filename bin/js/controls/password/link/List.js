@@ -39,7 +39,9 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
         options: {
             passwordId  : false, //passwordId
-            showInactive: false // show inactive links
+            showInactive: false, // show inactive links
+            sortOn      : 'id',
+            sortBy      : 'ASC'
         },
 
         initialize: function (options) {
@@ -48,6 +50,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             this.Loader = new QUILoader();
             this.$ShowInactiveBtn = null;
             this.$SearchParams = {};
+            this.CurDate = new Date();
 
             this.addEvents({
                 onInject: this.$onInject
@@ -171,6 +174,12 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
         createEntry: function (Entry) {
             console.log(Entry)
+
+            var maxCalls = '';
+            if (Entry.maxCalls) {
+                maxCalls = ' / ' + Entry.maxCalls;
+            }
+
             var LiElm = new Element('li', {
                 'class'      : 'link-table-list-entry',
                 html         : Mustache.render(template, {
@@ -178,14 +187,30 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                     'validUntilValue': Entry.validUntil,
                     'calls'          : 'Aufrufe:',
                     'callCount'      : Entry.callCount,
-                    'maxCalls'       : Entry.maxCalls
+                    'maxCalls'       : maxCalls
                 }),
                 'data-active': Entry.active
             });
 
             LiElm.inject(this.$ListElm);
 
-            var LinkBtn = new Element('span', {
+            // password date expired?
+            var ExpireDate = new Date(Entry.validUntil);
+            if (this.CurDate > ExpireDate) {
+                LiElm.getElement(
+                    '.link-table-list-entry-content-value.password-validUntil'
+                ).addClass('date-expired')
+            }
+
+            // max calls reached?
+            if (Entry.maxCalls && Entry.callCount >= Entry.maxCalls) {
+                LiElm.getElement(
+                    '.link-table-list-entry-content-value.password-calls'
+                ).addClass('max-calls-reached')
+            }
+
+            // link button
+            new Element('span', {
                 'class': 'fa fa-external-link link-table-list-entry-icon link-table-list-entry-iconLink',
                 title  : Entry.link,
                 events : {
@@ -195,7 +220,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }).inject(LiElm, 'top');
 
-            var CallsBtn = new Element('span', {
+            // show calls buttons
+            new Element('span', {
                 'class': 'btn btn-secondary btn-outline btn-inline link-table-list-entry-content-calls-button',
                 html   : 'anzeigen',
                 title  : 'Aufrufe anzeigen',
@@ -206,7 +232,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }).inject(LiElm.getElement('.link-table-list-entry-content-calls-container'));
 
-            var DetailsBtn = new Element('span', {
+            // show password link details
+            new Element('span', {
                 'class': 'fa fa-angle-double-down link-table-list-entry-icon link-table-list-entry-iconDetails',
                 title  : 'Link details',
                 events : {
