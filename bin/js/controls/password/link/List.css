@@ -19,3 +19,79 @@ button.btn.link-table-toggleInactive:active {
     background: none;
     color: inherit;
 }
+
+/* list */
+.link-table-list {
+    list-style: none;
+    margin: 0;
+}
+
+.link-table-list-entry {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 3px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    line-height: 120%;
+    margin: 5px auto;
+    padding: 5px 0;
+}
+
+.link-table-list-entry[data-active="true"]:hover {
+    border-left-color: #4091c7;
+}
+
+/* link icon */
+.link-table-list-entry-icon {
+    align-items: center;
+    color: #777;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.1em;
+    padding: 0 20px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, opacity .15s ease-in-out;
+    transition-delay: initial, initial, initial, initial, initial;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-property: color, background-color, border-color, box-shadow, opacity;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    width: calc(1rem + 40px);
+}
+
+.link-table-list-entry[data-active="true"] .link-table-list-entry-icon:hover {
+    color: inherit;
+}
+
+.link-table-list-entry[data-active="false"] .link-table-list-entry-iconLink {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* content*/
+.link-table-list-entry-content {
+    flex-grow: 1;
+    font-size: 0.9rem;
+}
+
+.link-table-list-entry-content-value {
+    font-weight: normal;
+    /*color: green;*/
+}
+/*
+.link-table-list-entry[data-active="false"] .link-table-list-entry-content-value {
+    color: red;
+}*/
+
+.link-table-list-entry-content-calls-button {
+    border: none;
+    font-size: inherit;
+    line-height: 100%;
+    padding: 3px 5px;
+    text-decoration: underline;
+}
+
+.link-table-list-entry-content-calls-button:hover,
+.link-table-list-entry-content-calls-button:active,
+.link-table-list-entry-content-calls-button:focus {
+    background: none;
+    color: inherit;
+}

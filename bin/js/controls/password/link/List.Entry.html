@@ -1,18 +1,18 @@
-<div class="link-table-list-entry-icon"></div>
-
 <div class="link-table-list-entry-content">
     <div class="link-table-list-entry-content-line1">
         <span class="link-table-list-entry-content-label link-table-list-entry-content-validUntil">
             {{validUntil}}
         </span>
-        <span class="link-table-list-entry-content-value link-table-list-entry-content-validUntil"></span>
+        <span class="link-table-list-entry-content-value link-table-list-entry-content-validUntil">
+            {{validUntilValue}}
+        </span>
     </div>
-    <div class="link-table-list-entry-content-line2">
+    <div class="link-table-list-entry-content-line2 link-table-list-entry-content-calls-container">
         <span class="link-table-list-entry-content-label link-table-list-entry-content-calls">
             {{calls}}
         </span>
-        <span class="link-table-list-entry-content-value link-table-list-entry-content-calls"></span>
+        <span class="link-table-list-entry-content-value link-table-list-entry-content-calls">
+            {{callCount}} / {{maxCalls}}
+        </span>
     </div>
 </div>
-
-<div class="link-table-list-entry-details"></div>

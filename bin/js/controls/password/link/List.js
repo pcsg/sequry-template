@@ -14,7 +14,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'package/sequry/core/bin/Passwords',
 
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
-    'css!package/sequry/template/bin/js/controls/password/link/List.Entry.css',
     'css!package/sequry/template/bin/js/controls/password/link/List.css'
 
 ], function (
@@ -115,7 +114,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                         }
 
                         self.showInactive = !self.showInactive;
-//                        self.$listRefresh();
+                        self.$SearchParams.showInactive = self.showInactive;
+                        self.$listRefresh();
                     }
                 }
             }).inject(ButtonBarElm);
@@ -146,6 +146,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }
 
+            this.$ListElm.set('html', '');
             this.Loader.show();
 
             this.$SearchParams.sortOn = sortOn;
@@ -171,24 +172,49 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         createEntry: function (Entry) {
             console.log(Entry)
             var LiElm = new Element('li', {
-                'class': 'link-table-list-entry',
-                html   : Mustache.render(template, {
-                    'validUntil': 'Gültig bis:',
-                    'calls'     : 'Aufrufe'
-                })
+                'class'      : 'link-table-list-entry',
+                html         : Mustache.render(template, {
+                    'validUntil'     : 'Gültig bis:',
+                    'validUntilValue': Entry.validUntil,
+                    'calls'          : 'Aufrufe:',
+                    'callCount'      : Entry.callCount,
+                    'maxCalls'       : Entry.maxCalls
+                }),
+                'data-active': Entry.active
             });
 
             LiElm.inject(this.$ListElm);
 
-            var Link = new Element('span', {
-                'class' : 'fa fa-external-link',
-                title: Entry.link,
-                events: {
+            var LinkBtn = new Element('span', {
+                'class': 'fa fa-external-link link-table-list-entry-icon link-table-list-entry-iconLink',
+                title  : Entry.link,
+                events : {
                     click: function () {
                         console.log(Entry.link)
                     }
                 }
-            }).inject(LiElm.getElement('.link-table-list-entry-icon'));
+            }).inject(LiElm, 'top');
+
+            var CallsBtn = new Element('span', {
+                'class': 'btn btn-secondary btn-outline btn-inline link-table-list-entry-content-calls-button',
+                html   : 'anzeigen',
+                title  : 'Aufrufe anzeigen',
+                events : {
+                    click: function () {
+                        console.log('Aufruf-Tabelle anzeigen')
+                    }
+                }
+            }).inject(LiElm.getElement('.link-table-list-entry-content-calls-container'));
+
+            var DetailsBtn = new Element('span', {
+                'class': 'fa fa-angle-double-down link-table-list-entry-icon link-table-list-entry-iconDetails',
+                title  : 'Link details',
+                events : {
+                    click: function () {
+                        console.log('Mehr Details anzeigen')
+                    }
+                }
+            }).inject(LiElm);
         }
     });
 });
