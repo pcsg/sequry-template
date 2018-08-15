@@ -13,14 +13,15 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
 
-//    'text!package/sequry/template/bin/js/controls/password/PasswordShare.html',
+    'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
+    'css!package/sequry/template/bin/js/controls/password/link/List.Entry.css',
     'css!package/sequry/template/bin/js/controls/password/link/List.css'
 
 ], function (
     QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale,
     Actors,
-    Passwords
-//    template
+    Passwords,
+    template
 ) {
     "use strict";
 
@@ -33,7 +34,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         Type   : 'package/sequry/template/bin/js/controls/password/link/List',
 
         Binds: [
-            '$onInject'
+            '$onInject',
+            '$listRefresh'
         ],
 
         options: {
@@ -118,23 +120,19 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }).inject(ButtonBarElm);
 
-            Passwords.getShareData(pwId).then(function (ShareData) {
-                    console.log("list password link");
-                    console.log(ShareData);
-                    self.Loader.hide();
+            // list elm
+            this.$ListElm = new Element('ul', {
+                'class': 'link-table-list'
+            }).inject(this.$Elm);
 
-                    self.fireEvent('load');
-                    console.log(2)
+            this.Loader.inject(this.$ListElm);
 
-                }, function () {
-                    console.log(3)
-
-                    self.fireEvent('close', [self]);
-                }
-            );
+            this.$listRefresh();
+            this.fireEvent('load', [this])
         },
 
         $listRefresh: function () {
+            var self = this;
             var sortOn = this.getAttribute('sortOn');
 
             if (sortOn) {
@@ -159,19 +157,38 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 this.getAttribute('passwordId'),
                 this.$SearchParams
             ).then(function (list) {
-                console.log(list);
-                self.Loader.hide();
-                return;
-                self.$setGridData(list);
+                var entries = list.data;
 
-                if (self.$SearchParams.showInactive) {
-                    self.$ShowInactiveBtn.setActive();
-                } else {
-                    self.$ShowInactiveBtn.setNormal();
+                for (var i = 0, len = entries.length; i < len; i++) {
+                    self.createEntry(entries[i]);
                 }
+                self.Loader.hide();
             }, function () {
                 self.fireEvent('close', [self]);
             });
+        },
+
+        createEntry: function (Entry) {
+            console.log(Entry)
+            var LiElm = new Element('li', {
+                'class': 'link-table-list-entry',
+                html   : Mustache.render(template, {
+                    'validUntil': 'Gültig bis:',
+                    'calls'     : 'Aufrufe'
+                })
+            });
+
+            LiElm.inject(this.$ListElm);
+
+            var Link = new Element('span', {
+                'class' : 'fa fa-external-link',
+                title: Entry.link,
+                events: {
+                    click: function () {
+                        console.log(Entry.link)
+                    }
+                }
+            }).inject(LiElm.getElement('.link-table-list-entry-icon'));
         }
     });
 });

@@ -200,7 +200,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             //todo development - löschen
             // FB share link auto open
-            console.log(typeof Entry.id)
             if (Entry.id === '69') {
                 BtnLink.click();
             }

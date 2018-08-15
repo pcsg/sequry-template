@@ -4,12 +4,6 @@
     margin-bottom: 2em;
 }
 
-.btn.link-table-createLink {
-    border-bottom-right-radius: 0;
-    border-right: none;
-    border-top-right-radius: 0;
-}
-
 .btn.link-table-toggleInactive {
     border-color: transparent;
     margin-left: auto;

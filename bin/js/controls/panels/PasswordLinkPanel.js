@@ -22,7 +22,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
     Actors,
     PasswordManager,
     Panel,
-    PasswordLink,
+    PasswordLinkList,
     Passwords
 ) {
     "use strict";
@@ -79,15 +79,15 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                 if (!AccessInfo.canAccess) {
                     Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
                     self.close();
-                    console.log(11)
+                    console.log(1)
                     return;
                 }
-console.log(13)
-                self.$PasswordLink = new PasswordLink({
+                console.log(2)
+                self.$PasswordLink = new PasswordLinkList({
                     passwordId: pwId,
                     events    : {
                         onLoad : function () {
-                            console.log(12)
+                            console.log(3)
                             self.Loader.hide();
                         },
                         onClose: function () {
