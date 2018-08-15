@@ -23,9 +23,10 @@ button.btn.link-table-toggleInactive:active {
 /********/
 /* list */
 /********/
-.link-table-list-warning h4 {
-    margin-top: 0;
-    text-weight: normal;
+.link-table-list-warning .header-title {
+    display: block;
+    font-weight: normal;
+    margin-bottom: 10px;
 }
 
 .link-table-list-warning p {
@@ -156,13 +157,12 @@ button.btn.link-table-toggleInactive:active {
     line-height: 100%;
 }
 
-
 .link-table-list-entry[data-active="true"] .link-table-list-entry-icon.fa-trash-o:hover {
     color: red;
 }
 
 .link-table-list-entry[data-active="false"] .link-table-list-entry-icon.fa-trash-o {
+    color: inherit;
     cursor: not-allowed;
     opacity: 0.5;
-    color: inherit;
 }

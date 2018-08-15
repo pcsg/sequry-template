@@ -45,7 +45,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
             title            : false,
             actionButton     : QUILocale.get(lg, 'sequry.panel.button.save'),
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
-            confirmClosePopup: true,
+            confirmClosePopup: false,
             passwordId       : false
         },
 
@@ -79,15 +79,13 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                 if (!AccessInfo.canAccess) {
                     Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
                     self.close();
-                    console.log(1)
                     return;
                 }
-                console.log(2)
+
                 self.$PasswordLink = new PasswordLinkList({
                     passwordId: pwId,
                     events    : {
                         onLoad : function () {
-                            console.log(3)
                             self.Loader.hide();
                         },
                         onClose: function () {

@@ -201,6 +201,15 @@
 
     <groups name="sequry/template" datatype="js">
 
+        <!-- Password link list -->
+        <locale name="sequry.panel.linkList.noEntry.title">
+            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <en><![CDATA[No entries found]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.noEntry.desc">
+            <de><![CDATA[Das Passwort wurde noch nicht extern geteilt.]]></de>
+            <en><![CDATA[The password has not yet been shared externally.]]></en>
+        </locale>
 
         <!-- buttons -->
         <locale name="sequry.panel.button.share">

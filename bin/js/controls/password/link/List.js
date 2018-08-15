@@ -104,8 +104,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 'data-selected': this.showInactive,
                 events         : {
                     click: function () {
-                        console.log('switch zwischen active / inactive ');
-
                         var Icon = this.getElement('.fa');
 
                         if (this.getProperty('data-selected') === 'true') {
@@ -142,6 +140,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             var self = this;
             var sortOn = this.getAttribute('sortOn');
 
+            // todo Sort functionality
             if (sortOn) {
                 switch (sortOn) {
                     case 'id':
@@ -169,9 +168,13 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
                 // no share link data
                 if (entries.length === 0) {
+                    var noEntryTitle = QUILocale.get(lg, 'sequry.panel.linkList.noEntry.title'),
+                        noEntryDesc  = QUILocale.get(lg, 'sequry.panel.linkList.noEntry.desc');
+
                     new Element('li', {
                         'class': 'link-table-list-warning sequry-alert-warning',
-                        html   : '<h4>Keine Einträge gefunden</h4><p>Das Passwort wurde noch nicht exntern geteilt.</p>'
+                        html   : '<span class="header-title">' + noEntryTitle + '</span>' +
+                            '<p>' + noEntryDesc + '</p>'
                     }).inject(self.$ListElm);
 
                     self.Loader.hide();
@@ -365,7 +368,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             new QUIConfirm({
                 'class'           : 'sequry-customPopup',
                 maxWidth          : 400, // please note extra styling in style.css
-                maxHeight: 340,
+                maxHeight         : 340,
                 backgroundClosable: true,
                 title             : false,
                 titleCloseButton  : false,
