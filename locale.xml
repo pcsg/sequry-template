@@ -264,6 +264,16 @@
             <en><![CDATA[Back]]></en>
         </locale>
 
+        <!-- custom confirm popup: delete password link -->
+        <locale name="sequry.customPopup.confirm.disableLink.title">
+            <de><![CDATA[Link deaktivieren]]></de>
+            <en><![CDATA[Disable link]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.disableLink.content" html="true">
+            <de><![CDATA[Sind Sie sicher, dass der Passwort-Link <strong>#[linkId]</strong> dauerhaft deaktiviert werden soll? Der Passwort-Link bleibt weiterhin in der Übersichtsliste, kann aber nicht mehr aufgerufen oder wieder aktiviert werden.]]></de>
+            <en><![CDATA[Are you sure you want to permanently disable the <strong>#[linkId]</strong> password link? The password link remains in the overview list, but can no longer be called up or reactivated.]]></en>
+        </locale>
+
         <!-- left menu -->
         <locale name="sequry.menu.filters.all">
             <de><![CDATA[Alle Passwörter]]></de>

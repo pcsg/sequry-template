@@ -20,7 +20,18 @@ button.btn.link-table-toggleInactive:active {
     color: inherit;
 }
 
+/********/
 /* list */
+/********/
+.link-table-list-warning h4 {
+    margin-top: 0;
+    text-weight: normal;
+}
+
+.link-table-list-warning p {
+    margin-bottom: 0;
+}
+
 .link-table-list {
     list-style: none;
     margin: 0;
@@ -32,6 +43,7 @@ button.btn.link-table-toggleInactive:active {
     border-left: 3px solid #ddd;
     border-radius: 5px;
     display: flex;
+    flex-wrap: wrap;
     line-height: 120%;
     margin: 5px auto;
     padding: 5px 0;
@@ -42,8 +54,8 @@ button.btn.link-table-toggleInactive:active {
 }
 
 .link-table-list-entry[data-active="false"] {
-    border-left-color: #fba8a8;
     background: #fff7f7;
+    border-left-color: #fba8a8;
 }
 
 /* link icon */
@@ -99,5 +111,58 @@ button.btn.link-table-toggleInactive:active {
 .link-table-list-entry-content-calls-button:active,
 .link-table-list-entry-content-calls-button:focus {
     background: none;
+    color: inherit;
+}
+
+/***********/
+/* details */
+/***********/
+.link-table-list-entry-details {
+    overflow: hidden;
+    transition: 0.15s height;
+    width: 100%;
+}
+
+.link-table-list-entry-details-inner {
+    font-size: 0.9rem;
+    padding: 10px 0 10px calc(1rem + 40px);
+}
+
+.link-table-list-entry-details-inner hr {
+    background: #ddd;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+}
+
+.link-table-list-entry-details-inner-wrapper {
+    display: flex;
+}
+
+.details-inner-left-entry {
+    float: left;
+    line-height: 120%;
+    margin-bottom: 5px;
+    margin-right: 20px;
+}
+
+.link-table-list-entry-details-inner-left {
+    flex-grow: 1;
+}
+
+.details-inner-left-entry-value {
+    font-weight: normal;
+    line-height: 100%;
+}
+
+
+.link-table-list-entry[data-active="true"] .link-table-list-entry-icon.fa-trash-o:hover {
+    color: red;
+}
+
+.link-table-list-entry[data-active="false"] .link-table-list-entry-icon.fa-trash-o {
+    cursor: not-allowed;
+    opacity: 0.5;
     color: inherit;
 }

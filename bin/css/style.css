@@ -1,10 +1,10 @@
 * {
-    margin: 0;
-    padding: 0;
-
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+
     -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -14,12 +14,12 @@ html {
 }
 
 body {
+    background: #ffffff;
+    color: #393e45;
     font-weight: 300;
     line-height: 1.7em;
-    color: #393e45;
-    background: #ffffff;
-    min-height: 100%;
     margin: 0;
+    min-height: 100%;
     width: 100%;
 }
 
@@ -32,14 +32,14 @@ p {
 }
 
 h1, h2, h3, h4 {
-    margin: 1.414em 0 0.5em;
     font-weight: inherit;
     line-height: 1.2;
+    margin: 1.414em 0 0.5em;
 }
 
 h1 {
-    margin-top: 0;
     font-size: 2.5em;
+    margin-top: 0;
 }
 
 h2 {
@@ -80,8 +80,8 @@ ul, ol {
 }
 
 .grid-children-container {
-    position: relative;
     left: -20px;
+    position: relative;
     width: calc(100% + 40px);
 }
 
@@ -110,47 +110,47 @@ ul, ol {
     /*max-width: calc(100% - 40px) !important;*/
     /*width: 400px !important;*/
     /*margin: 0 20px;*/
-    box-shadow: 0 0 50px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+    box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
 }
 
 /* icon */
 .sequry-customPopup .popup-icon {
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px;
+    color: #434545;
     display: block;
+    font-size: 30px;
+    line-height: 60px;
     margin: 5px auto 20px;
     text-align: center;
-    font-size: 30px;
-    color: #434545;
-    box-shadow: 0 0 0 4px;
     width: 60px;
-    border-radius: 50%;
-    line-height: 60px;
 }
 
 /* content */
 .sequry-customPopup .popup-title {
-    text-transform: uppercase;
-    font-weight: 400;
-    text-align: center;
     display: block;
+    font-weight: 400;
     margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 /* buttons */
 .sequry-customPopup .qui-window-popup-buttons {
-    width: 100%;
+    background: none;
     display: flex;
     justify-content: space-around;
-    background: none;
+    width: 100%;
 }
 
 .sequry-customPopup .qui-window-popup-buttons:after,
 .sequry-customPopup .qui-window-popup-sheet-buttons:after {
-    height: 1px;
     background: #ddd;
+    height: 1px;
     left: 20px;
-    width: calc(100% - 40px);
     opacity: 1;
+    width: calc(100% - 40px);
 }
 
 .sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
@@ -163,4 +163,20 @@ ul, ol {
     background: none;
     border: none;
     color: #999;
+}
+
+/**********/
+/* alerts */
+/**********/
+.sequry-alert-warning {
+    background-color: #FAF6D466;
+    border: 1px solid #E6C26E66;
+    border-radius: 5px;
+    color: #000;
+    float: left;
+    line-height: 20px;
+    margin-bottom: 10px;
+    margin-top: 20px !important;
+    padding: 10px;
+    width: 100%;
 }

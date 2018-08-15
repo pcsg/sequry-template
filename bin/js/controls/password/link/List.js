@@ -9,18 +9,21 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'Mustache',
     'Ajax',
     'Locale',
+    'qui/controls/windows/Confirm',
 
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
 
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
+    'text!package/sequry/template/bin/js/controls/password/link/List.Entry.Details.html',
     'css!package/sequry/template/bin/js/controls/password/link/List.css'
 
 ], function (
-    QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale,
+    QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale, QUIConfirm,
     Actors,
     Passwords,
-    template
+    templateEntry,
+    templateDetails
 ) {
     "use strict";
 
@@ -34,7 +37,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
         Binds: [
             '$onInject',
-            '$listRefresh'
+            '$listRefresh',
+            'createDetails'
         ],
 
         options: {
@@ -163,26 +167,35 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             ).then(function (list) {
                 var entries = list.data;
 
+                // no share link data
+                if (entries.length === 0) {
+                    new Element('li', {
+                        'class': 'link-table-list-warning sequry-alert-warning',
+                        html   : '<h4>Keine Einträge gefunden</h4><p>Das Passwort wurde noch nicht exntern geteilt.</p>'
+                    }).inject(self.$ListElm);
+
+                    self.Loader.hide();
+                    return;
+                }
+
                 for (var i = 0, len = entries.length; i < len; i++) {
                     self.createEntry(entries[i]);
                 }
-                self.Loader.hide();
             }, function () {
                 self.fireEvent('close', [self]);
             });
         },
 
         createEntry: function (Entry) {
-            console.log(Entry)
-
             var maxCalls = '';
+
             if (Entry.maxCalls) {
                 maxCalls = ' / ' + Entry.maxCalls;
             }
 
             var LiElm = new Element('li', {
                 'class'      : 'link-table-list-entry',
-                html         : Mustache.render(template, {
+                html         : Mustache.render(templateEntry, {
                     'validUntil'     : 'Gültig bis:',
                     'validUntilValue': Entry.validUntil,
                     'calls'          : 'Aufrufe:',
@@ -234,14 +247,158 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
             // show password link details
             new Element('span', {
-                'class': 'fa fa-angle-double-down link-table-list-entry-icon link-table-list-entry-iconDetails',
-                title  : 'Link details',
-                events : {
+                'class'    : 'fa fa-angle-double-down link-table-list-entry-icon link-table-list-entry-iconDetails',
+                title      : 'Link details',
+                'data-open': 'false',
+                events     : {
                     click: function () {
-                        console.log('Mehr Details anzeigen')
-                    }
+                        this.toggleDetails(event, LiElm, {
+                            active        : Entry.active,
+                            id            : Entry.id,
+                            password      : Entry.password,
+                            createDate    : Entry.createDate,
+                            createUserName: Entry.createUserName,
+                            createUserId  : Entry.createUserId,
+                            passwordOwner : Entry.passwordOwner,
+                            securityClass : Entry.securityClass
+                        })
+                    }.bind(this)
                 }
             }).inject(LiElm);
+        },
+
+        toggleDetails: function (event, LiElm, params) {
+
+            var Button = event.target,
+                open   = Button.getProperty('data-open');
+
+            if (open === 'true') {
+
+                var Details = LiElm.getElement('.link-table-list-entry-details');
+
+                moofx(Details).animate({
+                    height: 0
+                }, {
+                    duration: 150,
+                    callback: function () {
+                        Details.destroy();
+                    }
+                });
+
+                Button.setProperty('data-open', false);
+                Button.removeClass('fa-angle-double-up');
+                Button.addClass('fa-angle-double-down');
+                return;
+            }
+
+
+            this.createDetails(LiElm, params).then(function (Details) {
+                var DetailsInner = Details.getElement('.link-table-list-entry-details-inner');
+                Details.setStyle(
+                    'height', DetailsInner.getSize().y
+                );
+            });
+
+            Button.setProperty('data-open', true);
+            Button.removeClass('fa-angle-double-down');
+            Button.addClass('fa-angle-double-up');
+        },
+
+        createDetails: function (LiElm, params) {
+            var self         = this,
+                placeholders = {
+                    idLabel           : 'ID:',
+                    id                : params.id,
+                    pinLabel          : 'PIN-Schutz:',
+                    pinIcon           : params.password ? 'fa fa-check' : 'fa fa-remove',
+                    createDateLabel   : 'Erstellungsdatum:',
+                    createDate        : params.createDate,
+                    createUserLabel   : 'Erstellt von:',
+                    createUserName    : params.createUserName,
+                    createUserId      : params.createUserId,
+                    passwordOwnerLabel: 'Eigentümer:',
+                    passwordOwner     : params.passwordOwner,
+                    securityClassLabel: 'Sicherheitsklasse:',
+                    securityClass     : params.securityClass
+                };
+
+            return new Promise(function (resolve) {
+                var Details = new Element('div', {
+                    'class': 'link-table-list-entry-details',
+                    styles : {
+                        height: 0
+                    },
+                    html   : Mustache.render(templateDetails, placeholders)
+                }).inject(LiElm);
+
+                var DisableLinkBtn = new Element('span', {
+                    'class': 'fa fa-trash-o link-table-list-entry-icon'
+                });
+
+                if (params.active) {
+                    DisableLinkBtn.addEvent('click', function () {
+                        self.disableLink(params.id);
+                    })
+                }
+
+                DisableLinkBtn.inject(
+                    Details.getElement('.link-table-list-entry-details-inner-right')
+                );
+
+                resolve(Details)
+            })
+        },
+
+        disableLink: function (linkId) {
+            var self      = this,
+                title     = QUILocale.get(lg, 'sequry.customPopup.confirm.disableLink.title'),
+                content   = QUILocale.get(lg, 'sequry.customPopup.confirm.disableLink.content', {
+                    linkId: linkId
+                }),
+                btnOk     = QUILocale.get(lg, 'sequry.customPopup.confirm.button.ok'),
+                btnCancel = QUILocale.get(lg, 'sequry.customPopup.confirm.button.cancel');
+
+            var confirmContent = '<span class="fa fa-remove popup-icon"></span>';
+            confirmContent += '<span class="popup-title">' + title + '</span>';
+            confirmContent += content;
+
+            new QUIConfirm({
+                'class'           : 'sequry-customPopup',
+                maxWidth          : 400, // please note extra styling in style.css
+                maxHeight: 340,
+                backgroundClosable: true,
+                title             : false,
+                titleCloseButton  : false,
+                icon              : false,
+                texticon          : false,
+                content           : confirmContent,
+                ok_button         : {
+                    text     : btnOk,
+                    textimage: false
+                },
+                cancel_button     : {
+                    text     : btnCancel,
+                    textimage: false
+                },
+                events            : {
+                    onSubmit: function (Confirm) {
+                        Confirm.Loader.show();
+
+                        Passwords.deactivateLink(linkId).then(function (success) {
+                            if (success) {
+                                Confirm.close();
+                                self.$listRefresh();
+                                return;
+                            }
+
+                            Confirm.Loader.hide();
+                        }, function () {
+                            Confirm.Loader.hide();
+                        });
+                    }
+                }
+            }).open();
+
         }
     });
 });

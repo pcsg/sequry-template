@@ -228,16 +228,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     icon              : false,
                     texticon          : false,
                     content           : confirmContent,
-
-                    ok_button    : {
+                    ok_button         : {
                         text     : btnOk,
                         textimage: false
                     },
-                    cancel_button: {
+                    cancel_button     : {
                         text     : btnCancel,
                         textimage: false
                     },
-                    events       : {
+                    events            : {
                         onSubmit: self.close
                     }
                 });
