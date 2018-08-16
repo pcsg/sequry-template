@@ -15,6 +15,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
     'package/sequry/core/bin/Categories',
     'package/sequry/core/bin/controls/categories/public/Select',
     'package/sequry/core/bin/controls/categories/private/Select',
+    'package/sequry/template/bin/js/SequryUI',
 
     'text!package/sequry/template/bin/js/controls/components/Menu.html',
     'css!package/sequry/template/bin/js/controls/components/Menu.css'
@@ -25,6 +26,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
     Categories,
     CategorySelect,
     CategorySelectPrivate,
+    SequryUI,
     Template
 ) {
     "use strict";
@@ -275,9 +277,9 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                     },
                     onClose        : function () {
                         if (refreshList) {
-                            window.PasswordList.setCategoryParam(self.SelectedCategories['public']);
-                            window.PasswordList.setCategoryPrivateParam(self.SelectedCategories['private']);
-                            window.PasswordList.$listRefresh();
+                            SequryUI.PasswordList.setCategoryParam(self.SelectedCategories['public']);
+                            SequryUI.PasswordList.setCategoryPrivateParam(self.SelectedCategories['private']);
+                            SequryUI.PasswordList.$listRefresh();
                         }
                     },
                     onSelectPublic : function (Category) {
@@ -353,7 +355,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             if (type === 'private') {
                 new Element('span', {
-                    html: '(' + QUILocale.get(lg, 'sequry.menu.category.private.label') + ')',
+                    html : '(' + QUILocale.get(lg, 'sequry.menu.category.private.label') + ')',
                     class: 'navigation-entry-text-private'
                 }).inject(Button)
             }
@@ -379,7 +381,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             this.removeCategoryFromFilter(id, type);
             Target.destroy();
-            window.PasswordList.$listRefresh();
+            SequryUI.PasswordList.$listRefresh();
         },
 
         addCategoryToFilter: function (id, type) {
@@ -392,20 +394,20 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             catList.splice(catList.indexOf(id.toString()), 1);
 
             if (type === 'public') {
-                window.PasswordList.setCategoryParam(catList);
+                SequryUI.PasswordList.setCategoryParam(catList);
             } else {
-                window.PasswordList.setCategoryPrivateParam(catList);
+                SequryUI.PasswordList.setCategoryPrivateParam(catList);
             }
         },
 
-        removeAllCategoriesFromFilter: function() {
+        removeAllCategoriesFromFilter: function () {
             this.Categories = {
                 'public' : [],
                 'private': []
             };
 
-            window.PasswordList.setCategoryParam(false);
-            window.PasswordList.setCategoryPrivateParam(false);
+            SequryUI.PasswordList.setCategoryParam(false);
+            SequryUI.PasswordList.setCategoryPrivateParam(false);
         },
 
         /**
@@ -432,7 +434,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 }
 
                 this.removeActiveStatus(Target);
-                window.PasswordList.setFilters(type, false);
+                SequryUI.PasswordList.setFilters(type, false);
                 return;
             }
 
@@ -463,7 +465,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             var type = Target.getAttribute('data-type'),
                 name = Target.getAttribute('data-name');
 
-            window.PasswordList.setFilters(type, name);
+            SequryUI.PasswordList.setFilters(type, name);
         },
 
         /**
@@ -489,8 +491,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         /**
          * Set all search parameters to default and destroy category buttons
          */
-        showAll: function() {
-            var Buttons  = this.$Elm.getElements('.menu-button');
+        showAll: function () {
+            var Buttons = this.$Elm.getElements('.menu-button');
 
             Array.each(Buttons, function (Btn) {
 
@@ -509,7 +511,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             }.bind(this));
 
             this.removeAllCategoriesFromFilter();
-            window.PasswordList.showAll();
+
+            SequryUI.PasswordList.showAll();
         }
     });
 });

@@ -17,6 +17,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordLinkPanel',
+    'package/sequry/template/bin/js/SequryUI',
 
     'text!package/sequry/template/bin/js/controls/main/List.html',
     'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
@@ -34,6 +35,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     PasswordCreatePanel,
     PasswordSharePanel,
     PasswordLinkPanel,
+    SequryUI,
     template,
     ListEntryTemplate
 ) {
@@ -86,7 +88,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 });
             }
 
-            window.PasswordList = this;
+            // Global password list object
+            SequryUI.PasswordList = this;
 
             this.Loader.inject(this.$Elm);
             this.Loader.show();

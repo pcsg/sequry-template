@@ -166,6 +166,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             ).then(function (list) {
                 var entries = list.data;
 
+                console.log(entries)
+
                 // no share link data
                 if (entries.length === 0) {
                     var noEntryTitle = QUILocale.get(lg, 'sequry.panel.linkList.noEntry.title'),

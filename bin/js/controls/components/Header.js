@@ -8,10 +8,15 @@ define('package/sequry/template/bin/js/controls/components/Header', [
     'Mustache',
     'Locale',
 
+    'package/sequry/template/bin/js/SequryUI',
+
     'text!package/sequry/template/bin/js/controls/components/Header.html',
     'css!package/sequry/template/bin/js/controls/components/Header.css'
 
-], function (QUI, QUIControl, Mustache, QUILocale, Template) {
+], function (QUI, QUIControl, Mustache, QUILocale,
+    SequryUI,
+    template
+) {
     "use strict";
 
     var lg = 'sequry/template';
@@ -44,7 +49,7 @@ define('package/sequry/template/bin/js/controls/components/Header', [
             var self     = this,
                 inputEsc = false;
 
-            this.$Elm.set('html', Mustache.render(Template, {
+            this.$Elm.set('html', Mustache.render(template, {
                 inputPlaceholder: QUILocale.get(lg, 'sequry.header.search.input.placeholder')
             }));
 
@@ -100,8 +105,8 @@ define('package/sequry/template/bin/js/controls/components/Header', [
             this.$Timer = (function () {
                 self.searchValue = searchValue;
 
-                window.PasswordList.setSearchTerm(searchValue);
-                window.PasswordList.$listRefresh();
+                SequryUI.PasswordList.setSearchTerm(searchValue);
+                SequryUI.PasswordList.$listRefresh();
             }).delay(500);
         },
 
