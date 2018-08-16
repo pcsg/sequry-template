@@ -11,26 +11,32 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'Locale',
     'qui/controls/windows/Confirm',
 
+    'package/sequry/template/bin/js/controls/utils/InputButtons',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
 
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.Details.html',
     'text!package/sequry/template/bin/js/controls/password/link/List.Calls.html',
+    'text!package/sequry/template/bin/js/controls/password/link/List.View.html',
     'css!package/sequry/template/bin/js/controls/password/link/List.css'
 
 ], function (
     QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale, QUIConfirm,
+    InputButtons,
     Actors,
     Passwords,
     templateEntry,
     templateDetails,
-    templateCalls
+    templateCalls,
+    templateViews
 ) {
     "use strict";
 
     var lg     = 'sequry/template',
         lgCore = 'sequry/core';
+    var UrlButtonParser = new InputButtons();
+
 
     return new Class({
 
@@ -85,7 +91,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 html   : QUILocale.get(lgCore, 'controls.password.linklist.tbl.btn.add'),
                 events : {
                     click: function () {
-                        console.log('Erstelle neuen Link')
+                        console.log("create link !")
                     }
                 }
             }).inject(ButtonBarElm);
@@ -168,8 +174,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             ).then(function (list) {
                 var entries = list.data;
 
-                console.log(entries)
-
                 // no share link data
                 if (entries.length === 0) {
                     var noEntryTitle = QUILocale.get(lg, 'sequry.panel.linkList.noEntry.title'),
@@ -194,6 +198,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         },
 
         createEntry: function (Entry) {
+            var self = this;
             var maxCalls = '';
 
             if (Entry.maxCalls) {
@@ -230,15 +235,20 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             }
 
             // link button
-            new Element('span', {
-                'class': 'fa fa-external-link link-table-list-entry-icon link-table-list-entry-iconLink',
-                title  : Entry.link,
-                events : {
-                    click: function () {
-                        console.log(Entry.link)
-                    }
-                }
+            var LinkButton = new Element('span', {
+                'class'   : 'fa fa-external-link link-table-list-entry-icon link-table-list-entry-iconLink',
+                title     : QUILocale.get(lg, 'sequry.panel.linkList.openLink.title'),
+                'data-url': Entry.link
             }).inject(LiElm, 'top');
+
+            if (Entry.active) {
+                LinkButton.addEvent(
+                    'click',
+                    function () {
+                        self.showUrl(this.get('data-url'))
+                    }
+                )
+            }
 
             // show calls buttons
             new Element('span', {
@@ -356,6 +366,11 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             })
         },
 
+        /**
+         * Disable link (creates QUI Popup)
+         *
+         * @param linkId
+         */
         disableLink: function (linkId) {
             var self      = this,
                 title     = QUILocale.get(lg, 'sequry.customPopup.confirm.disableLink.title'),
@@ -406,6 +421,47 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }).open();
 
+        },
+
+        showUrl: function (url) {
+            new QUIConfirm({
+                'class'           : 'sequry-customPopup password-link-view-dialog',
+                maxWidth          : 400, // please note extra styling in style.css
+                maxHeight         : 380,
+                background        : false,
+                backgroundClosable: true,
+                title             : false,
+                titleCloseButton  : false,
+                icon              : false,
+                texticon          : false,
+                ok_button         : false,
+                cancel_button     : {
+                    text     : 'Schließen',
+                    textimage: false
+                },
+                events            : {
+                    onOpen: function (Confirm) {
+                        Confirm.setContent(Mustache.render(templateViews, {
+                            title: QUILocale.get(lg, 'sequry.panel.linkList.openLink.popup.title'),
+                            desc : QUILocale.get(lg, 'sequry.panel.linkList.openLink.popup.desc'),
+                            url  : url
+                        }));
+
+                        // todo set focus or either not?
+                        /*var UrlInput = Confirm.getContent().getElement(
+                            'input'
+                        );
+
+                        UrlInput.addEvent('focus', function (event) {
+                            event.target.select();
+                        });
+
+                        UrlInput.select();*/
+
+                        UrlButtonParser.parse(Confirm.getContent());
+                    }
+                }
+            }).open();
         },
 
         /**
@@ -463,7 +519,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                     }
                 });
 
-                PanelCalls.setTitle('Aufrufe');
+                PanelCalls.setTitle(QUILocale.get(lg, 'sequry.panel.callsList.title'));
 
                 if (pwTitle) {
                     PanelCalls.setSubtitle(pwTitle);
