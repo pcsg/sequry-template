@@ -14,6 +14,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'package/sequry/template/bin/js/controls/utils/InputButtons',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
+    'package/sequry/template/bin/js/controls/password/link/Create',
+    'package/sequry/template/bin/js/controls/panels/Panel',
 
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.Details.html',
@@ -26,6 +28,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     InputButtons,
     Actors,
     Passwords,
+    LinkCreate,
+    Panel,
     templateEntry,
     templateDetails,
     templateCalls,
@@ -91,7 +95,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 html   : QUILocale.get(lgCore, 'controls.password.linklist.tbl.btn.add'),
                 events : {
                     click: function () {
-                        console.log("create link !")
+                        self.openCreateLinkPanel();
                     }
                 }
             }).inject(ButtonBarElm);
@@ -506,27 +510,54 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }).inject(List);
             }
 
-            require(['package/sequry/template/bin/js/controls/panels/Panel'], function (Panel) {
-                var PanelCalls = new Panel({
-                    title                  : 'Passwort-Aufrufe',
-                    iconHeaderButtonFaClass: '',
-                    keepBackground         : false,
-                    subPanel               : true,
-                    events                 : {
-                        onOpen: function (Panel) {
-                            List.inject(Panel.getContent());
-                        }
+            var PanelCalls = new Panel({
+                title                  : 'Passwort-Aufrufe',
+                iconHeaderButtonFaClass: '',
+                subPanel               : true,
+                events                 : {
+                    onOpen: function (Panel) {
+                        List.inject(Panel.getContent());
                     }
-                });
-
-                PanelCalls.setTitle(QUILocale.get(lg, 'sequry.panel.callsList.title'));
-
-                if (pwTitle) {
-                    PanelCalls.setSubtitle(pwTitle);
                 }
-
-                PanelCalls.open()
             });
+
+            PanelCalls.setTitle(QUILocale.get(lg, 'sequry.panel.callsList.title'));
+
+            if (pwTitle) {
+                PanelCalls.setSubtitle(pwTitle);
+            }
+
+            PanelCalls.open()
+        },
+
+        openCreateLinkPanel: function () {
+            var self = this;
+            var LinkCreateControl = new LinkCreate({
+                passwordId: this.getAttribute('passwordId')
+            });
+
+            var PanelCreateLink = new Panel({
+                title       : 'Neuen Passwort-Link erstellen',
+                subTitle    : 'todo - passwort title',
+                actionButton: 'Passwort-Link erstellen',
+                subPanel    : true,
+                events      : {
+                    onSubmit: function (PCP) {
+                        LinkCreateControl.submit().then(function(resolve, reject) {
+                            console.log("submit...?")
+                            PanelCreateLink.close();
+
+                        });
+                    }
+                }
+            });
+
+
+
+
+            LinkCreateControl.inject(PanelCreateLink.getContent());
+
+            PanelCreateLink.open();
         }
     });
 });

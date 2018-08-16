@@ -105,7 +105,7 @@ button.btn.link-table-toggleInactive:active {
     font-size: inherit;
     line-height: 100%;
     padding: 3px 5px;
-    text-decoration: underline;
+    vertical-align: baseline;
 }
 
 .link-table-list-entry-content-calls-button:hover,

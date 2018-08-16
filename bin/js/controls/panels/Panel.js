@@ -110,12 +110,21 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
 
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'));
+            //todo das mit if --> set... muss noch überlegt werden
+            if (this.getAttribute('title')) {
+                this.setTitle(this.getAttribute('title'));
             }
 
             if (this.getAttribute('subTitle')) {
                 this.setSubtitle(this.getAttribute('subTitle'));
+            }
+
+            if (this.getAttribute('actionButton')) {
+                this.createActionButton(this.getAttribute('actionButton'));
+            }
+
+            if (this.getAttribute('closeButton')) {
+                this.createCloseButton(this.getAttribute('closeButton'));
             }
 
             // inject node element to body
@@ -383,7 +392,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          *
          * @param {string} [label] - label for header button.
          * @param {string} [icon] - icon for header button. FontAwesome recommended.
-         * @param {bool} [isOwner] - only owner is allowed to edit the password.
+         * @param {bool} [isOwner] - only owner is allowed to edit the password. // todo michael wtf???
          */
         createHeaderButton: function (label, icon, isOwner) {
             var status = 'on',

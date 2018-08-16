@@ -218,7 +218,7 @@
         <!-- button calls -->
         <locale name="sequry.panel.linkList.callsBtn.label">
             <de><![CDATA[[anzeigen]]]></de>
-            <en><![CDATA[show]]></en>
+            <en><![CDATA[[show]]]></en>
         </locale>
         <locale name="sequry.panel.linkList.callsBtn.title">
             <de><![CDATA[Aufrufe anzeigen]]></de>
