@@ -16,6 +16,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
     'text!package/sequry/template/bin/js/controls/password/link/List.Entry.Details.html',
+    'text!package/sequry/template/bin/js/controls/password/link/List.Calls.html',
     'css!package/sequry/template/bin/js/controls/password/link/List.css'
 
 ], function (
@@ -23,7 +24,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     Actors,
     Passwords,
     templateEntry,
-    templateDetails
+    templateDetails,
+    templateCalls
 ) {
     "use strict";
 
@@ -245,8 +247,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 title  : 'Aufrufe anzeigen',
                 events : {
                     click: function () {
-                        console.log('Aufruf-Tabelle anzeigen')
-                    }
+                        this.showCalls(Entry.calls);
+                    }.bind(this)
                 }
             }).inject(LiElm.getElement('.link-table-list-entry-content-calls-container'));
 
@@ -404,6 +406,71 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             }).open();
 
+        },
+
+        /**
+         * Show password calls.
+         * Create panel and inject the list with calls.
+         *
+         * @param calls
+         */
+        showCalls: function (calls) {
+            var pwTitle = this.getAttribute('passwordTitle');
+
+            var List = new Element('ul', {
+                'class': 'link-table-list'
+            });
+
+            var callsLen = calls.length;
+
+            // no calls
+            if (calls.length === 0) {
+                var noEntryTitle = QUILocale.get(lg, 'sequry.panel.callsList.noEntry.title'),
+                    noEntryDesc  = QUILocale.get(lg, 'sequry.panel.callsList.noEntry.desc');
+
+                new Element('li', {
+                    'class': 'link-table-list-warning sequry-alert-warning',
+                    html   : '<span class="header-title">' + noEntryTitle + '</span>' +
+                        '<p>' + noEntryDesc + '</p>',
+                }).inject(List);
+            }
+
+            for (var i = 0; i < callsLen; i++) {
+                var Entry = calls[i];
+
+                new Element('li', {
+                    'class': 'link-table-list-entry',
+                    styles : {
+                        padding: '5px 20px'
+                    },
+                    html   : Mustache.render(templateCalls, {
+                        date       : Entry.date,
+                        REMOTE_ADDR: Entry.REMOTE_ADDR
+                    })
+                }).inject(List);
+            }
+
+            require(['package/sequry/template/bin/js/controls/panels/Panel'], function (Panel) {
+                var PanelCalls = new Panel({
+                    title                  : 'Passwort-Aufrufe',
+                    iconHeaderButtonFaClass: '',
+                    keepBackground         : false,
+                    subPanel               : true,
+                    events                 : {
+                        onOpen: function (Panel) {
+                            List.inject(Panel.getContent());
+                        }
+                    }
+                });
+
+                PanelCalls.setTitle('Aufrufe');
+
+                if (pwTitle) {
+                    PanelCalls.setSubtitle(pwTitle);
+                }
+
+                PanelCalls.open()
+            });
         }
     });
 });

@@ -43,10 +43,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
 
         options: {
             title            : false,
-            actionButton     : QUILocale.get(lg, 'sequry.panel.button.save'),
+            actionButton     : false,
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
             confirmClosePopup: false,
-            passwordId       : false
+            passwordId       : false,
+            passwordTitle     : false
         },
 
         initialize: function (options) {
@@ -68,11 +69,17 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
          * integrate password
          */
         $onOpen: function () {
-            var self = this,
-                pwId = this.getAttribute('passwordId');
+            var self    = this,
+                pwId    = this.getAttribute('passwordId'),
+                pwTitle = this.getAttribute('passwordTitle');
 
-//            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
-            this.setTitle('Passwort verlinken');
+            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
+
+//            this.setTitle('Passwort verlinken');
+
+            if (pwTitle) {
+                this.setSubtitle(pwTitle);
+            }
 
             Actors.getPasswordAccessInfo(pwId).then(function (AccessInfo) {
 
@@ -84,6 +91,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
 
                 self.$PasswordLink = new PasswordLinkList({
                     passwordId: pwId,
+                    passwordTitle: pwTitle,
                     events    : {
                         onLoad : function () {
                             self.Loader.hide();
@@ -95,18 +103,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                     }
                 }).inject(self.getContent());
             });
-
-            // action button - save
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton')
-                )
-            }
-
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
-            }
         },
 
         /**

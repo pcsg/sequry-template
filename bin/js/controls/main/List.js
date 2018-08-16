@@ -151,8 +151,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }
 
             var Li = new Element('li', {
-                'class'    : 'main-list-entry password-entry',
-                'data-pwid': Entry.id
+                'class'       : 'main-list-entry password-entry',
+                'data-pwid'   : Entry.id,
+                'data-pwTitle': Entry.title
             });
 
             // render html
@@ -260,11 +261,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
         share: function (event) {
             event.stop();
 
-            var Target = event.target,
-                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+            var Target  = event.target,
+                ListElm = Target.getParent('.password-entry'),
+                pwId    = ListElm.getAttribute('data-pwid'),
+                pwTitle = ListElm.getAttribute('data-pwTitle');
 
             new PasswordSharePanel({
-                passwordId: pwId
+                passwordId   : pwId,
+                passwordTitle: pwTitle
             }).open();
         },
 
@@ -276,11 +280,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
         link: function (event) {
             event.stop();
 
-            var Target = event.target,
-                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+            var Target  = event.target,
+                ListElm = Target.getParent('.password-entry'),
+                pwId    = ListElm.getAttribute('data-pwid'),
+                pwTitle = ListElm.getAttribute('data-pwTitle');
 
             new PasswordLinkPanel({
-                passwordId: pwId
+                passwordId   : pwId,
+                passwordTitle: pwTitle
             }).open();
         },
 

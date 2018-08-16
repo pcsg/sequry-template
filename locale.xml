@@ -211,6 +211,16 @@
             <en><![CDATA[The password has not yet been shared externally.]]></en>
         </locale>
 
+        <!-- Password calls list -->
+        <locale name="sequry.panel.callsList.noEntry.title">
+            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <en><![CDATA[No entries found]]></en>
+        </locale>
+        <locale name="sequry.panel.callsList.noEntry.desc">
+            <de><![CDATA[Der Passwort-Link wurde bis jetzt noch nicht aufgerufen.]]></de>
+            <en><![CDATA[The password link has not yet been called.]]></en>
+        </locale>
+
         <!-- buttons -->
         <locale name="sequry.panel.button.share">
             <de><![CDATA[Teilen]]></de>

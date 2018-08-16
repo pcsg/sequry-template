@@ -51,6 +51,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
         options: {
             title                  : false,	// {false|string} [optional] title of the window
+            subTitle               : false,	// {false|string} [optional] subtitle of the window
             actionButton           : false, // {false|string} main action button, e.g. save, OK
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner. String = title
@@ -108,6 +109,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
+
+            if (this.getAttribute('closeButton')) {
+                this.createCloseButton(this.getAttribute('closeButton'));
+            }
+
+            if (this.getAttribute('subTitle')) {
+                this.setSubtitle(this.getAttribute('subTitle'));
+            }
 
             // inject node element to body
             document.body.appendChild(this.$Elm);
