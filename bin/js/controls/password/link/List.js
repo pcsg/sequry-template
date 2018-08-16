@@ -253,8 +253,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             // show calls buttons
             new Element('span', {
                 'class': 'btn btn-secondary btn-outline btn-inline link-table-list-entry-content-calls-button',
-                html   : 'anzeigen',
-                title  : 'Aufrufe anzeigen',
+                html   : QUILocale.get(lg, 'sequry.panel.linkList.callsBtn.label'),
+                title  : QUILocale.get(lg, 'sequry.panel.linkList.callsBtn.title'),
                 events : {
                     click: function () {
                         this.showCalls(Entry.calls);
@@ -265,7 +265,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             // show password link details
             new Element('span', {
                 'class'    : 'fa fa-angle-double-down link-table-list-entry-icon link-table-list-entry-iconDetails',
-                title      : 'Link details',
+                title      : QUILocale.get(lg, 'sequry.panel.linkList.detailsBtn.title'),
                 'data-open': 'false',
                 events     : {
                     click: function () {

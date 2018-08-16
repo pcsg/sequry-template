@@ -215,6 +215,21 @@
             <en><![CDATA[Show password link]]></en>
         </locale>
 
+        <!-- button calls -->
+        <locale name="sequry.panel.linkList.callsBtn.label">
+            <de><![CDATA[[anzeigen]]]></de>
+            <en><![CDATA[show]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.callsBtn.title">
+            <de><![CDATA[Aufrufe anzeigen]]></de>
+            <en><![CDATA[Show calls]]></en>
+        </locale>
+        <!-- button details -->
+        <locale name="sequry.panel.linkList.detailsBtn.title">
+            <de><![CDATA[Link-Details]]></de>
+            <en><![CDATA[Link details]]></en>
+        </locale>
+
         <!-- Password calls list -->
         <locale name="sequry.panel.callsList.title">
             <de><![CDATA[Passwort-Link Aufrufe]]></de>
