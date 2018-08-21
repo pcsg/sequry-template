@@ -175,7 +175,7 @@
     min-height: 100vh;
 
     /* test */
-    background: url(https://image.freepik.com/free-vector/vector-abstract-internet-background_1406-134.jpg);
+    /*background: url(https://image.freepik.com/free-vector/vector-abstract-internet-background_1406-134.jpg);*/
     background-size: cover;
 }
 
@@ -187,7 +187,7 @@
 
 .login-panelLeft {
     background: #eee;
-    background: linear-gradient(45deg, #f5f5f5 40%, #ddddddf8, #eee 80%);
+    /*background: linear-gradient(45deg, #f5f5f5 40%, #ddddddf8, #eee 80%);*/
 }
 
 .login-panelRight {
