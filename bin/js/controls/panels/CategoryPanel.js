@@ -43,7 +43,7 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
         ],
 
         options: {
-            title                : false,
+            title                : QUILocale.get(lg, 'sequry.panel.category.title'),
             actionButton         : QUILocale.get(lg, 'sequry.panel.button.ok'),
             closeButton          : QUILocale.get(lg, 'sequry.panel.button.cancel'),
             showPublicCategories : true,
@@ -140,18 +140,6 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
 
             self.Loader.hide();
-
-            // action button - ok
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton')
-                )
-            }
-
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
-            }
         },
 
         /**

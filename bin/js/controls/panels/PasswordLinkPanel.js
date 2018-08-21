@@ -42,7 +42,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
         ],
 
         options: {
-            title            : false,
+            title            : QUILocale.get(lg, 'sequry.panel.share.title'),
             actionButton     : false,
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
             confirmClosePopup: false,
@@ -73,7 +73,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                 pwId    = this.getAttribute('passwordId'),
                 pwTitle = this.getAttribute('passwordTitle');
 
-            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
 
 //            this.setTitle('Passwort verlinken');
 
@@ -88,7 +87,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                     self.close();
                     return;
                 }
-
+console.log(pwTitle)
                 self.$PasswordLink = new PasswordLinkList({
                     passwordId: pwId,
                     passwordTitle: pwTitle,

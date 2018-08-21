@@ -127,6 +127,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 this.createCloseButton(this.getAttribute('closeButton'));
             }
 
+            if (this.getAttribute('iconHeaderButton')) {
+                this.createHeaderButton(
+                    this.getAttribute('iconHeaderButton'),
+                    this.getAttribute('iconHeaderButtonFaClass'),
+                    this.getAttribute('isOwner')
+                );
+            }
+
             // inject node element to body
             document.body.appendChild(this.$Elm);
         },
@@ -377,6 +385,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         createActionButton: function (label) {
             var self = this;
 
+            console.log(this.getAttribute('isOwner'))
+
             new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,
@@ -401,7 +411,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             if (!isOwner) {
                 icon += ' inactive';
                 status = 'off';
-                func = null;
             }
 
             var Button = new Element('button', {
@@ -410,7 +419,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'data-qui-status': status
             });
 
-            Button.addEvent('click', func);
+            if (isOwner) {
+                Button.addEvent('click', func);
+            }
+
             Button.inject(this.$Elm.getElement('.sidebar-panel-header'));
         }
     });

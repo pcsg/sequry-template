@@ -542,7 +542,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 actionButton: 'Passwort-Link erstellen',
                 subPanel    : true,
                 events      : {
-                    onSubmit: function (PCP) {
+                    onSubmit: function (PCLP) {
                         LinkCreateControl.submit().then(function(resolve, reject) {
                             console.log("submit...?")
                             PanelCreateLink.close();

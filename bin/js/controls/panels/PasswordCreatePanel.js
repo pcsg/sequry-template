@@ -124,18 +124,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
                     }
                 }).inject(this.getContent());
             }
-
-            // action button - save
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton')
-                )
-            }
-
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
-            }
         },
 
         /**

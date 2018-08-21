@@ -267,7 +267,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 width    : 300,
                 events   : {
                     onOpen         : function (Panel) {
-                        Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
+//                        Panel.setTitle(QUILocale.get(lg, 'sequry.panel.category.title'));
                     },
                     onFinish       : function (CatIds) {
                         funcFinish(

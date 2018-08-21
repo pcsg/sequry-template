@@ -95,31 +95,14 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                         onClose: function () {
                             self.Loader.hide();
                             self.cancel();
+                        },
+                        onSubmit: function(PW) {
+                            if (self.getAttribute('isOwner')) {
+                                PW.share()
+                            }
                         }
                     }
                 }).inject(self.getContent());
-
-                // action button - share
-                if (self.getAttribute('actionButton')) {
-                    self.createActionButton(
-                        self.getAttribute('actionButton'),
-                        self.$Password.share
-                    )
-                }
-
-                // close button
-                if (self.getAttribute('closeButton')) {
-                    self.createCloseButton(self.getAttribute('closeButton'))
-                }
-
-                // header button
-                if (self.getAttribute('iconHeaderButton')) {
-                    self.createHeaderButton(
-                        self.getAttribute('iconHeaderButton'),
-                        self.getAttribute('iconHeaderButtonFaClass'),
-                        self.getAttribute('isOwner')
-                    )
-                }
             });
         },
 
@@ -135,6 +118,10 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * event: on submit form
          */
         $onSubmit: function () {
+            if (!this.getAttribute('isOwner')) {
+                return;
+            }
+
             // Don't destroy the current background control...
             this.setAttribute('keepBackground', true);
 

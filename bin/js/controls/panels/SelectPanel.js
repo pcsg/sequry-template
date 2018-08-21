@@ -39,7 +39,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
         ],
 
         options: {
-            title            : false,
+            title            : false, // title depends on actor type (user / group)
             actionButton     : 'Auswählen',
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.cancel'),
             info             : '',       // info text that is shown above the table
@@ -88,6 +88,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
                     title = QUILocale.get(lgCore, 'controls.actors.selecttablepopup.title.all');
             }
 
+            // title depends on actor type (user / group)
             this.setTitle(title);
 
             this.$SelectTable = new SelectTable({
@@ -105,18 +106,6 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
 
             self.Loader.hide();
-
-            // action button - ok
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton')
-                )
-            }
-
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
-            }
         },
 
         /**

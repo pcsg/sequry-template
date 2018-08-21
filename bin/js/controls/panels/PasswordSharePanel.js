@@ -42,7 +42,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
         ],
 
         options: {
-            title       : false,
+            title       : QUILocale.get(lg, 'sequry.panel.share.title'),
             actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
             closeButton : QUILocale.get(lg, 'sequry.panel.button.close'),
             confirmClosePopup : true,
@@ -71,8 +71,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
             var self = this,
                 pwId = this.getAttribute('passwordId');
 
-            this.setTitle(QUILocale.get(lg, 'sequry.panel.share.title'));
-
             Actors.getPasswordAccessInfo(pwId).then(function (AccessInfo) {
 
                 if (!AccessInfo.canAccess) {
@@ -94,18 +92,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
                     }
                 }).inject(self.getContent());
             });
-
-            // action button - save
-            if (this.getAttribute('actionButton')) {
-                this.createActionButton(
-                    this.getAttribute('actionButton')
-                )
-            }
-
-            // close button
-            if (this.getAttribute('closeButton')) {
-                this.createCloseButton(this.getAttribute('closeButton'))
-            }
         },
 
         /**
