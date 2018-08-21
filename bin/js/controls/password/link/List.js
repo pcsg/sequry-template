@@ -552,9 +552,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }
             });
 
-
-
-
             LinkCreateControl.inject(PanelCreateLink.getContent());
 
             PanelCreateLink.open();

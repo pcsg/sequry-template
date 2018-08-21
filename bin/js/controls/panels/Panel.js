@@ -385,8 +385,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         createActionButton: function (label) {
             var self = this;
 
-            console.log(this.getAttribute('isOwner'))
-
             new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,

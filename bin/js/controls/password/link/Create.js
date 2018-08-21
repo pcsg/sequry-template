@@ -13,8 +13,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
     'qui/QUI',
     'qui/controls/Control',
     'qui/controls/buttons/Button',
-//    'controls/projects/SelectWindow',
     'controls/email/Select',
+
 
     'package/sequry/core/bin/controls/utils/InputButtons',
 
@@ -24,10 +24,10 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
     'package/sequry/core/bin/Passwords',
 
-    'text!package/sequry/core/bin/controls/password/link/Create.html',
-    'css!package/sequry/core/bin/controls/password/link/Create.css'
+    'text!package/sequry/template/bin/js/controls/password/link/Create.html',
+    'css!package/sequry/template/bin/js/controls/password/link/Create.css'
 
-], function (QUI, QUIControl, QUIButton, /*QUIProjectSelectPopup,*/ QUIMailSelect, InputButtons,
+], function (QUI, QUIControl, QUIButton, QUIMailSelect, InputButtons,
     QUIAjax, QUILocale, Mustache, Passwords, template) {
     "use strict";
 
@@ -271,12 +271,13 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 return this.$Elm;
             }
 
-            this.$Elm.getElement(
+            // button aktivieren - werde ich es brauchen?
+            /*this.$Elm.getElement(
                 '.pcsg-gpm-password-linkcreate-create'
-            ).removeClass('pcsg-gpm-password-linkcreate__hidden');
+            ).removeClass('pcsg-gpm-password-linkcreate__hidden');*/
 
             // submit btn
-            new QUIButton({
+            /*new QUIButton({
                 textimage: 'fa fa-link',
                 text     : QUILocale.get(lg, 'controls.password.linkcreate.btn'),
                 styles   : {
@@ -298,7 +299,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 this.$Elm.getElement(
                     'div.pcsg-gpm-password-linkcreate-createbtn'
                 )
-            );
+            );*/
 
             return this.$Elm;
         },

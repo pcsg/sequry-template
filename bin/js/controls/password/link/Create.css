@@ -9,8 +9,8 @@
 
 .pcsg-gpm-password-linkcreate-active {
     clear: both;
-    margin-top: 15px;
     float: right;
+    margin-top: 15px;
 }
 
 .pcsg-gpm-password-linkcreate-longlabel {
@@ -19,7 +19,8 @@
 
 .pcsg-gpm-password-linkcreate-date {
     display: none;
-    margin-top: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .pcsg-gpm-password-linkcreate input[name="password"] {

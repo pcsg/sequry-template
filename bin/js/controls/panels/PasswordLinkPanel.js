@@ -73,9 +73,6 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                 pwId    = this.getAttribute('passwordId'),
                 pwTitle = this.getAttribute('passwordTitle');
 
-
-//            this.setTitle('Passwort verlinken');
-
             if (pwTitle) {
                 this.setSubtitle(pwTitle);
             }
@@ -87,7 +84,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                     self.close();
                     return;
                 }
-console.log(pwTitle)
+
                 self.$PasswordLink = new PasswordLinkList({
                     passwordId: pwId,
                     passwordTitle: pwTitle,
