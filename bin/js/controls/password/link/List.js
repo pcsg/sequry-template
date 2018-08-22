@@ -58,7 +58,9 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             passwordTitle: false, //password title
             showInactive : false, // show inactive links
             sortOn       : 'id',
-            sortBy       : 'ASC'
+            sortBy       : 'DESC',
+            perPage      : 1000, // todo michael - später pagination einbauen
+            page         : 1
         },
 
         initialize: function (options) {

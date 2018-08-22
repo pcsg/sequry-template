@@ -257,8 +257,8 @@
             <en><![CDATA[Created by:]]></en>
         </locale>
         <locale name="sequry.panel.linkList.details.passwordOwner.label">
-            <de><![CDATA[Eigentümer:]]></de>
-            <en><![CDATA[Owner:]]></en>
+            <de><![CDATA[Passwort-Eigentümer:]]></de>
+            <en><![CDATA[Password owner:]]></en>
         </locale>
         <locale name="sequry.panel.linkList.details.securityClass.label">
             <de><![CDATA[Sicherheitsklasse:]]></de>
