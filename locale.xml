@@ -418,12 +418,12 @@
 
         <!-- Password link site -->
         <locale name="sequry.passwortsite.pinprotected.title">
-            <de><![CDATA[Pin Eingabe]]></de>
-            <en><![CDATA[Pin enter]]></en>
+            <de><![CDATA[PIN Eingabe]]></de>
+            <en><![CDATA[PIN enter]]></en>
         </locale>
         <locale name="sequry.passwortsite.pinprotected.input.placeholder">
-            <de><![CDATA[Pin eingeben]]></de>
-            <en><![CDATA[Enter Pin]]></en>
+            <de><![CDATA[PIN eingeben]]></de>
+            <en><![CDATA[Enter PIN]]></en>
         </locale>
         <locale name="sequry.passwortsite.pinprotected.submit">
             <de><![CDATA[Bestätigen]]></de>
