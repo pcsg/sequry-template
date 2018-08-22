@@ -47,7 +47,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
             confirmClosePopup: false,
             passwordId       : false,
-            passwordTitle     : false
+            passwordTitle    : false
         },
 
         initialize: function (options) {
@@ -86,9 +86,9 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
                 }
 
                 self.$PasswordLink = new PasswordLinkList({
-                    passwordId: pwId,
+                    passwordId   : pwId,
                     passwordTitle: pwTitle,
-                    events    : {
+                    events       : {
                         onLoad : function () {
                             self.Loader.hide();
                         },

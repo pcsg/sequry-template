@@ -32,7 +32,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 ) {
     "use strict";
 
-    var lg = 'sequry/core';
+    var lg = 'sequry/template';
+    var lgCore = 'sequry/core';
 
     return new Class({
 
@@ -71,20 +72,19 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             this.$Elm.set({
                 'class': 'password-linkcreate',
                 html   : Mustache.render(template, {
-                    tableHeader          : QUILocale.get(lg, lgPrefix + 'tableHeader'),
-                    validDateLabel       : QUILocale.get(lg, lgPrefix + 'validDateLabel'),
-                    maxCallsLabel        : QUILocale.get(lg, lgPrefix + 'maxCallsLabel'),
-                    passwordLabel        : QUILocale.get(lg, lgPrefix + 'passwordLabel'),
-                    titleLabel           : QUILocale.get(lg, lgPrefix + 'titleLabel'),
-                    messageLabel         : QUILocale.get(lg, lgPrefix + 'messageLabel'),
-                    emailLabel           : QUILocale.get(lg, lgPrefix + 'emailLabel'),
-                    activeLabel          : QUILocale.get(lg, lgPrefix + 'activeLabel'),
-                    vhostLabel           : QUILocale.get(lg, lgPrefix + 'vhostLabel'),
-                    validDateOption1Day  : QUILocale.get(lg, lgPrefix + 'validDateOption1Day'),
-                    validDateOption3Day  : QUILocale.get(lg, lgPrefix + 'validDateOption3Day'),
-                    validDateOption1Week : QUILocale.get(lg, lgPrefix + 'validDateOption1Week'),
-                    validDateOption1Month: QUILocale.get(lg, lgPrefix + 'validDateOption1Month'),
-                    validDateOptionDate  : QUILocale.get(lg, lgPrefix + 'validDateOptionDate')
+                    validDateLabel       : QUILocale.get(lgCore, lgPrefix + 'validDateLabel'),
+                    maxCallsLabel        : QUILocale.get(lgCore, lgPrefix + 'maxCallsLabel'),
+                    passwordLabel        : QUILocale.get(lgCore, lgPrefix + 'passwordLabel'),
+                    titleLabel           : QUILocale.get(lgCore, lgPrefix + 'titleLabel'),
+                    messageLabel         : QUILocale.get(lgCore, lgPrefix + 'messageLabel'),
+                    emailLabel           : QUILocale.get(lgCore, lgPrefix + 'emailLabel'),
+                    vhostLabel           : QUILocale.get(lgCore, lgPrefix + 'vhostLabel'),
+                    validDateOption1Day  : QUILocale.get(lgCore, lgPrefix + 'validDateOption1Day'),
+                    validDateOption3Day  : QUILocale.get(lgCore, lgPrefix + 'validDateOption3Day'),
+                    validDateOption1Week : QUILocale.get(lgCore, lgPrefix + 'validDateOption1Week'),
+                    validDateOption1Month: QUILocale.get(lgCore, lgPrefix + 'validDateOption1Month'),
+                    validDateOptionDate  : QUILocale.get(lgCore, lgPrefix + 'validDateOptionDate'),
+                    activeLabel          : QUILocale.get(lg, 'sequry.panel.linkList.createLink.activate')
                 })
             });
 
@@ -240,7 +240,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                     self.$Elm.set(
                         'html',
                         '<div class="pcsg-gpm-password-linkcreate-info">' +
-                        QUILocale.get(lg, 'controls.password.linkcreate.no_password_sites') +
+                        QUILocale.get(lgCore, 'controls.password.linkcreate.no_password_sites') +
                         '<div class="pcsg-gpm-password-linkcreate-info-btn"></div>' +
                         '</div>'
                     );
@@ -272,36 +272,6 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 return this.$Elm;
             }
 
-            // button aktivieren - werde ich es brauchen?
-            /*this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-create'
-            ).removeClass('pcsg-gpm-password-linkcreate__hidden');*/
-
-            // submit btn
-            /*new QUIButton({
-                textimage: 'fa fa-link',
-                text     : QUILocale.get(lg, 'controls.password.linkcreate.btn'),
-                styles   : {
-                    margin: 'auto'
-                },
-                events   : {
-                    onClick: function (Btn) {
-                        return;
-                        Btn.disable();
-
-                        self.submit.then(function () {
-                            self.fireEvent('submit', [self]);
-                        }, function () {
-                            Btn.enable();
-                        });
-                    }
-                }
-            }).inject(
-                this.$Elm.getElement(
-                    'div.pcsg-gpm-password-linkcreate-createbtn'
-                )
-            );*/
-
             return this.$Elm;
         },
 
@@ -323,7 +293,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             QUI.getMessageHandler().then(function (MH) {
                 MH.addAttention(
-                    QUILocale.get(lg, 'controls.password.linkcreate.password_min_length'),
+                    QUILocale.get(lgCore, 'controls.password.linkcreate.password_min_length'),
                     self.$PasswordInput
                 );
             });
@@ -342,7 +312,6 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             if (!this.$checkPasswordLength()) {
                 return Promise.reject();
             }
-
 
             var formElements = this.$Elm.getElements(
                 '.password-linkcreate-option'

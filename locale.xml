@@ -215,6 +215,15 @@
             <en><![CDATA[Show password link]]></en>
         </locale>
 
+        <locale name="sequry.panel.linkList.validUntil.label">
+            <de><![CDATA[Gültig bis:]]></de>
+            <en><![CDATA[Valid to:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.calls.label">
+            <de><![CDATA[Aufrufe:]]></de>
+            <en><![CDATA[Calls:]]></en>
+        </locale>
+
         <!-- button calls -->
         <locale name="sequry.panel.linkList.callsBtn.label">
             <de><![CDATA[[anzeigen]]]></de>
@@ -228,6 +237,32 @@
         <locale name="sequry.panel.linkList.detailsBtn.title">
             <de><![CDATA[Link-Details]]></de>
             <en><![CDATA[Link details]]></en>
+        </locale>
+
+        <!-- passwort link details -->
+        <locale name="sequry.panel.linkList.details.id.label">
+            <de><![CDATA[Id]]></de>
+            <en><![CDATA[Id]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.pin.label">
+            <de><![CDATA[PIN-Schutz:]]></de>
+            <en><![CDATA[PIN protection:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.createDate.label">
+            <de><![CDATA[Erstellungsdatum]]></de>
+            <en><![CDATA[Create date]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.createUser.label">
+            <de><![CDATA[Erstellt von:]]></de>
+            <en><![CDATA[Created by:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.passwordOwner.label">
+            <de><![CDATA[Eigentümer:]]></de>
+            <en><![CDATA[Owner:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.securityClass.label">
+            <de><![CDATA[Sicherheitsklasse:]]></de>
+            <en><![CDATA[Security class:]]></en>
         </locale>
 
         <!-- Password calls list -->
@@ -252,6 +287,20 @@
         <locale name="sequry.panel.linkList.openLink.popup.desc">
             <de><![CDATA[Hier können Sie den Link direkt aufrufen oder in die Zwischenablage kopieren.]]></de>
             <en><![CDATA[Here you can call the link directly or copy it to the clipboard.]]></en>
+        </locale>
+
+        <!-- Password link create -->
+        <locale name="sequry.panel.linkList.createLink.title">
+            <de><![CDATA[Neuen Passwort-Link erstellen]]></de>
+            <en><![CDATA[Create new password link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.createLink.actionLink">
+            <de><![CDATA[Passwort-Link erstellen]]></de>
+            <en><![CDATA[Create password link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.createLink.activate">
+            <de><![CDATA[aktivieren]]></de>
+            <en><![CDATA[activate]]></en>
         </locale>
 
         <!-- buttons -->

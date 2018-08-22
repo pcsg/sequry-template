@@ -54,10 +54,11 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         ],
 
         options: {
-            passwordId  : false, //passwordId
-            showInactive: false, // show inactive links
-            sortOn      : 'id',
-            sortBy      : 'ASC'
+            passwordId   : false, //password id
+            passwordTitle: false, //password title
+            showInactive : false, // show inactive links
+            sortOn       : 'id',
+            sortBy       : 'ASC'
         },
 
         initialize: function (options) {
@@ -214,9 +215,9 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             var LiElm = new Element('li', {
                 'class'      : 'link-table-list-entry',
                 html         : Mustache.render(templateEntry, {
-                    'validUntil'     : 'Gültig bis:',
+                    'validUntil'     : QUILocale.get(lg, 'sequry.panel.linkList.validUntil.label'),
                     'validUntilValue': Entry.validUntil ? Entry.validUntil : 'Ohne Zeitlimit',
-                    'calls'          : 'Aufrufe:',
+                    'calls'          : QUILocale.get(lg, 'sequry.panel.linkList.calls.label'),
                     'callCount'      : Entry.callCount,
                     'maxCalls'       : maxCalls
                 }),
@@ -333,18 +334,18 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         createDetails: function (LiElm, params) {
             var self         = this,
                 placeholders = {
-                    idLabel           : 'ID:',
+                    idLabel           : QUILocale.get(lg, 'sequry.panel.linkList.details.id.label'),
                     id                : params.id,
-                    pinLabel          : 'PIN-Schutz:',
+                    pinLabel          : QUILocale.get(lg, 'sequry.panel.linkList.details.pin.label'),
                     pinIcon           : params.password ? 'fa fa-check' : 'fa fa-remove',
-                    createDateLabel   : 'Erstellungsdatum:',
+                    createDateLabel   : QUILocale.get(lg, 'sequry.panel.linkList.details.createDate.label'),
                     createDate        : params.createDate,
-                    createUserLabel   : 'Erstellt von:',
+                    createUserLabel   : QUILocale.get(lg, 'sequry.panel.linkList.details.createUser.label'),
                     createUserName    : params.createUserName,
                     createUserId      : params.createUserId,
-                    passwordOwnerLabel: 'Eigentümer:',
+                    passwordOwnerLabel: QUILocale.get(lg, 'sequry.panel.linkList.details.passwordOwner.label'),
                     passwordOwner     : params.passwordOwner,
-                    securityClassLabel: 'Sicherheitsklasse:',
+                    securityClassLabel: QUILocale.get(lg, 'sequry.panel.linkList.details.securityClass.label'),
                     securityClass     : params.securityClass
                 };
 
@@ -445,7 +446,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 texticon          : false,
                 ok_button         : false,
                 cancel_button     : {
-                    text     : 'Schließen',
+                    text     : QUILocale.get(lg, 'sequry.panel.button.close'),
                     textimage: false
                 },
                 events            : {
@@ -456,7 +457,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                             url  : url
                         }));
 
-                        // todo set focus or either not?
+                        // todo michael set focus or either not?
                         /*var UrlInput = Confirm.getContent().getElement(
                             'input'
                         );
@@ -516,7 +517,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             }
 
             var PanelCalls = new Panel({
-                title                  : 'Passwort-Aufrufe',
+                title                  : QUILocale.get(lg, 'sequry.panel.callsList.title'),
                 iconHeaderButtonFaClass: '',
                 subPanel               : true,
                 events                 : {
@@ -542,16 +543,15 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             });
 
             var PanelCreateLink = new Panel({
-                title       : 'Neuen Passwort-Link erstellen',
-                subTitle    : 'todo - passwort title',
-                actionButton: 'Passwort-Link erstellen',
+                title       : QUILocale.get(lg, 'sequry.panel.linkList.createLink.title'),
+                subTitle    : this.getAttribute('passwordTitle'),
+                actionButton: QUILocale.get(lg, 'sequry.panel.linkList.createLink.actionLink'),
                 subPanel    : true,
                 events      : {
-                    onSubmit: function (PCLP) {
-                        LinkCreateControl.submit().then(function(resolve, reject) {
-                            console.log("submit...?")
+                    onSubmit: function () {
+                        LinkCreateControl.submit().then(function () {
+                            self.$listRefresh();
                             PanelCreateLink.close();
-
                         });
                     }
                 }
