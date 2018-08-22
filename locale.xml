@@ -413,4 +413,21 @@
             <en><![CDATA[Filter...]]></en>
         </locale>
     </groups>
+
+    <groups name="sequry/template" datatype="php">
+
+        <!-- Password link site -->
+        <locale name="sequry.passwortsite.pinprotected.title">
+            <de><![CDATA[Pin Eingabe]]></de>
+            <en><![CDATA[Pin enter]]></en>
+        </locale>
+        <locale name="sequry.passwortsite.pinprotected.input.placeholder">
+            <de><![CDATA[Pin eingeben]]></de>
+            <en><![CDATA[Enter Pin]]></en>
+        </locale>
+        <locale name="sequry.passwortsite.pinprotected.submit">
+            <de><![CDATA[Bestätigen]]></de>
+            <en><![CDATA[Confirm]]></en>
+        </locale>
+    </groups>
 </locales>

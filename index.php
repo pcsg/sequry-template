@@ -5,6 +5,7 @@ use Sequry\Core\Constants\Sequry as SequryConstants;
 
 $Logo = $Project->getMedia()->getLogoImage();
 
+
 $FrontendLogin = new FrontendLogin([
     'showRegistration' => false
 ]);
@@ -23,5 +24,5 @@ $Engine->assign([
     'isAuth'             => $isAuth,
     'SessionUser'        => $SessionUser,
     'isPasswordLinkSite' => $Site->getAttribute('type') === SequryConstants::SITE_TYPE_PASSWORDLINK,
-    'Avatar' => $Avatar
+    'Avatar'             => $Avatar
 ]);

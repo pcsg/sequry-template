@@ -257,7 +257,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 LinkButton.addEvent(
                     'click',
                     function () {
-                        self.showUrl(this.get('data-url'))
+                        self.showUrl(Entry.link)
                     }
                 )
             }
