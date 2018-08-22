@@ -1,3 +1,37 @@
+.password-linkcreate input[name="password"] {
+    font-size: 16px;
+    letter-spacing: 6px;
+}
+
+.password-linkcreate-date {
+    display: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+.password-field-row-left-checkboxContainer {
+    display: flex;
+    line-height: 120%;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.password-field-row-left-checkboxContainer input {
+    margin-bottom: 2px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.password-field-row-left-checkboxContainer input[type="checkbox"]:checked:after {
+    font-size: 12px;
+    left: 2px;
+    position: absolute;
+    top: -14px;
+}
+
+/*
 .pcsg-gpm-password-linkcreate-option {
     clear: both;
     float: left;
@@ -23,10 +57,7 @@
     text-transform: uppercase;
 }
 
-.pcsg-gpm-password-linkcreate input[name="password"] {
-    font-size: 16px;
-    letter-spacing: 6px;
-}
+
 
 .pcsg-gpm-password-linkcreate__hidden {
     display: none;
@@ -52,4 +83,4 @@
 
 .pcsg-gpm-password-linkcreate-info-btn button {
     float: none !important;
-}
+}*/

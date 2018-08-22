@@ -213,7 +213,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 'class'      : 'link-table-list-entry',
                 html         : Mustache.render(templateEntry, {
                     'validUntil'     : 'Gültig bis:',
-                    'validUntilValue': Entry.validUntil,
+                    'validUntilValue': Entry.validUntil ? Entry.validUntil : 'Ohne Zeitlimit',
                     'calls'          : 'Aufrufe:',
                     'callCount'      : Entry.callCount,
                     'maxCalls'       : maxCalls
@@ -224,11 +224,14 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             LiElm.inject(this.$ListElm);
 
             // password date expired?
-            var ExpireDate = new Date(Entry.validUntil);
-            if (this.CurDate > ExpireDate) {
-                LiElm.getElement(
-                    '.link-table-list-entry-content-value.password-validUntil'
-                ).addClass('date-expired')
+            if (Entry.validUntil !== false) {
+                var ExpireDate = new Date(Entry.validUntil);
+
+                if (this.CurDate > ExpireDate) {
+                    LiElm.getElement(
+                        '.link-table-list-entry-content-value.password-validUntil'
+                    ).addClass('date-expired')
+                }
             }
 
             // max calls reached?

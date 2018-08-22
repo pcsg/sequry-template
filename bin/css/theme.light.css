@@ -1,6 +1,6 @@
 a {
-    text-decoration: none;
     color: #51b7a3;
+    text-decoration: none;
 }
 
 a:hover {
@@ -54,6 +54,19 @@ body .sidebar-panel-header {
 .sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
     color: #51b7a3;
 }
+
+/*********/
+/* input */
+/*********/
+input[disabled],
+select[disabled],
+textarea[disabled],
+.password-field-row-right input[disabled],
+.password-field-row-right select[disabled],
+.password-field-row-right textarea[disabled] {
+    color: #aaa;
+}
+
 /**********/
 /* button */
 /**********/

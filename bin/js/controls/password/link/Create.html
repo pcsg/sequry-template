@@ -1,27 +1,41 @@
 <label class="password-field-row">
-    <span class="password-field-row-left">
-        <input type="checkbox"
-               class="pcsg-gpm-password-linkcreate-maxCalls"
-               checked>
+    <div class="password-field-row-left">
         {{maxCallsLabel}}
-    </span>
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="passwort-linkcreate-maxCalls">
+            <input type="checkbox" id="passwort-linkcreate-maxCalls"
+                   class="password-linkcreate-maxCalls"
+                   checked>
+            <span>
+                aktivieren
+            </span>
+        </label>
+    </div>
     <div class="password-field-row-right">
         <input type="number" name="maxCalls" value="5" min="1"
-               class="password-field-row-right-input password-field-value"
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
                autocomplete="off" />
     </div>
 </label>
 
 <label class="password-field-row">
-    <span class="password-field-row-left">
-        <input type="checkbox"
-               class="pcsg-gpm-password-linkcreate-validDate"
-               checked>
+    <div class="password-field-row-left">
         {{validDateLabel}}
-    </span>
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="password-linkcreate-validDate">
+            <input type="checkbox" id="password-linkcreate-validDate"
+                   class="password-linkcreate-validDate"
+                   checked>
+            <span>
+                aktivieren
+            </span>
+        </label>
+    </div>
     <div class="password-field-row-right">
 
-        <input type="hidden" name="validDate" class="pcsg-gpm-password-linkcreate-option " value="1 week">
+        <input type="hidden" name="validDate" class="password-linkcreate-option" value="1 week">
         <select name="validDateSelect" class="password-field-row-right-input password-field-value">
             <option value="1 day">{{validDateOption1Day}}</option>
             <option value="3 day">{{validDateOption3Day}}</option>
@@ -36,20 +50,27 @@
     </span>
     <div class="password-field-row-right">
         <input type="date"
-               class="pcsg-gpm-password-linkcreate-date password-field-row-right-input password-field-value">
+               class="password-linkcreate-date password-field-row-right-input password-field-value">
     </div>
 </label>
 
 
 <label class="password-field-row">
-    <span class="password-field-row-left">
-        <input type="checkbox"
-               class="pcsg-gpm-password-linkcreate-password">
+    <div class="password-field-row-left">
         {{passwordLabel}}
-    </span>
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="password-linkcreate-password">
+            <input type="checkbox" id="password-linkcreate-password"
+                   class="password-linkcreate-password">
+            <span>
+                aktivieren
+            </span>
+        </label>
+    </div>
     <div class="password-field-row-right">
         <input type="text" name="password" disabled
-               class="password-field-row-right-input password-field-value"
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
                autocomplete="off" />
     </div>
 </label>
@@ -60,7 +81,7 @@
     </span>
     <div class="password-field-row-right">
         <input type="text" name="title"
-               class="password-field-row-right-input password-field-value pcsg-gpm-password-linkcreate-option"
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
                autocomplete="off" />
     </div>
 </label>
@@ -71,7 +92,7 @@
     </span>
     <div class="password-field-row-right">
         <textarea name="message" rows="7"
-                  class="password-field-row-right-textarea password-field-value pcsg-gpm-password-linkcreate-option"
+                  class="password-field-row-right-textarea password-field-value password-linkcreate-option"
                   placeholder="{{notePlaceholder}}" ></textarea>
     </div>
 </label>
@@ -82,7 +103,7 @@
     </span>
     <div class="password-field-row-right">
         <input type="text" class="pcsg-gpm-password-linkcreate-emails">
-        <input type="hidden" name="email" class="pcsg-gpm-password-linkcreate-option">
+        <input type="hidden" name="email" class="password-linkcreate-option">
     </div>
 </label>
 
@@ -93,6 +114,6 @@
     <div class="password-field-row-right">
         <select name="vhost"
                 class="field-container-field pcsg-gpm-password-linkcreate-vhost-select
-                pcsg-gpm-password-linkcreate-option password-field-row-right-input"></select>
+                password-linkcreate-option password-field-row-right-input"></select>
     </div>
 </label>

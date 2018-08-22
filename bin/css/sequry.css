@@ -1,16 +1,16 @@
 .sequry-page-wrapper {
+    background-color: #f5f5f5;
     display: grid;
     min-height: 100vh;
     grid-template-columns: 300px 1fr;
     grid-template-rows: 100px 1fr;
-    background-color: #f5f5f5;
 }
 
 /* header logo */
 .header-logo {
+    align-items: center;
     background: #eee;
     display: flex;
-    align-items: center;
     position: relative;
 }
 
@@ -20,8 +20,8 @@
 
 /* header main */
 .header-main {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: space-between;
     padding: 0 2rem;
     position: relative;
@@ -29,26 +29,47 @@
 
 /* search  */
 .desktop-search {
-    display: flex;
     align-items: stretch;
+    display: flex;
 }
 
 .desktop-search input[type="text"] {
-    width: 500px;
-    outline: none;
     border: none;
     border-radius: 5px;
+    outline: none;
+    width: 500px;
 }
 
 .desktop-search .fa-search {
-    display: flex;
-    background: #51b7a3;
-    color: #fff;
-    width: 3rem;
     align-items: center;
-    justify-content: center;
-    border-top-right-radius: 5px;
+    background: #51b7a3;
     border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+}
+
+/******************/
+/* select control */
+/******************/
+.sidebar-panel .qui-elements-select-list {
+    border-radius: 0;
+    transition: 0.2s border-color;
+}
+
+.sidebar-panel .qui-elements-select-list-search {
+    border-color: #ddd;
+    border-radius: 0;
+    border-top: none;
+    outline: none;
+    transition: 0.2s border-color;
+}
+
+.sidebar-panel .qui-elements-select:hover .qui-elements-select-list,
+.sidebar-panel .qui-elements-select:hover .qui-elements-select-list-search {
+    border-color: #aaa;
 }
 
 /**********/
@@ -65,11 +86,11 @@
     }
 
     .sequry-desktop-menu {
-        position: absolute;
-        left: -100%;
-        z-index: 10;
         height: 100vh;
+        left: -100%;
         max-width: 100%;
+        position: absolute;
+        z-index: 10;
     }
 
     .header-main:before, .main:before {
@@ -124,29 +145,29 @@
 /*********************/
 .sequry-bottom-navigation {
     background: #eee;
-    position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
     font-size: 0.9rem;
+    left: 0;
+    position: fixed;
+    width: 100%;
     /*border-top: 1px solid #eee;*/
 }
 
 .sequry-bottom-navigation:before {
+    background: linear-gradient(0, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.05), transparent);
     content: '';
     height: 10px;
-    width: 100%;
-    position: absolute;
     left: 0;
+    position: absolute;
     top: -10px;
-    background: linear-gradient(0, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.05), transparent);
+    width: 100%;
 }
 
 .bottom-navigation {
     display: flex;
+    justify-content: center;
     list-style: none;
     margin: 0;
-    justify-content: center;
 }
 
 .bottom-navigation-entry {
@@ -154,11 +175,11 @@
 }
 
 .bottom-navigation-entry-link {
+    align-items: center;
+    color: #666;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 10px 10px 0;
-    color: #666;
 }
 
 .bottom-navigation-entry-link-text {
@@ -169,14 +190,14 @@
 /* log in page */
 /***************/
 .login-main-wrapper {
+    background-size: cover;
     display: grid;
-    grid-template-columns: 60% auto;
-    grid-template-rows: minmax(100vh, auto);
     min-height: 100vh;
+    grid-template-columns: 60% auto;
 
     /* test */
     /*background: url(https://image.freepik.com/free-vector/vector-abstract-internet-background_1406-134.jpg);*/
-    background-size: cover;
+    grid-template-rows: minmax(100vh, auto);
 }
 
 .login-panelLeft,
@@ -211,11 +232,11 @@
 }
 
 .login-panel-logo {
-    position: absolute;
     left: 2em;
-    top: 2em;
-    max-width: 200px;
     max-height: 60px;
+    max-width: 200px;
+    position: absolute;
+    top: 2em;
 }
 
 .login-panel-formContainer {
@@ -229,8 +250,8 @@
 }
 
 .login-panel-formContainer button.login {
-    width: 100%;
     margin-top: 1em;
+    width: 100%;
 }
 
 .quiqqer-frontendUsers-frontendlogin {
@@ -243,20 +264,20 @@
 }
 
 .quiqqer-frontendUsers-frontendlogin-message .quiqqer-frontendUsers-error {
-    width: 100%;
-    margin-top: 2em;
     background: none;
     border: none;
-    padding: 0;
     color: #AE432E;
+    margin-top: 2em;
+    padding: 0;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
     .login-main-wrapper {
         display: grid;
+        height: 100vh;
         grid-template-columns: 100%;
         grid-template-rows: min-content auto;
-        height: 100vh;
     }
 
     .login-panel-wrapper {
@@ -264,24 +285,24 @@
     }
 
     .login-panel-logo {
-        position: initial;
         display: block;
         margin-left: auto;
         margin-right: auto;
+        position: initial;
     }
 }
 
 button.fa {
-    width: 42px;
     flex-shrink: 0;
+    width: 42px;
 }
 
 /* für später */
 /* floating button */
 
 .floating-button {
-    width: 3rem;
-    height: 3rem;
     border-radius: 50%;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    height: 3rem;
+    width: 3rem;
 }

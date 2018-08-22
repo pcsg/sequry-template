@@ -106,6 +106,18 @@ input[type="radio"]:checked:active {
 }
 
 
+/*********/
+/* input */
+/*********/
+input[disabled],
+select[disabled],
+textarea[disabled],
+.password-field-row-right input[disabled],
+.password-field-row-right select[disabled],
+.password-field-row-right textarea[disabled] {
+    cursor: not-allowed;
+}
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #aaa;
     font-weight: 300;

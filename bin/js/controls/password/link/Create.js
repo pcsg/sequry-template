@@ -28,7 +28,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
     'css!package/sequry/template/bin/js/controls/password/link/Create.css'
 
 ], function (QUI, QUIControl, QUIButton, QUIMailSelect, InputButtons,
-    QUIAjax, QUILocale, Mustache, Passwords, template) {
+    QUIAjax, QUILocale, Mustache, Passwords, template
+) {
     "use strict";
 
     var lg = 'sequry/core';
@@ -52,8 +53,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$PasswordInput             = null;
-            this.$PasswordLinkSiteCreateBtn = null;
+            this.$PasswordInput = null;
             this.$currentEmailReceiverValue = null;
         },
 
@@ -65,11 +65,11 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
         create: function () {
             this.$Elm = this.parent();
 
-            var self     = this;
+            var self = this;
             var lgPrefix = 'controls.password.linkcreate.template.';
 
             this.$Elm.set({
-                'class': 'pcsg-gpm-password-linkcreate',
+                'class': 'password-linkcreate',
                 html   : Mustache.render(template, {
                     tableHeader          : QUILocale.get(lg, lgPrefix + 'tableHeader'),
                     validDateLabel       : QUILocale.get(lg, lgPrefix + 'validDateLabel'),
@@ -90,7 +90,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             // activate / deactivate event
             var ActiveValidDate = this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-validDate'
+                '.password-linkcreate-validDate'
             );
 
             var ValidDateSelect = this.$Elm.getElement(
@@ -102,14 +102,16 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             );
 
             var ValidDateDateSelect = this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-date'
+                '.password-linkcreate-date'
             );
 
             ValidDateDateSelect.addEvent('change', function (event) {
                 ValidDateInput.value = event.target.value;
             });
 
+            console.log(ValidDateSelect.value)
             ValidDateSelect.addEvent('change', function (event) {
+                console.log(1)
                 if (event.target.value !== 'date') {
                     ValidDateDateSelect.setStyle('display', 'none');
                     ValidDateInput.value = event.target.value;
@@ -121,11 +123,12 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             });
 
             ActiveValidDate.addEvent('change', function () {
+                ValidDateInput.disabled = !ValidDateInput.disabled;
                 ValidDateSelect.disabled = !ValidDateSelect.disabled;
             });
 
             var ActiveMaxCalls = this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-maxCalls'
+                '.password-linkcreate-maxCalls'
             );
 
             var MaxCallsInput = this.$Elm.getElement(
@@ -141,7 +144,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             });
 
             var ActivePasswords = this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-password'
+                '.password-linkcreate-password'
             );
 
             this.$PasswordInput = this.$Elm.getElement(
@@ -214,16 +217,18 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             this.$EmailReceiverSelect = new QUIMailSelect({
                 events: {
                     onChange: function (Control) {
+                        console.log(1)
                         EmailsInput.value = Control.getValue();
                     }
                 }
             }).imports(this.$Elm.getElement('.pcsg-gpm-password-linkcreate-emails'));
+            console.log(this.$EmailReceiverSelect)
 
             this.$EmailReceiverSelect.getElm().getElement('input.qui-elements-select-list-search').addEvents({
-                keyup: function(event) {
+                keyup: function (event) {
                     self.$currentEmailReceiverValue = event.target.value;
                 },
-                click: function() {
+                click: function () {
                     self.$currentEmailReceiverValue = '';
                 }
             });
@@ -344,7 +349,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
 
             var formElements = this.$Elm.getElements(
-                '.pcsg-gpm-password-linkcreate-option'
+                '.password-linkcreate-option'
             );
 
             var LinkCreateData = {};
