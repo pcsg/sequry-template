@@ -109,9 +109,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 ValidDateInput.value = event.target.value;
             });
 
-            console.log(ValidDateSelect.value)
             ValidDateSelect.addEvent('change', function (event) {
-                console.log(1)
                 if (event.target.value !== 'date') {
                     ValidDateDateSelect.setStyle('display', 'none');
                     ValidDateInput.value = event.target.value;
@@ -217,12 +215,10 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             this.$EmailReceiverSelect = new QUIMailSelect({
                 events: {
                     onChange: function (Control) {
-                        console.log(1)
                         EmailsInput.value = Control.getValue();
                     }
                 }
-            }).imports(this.$Elm.getElement('.pcsg-gpm-password-linkcreate-emails'));
-            console.log(this.$EmailReceiverSelect)
+            }).imports(this.$Elm.getElement('.password-linkcreate-emails'));
 
             this.$EmailReceiverSelect.getElm().getElement('input.qui-elements-select-list-search').addEvents({
                 keyup: function (event) {
@@ -235,7 +231,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             // vhosts
             var VHostRowElm = this.$Elm.getElement(
-                '.pcsg-gpm-password-linkcreate-vhost'
+                '.password-linkcreate-vhost'
             );
 
             this.$getVHostList().then(function (vhosts) {
@@ -255,7 +251,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 }
 
                 var VHostSelectElm = self.$Elm.getElement(
-                    '.pcsg-gpm-password-linkcreate-vhost-select'
+                    '.password-linkcreate-vhost-select'
                 );
 
                 for (var i = 0, len = vhosts.length; i < len; i++) {
@@ -266,7 +262,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 }
 
                 if (vhosts.length > 1) {
-                    VHostRowElm.removeClass('pcsg-gpm-password-linkcreate__hidden');
+                    VHostRowElm.removeClass('password-linkcreate__hidden');
                 }
 
                 self.fireEvent('loaded', [self]);

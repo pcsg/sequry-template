@@ -9,7 +9,6 @@
     text-transform: uppercase;
 }
 
-
 .password-field-row-left-checkboxContainer {
     display: flex;
     line-height: 120%;
@@ -31,38 +30,8 @@
     top: -14px;
 }
 
-/*
-.pcsg-gpm-password-linkcreate-option {
-    clear: both;
-    float: left;
-}
-
-.field-container-field input[type="checkbox"] {
-    float: left;
-}
-
-.pcsg-gpm-password-linkcreate-active {
-    clear: both;
-    float: right;
-    margin-top: 15px;
-}
-
-.pcsg-gpm-password-linkcreate-longlabel {
-    white-space: normal !important;
-}
-
-.pcsg-gpm-password-linkcreate-date {
-    display: none;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-
-
-.pcsg-gpm-password-linkcreate__hidden {
-    display: none;
-}
-
+/* wenn keine Seite */
+/* todo michael wenn Panel nicht direkt geschlossen wrid, kann man das hier verbessern */
 .pcsg-gpm-password-linkcreate-info {
     margin-top: 25%;
     text-align: center;
@@ -83,4 +52,4 @@
 
 .pcsg-gpm-password-linkcreate-info-btn button {
     float: none !important;
-}*/
+}

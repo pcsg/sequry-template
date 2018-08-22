@@ -176,6 +176,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 this.getAttribute('passwordId'),
                 this.$SearchParams
             ).then(function (list) {
+
                 var entries = list.data;
 
                 // no share link data
@@ -197,6 +198,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                     self.createEntry(entries[i]);
                 }
             }, function () {
+                // todo michael Wenn keine Share-Seite, muss hier eine Meldung kommen statt Panel direkt zu schließen
                 self.fireEvent('close', [self]);
             });
         },
