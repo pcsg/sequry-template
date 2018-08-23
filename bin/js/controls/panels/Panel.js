@@ -106,6 +106,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 'data-quiid': this.getId()
             });
 
+            if (this.getAttribute('class')) {
+//                this.$Elm.addClass()
+            }
 
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);

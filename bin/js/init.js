@@ -9,6 +9,29 @@
         '[data-qui="package/sequry/template/bin/js/controls/components/Header"]'
     );
 
+    require([
+        'package/sequry/template/bin/js/controls/panels/Panel',
+        'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
+    ], function(Panel, UserPanel) {
+        var PasswordPanel = new Panel({
+            title: "Einstellungen",
+            subTitle: "admin",
+            width: '100%',
+            events: {
+                onOpen: function (PanelControl) {
+                    console.log(PanelControl)
+                    PanelControl.getElm().addClass('aaaaaaaaaaaaa');
+
+                    var UserPanelControl = new UserPanel();
+
+                    UserPanelControl.inject(PanelControl.getContent())
+                }
+            }
+        });
+
+        PasswordPanel.open();
+    })
+
     if (UserIcon) {
 
 
@@ -23,7 +46,26 @@
                 Menu.appendChild(
                     new Item({
                         icon: 'fa fa-home',
-                        text: 'huhu'
+                        text: 'Profil Einstellungen',
+                        events: {
+                            click: function() {
+                                require(['package/sequry/template/bin/js/controls/panels/Panel'], function(Panel) {
+                                    var PasswordPanel = new Panel({
+                                        title: "Einstellungen",
+                                        subTitle: "admin",
+                                        width: '100%',
+                                        events: {
+                                            onOpen: function () {
+                                                console.log("huhu hu hu")
+                                            }
+                                        }
+                                    });
+
+                                    PasswordPanel.open();
+                                })
+                                console.log("Profil Einstellungen")
+                            }
+                        }
                     })
                 );
             });
