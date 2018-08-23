@@ -54,7 +54,10 @@
     var PasswordLink = document.getElement('.passwordlink-box');
 
     if (PasswordLink) {
-        PasswordLink.getElement('input.passwordlink-box-fieldset-input').focus();
+        var PasswordLinkInput = PasswordLink.getElement('input.passwordlink-box-fieldset-input');
+        if (PasswordLinkInput) {
+            PasswordLinkInput.focus();
+        }
     }
 
     // test - öffne password create automatisch

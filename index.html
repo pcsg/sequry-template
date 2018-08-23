@@ -40,8 +40,6 @@
 
 {elseif $isAuth}
 
-    {*include file="`$TPL_DIR`sequry.html"*}
-
     <section class="sequry-page-wrapper">
 
         <div class="header-logo">
@@ -62,15 +60,16 @@
         >&nbsp;</main>
 
     </section>
+
+<div class="header-user-avatar" style="display: none">
+    {$Avatar->create()}
+</div>
+
 {else}
 
     {include file="`$TPL_DIR`login.html"}
 
 {/if}
-
-<div class="header-user-avatar" style="display: none">
-    {$Avatar->create()}
-</div>
 <!-- Scripts -->
 <script src="{$URL_TPL_DIR}bin/js/init.js"></script>
 </body>

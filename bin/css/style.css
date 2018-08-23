@@ -181,6 +181,14 @@ ul, ol {
     width: 100%;
 }
 
+/*******/
+/* fix */
+/*******/
+/* extra Info, dass die öffentliche Kategorien nicht bearbeitet werden können (show password) */
+.password-category .pcsg-gpm-tooltip {
+    display: none;
+}
+
 /*****************/
 /* passwort link */
 /*****************/
@@ -189,13 +197,14 @@ ul, ol {
     background: #eee;
     display: flex;
     min-height: 100vh;
-    position: relative;
+    height: 100vh;
+    overflow: auto;
 }
 
 .passwordlink-logo {
+    left: 0;
     padding: 2rem;
     position: absolute;
-    right: 0;
     top: 0;
 }
 
@@ -208,10 +217,11 @@ ul, ol {
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
-    margin: 15vh auto 2rem;
+    margin: 15vh auto 1rem;
     max-width: calc(100% - 2rem);
     padding: 2rem;
     width: 500px;
+    z-index: 1;
 }
 
 .passwordlink-box-icon {
@@ -298,4 +308,33 @@ ul, ol {
     .passwordlink-box {
         margin-top: 10vh;
     }
+}
+
+/*********************************/
+/* passwort link - password data */
+/*********************************/
+.passwordlink-box.passwordlink-data {
+    width: 600px;
+}
+
+.passwordlink-data-header {
+    background: linear-gradient(90deg, #2071a7, #4091c7);
+    color: #fff;
+    margin: -2rem -2rem 0 -2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.passwordlink-data-header-title {
+    margin: 0;
+}
+
+.passwordlink-data-header-subtitle {
+    line-height: 100%;
+    opacity: 0.6;
+}
+
+.passwordlink-data-desc {
+    margin: 2rem 0;
 }

@@ -202,12 +202,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
             BtnLink.inject(actionContainer);
             BtnEdit.inject(actionContainer);
 
-            //todo development - löschen
-            // FB share link auto open
-            if (Entry.id === '69') {
-                BtnLink.click();
-            }
-
             // open event
             Li.addEvent('click', function () {
                 self.open(Entry);

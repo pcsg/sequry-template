@@ -429,5 +429,10 @@
             <de><![CDATA[Bestätigen]]></de>
             <en><![CDATA[Confirm]]></en>
         </locale>
+        <!-- password link error -->
+        <locale name="sequry.passwortsite.error.title">
+            <de><![CDATA[Kein Passwort-Link]]></de>
+            <en><![CDATA[No passwort link]]></en>
+        </locale>
     </groups>
 </locales>
