@@ -1,0 +1,30 @@
+<quiqqer>
+    <frontend-users>
+        <profile>
+
+            <categories>
+                <category name="sequry">
+
+                    <title>
+                        <locale group="sequry/template"
+                                var="sequry.usersettings.category.title"/>
+                    </title>
+
+                    <!-- Address -->
+                    <settings control="\QUI\FrontendUsers\Controls\Profile\Address"
+                              name="address"
+                              icon="fa fa-address-card"
+                              showinprofilebar="0"
+                    >
+                        <title>
+                            <locale group="quiqqer/frontend-users" var="profile.address.title"/>
+                        </title>
+                    </settings>
+
+
+                </category>
+            </categories>
+
+        </profile>
+    </frontend-users>
+</quiqqer>

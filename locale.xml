@@ -434,5 +434,11 @@
             <de><![CDATA[Kein Passwort-Link]]></de>
             <en><![CDATA[No passwort link]]></en>
         </locale>
+
+        <!-- user settings -->
+        <locale name="sequry.usersettings.category.title">
+            <de><![CDATA[Sequry]]></de>
+            <en><![CDATA[Sequry]]></en>
+        </locale>
     </groups>
 </locales>

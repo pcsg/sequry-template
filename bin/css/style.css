@@ -338,3 +338,81 @@ ul, ol {
 .passwordlink-data-desc {
     margin: 2rem 0;
 }
+
+/***********************/
+/* user settings panel */
+/***********************/
+.user-settings-panel .sidebar-panel-content {
+    padding: 0;
+}
+.user-settings-panel .sidebar-panel-action {
+    display: none;
+}
+
+.user-settings-panel .sidebar-panel-content > .qui-control {
+    display: flex;
+    min-height: 100%;
+}
+
+/* sidebar menu */
+.user-settings-panel .quiqqer-frontendUsers-controls-profile-categories {
+    background: #f5f5f5;
+    padding: 0;
+    color: #393e45;
+    line-height: 3rem;
+}
+
+.user-settings-panel .quiqqer-fupc-category {
+    margin-top: 2rem;
+}
+
+.user-settings-panel .quiqqer-fupc-category-header {
+    display: flex;
+    border-bottom: none !important;
+    margin: 0 !important;
+    padding: 0 0 0 2rem;
+    font-weight: normal;
+    font-size: 1.1rem;
+}
+
+
+.user-settings-panel .quiqqer-fupc-category-header-opener {
+    display: none;
+    position: relative;
+    width: 3rem;
+    line-height: inherit;
+    margin-left: auto;
+}
+
+/* deactive some items */
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="deleteaccount"],
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="changepassword"] {
+    display: none;
+}
+
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item {
+    padding: 0 2rem;
+    line-height: inherit;
+    color: #74787e;
+}
+
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item--active,
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: inherit;
+}
+
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item-icon {
+    line-height: inherit;
+    width: 1rem;
+    margin-right: 1rem;
+}
+
+/* user panel content */
+.user-settings-panel .quiqqer-frontendUsers-controls-profile-categoryContent {
+    padding: 2rem;
+}
+
+.user-settings-panel .quiqqer-frontendUsers-controls-profile-categoryContent h2 {
+    margin-top: 0;
+}
