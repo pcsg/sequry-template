@@ -20,6 +20,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthFactors',
         initialize: function (options) {
             this.parent(options);
 
+
             this.addEvents({
                 onImport: this.$onImport
             });
@@ -29,12 +30,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthFactors',
          * event: on inject
          */
         $onImport: function () {
-            this.getElm().setStyle('opacity', 0);
-            this.getElm().setStyle('display', 'inline');
+            var self = this;
 
-            moofx(this.getElm()).animate({
-                opacity: 1
-            });
+            // todo michael muss noch besser gemacht werden.
+            // auf onload o.ä. reagieren von package/sequry/core/bin/controls/user/AuthPluginSettings
+            (function () {
+                moofx(self.getElm()).animate({
+                    opacity: 1,
+                    transform: 'translateX(0)'
+                }, {
+                    duration: 200
+                });
+            }).delay(200);
         }
     });
 });

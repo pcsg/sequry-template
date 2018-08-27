@@ -22,7 +22,6 @@
             isOwner: true,
             events: {
                 onOpen: function (PanelControl) {
-                    console.log(PanelControl)
                     PanelControl.getElm().addClass('user-settings-panel');
 
                     var UserPanelControl = new UserPanel();

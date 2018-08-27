@@ -1,6 +1,7 @@
 .quiqqer-sequry-profile-auth-factors {
-    display: none;
     height: 100%;
     opacity: 0;
     overflow: auto;
+    transition: .2s all;
+    transform: translateX(-20px);
 }

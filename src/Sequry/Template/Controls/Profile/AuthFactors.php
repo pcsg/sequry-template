@@ -32,6 +32,13 @@ class AuthFactors extends Control implements ControlInterface
     {
         $Engine = QUI::getTemplateManager()->getEngine();
 
+        $User = QUI::getUserBySession();
+        $settings = $User->getAttribute('pcsg.gpm.settings.authplugins');
+
+        $Engine->assign([
+            'value' => $settings
+        ]);
+
         return $Engine->fetch(dirname(__FILE__) . '/AuthFactors.html');
     }
 

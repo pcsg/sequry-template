@@ -34,7 +34,7 @@ p {
 h1, h2, h3, h4 {
     font-weight: inherit;
     line-height: 1.2;
-    margin: 1.414em 0 2.5em;
+    margin: 1.414em 0 0.5em;
 }
 
 h1:first-child,
@@ -43,7 +43,6 @@ h3:first-child,
 h4:first-child {
     margin-top: 0;
 }
-
 
 h1 {
     font-size: 2.5em;
@@ -204,8 +203,8 @@ ul, ol {
     align-items: flex-start;
     background: #eee;
     display: flex;
-    min-height: 100vh;
     height: 100vh;
+    min-height: 100vh;
     overflow: auto;
 }
 
@@ -328,10 +327,10 @@ ul, ol {
 .passwordlink-data-header {
     background: linear-gradient(90deg, #2071a7, #4091c7);
     color: #fff;
-    margin: -2rem -2rem 0 -2rem;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
+    margin: -2rem -2rem 0 -2rem;
+    padding: 2rem;
 }
 
 .passwordlink-data-header-title {
@@ -351,9 +350,10 @@ ul, ol {
 /* user settings panel */
 /***********************/
 .user-settings-panel .sidebar-panel-content {
-    padding: 0;
     overflow: hidden;
+    padding: 0;
 }
+
 .user-settings-panel .sidebar-panel-action {
     display: none;
 }
@@ -367,9 +367,10 @@ ul, ol {
 /* sidebar menu */
 .user-settings-panel .quiqqer-frontendUsers-controls-profile-categories {
     background: #f5f5f5;
-    padding: 0;
     color: #393e45;
     line-height: 3rem;
+    overflow: auto;
+    padding: 0;
 }
 
 .user-settings-panel .quiqqer-fupc-category {
@@ -377,33 +378,33 @@ ul, ol {
 }
 
 .user-settings-panel .quiqqer-fupc-category-header {
-    display: flex;
     border-bottom: none !important;
+    display: flex;
+    font-size: 1.1rem;
+    font-weight: normal;
     margin: 0 !important;
     padding: 0 0 0 2rem;
-    font-weight: normal;
-    font-size: 1.1rem;
 }
-
 
 .user-settings-panel .quiqqer-fupc-category-header-opener {
     display: none;
-    position: relative;
-    width: 3rem;
     line-height: inherit;
     margin-left: auto;
+    position: relative;
+    width: 3rem;
 }
 
 /* deactive some items */
 .user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="deleteaccount"],
-.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="changepassword"] {
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="changepassword"],
+.user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item[data-setting="address"] {
     display: none;
 }
 
 .user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item {
-    padding: 0 2rem;
-    line-height: inherit;
     color: #74787e;
+    line-height: inherit;
+    padding: 0 2rem;
 }
 
 .user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item--active,
@@ -414,14 +415,14 @@ ul, ol {
 
 .user-settings-panel .quiqqer-fupc-category .quiqqer-fupc-category-items-item-icon {
     line-height: inherit;
-    width: 1rem;
     margin-right: 1rem;
+    width: 1rem;
 }
 
 /* user panel content */
 .user-settings-panel .quiqqer-frontendUsers-controls-profile-categoryContent {
-    padding: 2rem;
     overflow: auto;
+    padding: 2rem;
 }
 
 .user-settings-panel .quiqqer-frontendUsers-controls-profile-categoryContent h2 {
