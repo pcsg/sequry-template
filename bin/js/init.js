@@ -9,9 +9,10 @@
         '[data-qui="package/sequry/template/bin/js/controls/components/Header"]'
     );
 
-    require(['Locale'], function(QUILocale) {
+    // auto open settings (for development)
+    /*require(['Locale'], function(QUILocale) {
         openUserMenu(QUILocale);
-    });
+    });*/
 
     if (UserIcon) {
         UserIcon.addEvent('load', function () {

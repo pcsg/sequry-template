@@ -306,3 +306,131 @@ button.fa {
     height: 3rem;
     width: 3rem;
 }
+
+
+/******************/
+/* new login page */
+/******************/
+.login-page {
+    background: #eee;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+.login-page-logo {
+    left: 0;
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+}
+
+.login-page-logo img {
+    max-height: 80px;
+    max-width: 150px;
+}
+
+.login-page-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
+    margin: 15vh auto 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 2rem;
+    width: 500px;
+    z-index: 1;
+}
+
+.login-page-box-icon {
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px;
+    color: #802124;
+    display: block;
+    font-size: 50px;
+    line-height: 100px;
+    margin: 2rem auto;
+    text-align: center;
+    width: 100px;
+}
+
+.login-box-header-title {
+    color: #666;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 2rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    word-spacing: 8px;
+}
+
+/* login form */
+.login-box-formContainer .quiqqer-frontendUsers-frontendlogin-login h1 {
+    display: none;
+}
+
+.login-box-formContainer .quiqqer-login {
+    padding: 0;
+}
+
+.login-box-formContainer .quiqqer-login-auth label span {
+    display: none;
+}
+
+.login-box-formContainer .quiqqer-login-auth label input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    margin-bottom: 2rem;
+}
+
+.login-box-formContainer .quiqqer-login-auth label input:hover,
+.login-box-formContainer .quiqqer-login-auth label input:focus {
+    border-bottom-color: #aaa;
+}
+
+.login-box-formContainer button.qui-button[type="submit"] {
+    color: #999;
+    background: none;
+    border: none;
+    float: right;
+}
+
+.login-box-formContainer button.qui-button[type="submit"]:hover {
+    color: #444 !important;
+}
+
+/* footer */
+.login-box-footer {
+    font-size: 12px;
+    transform: translateY(1.5rem);
+    text-align: center;
+}
+
+.login-box-footer-entry {
+    margin: 0 10px;
+}
+
+.login-box-footer-entry a {
+    color: #802124;
+    font-weight: normal;
+}
+
+
+@media (max-width: 767px) {
+    .login-page-logo {
+        padding: 1rem;
+    }
+
+    .login-page-logo img {
+        max-height: 50px;
+        max-width: 120px;
+    }
+
+    .login-page-box {
+        margin-top: 10vh;
+    }
+}

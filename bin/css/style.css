@@ -78,6 +78,11 @@ ul, ol {
     font-weight: normal;
 }
 
+/* fix to change the yellow background color on input autofill */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
