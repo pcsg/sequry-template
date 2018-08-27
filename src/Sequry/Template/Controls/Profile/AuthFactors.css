@@ -45,3 +45,14 @@ input[type="submit"].quiqqer-sequry-profile-auth-factors-submit {
     float: right;
     margin-top: 2rem;
 }
+
+@media screen and (max-width: 767px) {
+    .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin:not(:first-of-type) {
+        margin-top: 1rem;
+    }
+
+    input[type="submit"].quiqqer-sequry-profile-auth-factors-submit {
+        width: 100%;
+    }
+
+}
