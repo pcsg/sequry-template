@@ -11,7 +11,7 @@
                     </title>
 
                     <!-- Auth factors -->
-                    <settings control="\QUI\Sequry\Template\Controls\Profile\AuthFactors"
+                    <settings control="\Sequry\Template\Controls\Profile\AuthFactors"
                               name="authfactors"
                               icon="fa fa-male"
                               showinprofilebar="1"

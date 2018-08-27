@@ -1,8 +1,9 @@
 <?php
 /**
- * This file contains QUI\Sequry\Template\Controls\Profile\AuthFactors
+ * This file contains Sequry\Template\Controls\Profile\AuthFactors
  */
-namespace QUI\Sequry\Template\Controls\Profile;
+
+namespace Sequry\Template\Controls\Profile;
 
 use QUI;
 use QUI\FrontendUsers\Controls\Profile;
@@ -12,25 +13,16 @@ use QUI\FrontendUsers\Controls\Profile\ControlInterface;
 class AuthFactors extends Control implements ControlInterface
 {
 
-    public function __construct(array $attributes = array())
+    public function __construct(array $attributes = [])
     {
-        QUI\System\Log::writeRecursive('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         parent::__construct($attributes);
 
-        /*$this->setAttributes(array(
-            'class'    => 'teeeeeeeeeeeeest33333333333',
+        $this->setAttributes([
+            'data-qui' => 'package/sequry/template/bin/js/controls/components/profile/AuthFactors'
+        ]);
 
-
-            'quiClass' => 'package/sequry/core/bin/controls/user/AuthPluginSettings'
-
-        ));*/
-
-
-
-//        $this->addCSSClass('teeeeeeeeeeeeest1');
-//        $this->addCSSClass('teeeeeeeeeeeeeeeest2222');
-//        $this->addCSSFile(dirname(__FILE__).'/UserData.css');
-
+        $this->addCSSClass('quiqqer-sequry-profile-auth-factors');
+        $this->addCSSFile(dirname(__FILE__) . '/AuthFactors.css');
     }
 
     /**
@@ -40,7 +32,7 @@ class AuthFactors extends Control implements ControlInterface
     {
         $Engine = QUI::getTemplateManager()->getEngine();
 
-        return $Engine->fetch(dirname(__FILE__).'/AuthFactors.html');
+        return $Engine->fetch(dirname(__FILE__) . '/AuthFactors.html');
     }
 
     /**
