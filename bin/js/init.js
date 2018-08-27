@@ -9,7 +9,7 @@
         '[data-qui="package/sequry/template/bin/js/controls/components/Header"]'
     );
 
-    require([
+    /*require([
         'package/sequry/template/bin/js/controls/panels/Panel',
         'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
     ], function(Panel, UserPanel) {
@@ -35,7 +35,7 @@
         });
 
         PasswordPanel.open();
-    })
+    })*/
 
     if (UserIcon) {
         UserIcon.addEvent('load', function () {
@@ -43,43 +43,17 @@
             var Menu = Control.$Menu;
 
             require([
+                'Locale',
                 'qui/controls/contextmenu/Item',
                 'qui/controls/contextmenu/Separator'
-            ], function (Item, Separator) {
+            ], function (QUILocale, Item, Separator) {
                 Menu.appendChild(
                     new Item({
-                        icon: 'fa fa-home',
-                        text: 'Profil Einstellungen',
+                        icon: 'fa fa-cog',
+                        text: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
                         events: {
                             click: function() {
-                                require([
-                                    'package/sequry/template/bin/js/controls/panels/Panel',
-                                    'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
-                                ], function(Panel, UserPanel) {
-                                    var PasswordPanel = new Panel({
-                                        title: "Einstellungen",
-                                        subTitle: "admin",
-                                        width: 1000,
-                                        iconHeaderButton: 'Schließen',
-                                        iconHeaderButtonFaClass: 'fa fa-close',
-                                        isOwner: true,
-                                        events: {
-                                            onOpen: function (PanelControl) {
-                                                console.log(PanelControl)
-                                                PanelControl.getElm().addClass('user-settings-panel');
-
-                                                var UserPanelControl = new UserPanel();
-
-                                                UserPanelControl.inject(PanelControl.getContent())
-                                            },
-                                            onSubmitSecondary: function () {
-                                                this.close();
-                                            }
-                                        }
-                                    });
-
-                                    PasswordPanel.open();
-                                })
+                                openUserMenu(QUILocale);
                             }
                         }
                     })
@@ -116,6 +90,39 @@
         if (PasswordLinkInput) {
             PasswordLinkInput.focus();
         }
+    }
+
+    /**
+     * Open user menu
+     */
+    function openUserMenu(QUILocale) {
+        require([
+            'package/sequry/template/bin/js/controls/panels/Panel',
+            'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
+        ], function(Panel, UserPanel) {
+            var PasswordPanel = new Panel({
+                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
+                subTitle: QUIQQER_USER.name,
+                width: 1000,
+                iconHeaderButton: QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                isOwner: true,
+                events: {
+                    onOpen: function (PanelControl) {
+                        PanelControl.getElm().addClass('user-settings-panel');
+
+                        var UserPanelControl = new UserPanel();
+
+                        UserPanelControl.inject(PanelControl.getContent())
+                    },
+                    onSubmitSecondary: function () {
+                        this.close();
+                    }
+                }
+            });
+
+            PasswordPanel.open();
+        })
     }
 
     // test - öffne password create automatisch

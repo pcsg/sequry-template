@@ -143,6 +143,31 @@
             <en><![CDATA[Password categories (private)]]></en>
         </locale>
 
+        <!-- buttons -->
+        <locale name="sequry.panel.button.share">
+            <de><![CDATA[Teilen]]></de>
+            <en><![CDATA[Share]]></en>
+        </locale>
+        <locale name="sequry.panel.button.close">
+            <de><![CDATA[Schließen]]></de>
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="sequry.panel.button.edit">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+        <locale name="sequry.panel.button.save">
+            <de><![CDATA[Speichern]]></de>
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="sequry.panel.button.ok">
+            <de><![CDATA[Ok]]></de>
+            <en><![CDATA[Ok]]></en>
+        </locale>
+        <locale name="sequry.panel.button.cancel">
+            <de><![CDATA[Abbrechen]]></de>
+            <en><![CDATA[Cancel]]></en>
+        </locale>
 
         <locale name="sequry.panel.template.passwordTypeNotSupported">
             <de><![CDATA[Dieser Passwort-Typ ist vom Template nicht unterstützt.]]></de>
@@ -196,6 +221,20 @@
         </locale>
         <locale name="sequry.panel.share.description">
             <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort <span class="text-accent">[passwordTitle] (#[passwordId])</span> anzusehen.]]></de>
+        </locale>
+
+        <!-- user settings -->
+        <locale name="sequry.usermenu.entrysettings.title">
+            <de><![CDATA[Einstellungen]]></de>
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.title">
+            <de><![CDATA[Sequry]]></de>
+            <en><![CDATA[Sequry]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authfactors.title">
+            <de><![CDATA[Auth.-Faktoren]]></de>
+            <en><![CDATA[Auth.-Factors]]></en>
         </locale>
     </groups>
 
@@ -303,32 +342,6 @@
             <en><![CDATA[activate]]></en>
         </locale>
 
-        <!-- buttons -->
-        <locale name="sequry.panel.button.share">
-            <de><![CDATA[Teilen]]></de>
-            <en><![CDATA[Share]]></en>
-        </locale>
-        <locale name="sequry.panel.button.close">
-            <de><![CDATA[Schließen]]></de>
-            <en><![CDATA[Close]]></en>
-        </locale>
-        <locale name="sequry.panel.button.edit">
-            <de><![CDATA[Passwort bearbeiten]]></de>
-            <en><![CDATA[Edit password]]></en>
-        </locale>
-        <locale name="sequry.panel.button.save">
-            <de><![CDATA[Speichern]]></de>
-            <en><![CDATA[Save]]></en>
-        </locale>
-        <locale name="sequry.panel.button.ok">
-            <de><![CDATA[Ok]]></de>
-            <en><![CDATA[Ok]]></en>
-        </locale>
-        <locale name="sequry.panel.button.cancel">
-            <de><![CDATA[Abbrechen]]></de>
-            <en><![CDATA[Cancel]]></en>
-        </locale>
-
         <!-- custom confirm popup: default text -->
         <locale name="sequry.customPopup.confirm.title">
             <de><![CDATA[Aktion abbrechen]]></de>
@@ -433,16 +446,6 @@
         <locale name="sequry.passwortsite.error.title">
             <de><![CDATA[Kein Passwort-Link]]></de>
             <en><![CDATA[No passwort link]]></en>
-        </locale>
-
-        <!-- user settings -->
-        <locale name="sequry.usersettings.category.title">
-            <de><![CDATA[Sequry]]></de>
-            <en><![CDATA[Sequry]]></en>
-        </locale>
-        <locale name="sequry.usersettings.category.authfactors.title">
-            <de><![CDATA[Auth.-Faktoren]]></de>
-            <en><![CDATA[Auth.-Factors]]></en>
         </locale>
     </groups>
 </locales>

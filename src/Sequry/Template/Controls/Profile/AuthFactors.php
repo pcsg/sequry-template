@@ -6,12 +6,18 @@
 namespace Sequry\Template\Controls\Profile;
 
 use QUI;
-use QUI\FrontendUsers\Controls\Profile;
 use QUI\Control;
 use QUI\FrontendUsers\Controls\Profile\ControlInterface;
 
 class AuthFactors extends Control implements ControlInterface
 {
+
+    /**
+     * Data to save as JSON string
+     *
+     * @var string
+     */
+    protected $data;
 
     public function __construct(array $attributes = [])
     {
@@ -27,12 +33,13 @@ class AuthFactors extends Control implements ControlInterface
 
     /**
      * @return string
+     * @throws QUI\Exception
      */
     public function getBody()
     {
         $Engine = QUI::getTemplateManager()->getEngine();
 
-        $User = QUI::getUserBySession();
+        $User     = QUI::getUserBySession();
         $settings = $User->getAttribute('pcsg.gpm.settings.authplugins');
 
         $Engine->assign([
@@ -47,23 +54,44 @@ class AuthFactors extends Control implements ControlInterface
      */
     public function onSave()
     {
-//        $Request = QUI::getRequest();
-//
-//        if (!$Request->request->get('profile-save')) {
-//            return;
-//        }
-//
-//        /* @var $User QUI\Interfaces\Users\User */
-//        $data = $Request->request->all();
-//        $User = $this->getAttribute('User');
-//
-//        $User->setAttributes($data);
-//        $User->save();
+        $Request    = QUI::getRequest()->request;
+        $User       = QUI::getUserBySession();
+        $this->data = $Request->get('pcsg.gpm.settings.authplugins');
+
+        if (QUI::getUsers()->isNobodyUser($User)) {
+            return;
+        }
+
+        $User->setAttribute(
+            'pcsg.gpm.settings.authplugins',
+            $Request->get('pcsg.gpm.settings.authplugins')
+        );
+
+        $this->validate();
+
+        $User->save();
     }
 
 
+    /**
+     * Validate data and convert to bool / int.
+     *
+     * @return void
+     */
     public function validate()
     {
+        $data = json_decode($this->data);
 
+        foreach ($data as $entry) {
+            if ($entry->autosave) {
+                $entry->autosave = boolval($entry->autosave);
+            }
+
+            if ($entry->priority) {
+                $entry->priority = intval($entry->priority);
+            }
+        }
+
+        $this->data = json_encode($data);
     }
 }

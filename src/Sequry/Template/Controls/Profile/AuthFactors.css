@@ -2,6 +2,46 @@
     height: 100%;
     opacity: 0;
     overflow: auto;
-    transition: .2s all;
     transform: translateX(-20px);
+    transition: .2s all;
+}
+
+.quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin {
+    background: none;
+    padding: 0;
+}
+
+.quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin: 0 0 1rem 0;
+}
+
+.quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label span {
+    margin-bottom: 0;
+    margin-right: 1rem;
+}
+
+.quiqqer-sequry-profile-auth-factors input.pcsg-gpm-user-authpluginsettings-plugin-options-option-priority {
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    text-align: right;
+}
+
+.quiqqer-sequry-profile-auth-factors input.pcsg-gpm-user-authpluginsettings-plugin-options-option-priority:hover,
+.quiqqer-sequry-profile-auth-factors input.pcsg-gpm-user-authpluginsettings-plugin-options-option-priority:focus {
+    border-color: #aaa;
+}
+
+.quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin:not(:first-of-type) {
+    margin-top: 2rem;
+}
+
+input[type="submit"].quiqqer-sequry-profile-auth-factors-submit {
+    float: right;
+    margin-top: 2rem;
 }
