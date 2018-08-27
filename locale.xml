@@ -233,8 +233,12 @@
             <en><![CDATA[Sequry]]></en>
         </locale>
         <locale name="sequry.usersettings.category.authfactors.title">
-            <de><![CDATA[Auth.-Faktoren]]></de>
-            <en><![CDATA[Auth.-Factors]]></en>
+            <de><![CDATA[Auth.-Einstelungen]]></de>
+            <en><![CDATA[Auth.-settings]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title">
+            <de><![CDATA[Auth.-Methoden]]></de>
+            <en><![CDATA[Auth.-methods]]></en>
         </locale>
     </groups>
 

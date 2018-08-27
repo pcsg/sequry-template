@@ -1,0 +1,57 @@
+.quiqqer-sequry-profile-auth-methods {
+    height: 100%;
+    opacity: 0;
+    overflow: auto;
+    transform: translateX(-20px);
+    transition: .2s all;
+}
+
+.quiqqer-sequry-profile-auth-methods-list {
+    margin: 0;
+}
+
+/* list entry */
+.sequry-table-list-entry .sequry-table-list-entry-icon-primary {
+    transition: 0.2s all;
+}
+
+.sequry-table-list-entry[data-status="true"] .sequry-table-list-entry-icon-primary,
+.sequry-table-list-entry:hover .sequry-table-list-entry-icon-primary {
+    color: inherit;
+}
+
+.sequry-table-list-entry .sequry-table-list-entry-content-line-status-value {
+    color: red;
+}
+
+.sequry-table-list-entry[data-status="true"] .sequry-table-list-entry-content-line-status-value {
+    color: green;
+}
+
+.sequry-table-list-entry-content-title span:first-child {
+    font-weight: normal;
+    padding-right: 5px;
+}
+
+.sequry-table-list-entry-content-title span:nth-child(2) {
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+.sequry-table-list-entry-content-line-status-label {
+    /*margin-right: 10px;*/
+}
+
+.sequry-table-list-entry-content-line-status-value {
+    font-weight: normal;
+}
+
+/* reg button */
+.sequry-table-list-entry-icon-secondary-register {
+    opacity: 1;
+    width: auto;
+}
+
+@media screen and (max-width: 767px) {
+
+}

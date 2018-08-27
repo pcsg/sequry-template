@@ -9,33 +9,9 @@
         '[data-qui="package/sequry/template/bin/js/controls/components/Header"]'
     );
 
-    /*require([
-        'package/sequry/template/bin/js/controls/panels/Panel',
-        'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
-    ], function(Panel, UserPanel) {
-        var PasswordPanel = new Panel({
-            title: "Einstellungen",
-            subTitle: "admin",
-            width: 1000,
-            iconHeaderButton: 'Schließen',
-            iconHeaderButtonFaClass: 'fa fa-close',
-            isOwner: true,
-            events: {
-                onOpen: function (PanelControl) {
-                    PanelControl.getElm().addClass('user-settings-panel');
-
-                    var UserPanelControl = new UserPanel();
-
-                    UserPanelControl.inject(PanelControl.getContent())
-                },
-                onSubmitSecondary: function () {
-                    this.close();
-                }
-            }
-        });
-
-        PasswordPanel.open();
-    })*/
+    require(['Locale'], function(QUILocale) {
+        openUserMenu(QUILocale);
+    });
 
     if (UserIcon) {
         UserIcon.addEvent('load', function () {

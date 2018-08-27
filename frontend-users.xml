@@ -14,11 +14,23 @@
                     <settings control="\Sequry\Template\Controls\Profile\AuthFactors"
                               name="authfactors"
                               icon="fa fa-male"
-                              showinprofilebar="1"
+                              showinprofilebar="0"
                     >
                         <title>
                             <locale group="sequry/template"
                                     var="sequry.usersettings.category.authfactors.title"/>
+                        </title>
+                    </settings>
+
+                    <!-- Auth methods -->
+                    <settings control="\Sequry\Template\Controls\Profile\AuthMethods"
+                              name="authmethods"
+                              icon="fa fa-key"
+                              showinprofilebar="0"
+                    >
+                        <title>
+                            <locale group="sequry/template"
+                                    var="sequry.usersettings.category.authmethods.title"/>
                         </title>
                     </settings>
 
