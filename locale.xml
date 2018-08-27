@@ -440,5 +440,9 @@
             <de><![CDATA[Sequry]]></de>
             <en><![CDATA[Sequry]]></en>
         </locale>
+        <locale name="sequry.usersettings.category.authfactors.title">
+            <de><![CDATA[Auth.-Faktoren]]></de>
+            <en><![CDATA[Auth.-Factors]]></en>
+        </locale>
     </groups>
 </locales>
