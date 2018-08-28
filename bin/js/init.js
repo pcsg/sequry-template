@@ -10,9 +10,9 @@
     );
 
     // auto open settings (for development)
-    /*require(['Locale'], function(QUILocale) {
+    require(['Locale'], function(QUILocale) {
         openUserMenu(QUILocale);
-    });*/
+    });
 
     if (UserIcon) {
         UserIcon.addEvent('load', function () {

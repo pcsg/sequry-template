@@ -52,6 +52,31 @@
     width: auto;
 }
 
+.sequry-table-list-entry-icon-secondary {
+    cursor: pointer;
+}
+
+/* details */
+.sequry-table-list-entry-details {
+    height: 0;
+    overflow: hidden;
+    transition: 0.15s height;
+    width: 100%;
+}
+
+.sequry-table-list-entry-details-inner {
+    padding: 10px 0 10px calc(1rem + 40px);
+}
+
+.sequry-table-list-entry-details-btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.sequry-table-list-entry-details-btn .fa {
+    margin-right: 5px;
+}
+
 @media screen and (max-width: 767px) {
 
 }

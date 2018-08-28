@@ -240,6 +240,36 @@
             <de><![CDATA[Auth.-Methoden]]></de>
             <en><![CDATA[Auth.-methods]]></en>
         </locale>
+
+        <!-- user settings auth methos -->
+        <locale name="sequry.usersettings.category.authmethods.box.title">
+            <de><![CDATA[Authentifizierungs-Methoden]]></de>
+            <en><![CDATA[Authentication methods]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.registered">
+            <de><![CDATA[registriert]]></de>
+            <en><![CDATA[registered]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.notregistered">
+            <de><![CDATA[registriert]]></de>
+            <en><![CDATA[registered]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.register">
+            <de><![CDATA[Registrieren]]></de>
+            <en><![CDATA[Register]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.change">
+            <de><![CDATA[Zugangsdaten ändern]]></de>
+            <en><![CDATA[Change access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.recovery">
+            <de><![CDATA[Zugangsdaten vergessen]]></de>
+            <en><![CDATA[]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.regenerate">
+            <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
+            <en><![CDATA[]]></en>
+        </locale>
     </groups>
 
     <groups name="sequry/template" datatype="js">

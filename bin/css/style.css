@@ -373,6 +373,10 @@ input::-webkit-inner-spin-button {
     padding: 5px 0;
 }
 
+.sequry-table-list-entry:hover {
+    border-left-color: #666;
+}
+
 .sequry-table-list-entry-icon {
     align-items: center;
     color: #aaa;
