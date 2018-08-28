@@ -264,11 +264,11 @@
         </locale>
         <locale name="sequry.usersettings.category.authmethods.btn.recovery">
             <de><![CDATA[Zugangsdaten vergessen]]></de>
-            <en><![CDATA[]]></en>
+            <en><![CDATA[Recover access data]]></en>
         </locale>
         <locale name="sequry.usersettings.category.authmethods.btn.regenerate">
             <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
-            <en><![CDATA[]]></en>
+            <en><![CDATA[Regenerate recovery code]]></en>
         </locale>
     </groups>
 

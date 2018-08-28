@@ -126,7 +126,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 ));
 
                 LiElm.addEvent('click', function () {
-                    console.log("registrieren!")
+                    self.register();
                 })
             } else {
                 // registered - show buttons
@@ -135,41 +135,42 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     html   : '<div class="sequry-table-list-entry-details-inner"></div>'
                 }).inject(LiElm);
 
-                var changeText     = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.change'),
-                    recoveryText   = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.recovery'),
-                    regenerateText = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.regenerate');
+                var btnChangeText     = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.change'),
+                    btnRecoveryText   = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.recovery'),
+                    btnRegenerateText = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.regenerate');
 
                 // 3x buttons
                 new Element('span', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-edit"></span>' + changeText,
+                    html   : '<span class="fa fa-edit"></span>' + btnChangeText,
                     events : {
                         click: function () {
-                            console.log('Zugangsdaten ändern');
+                            self.change();
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('span', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-question-circle"></span>' + recoveryText,
+                    html   : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
                     events : {
                         click: function () {
-                            console.log('Zugangsdaten vergessen');
+                            self.recovery();
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('span', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-retweet"></span>' + regenerateText,
+                    html   : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
                     events : {
                         click: function () {
-                            console.log('Wiederherstellungs-Code neu generieren');
+                            self.regenerate();
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
+                // toggle details
                 var ToggleBtn = LiElm.getElement('.sequry-table-list-entry-icon-secondary');
                 ToggleBtn.set('data-open', false);
 
@@ -215,12 +216,41 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             moofx(Container).animate({
                 height: height
             }, {
-                duration: 150
+                duration: 150,
+                registrate: 1
             });
 
             Button.setProperty('data-open', true);
             Icon.removeClass('fa-angle-double-down');
             Icon.addClass('fa-angle-double-up');
+        },
+
+        /**
+         * Register for auth method
+         */
+        register: function () {
+            console.log('Registrieren');
+        },
+
+        /**
+         * Change access data
+         */
+        change: function () {
+            console.log('Zugangsdaten ändern');
+        },
+
+        /**
+         *Recover access data
+         */
+        recovery: function () {
+            console.log('Zugangsdaten vergessen');
+        },
+
+        /**
+         * Regenerate recovery code
+         */
+        regenerate: function () {
+            console.log('Wiederherstellungs-Code neu generieren');
         }
     });
 });
