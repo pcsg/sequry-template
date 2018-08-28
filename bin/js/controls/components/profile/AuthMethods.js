@@ -12,14 +12,16 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/auth/Register',
     'package/sequry/core/bin/controls/auth/Change',
+    'package/sequry/core/bin/controls/auth/recovery/CodePopup',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
 ], function (QUI, QUIControl, Mustache, QUILocale,
     Panel,
-    Authentication,
-    AuthRegister,
-    AuthChange,
+    Authentication, // package/sequry/core/bin/Authentication
+    AuthRegister, // package/sequry/core/bin/controls/auth/Register
+    AuthChange, // package/sequry/core/bin/controls/auth/Change
+    RecoveryCodePopup, // package/sequry/core/bin/controls/auth/recovery/CodePopup
     template
 ) {
     var lg = 'sequry/template';
@@ -147,10 +149,10 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
                 // 3x buttons
                 new Element('button', {
-                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-edit"></span>' + btnChangeText,
-                    'data-authname' : EntryData.title,
-                    events : {
+                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html           : '<span class="fa fa-edit"></span>' + btnChangeText,
+                    'data-authname': EntryData.title,
+                    events         : {
                         click: function (event) {
                             self.change(event, EntryData);
                         }
@@ -158,10 +160,10 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('button', {
-                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
-                    'data-authname' : EntryData.title,
-                    events : {
+                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html           : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
+                    'data-authname': EntryData.title,
+                    events         : {
                         click: function (event) {
                             self.recovery(event, EntryData);
                         }
@@ -169,10 +171,10 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('button', {
-                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html   : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
-                    'data-authname' : EntryData.title,
-                    events : {
+                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html           : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
+                    'data-authname': EntryData.title,
+                    events         : {
                         click: function (event) {
                             self.regenerate(event, EntryData);
                         }
@@ -250,6 +252,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
             var Target = event.target;
             var AuthPluginData = EntryData;
+            var Register;
 
             if (Target.nodeName !== 'BUTTON') {
                 Target = Target.getParent('button');
@@ -260,28 +263,51 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
             var PasswordPanel = new Panel({
 //                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
-                title: title,
-                subTitle: subTitle,
-                width: 1000,
-                iconHeaderButton: QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                title                  : title,
+                subTitle               : subTitle,
+                width                  : 1000,
+                iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
                 iconHeaderButtonFaClass: 'fa fa-close',
-                isOwner: true,
-                subPanel: true,
-                events: {
-                    onOpen: function (PanelControl) {
-                        var Change = new AuthChange({
+                isOwner                : true,
+                subPanel               : true,
+                events                 : {
+                    onOpenBegin      : function (PanelControl) {
+                        PanelControl.getElm().addClass('panel-authmethod-change');
+                    },
+                    onOpen           : function (PanelControl) {
+                        var Content = PanelControl.getContent();
+                        Content.setStyle('opacity', 0);
+
+                        var Inner = new Element('div', {
+                            'class': 'panel-authmethod-change-inner'
+                        }).inject(Content);
+
+                        Register = new AuthChange({
                             Parent      : self,
                             authPluginId: AuthPluginData.id,
                             events      : {
                                 onLoaded: function () {
 //                                    self.Loader.hide();
+
+                                    new Element('button', {
+                                        'class': 'btn btn-primary quiqqer-sequry-profile-auth-methods-submit',
+                                        html   : 'Speichern',
+                                        events : {
+                                            click: Register.submit
+                                        }
+                                    }).inject(Inner);
+
+                                    moofx(Content).animate({
+                                        opacity: 1
+                                    }, {
+                                        duration: 200
+                                    })
                                 },
                                 onFinish: function () {
                                     PanelControl.close();
                                 }
                             }
-                        }).inject(PanelControl.getContent());
-
+                        }).inject(Inner);
 
                     },
                     onSubmitSecondary: function () {
@@ -291,6 +317,36 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             });
 
             PasswordPanel.open();
+
+            var test = function () {
+//                self.Loader.show();
+                console.log(1)
+                return;
+                Register.submit().then(function (RecoveryCodeData) {
+//                    self.Loader.hide();
+                    console.log(2)
+                    if (!RecoveryCodeData) {
+                        return;
+                    }
+                    console.log(3)
+                    PasswordPanel.close().then(function () {
+                        new RecoveryCodePopup({
+                            RecoveryCodeData: RecoveryCodeData,
+                            events          : {
+                                onClose: function () {
+                                    console.log(4)
+                                    RecoveryCodeData = null;
+                                    self.$nonFullyAccessiblePasswordCheck(
+                                        AuthPluginData.id
+                                    );
+                                }
+                            }
+                        }).open();
+                    });
+                });
+            };
+
+
         },
 
         /**

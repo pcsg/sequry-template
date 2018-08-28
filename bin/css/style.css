@@ -125,7 +125,12 @@ input::-webkit-inner-spin-button {
 /***********************/
 /* sequry custom popup */
 /***********************/
-.sequry-customPopup {
+.qui-window-popup-title.box {
+    display: none;
+}
+
+.sequry-customPopup,
+.qui-window-popup.box {
     /*max-width: calc(100% - 40px) !important;*/
     /*width: 400px !important;*/
     /*margin: 0 20px;*/
@@ -134,7 +139,8 @@ input::-webkit-inner-spin-button {
 }
 
 /* icon */
-.sequry-customPopup .popup-icon {
+.sequry-customPopup .popup-icon,
+.qui-window-popup.box .popup-icon {
     border-radius: 50%;
     box-shadow: 0 0 0 4px;
     color: #434545;
@@ -156,7 +162,8 @@ input::-webkit-inner-spin-button {
 }
 
 /* buttons */
-.sequry-customPopup .qui-window-popup-buttons {
+.sequry-customPopup .qui-window-popup-buttons,
+.qui-window-popup.box .qui-window-popup-buttons {
     background: none;
     display: flex;
     justify-content: space-around;
@@ -164,7 +171,9 @@ input::-webkit-inner-spin-button {
 }
 
 .sequry-customPopup .qui-window-popup-buttons:after,
-.sequry-customPopup .qui-window-popup-sheet-buttons:after {
+.sequry-customPopup .qui-window-popup-sheet-buttons:after,
+.qui-window-popup.box .qui-window-popup-buttons:after,
+.qui-window-popup.box .qui-window-popup-sheet-buttons:after {
     background: #ddd;
     height: 1px;
     left: 20px;
@@ -172,16 +181,21 @@ input::-webkit-inner-spin-button {
     width: calc(100% - 40px);
 }
 
-.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
+.sequry-customPopup .qui-window-popup-buttons .qui-button,
+.sequry-customPopup .qui-window-popup-buttons .qui-button:disabled,
+.qui-window-popup.box .qui-window-popup-buttons .qui-button,
+.qui-window-popup.box .qui-window-popup-buttons .qui-button:disabled {
     background: none;
     border: none;
-    color: #434545;
+    color: #635555;
+    box-shadow: none;
 }
 
-.sequry-customPopup .qui-window-popup-buttons .qui-button:last-child {
+.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child,
+.qui-window-popup.box .qui-window-popup-buttons .qui-button:first-child {
     background: none;
     border: none;
-    color: #999;
+    color: #999999;
 }
 
 /**********/

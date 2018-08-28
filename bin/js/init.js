@@ -85,12 +85,11 @@
                 iconHeaderButtonFaClass: 'fa fa-close',
                 isOwner: true,
                 events: {
-                    onOpen: function (PanelControl) {
+                    onOpenBegin: function(PanelControl) {
                         PanelControl.getElm().addClass('user-settings-panel');
-
-                        var UserPanelControl = new UserPanel();
-
-                        UserPanelControl.inject(PanelControl.getContent())
+                    } ,
+                    onOpen: function (PanelControl) {
+                       new UserPanel().inject(PanelControl.getContent());
                     },
                     onSubmitSecondary: function () {
                         this.close();
