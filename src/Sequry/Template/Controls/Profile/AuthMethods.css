@@ -15,6 +15,11 @@
     transition: 0.2s all;
 }
 
+/* 2 password open - dev  */
+.sequry-table-list-entry:nth-child(2) .sequry-table-list-entry-details {
+    height: auto;
+}
+
 .sequry-table-list-entry[data-status="true"] .sequry-table-list-entry-icon-primary,
 .sequry-table-list-entry:hover .sequry-table-list-entry-icon-primary {
     color: inherit;

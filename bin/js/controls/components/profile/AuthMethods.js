@@ -8,12 +8,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'Mustache',
     'Locale',
 
+    'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/core/bin/Authentication',
+    'package/sequry/core/bin/controls/auth/Register',
+    'package/sequry/core/bin/controls/auth/Change',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
 ], function (QUI, QUIControl, Mustache, QUILocale,
+    Panel,
     Authentication,
+    AuthRegister,
+    AuthChange,
     template
 ) {
     var lg = 'sequry/template';
@@ -79,14 +85,14 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
          *
          * @param Entry
          */
-        createEntry: function (Entry) {
+        createEntry: function (EntryData) {
             var self = this;
 
             var statusText = QUILocale.get(
                 lg, 'sequry.usersettings.category.authmethods.status.notregistered'
             );
 
-            if (Entry.registered) {
+            if (EntryData.registered) {
                 statusText = QUILocale.get(
                     lg, 'sequry.usersettings.category.authmethods.status.registered'
                 );
@@ -96,16 +102,16 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 'class'      : 'sequry-table-list-entry',
                 html         : Mustache.render(template, {
                     icon  : 'fa fa-key',
-                    title : Entry.title,
-                    id    : Entry.id,
-                    desc  : Entry.description,
+                    title : EntryData.title,
+                    id    : EntryData.id,
+                    desc  : EntryData.description,
                     status: statusText
                 }),
-                'data-status': Entry.registered // true or false
+                'data-status': EntryData.registered // true or false
             });
 
             // not registered
-            if (Entry.registered === false) {
+            if (EntryData.registered === false) {
                 var SecondaryIconContainer = LiElm.getElement(
                     '.sequry-table-list-entry-icon-secondary'
                 );
@@ -113,21 +119,21 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 SecondaryIconContainer.set('html', '');
                 SecondaryIconContainer.addClass('sequry-table-list-entry-icon-secondary-register');
 
-                new Element('span', {
+                new Element('button', {
                     'class': 'btn btn-small btn-secondary sequry-table-list-entry-regbutton',
                     html   : QUILocale.get(
                         lg, 'sequry.usersettings.category.authmethods.btn.register'
-                    )
+                    ),
+                    events : {
+                        click: function (event) {
+                            self.registerUser(event, EntryData);
+                        }
+                    }
                 }).inject(SecondaryIconContainer);
 
-                LiElm.setStyle('cursor', 'pointer');
                 LiElm.setAttribute('title', QUILocale.get(
                     lg, 'sequry.usersettings.category.authmethods.btn.register'
                 ));
-
-                LiElm.addEvent('click', function () {
-                    self.register();
-                })
             } else {
                 // registered - show buttons
                 var Container = new Element('div', {
@@ -140,32 +146,35 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     btnRegenerateText = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.regenerate');
 
                 // 3x buttons
-                new Element('span', {
+                new Element('button', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html   : '<span class="fa fa-edit"></span>' + btnChangeText,
+                    'data-authname' : EntryData.title,
                     events : {
-                        click: function () {
-                            self.change();
+                        click: function (event) {
+                            self.change(event, EntryData);
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
-                new Element('span', {
+                new Element('button', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html   : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
+                    'data-authname' : EntryData.title,
                     events : {
-                        click: function () {
-                            self.recovery();
+                        click: function (event) {
+                            self.recovery(event, EntryData);
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
-                new Element('span', {
+                new Element('button', {
                     'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html   : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
+                    'data-authname' : EntryData.title,
                     events : {
-                        click: function () {
-                            self.regenerate();
+                        click: function (event) {
+                            self.regenerate(event, EntryData);
                         }
                     }
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
@@ -216,7 +225,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             moofx(Container).animate({
                 height: height
             }, {
-                duration: 150,
+                duration  : 150,
                 registrate: 1
             });
 
@@ -228,28 +237,75 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         /**
          * Register for auth method
          */
-        register: function () {
+        registerUser: function (event) {
+            event.stop();
             console.log('Registrieren');
         },
 
         /**
          * Change access data
          */
-        change: function () {
-            console.log('Zugangsdaten ändern');
+        change: function (event, EntryData) {
+            event.stop();
+
+            var Target = event.target;
+            var AuthPluginData = EntryData;
+
+            if (Target.nodeName !== 'BUTTON') {
+                Target = Target.getParent('button');
+            }
+
+            var title = 'Zugangsdaten ändern';
+            var subTitle = Target.get('data-authname');
+
+            var PasswordPanel = new Panel({
+//                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
+                title: title,
+                subTitle: subTitle,
+                width: 1000,
+                iconHeaderButton: QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                isOwner: true,
+                subPanel: true,
+                events: {
+                    onOpen: function (PanelControl) {
+                        var Change = new AuthChange({
+                            Parent      : self,
+                            authPluginId: AuthPluginData.id,
+                            events      : {
+                                onLoaded: function () {
+//                                    self.Loader.hide();
+                                },
+                                onFinish: function () {
+                                    PanelControl.close();
+                                }
+                            }
+                        }).inject(PanelControl.getContent());
+
+
+                    },
+                    onSubmitSecondary: function () {
+                        this.close();
+                    }
+                }
+            });
+
+            PasswordPanel.open();
         },
 
         /**
          *Recover access data
          */
-        recovery: function () {
+        recovery: function (event) {
+            event.stop();
             console.log('Zugangsdaten vergessen');
         },
 
         /**
          * Regenerate recovery code
          */
-        regenerate: function () {
+        regenerate: function (event) {
+            event.stop();
             console.log('Wiederherstellungs-Code neu generieren');
         }
     });

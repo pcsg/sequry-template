@@ -113,7 +113,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = this.$Elm.getElement('.sidebar-panel-action-buttons');
             this.Loader.inject(this.$Elm);
 
-            //todo das mit if --> set... muss noch überlegt werden
             if (this.getAttribute('title')) {
                 this.setTitle(this.getAttribute('title'));
             }
