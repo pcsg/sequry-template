@@ -278,6 +278,15 @@
             <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
             <en><![CDATA[Regenerate recovery code]]></en>
         </locale>
+
+        <locale name="sequry.usersettings.category.authmethods.idlabel">
+            <de><![CDATA[Id:]]></de>
+            <en><![CDATA[Id:]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.statuslabel">
+            <de><![CDATA[Status:]]></de>
+            <en><![CDATA[Status:]]></en>
+        </locale>
     </groups>
 
     <groups name="sequry/template" datatype="js">

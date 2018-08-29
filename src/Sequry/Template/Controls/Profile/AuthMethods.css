@@ -189,11 +189,13 @@
     margin-bottom: 1rem;
 }
 
+.pcsg-gpm-multisecurityclassauth table,
 .pcsg-gpm-auth-recovery-popup .qui-window-popup-content table {
     max-width: 100%;
     width: 100%;
 }
 
+.pcsg-gpm-multisecurityclassauth table th,
 .pcsg-gpm-auth-recovery-popup .qui-window-popup-content table th {
     font-weight: normal;
     padding-bottom: 1rem;
@@ -278,6 +280,35 @@
 .sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate button:hover {
     border-color: #5c656d;
     color: #5c656d;
+}
+
+/***********************************/
+/* popup multi security class auth */
+/***********************************/
+.pcsg-gpm-multisecurityclassauth .multisecurityclassauth-info {
+    margin-bottom: 1rem;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container {
+    display: flex;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-item {
+    display: block;
+    margin-right: 10px;
+    padding: 2px 0;
+    width: 200px;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-field {
+    font-weight: normal;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-field button {
+    background: none;
+    border-color: inherit;
+    color: inherit;
+    font-size: 0.9rem;
 }
 
 @media screen and (max-width: 767px) {

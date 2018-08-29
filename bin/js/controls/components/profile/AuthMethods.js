@@ -74,6 +74,8 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         $listRefresh: function () {
             var self = this;
 
+            this.$ListElm.set('html', '');
+
             return Authentication.getAuthPlugins().then(function (authPlugins) {
                 console.log(authPlugins)
                 for (var i = 0, len = authPlugins.length; i < len; i++) {
@@ -109,17 +111,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     status = 'registeredsyncrequired';
 
                 }
-
             }
 
             var LiElm = new Element('li', {
                 'class'      : 'sequry-table-list-entry',
                 html         : Mustache.render(template, {
-                    icon  : 'fa fa-key',
-                    title : EntryData.title,
-                    id    : EntryData.id,
-                    desc  : EntryData.description,
-                    status: statusText
+                    icon       : 'fa fa-key',
+                    title      : EntryData.title,
+                    idLabel    : QUILocale.get(lg, 'sequry.usersettings.category.authmethods.idlabel'),
+                    id         : EntryData.id,
+                    desc       : EntryData.description,
+                    statusLabel: QUILocale.get(lg, 'sequry.usersettings.category.authmethods.statuslabel'),
+                    status     : statusText
                 }),
                 'data-status': status // registered, notregistered, registeredsyncrequired
             });
@@ -162,15 +165,15 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
                 // password synchronization required
                 if (EntryData.sync) {
-                    var tbnExeSync =QUILocale.get(
+                    var tbnExeSync = QUILocale.get(
                         lg, 'sequry.usersettings.category.authmethods.btn.status.registeredsyncrequired'
                     );
                     new Element('button', {
-                        'class'        : 'btn btn-warning btn-small sequry-table-list-entry-details-btn ',
-                        html           : '<span class="fa  fa-exclamation-triangle"></span>' + tbnExeSync,
-                        events         : {
+                        'class': 'btn btn-warning btn-small sequry-table-list-entry-details-btn ',
+                        html   : '<span class="fa  fa-exclamation-triangle"></span>' + tbnExeSync,
+                        events : {
                             click: function (event) {
-                                self.change(event, EntryData);
+                                self.$syncAuthPlugin(event, EntryData.id);
                             }
                         }
                     }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
@@ -178,9 +181,9 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
                 // 3x buttons
                 new Element('button', {
-                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html           : '<span class="fa fa-edit"></span>' + btnChangeText,
-                    events         : {
+                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html   : '<span class="fa fa-edit"></span>' + btnChangeText,
+                    events : {
                         click: function (event) {
                             self.change(event, EntryData);
                         }
@@ -188,9 +191,9 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('button', {
-                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html           : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
-                    events         : {
+                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html   : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
+                    events : {
                         click: function (event) {
                             self.recovery(event, EntryData);
                         }
@@ -198,9 +201,9 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
 
                 new Element('button', {
-                    'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
-                    html           : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
-                    events         : {
+                    'class': 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
+                    html   : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
+                    events : {
                         click: function (event) {
                             self.regenerate(event, EntryData);
                         }
@@ -260,6 +263,46 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             Button.setProperty('data-open', true);
             Icon.removeClass('fa-angle-double-down');
             Icon.addClass('fa-angle-double-up');
+        },
+
+        /**
+         * Open window to synchronise an authentication plugin
+         *
+         * @param {Number} authPluginId
+         */
+        $syncAuthPlugin: function (event, authPluginId) {
+            event.stop();
+            var self = this;
+
+            var startSync = function () {
+//                self.Loader.show();
+
+                QUIAjax.post(
+                    'package_sequry_core_ajax_auth_syncAuthPlugin',
+                    function () {
+//                        self.Loader.hide();
+                        self.$listRefresh()
+                    }, {
+                        'package'   : 'sequry/core',
+                        authPluginId: authPluginId
+                    }
+                );
+            };
+
+            Authentication.getNonFullyAccessibleSecurityClassIds(
+                authPluginId
+            ).then(function (securityClassIds) {
+                Authentication.multiSecurityClassAuth(
+                    securityClassIds,
+                    QUILocale.get('sequry/core', 'auth.panel.sync_info'),
+                    [authPluginId]
+                ).then(
+                    startSync,
+                    function () {
+                        self.$listRefresh()
+                    }
+                );
+            });
         },
 
         /**
