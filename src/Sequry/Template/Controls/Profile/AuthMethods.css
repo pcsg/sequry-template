@@ -17,20 +17,27 @@
 
 /* 2 password open - dev  */
 .sequry-table-list-entry:nth-child(2) .sequry-table-list-entry-details {
-    height: auto;
+    /*height: auto;*/
 }
 
-.sequry-table-list-entry[data-status="true"] .sequry-table-list-entry-icon-primary,
+.sequry-table-list-entry[data-status="registered"] .sequry-table-list-entry-icon-primary,
 .sequry-table-list-entry:hover .sequry-table-list-entry-icon-primary {
     color: inherit;
 }
 
 .sequry-table-list-entry .sequry-table-list-entry-content-line-status-value {
     color: red;
+    color: #e64a19;
 }
 
-.sequry-table-list-entry[data-status="true"] .sequry-table-list-entry-content-line-status-value {
+.sequry-table-list-entry[data-status="registered"] .sequry-table-list-entry-content-line-status-value {
     color: green;
+    color: #43a047;
+}
+
+.sequry-table-list-entry[data-status="registeredsyncrequired"] .sequry-table-list-entry-content-line-status-value {
+    color: orange;
+    color: #FF9800;
 }
 
 .sequry-table-list-entry-content-title span:first-child {
@@ -82,51 +89,49 @@
     margin-right: 5px;
 }
 
-/*******************/
-/* Change password */
-/*******************/
-.panel-authmethod-change {
+/**********************/
+/* Auth method panels */
+/**********************/
+/* default */
+.panel-authmethod-subpanel {
     background: #f2f2f2;
 }
 
-.panel-authmethod-change-inner {
+.panel-authmethod-subpanel-inner {
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    margin: 2rem auto;
+    margin: 0 auto;
     max-width: 500px;
     padding: 2rem;
 }
 
-.panel-authmethod-change .sidebar-panel-action {
+.panel-authmethod-subpanel .sidebar-panel-action {
     display: none;
 }
 
-.panel-authmethod-change h1 {
+.panel-authmethod-subpanel h1 {
     font-size: 1.6em
 }
 
-.panel-authmethod-change table.data-table.data-table-flexbox {
+.panel-authmethod-subpanel table.data-table.data-table-flexbox {
     margin: 2rem 0;
     text-align: left;
     width: 100%;
 }
 
-.panel-authmethod-change table.data-table.data-table-flexbox th {
+.panel-authmethod-subpanel table.data-table.data-table-flexbox th {
     font-weight: normal;
     padding-bottom: 1rem;
 }
 
-.panel-authmethod-change .field-container-field.pcsg-gpm-auth-control,
-.panel-authmethod-change .sequry-auth-password-change-inputs {
-    max-width: 500px;
+.panel-authmethod-subpanel label {
+    float: none;
+    width: 100%;
 }
 
-.panel-authmethod-change .pcsg-gpm-auth-recovery {
-    display: none;
-}
-
-.panel-authmethod-change input[type="password"] {
+.panel-authmethod-subpanel input[type="text"],
+.panel-authmethod-subpanel input[type="password"] {
     border-bottom: 1px solid #ddd;
     border-left: none;
     border-right: none;
@@ -137,14 +142,30 @@
     width: 100%;
 }
 
-.panel-authmethod-change input[type="password"]:hover,
-.panel-authmethod-change input[type="password"]:active {
+.panel-authmethod-subpanel input[type="password"]:hover,
+.panel-authmethod-subpanel input[type="text"]:hover,
+.panel-authmethod-subpanel input[type="password"]:active,
+.panel-authmethod-subpanel input[type="text"]:active {
     border-bottom-color: #aaa;
 }
 
-.panel-authmethod-change .sequry-auth-password-change-inputs label {
-    float: none;
-    width: 100%;
+.quiqqer-sequry-profile-auth-methods-submit {
+    display: block;
+    margin-left: auto;
+}
+
+/* end default */
+
+/*******************************/
+/* Auth method panels - change */
+/*******************************/
+.panel-authmethod-change .field-container-field.pcsg-gpm-auth-control,
+.panel-authmethod-change .sequry-auth-password-change-inputs {
+    /*max-width: 500px;*/
+}
+
+.panel-authmethod-change .pcsg-gpm-auth-recovery {
+    display: none;
 }
 
 .panel-authmethod-change .sequry-auth-password-change-inputs label span {
@@ -200,10 +221,63 @@
     font-size: 35px;
     font-weight: 300;
     letter-spacing: 2px;
-    margin: 2rem 0;
+    line-height: 1em;
+    margin: 1rem 0;
     padding: 2rem;
     text-align: center;
     width: 100%;
+}
+
+/*********************************/
+/* Auth method panels - register */
+/*********************************/
+.sequry-auth-secondpassword-registration label {
+    margin: 0;
+}
+
+.sequry-auth-secondpassword-registration label > span {
+    display: none;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show label > span {
+    display: block;
+    margin-right: 10px;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show {
+    float: none;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show label {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100% !important;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show input[type="checkbox"] {
+    margin: 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate {
+    float: none;
+    text-align: right;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate button {
+    background: none;
+    border: none;
+    border-color: #6c757d;
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate button:hover {
+    border-color: #5c656d;
+    color: #5c656d;
 }
 
 @media screen and (max-width: 767px) {

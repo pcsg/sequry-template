@@ -85,10 +85,12 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         /**
          * Create list entry
          *
-         * @param Entry
+         * @param EntryData
          */
         createEntry: function (EntryData) {
-            var self = this;
+            var self                   = this,
+                SecondaryIconContainer = null,
+                status                 = 'notregistered';
 
             var statusText = QUILocale.get(
                 lg, 'sequry.usersettings.category.authmethods.status.notregistered'
@@ -98,6 +100,16 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 statusText = QUILocale.get(
                     lg, 'sequry.usersettings.category.authmethods.status.registered'
                 );
+                status = 'registered';
+
+                if (EntryData.sync) {
+                    statusText = QUILocale.get(
+                        lg, 'sequry.usersettings.category.authmethods.status.registeredsyncrequired'
+                    );
+                    status = 'registeredsyncrequired';
+
+                }
+
             }
 
             var LiElm = new Element('li', {
@@ -109,12 +121,12 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     desc  : EntryData.description,
                     status: statusText
                 }),
-                'data-status': EntryData.registered // true or false
+                'data-status': status // registered, notregistered, registeredsyncrequired
             });
 
             // not registered
             if (EntryData.registered === false) {
-                var SecondaryIconContainer = LiElm.getElement(
+                SecondaryIconContainer = LiElm.getElement(
                     '.sequry-table-list-entry-icon-secondary'
                 );
 
@@ -137,6 +149,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     lg, 'sequry.usersettings.category.authmethods.btn.register'
                 ));
             } else {
+
                 // registered - show buttons
                 var Container = new Element('div', {
                     'class': 'sequry-table-list-entry-details',
@@ -147,11 +160,26 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     btnRecoveryText   = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.recovery'),
                     btnRegenerateText = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.btn.regenerate');
 
+                // password synchronization required
+                if (EntryData.sync) {
+                    var tbnExeSync =QUILocale.get(
+                        lg, 'sequry.usersettings.category.authmethods.btn.status.registeredsyncrequired'
+                    );
+                    new Element('button', {
+                        'class'        : 'btn btn-warning btn-small sequry-table-list-entry-details-btn ',
+                        html           : '<span class="fa  fa-exclamation-triangle"></span>' + tbnExeSync,
+                        events         : {
+                            click: function (event) {
+                                self.change(event, EntryData);
+                            }
+                        }
+                    }).inject(Container.getElement('.sequry-table-list-entry-details-inner'));
+                }
+
                 // 3x buttons
                 new Element('button', {
                     'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html           : '<span class="fa fa-edit"></span>' + btnChangeText,
-                    'data-authname': EntryData.title,
                     events         : {
                         click: function (event) {
                             self.change(event, EntryData);
@@ -162,7 +190,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 new Element('button', {
                     'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html           : '<span class="fa fa-question-circle"></span>' + btnRecoveryText,
-                    'data-authname': EntryData.title,
                     events         : {
                         click: function (event) {
                             self.recovery(event, EntryData);
@@ -173,7 +200,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 new Element('button', {
                     'class'        : 'btn btn-secondary btn-small btn-outline sequry-table-list-entry-details-btn',
                     html           : '<span class="fa fa-retweet"></span>' + btnRegenerateText,
-                    'data-authname': EntryData.title,
                     events         : {
                         click: function (event) {
                             self.regenerate(event, EntryData);
@@ -239,9 +265,131 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         /**
          * Register for auth method
          */
-        registerUser: function (event) {
+        registerUser: function (event, EntryData) {
             event.stop();
-            console.log('Registrieren');
+
+            var self = this;
+            var AuthPluginData = EntryData;
+            var Register;
+
+            var title = 'Zugangsdaten ändern';
+            var subTitle = EntryData.title;
+
+            var SubPanel = new Panel({
+//                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
+                title                  : title,
+                subTitle               : subTitle,
+                width                  : 1000,
+                iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                isOwner                : true,
+                subPanel               : true,
+                events                 : {
+                    onOpenBegin      : function (PanelControl) {
+                        PanelControl.getElm().addClass('panel-authmethod-subpanel panel-authmethod-register');
+                    },
+                    onOpen           : function (PanelControl) {
+                        var Content = PanelControl.getContent();
+                        Content.setStyle('opacity', 0);
+
+                        var Inner = new Element('div', {
+                            'class': 'panel-authmethod-subpanel-inner panel-authmethod-register-inner'
+                        }).inject(Content);
+
+                        Register = new AuthRegister({
+                            authPluginId: AuthPluginData.id,
+                            events      : {
+                                onFinish: function (Reg) {
+//                                    self.Loader.hide();
+
+                                    // workaround - set placeholder
+                                    var labels = PanelControl.getElm().getElements(
+                                        '.sequry-auth-secondpassword-registration label'
+                                    );
+
+                                    for (var i = 0, len = labels.length; i < len; i++) {
+                                        var text  = labels[i].getElement('span').get('html'),
+                                            input = labels[i].getElement('input');
+                                        input.set('placeholder', text);
+                                    }
+
+                                    new Element('button', {
+                                        'class': 'btn btn-primary quiqqer-sequry-profile-auth-methods-submit',
+                                        html   : 'Speichern',
+                                        events : {
+                                            click: FuncOnRegisterBtnClick
+                                        }
+                                    }).inject(Inner);
+
+                                    moofx(Content).animate({
+                                        opacity: 1
+                                    }, {
+                                        duration: 200
+                                    })
+                                }
+                            }
+                        }).inject(Inner);
+
+                    },
+                    onSubmitSecondary: function () {
+                        this.close();
+                    },
+                    onClose          : function (PanelControl) {
+                        PanelControl.close();
+                    }
+                }
+            });
+
+            var FuncOnRegisterBtnClick = function () {
+                // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
+                return;
+                Register.submit().then(function (RecoveryCodeData) {
+
+                    if (!RecoveryCodeData) {
+                        return;
+                    }
+
+                    new RecoveryCodePopup({
+                        RecoveryCodeData: RecoveryCodeData,
+                        events          : {
+                            onClose: function () {
+                                RecoveryCodeData = null;
+                                self.$nonFullyAccessiblePasswordCheck(
+                                    AuthPluginData.id,
+                                    SubPanel
+                                );
+                            }
+                        }
+                    }).open();
+                });
+            };
+
+            SubPanel.open();
+
+        },
+
+        /**
+         * Checks for all passwords that can be accessed with a specific
+         * authentication plugin of the user has access to all those passwords
+         * via this authentication plugin
+         *
+         * @param {number} authPluginId
+         * @param {object} SubPanel
+         */
+        $nonFullyAccessiblePasswordCheck: function (authPluginId, SubPanel) {
+            // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
+            var self = this;
+
+            Authentication.hasNonFullyAccessiblePasswords(
+                authPluginId
+            ).then(function (result) {
+                if (!result) {
+                    SubPanel.close();
+                    return;
+                }
+
+                self.$syncAuthPlugin(authPluginId);
+            });
         },
 
         /**
@@ -250,16 +398,11 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         change: function (event, EntryData) {
             event.stop();
 
-            var Target = event.target;
             var AuthPluginData = EntryData;
             var Register;
 
-            if (Target.nodeName !== 'BUTTON') {
-                Target = Target.getParent('button');
-            }
-
             var title = 'Zugangsdaten ändern';
-            var subTitle = Target.get('data-authname');
+            var subTitle = EntryData.title;
 
             var PasswordPanel = new Panel({
 //                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
@@ -272,14 +415,14 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 subPanel               : true,
                 events                 : {
                     onOpenBegin      : function (PanelControl) {
-                        PanelControl.getElm().addClass('panel-authmethod-change');
+                        PanelControl.getElm().addClass('panel-authmethod-subpanel panel-authmethod-change');
                     },
                     onOpen           : function (PanelControl) {
                         var Content = PanelControl.getContent();
                         Content.setStyle('opacity', 0);
 
                         var Inner = new Element('div', {
-                            'class': 'panel-authmethod-change-inner'
+                            'class': 'panel-authmethod-subpanel-inner panel-authmethod-change-inner'
                         }).inject(Content);
 
                         Register = new AuthChange({
@@ -317,36 +460,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             });
 
             PasswordPanel.open();
-
-            var test = function () {
-//                self.Loader.show();
-                console.log(1)
-                return;
-                Register.submit().then(function (RecoveryCodeData) {
-//                    self.Loader.hide();
-                    console.log(2)
-                    if (!RecoveryCodeData) {
-                        return;
-                    }
-                    console.log(3)
-                    PasswordPanel.close().then(function () {
-                        new RecoveryCodePopup({
-                            RecoveryCodeData: RecoveryCodeData,
-                            events          : {
-                                onClose: function () {
-                                    console.log(4)
-                                    RecoveryCodeData = null;
-                                    self.$nonFullyAccessiblePasswordCheck(
-                                        AuthPluginData.id
-                                    );
-                                }
-                            }
-                        }).open();
-                    });
-                });
-            };
-
-
         },
 
         /**

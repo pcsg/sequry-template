@@ -250,9 +250,17 @@
             <de><![CDATA[registriert]]></de>
             <en><![CDATA[registered]]></en>
         </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.registeredsyncrequired">
+            <de><![CDATA[registriert (Passwort-Synchronisation erforderlich)]]></de>
+            <en><![CDATA[registered (password synchronization required)]]></en>
+        </locale>
         <locale name="sequry.usersettings.category.authmethods.status.notregistered">
-            <de><![CDATA[registriert]]></de>
-            <en><![CDATA[registered]]></en>
+            <de><![CDATA[Nicht registriert]]></de>
+            <en><![CDATA[Not registered]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.status.registeredsyncrequired">
+            <de><![CDATA[Passwörter synchronisieren]]></de>
+            <en><![CDATA[Synchronize passwords]]></en>
         </locale>
         <locale name="sequry.usersettings.category.authmethods.btn.register">
             <de><![CDATA[Registrieren]]></de>

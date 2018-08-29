@@ -186,6 +186,21 @@
     font-size: 0.9em;
 }
 
+/*************/
+/* page logo */
+/*************/
+.page-logo {
+    left: 0;
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+}
+
+.page-logo img {
+    max-height: 80px;
+    max-width: 150px;
+}
+
 /***************/
 /* log in page */
 /***************/
@@ -433,4 +448,142 @@ button.fa {
     .login-page-box {
         margin-top: 10vh;
     }
+}
+
+/*****************/
+/* passwort link */
+/*****************/
+.passwordlink-page {
+    align-items: flex-start;
+    background: #eee;
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+.passwordlink-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
+    margin: 15vh auto 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 2rem;
+    width: 500px;
+    z-index: 1;
+}
+
+.passwordlink-box-icon {
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px;
+    color: #802124;
+    display: block;
+    font-size: 50px;
+    line-height: 100px;
+    margin: 2rem auto;
+    text-align: center;
+    width: 100px;
+}
+
+.passwordlink-box-header-title {
+    color: #666;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 2rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    word-spacing: 8px;
+}
+
+.passwordlink-box-fieldset {
+    border: none;
+    display: block;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.passwordlink-box-fieldset-input {
+    border-bottom-color: #ddd;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    display: block;
+    outline: none;
+    transition: 0.2s all ease-out;
+    width: 100%;
+}
+
+.passwordlink-box-fieldset-input:hover,
+.passwordlink-box-fieldset-input:active,
+.passwordlink-box-fieldset-input:focus {
+    border-bottom-color: #aaa;
+}
+
+.passwordlink-box-fieldset-error {
+    color: red;
+    display: block;
+    float: left;
+    font-size: 0.9rem;
+    margin: 1rem 0 0;
+    padding: .375rem .75rem;
+}
+
+.passwordlink-box-fieldset-submit {
+    background: none !important;
+    border: none !important;
+    color: #999 !important;
+    float: right !important;
+    margin: 1rem 0 0;
+}
+
+.passwordlink-box-fieldset-submit:hover {
+    color: #444 !important;
+}
+
+@media (max-width: 767px) {
+    .passwordlink-logo {
+        padding: 1rem;
+    }
+
+    .passwordlink-logo img {
+        max-height: 50px;
+        max-width: 120px;
+    }
+
+    .passwordlink-box {
+        margin-top: 10vh;
+    }
+}
+
+/*********************************/
+/* passwort link - password data */
+/*********************************/
+.passwordlink-box.passwordlink-data {
+    width: 600px;
+}
+
+.passwordlink-data-header {
+    background: linear-gradient(90deg, #2071a7, #4091c7);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: -2rem -2rem 0 -2rem;
+    padding: 2rem;
+}
+
+.passwordlink-data-header-title {
+    margin: 0;
+}
+
+.passwordlink-data-header-subtitle {
+    line-height: 100%;
+    opacity: 0.6;
+}
+
+.passwordlink-data-desc {
+    margin: 2rem 0;
 }
