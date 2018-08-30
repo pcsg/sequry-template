@@ -278,6 +278,22 @@
             <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
             <en><![CDATA[Regenerate recovery code]]></en>
         </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.register">
+            <de><![CDATA[Registrieren]]></de>
+            <en><![CDATA[Register]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.change">
+            <de><![CDATA[Zugangsdaten  ändern]]></de>
+            <en><![CDATA[Change access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.recovery">
+            <de><![CDATA[Zugangsdaten wiederherstellen]]></de>
+            <en><![CDATA[Restore access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.regenerate">
+            <de><![CDATA[Wiederherstellungs-Code generieren]]></de>
+            <en><![CDATA[Generate recovery code]]></en>
+        </locale>
 
         <locale name="sequry.usersettings.category.authmethods.idlabel">
             <de><![CDATA[Id:]]></de>

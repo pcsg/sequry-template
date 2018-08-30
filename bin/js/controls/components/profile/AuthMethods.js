@@ -8,6 +8,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'Mustache',
     'Locale',
     'Ajax',
+    'qui/controls/loader/Loader',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/core/bin/Authentication',
@@ -17,7 +18,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
-], function (QUI, QUIControl, Mustache, QUILocale, QUIAjax,
+], function (QUI, QUIControl, Mustache, QUILocale, QUIAjax, QUILoader,
     Panel,
     Authentication, // package/sequry/core/bin/Authentication
     AuthRegister, // package/sequry/core/bin/controls/auth/Register
@@ -76,6 +77,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             var self = this;
 
             this.$ListElm.set('html', '');
+
 
             return Authentication.getAuthPlugins().then(function (authPlugins) {
                 console.log(authPlugins)
@@ -316,11 +318,13 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             var AuthPluginData = EntryData;
             var Register;
 
-            var title = 'Zugangsdaten ändern';
+            var title = QUILocale.get(
+                lg, 'sequry.usersettings.category.authmethods.title.register'
+            );
+
             var subTitle = EntryData.title;
 
             var SubPanel = new Panel({
-//                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
                 title                  : title,
                 subTitle               : subTitle,
                 width                  : 1000,
@@ -445,16 +449,17 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
          */
         change: function (event, EntryData) {
             event.stop();
-            var self = this;
+            var self           = this,
+                AuthPluginData = EntryData,
+                Register;
 
-            var AuthPluginData = EntryData;
-            var Register;
+            var title = QUILocale.get(
+                'sequry/template', 'sequry.usersettings.category.authmethods.title.change'
+            );
 
-            var title = 'Zugangsdaten ändern';
             var subTitle = EntryData.title;
 
             var PasswordPanel = new Panel({
-//                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
                 title                  : title,
                 subTitle               : subTitle,
                 width                  : 1000,
