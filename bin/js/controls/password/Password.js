@@ -76,6 +76,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
             PasswordHandler.getDataView(passwordId).then(function (ViewData) {
                 if (!ViewData) {
+                    self.fireEvent('close', [self]);
                     return;
                 }
 
