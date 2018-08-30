@@ -51,10 +51,10 @@ body .sidebar-panel-header {
     color: #bbbbbb;
 }
 
-.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child,
-.qui-window-popup.box .qui-window-popup-buttons .qui-button:first-child {
+.sequry-customPopup .qui-window-popup-buttons .qui-button:nth-child(2),
+.qui-window-popup.box .qui-window-popup-buttons .qui-button:nth-child(2) {
     color: #51b7a3;
-    order: 2;
+    /*order: 2;*/
 }
 
 /*********/
