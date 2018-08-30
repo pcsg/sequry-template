@@ -9,9 +9,17 @@
         '[data-qui="package/sequry/template/bin/js/controls/components/Header"]'
     );
 
+    var PasswordLink = document.getElement(
+        '.passwordlink-box'
+    );
+
+    var Login = document.getElement(
+        '[data-qui="controls/users/Login"]'
+    );
+
     // auto open settings (for development)
-    require(['Locale'], function(QUILocale) {
-        openUserMenu(QUILocale);
+    require(['Locale'], function (QUILocale) {
+//        openUserMenu(QUILocale);
     });
 
     if (UserIcon) {
@@ -26,10 +34,10 @@
             ], function (QUILocale, Item, Separator) {
                 Menu.appendChild(
                     new Item({
-                        icon: 'fa fa-cog',
-                        text: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
+                        icon  : 'fa fa-cog',
+                        text  : QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
                         events: {
-                            click: function() {
+                            click: function () {
                                 openUserMenu(QUILocale);
                             }
                         }
@@ -60,8 +68,6 @@
 
 
     // password link site
-    var PasswordLink = document.getElement('.passwordlink-box');
-
     if (PasswordLink) {
         var PasswordLinkInput = PasswordLink.getElement('input.passwordlink-box-fieldset-input');
         if (PasswordLinkInput) {
@@ -69,27 +75,48 @@
         }
     }
 
+    // set placeholder and animate login box
+    if (Login) {
+        Login.addEvent('load', function () {
+            var LoginWrapper = document.getElement('.login-page-box'),
+                Control      = QUI.Controls.getById(Login.get('data-quiid')),
+                labels       = Control.getElm().getElements('label');
+
+            for (var i = 0, len = labels.length; i < len; i++) {
+                var text  = labels[i].getElement('span').get('html'),
+                    input = labels[i].getElement('input');
+
+                input.set('placeholder', text);
+            }
+
+            moofx(LoginWrapper).animate({
+                opacity  : 1,
+                transform: 'translateY(0)'
+            });
+        });
+    }
+
     /**
      * Open user menu
      */
-    function openUserMenu(QUILocale) {
+    function openUserMenu (QUILocale) {
         require([
             'package/sequry/template/bin/js/controls/panels/Panel',
             'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
-        ], function(Panel, UserPanel) {
+        ], function (Panel, UserPanel) {
             var PasswordPanel = new Panel({
-                title: QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
-                subTitle: QUIQQER_USER.name,
-                width: 1000,
-                iconHeaderButton: QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                title                  : QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
+                subTitle               : QUIQQER_USER.name,
+                width                  : 1000,
+                iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
                 iconHeaderButtonFaClass: 'fa fa-close',
-                isOwner: true,
-                events: {
-                    onOpenBegin: function(PanelControl) {
+                isOwner                : true,
+                events                 : {
+                    onOpenBegin      : function (PanelControl) {
                         PanelControl.getElm().addClass('user-settings-panel');
-                    } ,
-                    onOpen: function (PanelControl) {
-                       new UserPanel().inject(PanelControl.getContent());
+                    },
+                    onOpen           : function (PanelControl) {
+                        new UserPanel().inject(PanelControl.getContent());
                     },
                     onSubmitSecondary: function () {
                         this.close();

@@ -354,6 +354,8 @@ button.fa {
     padding: 2rem;
     width: 500px;
     z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .login-page-box-icon {
