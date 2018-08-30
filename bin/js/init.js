@@ -17,12 +17,12 @@
         '[data-qui="controls/users/Login"]'
     );
 
-    // auto open settings (for development)
-    require(['Locale'], function (QUILocale) {
-//        openUserMenu(QUILocale);
-    });
-
     if (UserIcon) {
+        // auto open settings (for development)
+        require(['Locale'], function (QUILocale) {
+            openUserMenu(QUILocale);
+        });
+
         UserIcon.addEvent('load', function () {
             var Control = QUI.Controls.getById(UserIcon.get('data-quiid'));
             var Menu = Control.$Menu;
