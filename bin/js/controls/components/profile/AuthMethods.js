@@ -15,6 +15,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'package/sequry/core/bin/controls/auth/Register',
     'package/sequry/core/bin/controls/auth/Change',
     'package/sequry/core/bin/controls/auth/recovery/CodePopup',
+    'package/sequry/core/bin/controls/auth/recovery/Recovery',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
@@ -24,6 +25,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     AuthRegister, // package/sequry/core/bin/controls/auth/Register
     AuthChange, // package/sequry/core/bin/controls/auth/Change
     RecoveryCodePopup, // package/sequry/core/bin/controls/auth/recovery/CodePopup
+    Recovery, // package/sequry/core/bin/controls/auth/recovery/Recovery
     template
 ) {
     var lg = 'sequry/template';
@@ -459,7 +461,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
             var subTitle = EntryData.title;
 
-            var PasswordPanel = new Panel({
+            var SubPanel = new Panel({
                 title                  : title,
                 subTitle               : subTitle,
                 width                  : 1000,
@@ -529,17 +531,75 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }
             });
 
-            PasswordPanel.open();
+            SubPanel.open();
         },
 
         /**
          *Recover access data
          */
-        recovery: function (event) {
+        recovery: function (event, EntryData) {
             event.stop();
 
+            var self           = this,
+                AuthPluginData = EntryData,
+                Register;
 
-            console.log('Zugangsdaten vergessen');
+            var title = QUILocale.get(
+                'sequry/template', 'sequry.usersettings.category.authmethods.title.change'
+            );
+
+            var subTitle = EntryData.title;
+
+            var SubPanel = new Panel({
+                title                  : title,
+                subTitle               : subTitle,
+                width                  : 1000,
+                iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                isOwner                : true,
+                subPanel               : true,
+                events                 : {
+                    onOpenBegin      : function (PanelControl) {
+                        PanelControl.getElm().addClass('panel-authmethod-subpanel panel-authmethod-recovery');
+                    },
+                    onOpen           : function (PanelControl) {
+                        var Content = PanelControl.getContent();
+                        Content.setStyle('opacity', 0);
+
+                        var Inner = new Element('div', {
+                            'class': 'panel-authmethod-subpanel-inner panel-authmethod-recovery-inner'
+                        }).inject(Content);
+
+                        new Recovery({
+                            authPluginId: AuthPluginData.id,
+                            events      : {
+                                onLoaded: function (Control) {
+//                                    self.Loader.hide();
+
+                                    var Elm = Control.getElm();
+
+                                    self.customizeRecoveryPanel(Elm);
+
+                                    moofx(Content).animate({
+                                        opacity: 1
+                                    }, {
+                                        duration: 200
+                                    })
+                                },
+                                onFinish: function () {
+                                    PanelControl.close();
+                                    self.$listRefresh();
+                                }
+                            }
+                        }).inject(Inner);
+                    },
+                    onSubmitSecondary: function () {
+                        this.close();
+                    }
+                }
+            });
+
+            SubPanel.open();
         },
 
         /**
@@ -572,6 +632,15 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     input.set('placeholder', text);
                 }
             }
+        },
+
+        customizeRecoveryPanel: function (Elm) {
+            var Step_1_Input = Elm.getElement('.step-1').getElement('input');
+
+            if (Step_1_Input) {
+                Step_1_Input.set('placeholder', 'Token');
+            }
+
         }
     });
 });

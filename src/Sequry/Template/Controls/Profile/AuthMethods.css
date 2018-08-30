@@ -354,6 +354,55 @@
     display: none;
 }
 
+/*********************************/
+/* Auth method panels - recovery */
+/*********************************/
+/* step 1 */
+.panel-authmethod-subpanel-inner.panel-authmethod-recovery-inner {
+    max-width: 600px;
+}
+
+.panel-authmethod-recovery .pcsg-gpm-auth-recovery-step-content button {
+    white-space: normal;
+}
+
+.panel-authmethod-recovery .pcsg-gpm-auth-recovery-error {
+    display: block;
+    margin: 1rem 0;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-1 input {
+    display: block;
+    float: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    height: auto;
+    letter-spacing: 10px;
+    margin: 1rem auto;
+    max-width: 300px;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* step 2 */
+.panel-authmethod-recovery .pcsg-gpm-password-hint {
+    margin-top: 0 !important;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-2 .pcsg-gpm-auth-recovery-step-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-1 input.pcsg-gpm-auth-recovery-code-input {
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-top: 1rem;
+}
+
 @media screen and (max-width: 767px) {
 
 }
