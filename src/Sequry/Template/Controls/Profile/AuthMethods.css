@@ -168,7 +168,8 @@
     display: none;
 }
 
-.panel-authmethod-change .sequry-auth-password-change-inputs label span {
+.panel-authmethod-change .sequry-auth-password-change-inputs label span,
+.panel-authmethod-change .pcsg-gpm-auth-secondpassword-change-inputs label span {
     display: none;
 }
 
@@ -237,7 +238,8 @@
     margin: 0;
 }
 
-.sequry-auth-secondpassword-registration label > span {
+.sequry-auth-secondpassword-registration label > span,
+.sequry-auth-password-registration label > span {
     display: none;
 }
 
@@ -285,6 +287,26 @@
 /* popup key file register */
 .sequry-auth-keyfile-registration-generate {
     float: none;
+    margin: 20px 0;
+}
+
+.panel-authmethod-subpanel-inner .gpm-auth-keyfile-changeauth-title {
+    margin: 0;
+}
+
+.panel-authmethod-subpanel-inner input[type="file"] {
+    align-items: center;
+    border: 2px dashed #ddd;
+    cursor: pointer;
+    display: flex;
+    margin: 5px 0;
+    outline: none;
+    padding: 20px;
+    width: 100%;
+}
+
+.panel-authmethod-subpanel-inner input[type="file"]:hover {
+    background: #f5f5f5;
 }
 
 /***********************************/
@@ -299,10 +321,10 @@
 }
 
 .pcsg-gpm-multisecurityclassauth .field-container {
-    display: flex;
+    align-items: center;
     border: 1px solid #ddd;
     border-bottom: none;
-    align-items: center;
+    display: flex;
 }
 
 .pcsg-gpm-multisecurityclassauth tr:last-child .field-container {
@@ -310,11 +332,11 @@
 }
 
 .pcsg-gpm-multisecurityclassauth .field-container-item {
+    background: #eee;
     display: block;
     margin-right: 10px;
     padding: 10px;
     width: 200px;
-    background: #eee;
 }
 
 .pcsg-gpm-multisecurityclassauth .field-container-field {
@@ -331,8 +353,6 @@
 .pcsg-gpm-multisecurityclassauth .field-container-field button:disabled {
     display: none;
 }
-
-
 
 @media screen and (max-width: 767px) {
 

@@ -343,18 +343,22 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                         Register = new AuthRegister({
                             authPluginId: AuthPluginData.id,
                             events      : {
-                                onFinish: function (Reg) {
+                                onFinish: function () {
 //                                    self.Loader.hide();
+                                    var Elm = PanelControl.getElm();
+
+                                    var BtnGenerateKeyFile = Elm.getElement(
+                                        '.sequry-auth-keyfile-registration-generate button'
+                                    );
+                                    if (BtnGenerateKeyFile) {
+                                        BtnGenerateKeyFile.addClass('btn btn-secondary btn-small');
+                                    }
 
                                     // workaround - set placeholder
-                                    var labels = PanelControl.getElm().getElements(
-                                        '.sequry-auth-secondpassword-registration label'
-                                    );
+                                    var labels = Elm.getElements('label');
 
-                                    for (var i = 0, len = labels.length; i < len; i++) {
-                                        var text  = labels[i].getElement('span').get('html'),
-                                            input = labels[i].getElement('input');
-                                        input.set('placeholder', text);
+                                    if (labels) {
+                                        self.setPlaceholders(labels);
                                     }
 
                                     new Element('button', {
@@ -428,6 +432,9 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                 }
 
                 // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
+                // close und refresh muss, sonst schließt sich das Panel nicht automatisch
+                SubPanel.close();
+                self.$listRefresh();
                 return;
                 self.$syncAuthPlugin(authPluginId);
             });
@@ -472,7 +479,22 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                             authPluginId: AuthPluginData.id,
                             events      : {
                                 onLoaded: function () {
+                                    var Elm = PanelControl.getElm();
 //                                    self.Loader.hide();
+
+                                    // button "generate auth key file"
+                                    var BtnGenerateKeyFile = Elm.getElement(
+                                        '.gpm-auth-keyfile-changeauth-btn button'
+                                    );
+                                    if (BtnGenerateKeyFile) {
+                                        BtnGenerateKeyFile.addClass('btn btn-secondary btn-small');
+                                    }
+
+                                    // workaround - set placeholder
+                                    var labels = Elm.getElements('label');
+                                    console.log(labels)
+
+                                    self.setPlaceholders(labels);
 
                                     new Element('button', {
                                         'class': 'btn btn-primary quiqqer-sequry-profile-auth-methods-submit',
@@ -510,6 +532,8 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
          */
         recovery: function (event) {
             event.stop();
+
+
             console.log('Zugangsdaten vergessen');
         },
 
@@ -519,6 +543,30 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         regenerate: function (event) {
             event.stop();
             console.log('Wiederherstellungs-Code neu generieren');
+        },
+
+        /**
+         * Helper:
+         * Search in given labels span elements and set inner of span (text) as placeholder
+         *
+         * @param {array} labels
+         */
+        setPlaceholders: function (labels) {
+            for (var i = 0, len = labels.length; i < len; i++) {
+
+                var text = labels[i].getElement('span');
+                if (!text) {
+                    continue;
+                }
+
+                text = text.get('text');
+
+                var input = labels[i].getElement('input');
+
+                if (input) {
+                    input.set('placeholder', text);
+                }
+            }
         }
     });
 });

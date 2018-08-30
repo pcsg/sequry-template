@@ -76,6 +76,7 @@ textarea[disabled],
 /*****************************/
 /* button primary & standard */
 /*****************************/
+/*
 input[type="submit"],
 input[type="submit"]:disabled,
 input[type="submit"][disabled],
@@ -130,14 +131,14 @@ button:focus,
     outline: none;
 }
 
-/* outline */
+!* outline *!
 input[type="submit"].btn-outline,
 input[type="button"].btn-outline,
 input[type="reset"].btn-outline,
 button.qui-button.btn-outline,
 button.btn-outline,
 .btn-primary.btn-outline,
-input[type="submit"].btn-outline:disabled:hover, /* outline disabled */
+input[type="submit"].btn-outline:disabled:hover, !* outline disabled *!
 input[type="submit"].btn-outline:disabled:active,
 input[type="submit"].btn-outline:disabled:focus,
 input[type="button"].btn-outline:disabled:hover,
@@ -158,9 +159,9 @@ button:disabled.btn-outline:focus,
     color: #51b7a3;
 }
 
-/***************/
-/* button link */
-/***************/
+!***************!
+!* button link *!
+!***************!
 input[type="submit"].btn-link,
 input[type="button"].btn-link,
 input[type="reset"].btn-link,
@@ -188,4 +189,4 @@ button.qui-button.btn-link:focus,
 .btn-link:active,
 .btn-link:focus {
     text-decoration: underline;
-}
+}*/
