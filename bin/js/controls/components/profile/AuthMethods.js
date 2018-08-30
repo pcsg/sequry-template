@@ -7,6 +7,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'qui/controls/Control',
     'Mustache',
     'Locale',
+    'Ajax',
 
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/core/bin/Authentication',
@@ -16,7 +17,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
-], function (QUI, QUIControl, Mustache, QUILocale,
+], function (QUI, QUIControl, Mustache, QUILocale, QUIAjax,
     Panel,
     Authentication, // package/sequry/core/bin/Authentication
     AuthRegister, // package/sequry/core/bin/controls/auth/Register
@@ -376,16 +377,11 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     },
                     onSubmitSecondary: function () {
                         this.close();
-                    },
-                    onClose          : function (PanelControl) {
-                        PanelControl.close();
                     }
                 }
             });
 
             var FuncOnRegisterBtnClick = function () {
-                // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
-                return;
                 Register.submit().then(function (RecoveryCodeData) {
 
                     if (!RecoveryCodeData) {
@@ -420,7 +416,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
          * @param {object} SubPanel
          */
         $nonFullyAccessiblePasswordCheck: function (authPluginId, SubPanel) {
-            // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
             var self = this;
 
             Authentication.hasNonFullyAccessiblePasswords(
@@ -428,9 +423,12 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             ).then(function (result) {
                 if (!result) {
                     SubPanel.close();
+                    self.$listRefresh();
                     return;
                 }
 
+                // todo erst später. zunächst reicht, wenn das Popup manuell aufgerufen werden kann.
+                return;
                 self.$syncAuthPlugin(authPluginId);
             });
         },
@@ -440,6 +438,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
          */
         change: function (event, EntryData) {
             event.stop();
+            var self = this;
 
             var AuthPluginData = EntryData;
             var Register;
@@ -491,6 +490,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                                 },
                                 onFinish: function () {
                                     PanelControl.close();
+                                    self.$listRefresh();
                                 }
                             }
                         }).inject(Inner);

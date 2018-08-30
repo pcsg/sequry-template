@@ -282,6 +282,11 @@
     color: #5c656d;
 }
 
+/* popup key file register */
+.sequry-auth-keyfile-registration-generate {
+    float: none;
+}
+
 /***********************************/
 /* popup multi security class auth */
 /***********************************/
@@ -289,15 +294,27 @@
     margin-bottom: 1rem;
 }
 
+.pcsg-gpm-multisecurityclassauth .multisecurityclassauth-data {
+    border-spacing: 0;
+}
+
 .pcsg-gpm-multisecurityclassauth .field-container {
     display: flex;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    align-items: center;
+}
+
+.pcsg-gpm-multisecurityclassauth tr:last-child .field-container {
+    border-bottom: 1px solid #ddd;
 }
 
 .pcsg-gpm-multisecurityclassauth .field-container-item {
     display: block;
     margin-right: 10px;
-    padding: 2px 0;
+    padding: 10px;
     width: 200px;
+    background: #eee;
 }
 
 .pcsg-gpm-multisecurityclassauth .field-container-field {
@@ -310,6 +327,12 @@
     color: inherit;
     font-size: 0.9rem;
 }
+
+.pcsg-gpm-multisecurityclassauth .field-container-field button:disabled {
+    display: none;
+}
+
+
 
 @media screen and (max-width: 767px) {
 
