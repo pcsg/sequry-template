@@ -5,7 +5,7 @@
     background: #fff;
     height: 100vh;
     max-width: 100%;
-    position: fixed;
+    position: fixed !important;
     right: -100%;
     top: 0;
     transition: 0.5s all ease-in-out;
