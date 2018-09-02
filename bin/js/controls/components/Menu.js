@@ -166,30 +166,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             Passwords.getTypes().then(function (types) {
                 types.forEach(function (Entry) {
-
-                    //todo @michael wenn peat icons in password types implementiert,
-                    // wird das hier nicht mehr benötigt
-                    switch (Entry.name) {
-                        case 'Website':
-                            Entry.icon = 'fa fa-globe';
-                            break;
-                        case 'ApiKey':
-                            Entry.icon = 'fa fa-key';
-                            break;
-                        case 'Ftp':
-                            Entry.icon = 'fa fa-server';
-                            break;
-                        case 'SecretKey':
-                            Entry.icon = 'fa fa-laptop';
-                            break;
-                        case 'Text':
-                            Entry.icon = 'fa fa-file-text-o';
-                            break;
-                        default:
-                            Entry.icon = 'fa fa-file-text-o';
-                            break;
-                    }
-
                     var Button = self.createEntry(Entry, btnType, self.setFilters);
                     Button.inject(self.TypesContainer);
 
