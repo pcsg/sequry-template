@@ -403,6 +403,20 @@
     margin-top: 1rem;
 }
 
+/***********************************/
+/* Auth method panels - regenerate */
+/***********************************/
+.panel-authmethod-regenerate-inner button .fa {
+    margin-right: 10px;
+}
+
+.panel-authmethod-regenerate-inner label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 767px) {
 
 }

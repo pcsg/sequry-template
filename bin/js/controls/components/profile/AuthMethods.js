@@ -5,6 +5,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/windows/Confirm',
     'Mustache',
     'Locale',
     'Ajax',
@@ -14,16 +15,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
     'package/sequry/core/bin/Authentication',
     'package/sequry/core/bin/controls/auth/Register',
     'package/sequry/core/bin/controls/auth/Change',
+    'package/sequry/core/bin/controls/auth/Authenticate',
     'package/sequry/core/bin/controls/auth/recovery/CodePopup',
     'package/sequry/core/bin/controls/auth/recovery/Recovery',
 
     'text!package/sequry/template/bin/js/controls/components/profile/AuthMethods.Entry.html'
 
-], function (QUI, QUIControl, Mustache, QUILocale, QUIAjax, QUILoader,
+], function (QUI, QUIControl, QUIConfirm, Mustache, QUILocale, QUIAjax, QUILoader,
     Panel,
     Authentication, // package/sequry/core/bin/Authentication
     AuthRegister, // package/sequry/core/bin/controls/auth/Register
     AuthChange, // package/sequry/core/bin/controls/auth/Change
+    AuthWindow, // package/sequry/core/bin/controls/auth/Authenticate
     RecoveryCodePopup, // package/sequry/core/bin/controls/auth/recovery/CodePopup
     Recovery, // package/sequry/core/bin/controls/auth/recovery/Recovery
     template
@@ -541,8 +544,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
             event.stop();
 
             var self           = this,
-                AuthPluginData = EntryData,
-                Register;
+                AuthPluginData = EntryData;
 
             var title = QUILocale.get(
                 'sequry/template', 'sequry.usersettings.category.authmethods.title.change'
@@ -605,9 +607,152 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
         /**
          * Regenerate recovery code
          */
-        regenerate: function (event) {
+        regenerate: function (event, EntryData) {
             event.stop();
-            console.log('Wiederherstellungs-Code neu generieren');
+
+            var self = this;
+            var AuthPluginData = EntryData;
+
+//            this.Loader.show();
+
+            var getAuthData = function () {
+                return new Promise(function (resolve, reject) {
+                    var Popup = new AuthWindow({
+                        authPluginIds: [AuthPluginData.id],
+                        required     : 1,
+                        info         : QUILocale.get(lg,
+                            'controls.auth.panel.regenerateRecoveryCode.authwindow.info'
+                        ),
+                        events       : {
+                            onSubmit: function (AuthData) {
+                                resolve(AuthData[AuthPluginData.id]);
+                                Popup.close();
+                            },
+                            onClose : function () {
+                                reject();
+                                Popup.close();
+                            },
+                            onAbort : function () {
+                                reject();
+                                Popup.close();
+                            }
+                        }
+                    });
+
+                    Popup.open();
+                });
+            };
+
+            Authentication.getRecoveryCodeId(AuthPluginData.id).then(function (recoveryCodeId) {
+
+                var lgCore = 'sequry/core';
+
+                var title = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.title', {
+                    authPluginTitle: AuthPluginData.title
+                });
+
+                title = "Wiederherstellungs-Code neu generieren";
+
+                var subTitle = AuthPluginData.title;
+
+                var SubPanel = new Panel({
+                    title                  : title,
+                    subTitle               : subTitle,
+                    width                  : 1000,
+                    iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                    iconHeaderButtonFaClass: 'fa fa-close',
+                    isOwner                : true,
+                    subPanel               : true,
+                    events                 : {
+                        onOpenBegin      : function (PanelControl) {
+                            PanelControl.getElm().addClass('panel-authmethod-subpanel panel-authmethod-regenerate');
+                        },
+                        onOpen           : function (PanelControl) {
+                            var Content = PanelControl.getContent();
+                            Content.setStyle('opacity', 0);
+
+                            var header = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.title', {
+                                authPluginTitle: AuthPluginData.title
+                            });
+                            var information = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.info', {
+                                recoveryCodeId: recoveryCodeId
+                            });
+
+                            var Inner = new Element('div', {
+                                'class': 'panel-authmethod-subpanel-inner panel-authmethod-regenerate-inner',
+                                html   : '<h1>' + header + '</h1><p>' + information + '</p>'
+                            }).inject(Content);
+
+                            var Label = new Element('label', {
+                                'class' : '',
+                                html: 'Ja, ich weiß was ich mache.'
+                            }).inject(Inner);
+
+                            var Button = new Element('button', {
+                                'class' : 'btn btn-primary',
+                                html: '<span class="fa fa-retweet"></span>' + QUILocale.get(lgCore, 'auth.panel.regenerate.popup.btn.confirm'),
+                                disabled: 'disabled',
+                                events: {
+                                    click: function () {
+                                        getAuthData().then(function (authData) {
+                                            Authentication.regenerateRecoveryCode(
+                                                AuthPluginData.id,
+                                                authData
+                                            ).then(function (RecoveryCodeData) {
+                                                if (!RecoveryCodeData) {
+                                                    return;
+                                                }
+
+                                                new RecoveryCodePopup({
+                                                    RecoveryCodeData: RecoveryCodeData,
+                                                    events          : {
+                                                        onClose: function () {
+                                                            PanelControl.close();
+                                                        }
+                                                    }
+                                                }).open();
+                                            }, function () {
+                                                PanelControl.close();
+                                            });
+                                        }, function () {
+                                            PanelControl.close();
+                                        });
+                                    }
+                                }
+                            }).inject(Inner);
+
+                            new Element('input', {
+                                'class' : 'huh',
+                                type: 'checkbox',
+                                checked: false,
+                                events: {
+                                    click: function () {
+
+                                        if (this.get('checked')) {
+                                            Button.removeProperty('disabled');
+                                            return;
+                                        }
+                                        Button.setProperty('disabled', true);
+                                    }
+                                }
+                            }).inject(Label, 'top');
+
+                            moofx(Content).animate({
+                                opacity: 1
+                            }, {
+                                duration: 200
+                            })
+
+
+                        },
+                        onSubmitSecondary: function () {
+                            this.close();
+                        }
+                    }
+                });
+
+                SubPanel.open();
+            });
         },
 
         /**
