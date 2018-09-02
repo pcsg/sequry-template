@@ -120,7 +120,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 perPage: 100,
                 page   : 1
             };
-
+            
             Passwords.getPasswords(
                 Object.merge(ListParams, this.$SearchParams)
             ).then(function (response) {
@@ -342,8 +342,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *  "search":{
          *      "searchterm":""
          *  },
-         *  "categoryId":"3",
-         *  "categoryIdPrivate":false,
+         *  "categoryIds":["3"],
+         *  "categoryIdsPrivate":false,
          *  "filters":{
          *      "filters":["favorites","new"],
          *      "types":[]
@@ -352,8 +352,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
         initSearchParams: function () {
             this.$SearchParams = {
                 search           : {},
-                categoryId       : false,
-                categoryIdPrivate: false,
+                categoryIds       : false,
+                categoryIdsPrivate: false,
                 filters          : {
                     filters: [],
                     types  : []
@@ -383,11 +383,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         setCategoryParam: function (catId) {
-            this.$SearchParams.categoryId = catId ? catId.toString() : false;
+            this.$SearchParams.categoryIds = catId ? catId : false;
         },
 
         setCategoryPrivateParam: function (catId) {
-            this.$SearchParams.categoryIdPrivate = catId.toString();
+            this.$SearchParams.categoryIdsPrivate = catId ? catId : false;
         },
 
         setSearchTerm: function (term) {
