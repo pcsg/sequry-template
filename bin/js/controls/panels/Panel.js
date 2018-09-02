@@ -80,6 +80,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.panelMenu = null;
             this.Loader = new QUILoader();
             this.ButtonParser = new ButtonParser();
+            this.isOpen = false;
 
             this.create();
         },
@@ -167,6 +168,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 moofx(self.$Elm).animate(animateParams, {
                     callback: function () {
                         self.fireEvent('open', [self]);
+                        self.isOpen = true;
                         resolve();
                     }
                 });
@@ -177,6 +179,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Cancel action and fire cancel event.
          */
         cancel: function () {
+            if (!this.isOpen) {
+                return;
+            }
+
             this.fireEvent('cancel', [this]);
 
             // display close confirm popup?
@@ -195,6 +201,9 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * @return {Promise}
          */
         close: function () {
+            if (!this.isOpen) {
+                return;
+            }
             var self = this;
 
             self.fireEvent('closeBegin', [self]);
@@ -221,6 +230,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
                         self.$Elm.destroy();
                         self.$Elm = null;
+                        self.isOpen = false;
 
                         self.fireEvent('close', [self]);
 
