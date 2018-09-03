@@ -459,7 +459,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                             url  : url
                         }));
 
-                        // todo michael set focus or either not?
                         /*var UrlInput = Confirm.getContent().getElement(
                             'input'
                         );

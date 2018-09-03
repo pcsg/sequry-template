@@ -142,6 +142,10 @@
             <de><![CDATA[Passwort-Kategorien (persönlich)]]></de>
             <en><![CDATA[Password categories (private)]]></en>
         </locale>
+        <locale name="sequry.panel.category.private.title">
+            <de><![CDATA[Persönliche Kategorien]]></de>
+            <en><![CDATA[Private categories]]></en>
+        </locale>
 
         <!-- buttons -->
         <locale name="sequry.panel.button.share">

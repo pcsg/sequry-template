@@ -32,6 +32,7 @@
 
 /* wenn keine Seite */
 /* todo michael wenn Panel nicht direkt geschlossen wrid, kann man das hier verbessern */
+/* password link erstellen, aber keine password seite aktiv */
 .pcsg-gpm-password-linkcreate-info {
     margin-top: 25%;
     text-align: center;

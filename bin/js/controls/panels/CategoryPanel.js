@@ -112,7 +112,8 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
                 PrivateContainer = new Element('div', {
                     'class': 'panel-category-container panel-category-private',
-                    html   : '<h4>' + 'Persönliche Kategorien' + '</h4>' //todo locale
+                    html   : '<h4>' + QUILocale.get(lg, 'sequry.panel.category.private.title')
+                        + '</h4>'
                 });
 
                 this.CatPrivate = new CategoryMapPrivate({
