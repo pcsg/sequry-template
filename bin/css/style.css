@@ -78,34 +78,34 @@ ul, ol {
 /* hyphenate, word break */
 /*************************/
 h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-word-break: normal;
-    word-break: normal;
-    word-break: break-word;
-    -ms-hyphens: auto;
+    hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
-    hyphens: auto;
+    word-break: normal;
+    word-break: break-word;
+    -ms-word-break: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -ms-hyphens: auto;
 }
 
 .word-wrap,
 .word-break {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-word-break: normal;
-    word-break: normal;
-    word-break: break-word;
-    -ms-hyphens: auto;
+    hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
-    hyphens: auto;
+    word-break: normal;
+    word-break: break-word;
+    -ms-word-break: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -ms-hyphens: auto;
 }
 
 .ellipsis {
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .text-accent {
@@ -221,8 +221,8 @@ input::-webkit-inner-spin-button {
 .qui-window-popup.box .qui-window-popup-buttons .qui-button:disabled {
     background: none;
     border: none;
-    color: #635555;
     box-shadow: none;
+    color: #635555;
 }
 
 .sequry-customPopup .qui-window-popup-buttons .qui-button:first-child,
@@ -407,4 +407,88 @@ input::-webkit-inner-spin-button {
         outline: none;
         width: calc(100% - 4rem);
     }
+}
+
+/* user data */
+.quiqqer-frontendUsers-controls-profile-userdata h2 {
+    font-size: 1.6em;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-section,
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-address,
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-address-additional {
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-label {
+    margin-right: 20px;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata input,
+.quiqqer-frontendUsers-controls-profile-userdata input[type="text"] {
+    border-color: #ddd;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    width: calc(70% - 20px) !important;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata input:hover,
+.quiqqer-frontendUsers-controls-profile-userdata input:focus,
+.quiqqer-frontendUsers-controls-profile-userdata input[type="text"]:hover,
+.quiqqer-frontendUsers-controls-profile-userdata input[type="text"]:focus {
+    border-color: #aaa;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-address-country-select,
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email {
+    width: calc(70% - 20px);
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .qui-select {
+    background: #eee;
+    border: none;
+}
+
+.package-intranet-profile-birthday select {
+    background: #eee;
+    border: none;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email {
+    float: left;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email input {
+    width: calc(100% - 60px) !important;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email-edit {
+    border-right: none;
+    border-top: none;
+    line-height: 40px;
+    transition: 0.2s all;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email:hover .quiqqer-frontendUsers-userdata-email-edit,
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-email input:focus ~ .quiqqer-frontendUsers-userdata-email-edit {
+    border-color: #aaa;
+}
+
+.quiqqer-frontendUsers-controls-profile-userdata .quiqqer-frontendUsers-userdata-saveButton {
+    margin-left: auto;
+}
+
+/* avatar */
+.quiqqer-frontendUsers-UserAvatar .quiqqer-frontendUsers-userAvatar-gravatar {
+    margin: 2rem 0;
+}
+
+.quiqqer-frontendUsers-UserAvatar .quiqqer-frontendUsers-userAvatar-saveButton {
+    float: right;
 }

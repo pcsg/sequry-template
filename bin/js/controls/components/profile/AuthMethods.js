@@ -578,9 +578,12 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                                 onLoaded: function (Control) {
 //                                    self.Loader.hide();
 
-                                    var Elm = Control.getElm();
+                                    var Elm          = Control.getElm(),
+                                        Step_1_Input = Elm.getElement('.step-1').getElement('input');
 
-                                    self.customizeRecoveryPanel(Elm);
+                                    if (Step_1_Input) {
+                                        Step_1_Input.set('placeholder', 'Token');
+                                    }
 
                                     moofx(Content).animate({
                                         opacity: 1
@@ -684,15 +687,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                             }).inject(Content);
 
                             var Label = new Element('label', {
-                                'class' : '',
-                                html: 'Ja, ich weiß was ich mache.'
+                                'class': '',
+                                html   : QUILocale.get(
+                                    lg, 'sequry.usersettings.category.authmethods.regenerate.confirm'
+                                )
                             }).inject(Inner);
 
                             var Button = new Element('button', {
                                 'class' : 'btn btn-primary',
-                                html: '<span class="fa fa-retweet"></span>' + QUILocale.get(lgCore, 'auth.panel.regenerate.popup.btn.confirm'),
+                                html    : '<span class="fa fa-retweet"></span>' + QUILocale.get(lgCore,
+                                    'auth.panel.regenerate.popup.btn.confirm'),
                                 disabled: 'disabled',
-                                events: {
+                                events  : {
                                     click: function () {
                                         getAuthData().then(function (authData) {
                                             Authentication.regenerateRecoveryCode(
@@ -722,10 +728,9 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                             }).inject(Inner);
 
                             new Element('input', {
-                                'class' : 'huh',
-                                type: 'checkbox',
+                                type   : 'checkbox',
                                 checked: false,
-                                events: {
+                                events : {
                                     click: function () {
 
                                         if (this.get('checked')) {
@@ -742,8 +747,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                             }, {
                                 duration: 200
                             })
-
-
                         },
                         onSubmitSecondary: function () {
                             this.close();
@@ -777,15 +780,6 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                     input.set('placeholder', text);
                 }
             }
-        },
-
-        customizeRecoveryPanel: function (Elm) {
-            var Step_1_Input = Elm.getElement('.step-1').getElement('input');
-
-            if (Step_1_Input) {
-                Step_1_Input.set('placeholder', 'Token');
-            }
-
         }
     });
 });

@@ -39,13 +39,6 @@ class AuthMethods extends Control implements ControlInterface
     {
         $Engine = QUI::getTemplateManager()->getEngine();
 
-        $User     = QUI::getUserBySession();
-
-
-        $Engine->assign([
-
-        ]);
-
         return $Engine->fetch(dirname(__FILE__) . '/AuthMethods.html');
     }
 
@@ -54,24 +47,8 @@ class AuthMethods extends Control implements ControlInterface
      */
     public function onSave()
     {
-        $Request    = QUI::getRequest()->request;
-        $User       = QUI::getUserBySession();
-        $this->data = $Request->get('pcsg.gpm.settings.authplugins');
 
-        if (QUI::getUsers()->isNobodyUser($User)) {
-            return;
-        }
-
-        $User->setAttribute(
-            'pcsg.gpm.settings.authplugins',
-            $Request->get('pcsg.gpm.settings.authplugins')
-        );
-
-        $this->validate();
-
-        $User->save();
     }
-
 
     /**
      * Validate data and convert to bool / int.
@@ -80,18 +57,6 @@ class AuthMethods extends Control implements ControlInterface
      */
     public function validate()
     {
-        $data = json_decode($this->data);
 
-        foreach ($data as $entry) {
-            if ($entry->autosave) {
-                $entry->autosave = boolval($entry->autosave);
-            }
-
-            if ($entry->priority) {
-                $entry->priority = intval($entry->priority);
-            }
-        }
-
-        $this->data = json_encode($data);
     }
 }

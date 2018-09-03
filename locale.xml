@@ -294,6 +294,10 @@
             <de><![CDATA[Wiederherstellungs-Code generieren]]></de>
             <en><![CDATA[Generate recovery code]]></en>
         </locale>
+        <locale name="sequry.usersettings.category.authmethods.regenerate.confirm">
+            <de><![CDATA[Ja, ich weiß, was ich tue.]]></de>
+            <en><![CDATA[Yes, I know what I'm doing.]]></en>
+        </locale>
 
         <locale name="sequry.usersettings.category.authmethods.idlabel">
             <de><![CDATA[Id:]]></de>

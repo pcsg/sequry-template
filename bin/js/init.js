@@ -103,8 +103,8 @@
         require([
             'package/sequry/template/bin/js/controls/panels/Panel',
             'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
-        ], function (Panel, UserPanel) {
-            var PasswordPanel = new Panel({
+        ], function (Panel, User) {
+            var SettingsPanel = new Panel({
                 title                  : QUILocale.get('sequry/template', 'sequry.usermenu.entrysettings.title'),
                 subTitle               : QUIQQER_USER.name,
                 width                  : 1000,
@@ -116,7 +116,8 @@
                         PanelControl.getElm().addClass('user-settings-panel');
                     },
                     onOpen           : function (PanelControl) {
-                        new UserPanel().inject(PanelControl.getContent());
+                        new User().inject(PanelControl.getContent());
+
                     },
                     onSubmitSecondary: function () {
                         this.close();
@@ -124,7 +125,7 @@
                 }
             });
 
-            PasswordPanel.open();
+            SettingsPanel.open();
         })
     }
 
