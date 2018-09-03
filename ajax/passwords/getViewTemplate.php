@@ -33,3 +33,16 @@ QUI::$Ajax->registerFunction(
     false
 );
 
+function getErrorMessageTemplate($message)
+{
+    $html = '<label class="password-field-row">';
+    $html .= '<span class="password-field-row-left"></span>';
+    $html .= '<div class="password-field-row-right">';
+    $html .= '<div class="pcsg-gpm-password-warning">';
+    $html .= $message;
+    $html .= '</div>';
+    $html .= '</div>';
+    $html .= '</label>';
+
+    return $html;
+}
