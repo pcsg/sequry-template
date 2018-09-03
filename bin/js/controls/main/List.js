@@ -70,6 +70,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.ListManager = new ClassesList();
             this.addButton = null;
             this.listContainer = null;
+            this.MobileMenu = null;
+
+            console.log(QUI.getBodySize().x)
         },
 
         /**
@@ -95,6 +98,109 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.show();
 
             this.$renderEntries();
+            this.createMobileMenu();
+        },
+
+        createMobileMenu: function () {
+            var self = this;
+
+            this.MobileMenu = new Element('div', {
+                'class': 'mobile-menu'
+            });
+
+            // filter
+            new Element('button', {
+                'class': 'mobile-menu-button',
+                html   : '<span class="fa fa-filter"></span><span class="mobile-menu-button-label">Filter</span>',
+                events : {
+                    click: function () {
+                        console.log("open filter")
+
+
+                        var FilterContainer = new Element('div', {
+                            'class': 'mobile-filter sequry-desktop-menu',
+                            html: '<header class="header-button">Filter</header>' +
+                                '<div data-qui="package/sequry/template/bin/js/controls/components/Menu"></div>'
+                        })
+
+                        new Element('button', {
+                            'class' : 'mobile-filter-close',
+                            html: '<span class="fa fa-times"></span>',
+                            events: {
+                                click: function () {
+                                    moofx(FilterContainer).animate({
+                                        left: '-100%'
+                                    })
+                                }
+                            }
+                        }).inject(FilterContainer.getElement('header'));
+
+                        QUI.parse(FilterContainer).then(function () {
+//                            var FilterControl = QUI.Controls.get(
+//                                ParentNode.getElement('.pagination').get('data-quiid')
+//                            );
+                        });
+
+                        FilterContainer.inject(document.getElement('body'));
+
+                        moofx(FilterContainer).animate({
+                            left: 0
+                        })
+
+                    }
+                }
+            }).inject(this.MobileMenu);
+
+            // search
+            new Element('button', {
+                'class': 'mobile-menu-button',
+                html   : '<span class="fa fa-search"></span><span class="mobile-menu-button-label">Suchen</span>',
+                events : {
+                    click: function () {
+                        console.log("Suchen");
+                        self.addPassword();
+                    }
+                }
+            }).inject(this.MobileMenu);
+
+            // user
+            new Element('button', {
+                'class': 'mobile-menu-button',
+                html   : '<span class="fa fa-user"></span><span class="mobile-menu-button-label">Benutzer</span>',
+                events : {
+                    click: function () {
+                        console.log("Suchen");
+                        self.addPassword();
+                    }
+                }
+            }).inject(this.MobileMenu);
+
+            // add password
+            new Element('button', {
+                'class': 'mobile-menu-button highlight',
+                html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">Hinzufügen</span>',
+                events : {
+                    click: function () {
+                        console.log("Passwort hinzufügen");
+                        self.addPassword();
+                    }
+                }
+            }).inject(this.MobileMenu);
+
+            this.MobileMenu.setStyles({
+                height   : 60,
+                position : 'fixed',
+                bottom   : 0,
+                transform: 'translateY(60px)'
+            });
+
+            this.MobileMenu.inject(this.$Elm);
+
+            moofx(this.MobileMenu).animate({
+                transform: 'translateY(0)'
+            }, {
+                duration: 200
+            })
         },
 
         /**
@@ -120,7 +226,21 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 perPage: 100,
                 page   : 1
             };
-            
+
+            /*QUI.parse(ParentNode).then(function () {
+                // fertig
+                var PaginationControl = QUI.Controls.get(
+                    ParentNode.getElement('.pagination').get('data-quiid')
+                );
+
+                PaginationControl.addEvents({
+                    onChange: function () {
+                        console.log('yes');
+                    }
+                });
+            });*/
+
+
             Passwords.getPasswords(
                 Object.merge(ListParams, this.$SearchParams)
             ).then(function (response) {
@@ -351,10 +471,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         initSearchParams: function () {
             this.$SearchParams = {
-                search           : {},
+                search            : {},
                 categoryIds       : false,
                 categoryIdsPrivate: false,
-                filters          : {
+                filters           : {
                     filters: [],
                     types  : []
                 }
