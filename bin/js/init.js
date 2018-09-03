@@ -20,7 +20,7 @@
     if (UserIcon) {
         // auto open settings (for development)
         require(['Locale'], function (QUILocale) {
-            openUserMenu(QUILocale);
+//            openUserMenu(QUILocale);
         });
 
         UserIcon.addEvent('load', function () {
@@ -116,7 +116,9 @@
                         PanelControl.getElm().addClass('user-settings-panel');
                     },
                     onOpen           : function (PanelControl) {
-                        new User().inject(PanelControl.getContent());
+                        new User({
+                            windowHistory : false
+                        }).inject(PanelControl.getContent());
 
                     },
                     onSubmitSecondary: function () {
