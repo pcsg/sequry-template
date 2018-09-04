@@ -1,0 +1,43 @@
+<quiqqer>
+    <frontend-users>
+        <profile>
+
+            <categories>
+                <category name="sequry">
+
+                    <title>
+                        <locale group="sequry/template"
+                                var="sequry.usersettings.category.title"/>
+                    </title>
+
+                    <!-- Auth factors -->
+                    <settings control="\Sequry\Template\Controls\Profile\AuthFactors"
+                              name="authfactors"
+                              icon="fa fa-male"
+                              showinprofilebar="0"
+                    >
+                        <title>
+                            <locale group="sequry/template"
+                                    var="sequry.usersettings.category.authfactors.title"/>
+                        </title>
+                    </settings>
+
+                    <!-- Auth methods -->
+                    <settings control="\Sequry\Template\Controls\Profile\AuthMethods"
+                              name="authmethods"
+                              icon="fa fa-key"
+                              showinprofilebar="0"
+                    >
+                        <title>
+                            <locale group="sequry/template"
+                                    var="sequry.usersettings.category.authmethods.title"/>
+                        </title>
+                    </settings>
+
+
+                </category>
+            </categories>
+
+        </profile>
+    </frontend-users>
+</quiqqer>

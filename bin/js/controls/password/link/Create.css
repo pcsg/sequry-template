@@ -1,0 +1,56 @@
+.password-linkcreate input[name="password"] {
+    font-size: 16px;
+    letter-spacing: 6px;
+}
+
+.password-linkcreate-date {
+    display: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.password-field-row-left-checkboxContainer {
+    display: flex;
+    line-height: 120%;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.password-field-row-left-checkboxContainer input {
+    margin-bottom: 2px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.password-field-row-left-checkboxContainer input[type="checkbox"]:checked:after {
+    font-size: 12px;
+    left: 2px;
+    position: absolute;
+    top: -14px;
+}
+
+/* wenn keine Seite */
+/* todo michael wenn Panel nicht direkt geschlossen wrid, kann man das hier verbessern */
+/* password link erstellen, aber keine password seite aktiv */
+.pcsg-gpm-password-linkcreate-info {
+    margin-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.pcsg-gpm-password-linkcreate-info p {
+    margin: 10px;
+}
+
+.pcsg-gpm-password-linkcreate-create table {
+    margin: 0;
+}
+
+.pcsg-gpm-password-linkcreate-info-btn {
+    margin-top: 25px;
+}
+
+.pcsg-gpm-password-linkcreate-info-btn button {
+    float: none !important;
+}

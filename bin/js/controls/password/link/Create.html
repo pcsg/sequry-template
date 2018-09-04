@@ -1,0 +1,119 @@
+<label class="password-field-row">
+    <div class="password-field-row-left">
+        {{maxCallsLabel}}
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="passwort-linkcreate-maxCalls">
+            <input type="checkbox" id="passwort-linkcreate-maxCalls"
+                   class="password-linkcreate-maxCalls"
+                   checked>
+            <span>
+                {{activeLabel}}
+            </span>
+        </label>
+    </div>
+    <div class="password-field-row-right">
+        <input type="number" name="maxCalls" value="5" min="1"
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
+               autocomplete="off" />
+    </div>
+</label>
+
+<label class="password-field-row">
+    <div class="password-field-row-left">
+        {{validDateLabel}}
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="password-linkcreate-validDate">
+            <input type="checkbox" id="password-linkcreate-validDate"
+                   class="password-linkcreate-validDate"
+                   checked>
+            <span>
+                {{activeLabel}}
+            </span>
+        </label>
+    </div>
+    <div class="password-field-row-right">
+
+        <input type="hidden" name="validDate" class="password-linkcreate-option" value="1 week">
+        <select name="validDateSelect" class="password-field-row-right-input password-field-value">
+            <option value="1 day">{{validDateOption1Day}}</option>
+            <option value="3 day">{{validDateOption3Day}}</option>
+            <option value="1 week" selected>{{validDateOption1Week}}</option>
+            <option value="1 month">{{validDateOption1Month}}</option>
+            <option value="date">{{validDateOptionDate}}</option>
+        </select>
+    </div>
+</label>
+<label class="password-field-row">
+    <span class="password-field-row-left">
+    </span>
+    <div class="password-field-row-right">
+        <input type="date"
+               class="password-linkcreate-date password-field-row-right-input password-field-value">
+    </div>
+</label>
+
+
+<label class="password-field-row">
+    <div class="password-field-row-left">
+        {{passwordLabel}}
+
+        <label class="password-field-row-left-checkboxContainer"
+               for="password-linkcreate-password">
+            <input type="checkbox" id="password-linkcreate-password"
+                   class="password-linkcreate-password">
+            <span>
+                {{activeLabel}}
+            </span>
+        </label>
+    </div>
+    <div class="password-field-row-right">
+        <input type="text" name="password" disabled
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
+               autocomplete="off" />
+    </div>
+</label>
+
+<label class="password-field-row">
+    <span class="password-field-row-left">
+        {{titleLabel}}
+    </span>
+    <div class="password-field-row-right">
+        <input type="text" name="title"
+               class="password-field-row-right-input password-field-value password-linkcreate-option"
+               autocomplete="off" />
+    </div>
+</label>
+
+<label class="password-field-row password-field-row-alignTop password-field-row-note">
+    <span class="password-field-row-left">
+        {{messageLabel}}
+    </span>
+    <div class="password-field-row-right">
+        <textarea name="message" rows="7"
+                  class="password-field-row-right-textarea password-field-value password-linkcreate-option"
+                  placeholder="{{notePlaceholder}}" ></textarea>
+    </div>
+</label>
+
+<label class="password-field-row password-field-row-alignTop password-field-row-note">
+    <span class="password-field-row-left">
+        {{emailLabel}}
+    </span>
+    <div class="password-field-row-right">
+        <input type="text" class="password-linkcreate-emails">
+        <input type="hidden" name="email" class="password-linkcreate-option">
+    </div>
+</label>
+
+<label class="password-field-row password-linkcreate-vhost password-linkcreate__hidden">
+    <span class="password-field-row-left">
+        {{vhostLabel}}
+    </span>
+    <div class="password-field-row-right">
+        <select name="vhost"
+                class="field-container-field password-linkcreate-vhost-select
+                password-linkcreate-option password-field-row-right-input"></select>
+    </div>
+</label>

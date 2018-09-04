@@ -1,0 +1,93 @@
+.select-table-list {
+    list-style: none;
+    margin: 0;
+}
+
+.select-table-list-entry {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 3px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    line-height: 120%;
+    margin: 5px auto;
+    padding: 5px 0;
+}
+
+.select-table-list-entry[data-eligible="true"]:hover {
+    border-left-color: #4091c7;
+}
+
+.select-table-list-entry[data-eligible="false"]:hover {
+    cursor: not-allowed;
+}
+
+/* icon avatar */
+.select-table-list-entry-icon {
+    align-items: center;
+    color: #aaa;
+    display: flex;
+    font-size: 1.3em;
+    opacity: 0.5;
+    padding: 0 20px;
+    width: calc(1rem + 40px);
+}
+
+/* content*/
+.select-table-list-entry-content {
+    flex-grow: 1;
+}
+
+.select-table-list-entry-user-name {
+    font-weight: normal;
+    padding-right: 5px;
+}
+
+.select-table-list-entry-user-id {
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+.select-table-list-entry-securityClass {
+    line-height: 130%;
+}
+
+.select-table-list-entry-securityClass-label {
+    color: green;
+    display: block;
+    font-size: 14px;
+}
+
+.not-eligible .select-table-list-entry-securityClass-label {
+    color: red;
+}
+
+.select-table-list-entry-securityClass-notice {
+    font-size: 12px;
+}
+
+/* checkbox icon */
+.select-table-list-entry-icon-checkbox {
+    margin-right: 0;
+    padding: 0 20px;
+    width: 2.5em;
+}
+
+.select-table-list-entry:hover .select-table-list-entry-icon-checkbox {
+    opacity: 1;
+}
+
+.select-table-list-entry[data-eligible="false"]:hover .select-table-list-entry-icon-checkbox {
+    opacity: 0.5;
+}
+
+/* icon selected */
+.select-table-list-entry-icon-checkbox .fa-check-square-o {
+    /*color: #4091c7;*/
+    color: #444;
+}
+
+.select-table-list-entry[data-select-status="on"] .select-table-list-entry-icon-checkbox {
+    /*opacity: 1;*/
+}

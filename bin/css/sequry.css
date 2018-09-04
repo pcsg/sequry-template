@@ -1,0 +1,551 @@
+.sequry-page-wrapper {
+    background-color: #f5f5f5;
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 100px 1fr;
+}
+
+/* header logo */
+.header-logo {
+    align-items: center;
+    background: #eee;
+    display: flex;
+    position: relative;
+}
+
+.header-logo h2 {
+    margin: 0 0 0 2rem;
+}
+
+/* header main */
+.header-main {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: relative;
+}
+
+/* search  */
+.desktop-search {
+    align-items: stretch;
+    display: flex;
+}
+
+.desktop-search input[type="text"] {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    width: 500px;
+}
+
+.desktop-search .fa-search {
+    align-items: center;
+    background: #51b7a3;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+}
+
+/******************/
+/* select control */
+/******************/
+.sidebar-panel .qui-elements-select-list {
+    border-radius: 0;
+    transition: 0.2s border-color;
+}
+
+.sidebar-panel .qui-elements-select-list-search {
+    border-color: #ddd;
+    border-radius: 0;
+    border-top: none;
+    outline: none;
+    transition: 0.2s border-color;
+}
+
+.sidebar-panel .qui-elements-select:hover .qui-elements-select-list,
+.sidebar-panel .qui-elements-select:hover .qui-elements-select-list-search {
+    border-color: #aaa;
+}
+
+/**********/
+/* mobile */
+/**********/
+@media (max-width: 768px) {
+
+    .sequry-page-wrapper {
+        display: block;
+        background: #fff;
+    }
+
+    .header-logo,
+    .header-main {
+        display: none;
+    }
+    .sequry-desktop-menu {
+        display: none; /* im moment */
+        height: 100vh;
+        left: -100%;
+        max-width: 100%;
+        position: absolute;
+        z-index: 10;
+    }
+
+    .header-main:before, .main:before {
+        display: none;
+    }
+}
+
+/*********************/
+/* bottom navigation */
+/*********************/
+.sequry-bottom-navigation {
+    background: #eee;
+    bottom: 0;
+    font-size: 0.9rem;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    /*border-top: 1px solid #eee;*/
+}
+
+.sequry-bottom-navigation:before {
+    background: linear-gradient(0, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.05), transparent);
+    content: '';
+    height: 10px;
+    left: 0;
+    position: absolute;
+    top: -10px;
+    width: 100%;
+}
+
+.bottom-navigation {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+}
+
+.bottom-navigation-entry {
+    flex: 1;
+}
+
+.bottom-navigation-entry-link {
+    align-items: center;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0;
+}
+
+.bottom-navigation-entry-link-text {
+    font-size: 0.9em;
+}
+
+/*************/
+/* page logo */
+/*************/
+.page-logo {
+    left: 0;
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+}
+
+.page-logo img {
+    max-height: 80px;
+    max-width: 150px;
+}
+
+/***************/
+/* log in page */
+/***************/
+.login-main-wrapper {
+    background-size: cover;
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 60% auto;
+
+    /* test */
+    /*background: url(https://image.freepik.com/free-vector/vector-abstract-internet-background_1406-134.jpg);*/
+    grid-template-rows: minmax(100vh, auto);
+}
+
+.login-panelLeft,
+.login-panelRight {
+    padding: 2em;
+    position: relative;
+}
+
+.login-panelLeft {
+    background: #eee;
+    /*background: linear-gradient(45deg, #f5f5f5 40%, #ddddddf8, #eee 80%);*/
+}
+
+.login-panelRight {
+    background: #fff;
+}
+
+.login-panel-wrapper {
+    padding-top: 25vh;
+}
+
+@media (min-height: 1000px) {
+    .login-panel-wrapper {
+        padding-top: 15em;
+    }
+}
+
+@media (max-height: 500px) {
+    .login-panel-wrapper {
+        padding-top: 20vh;
+    }
+}
+
+.login-panel-logo {
+    left: 2em;
+    max-height: 60px;
+    max-width: 200px;
+    position: absolute;
+    top: 2em;
+}
+
+.login-panel-formContainer {
+    margin: 0 auto;
+    max-width: 300px;
+    width: 100%;
+}
+
+.login-panel-formContainer .quiqqer-login {
+    padding: 0;
+}
+
+.login-panel-formContainer button.login {
+    margin-top: 1em;
+    width: 100%;
+}
+
+.quiqqer-frontendUsers-frontendlogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiqqer-frontendUsers-frontendlogin-message {
+    order: 2;
+}
+
+.quiqqer-frontendUsers-frontendlogin-message .quiqqer-frontendUsers-error {
+    background: none;
+    border: none;
+    color: #AE432E;
+    margin-top: 2em;
+    padding: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .login-main-wrapper {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 100%;
+        grid-template-rows: min-content auto;
+    }
+
+    .login-panel-wrapper {
+        padding-top: 0;
+    }
+
+    .login-panel-logo {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        position: initial;
+    }
+}
+
+button.fa {
+    flex-shrink: 0;
+    width: 42px;
+}
+
+/* für später */
+/* floating button */
+
+.floating-button {
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    height: 3rem;
+    width: 3rem;
+}
+
+
+/******************/
+/* new login page */
+/******************/
+.login-page {
+    background: #eee;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+.login-page-logo {
+    left: 0;
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+}
+
+.login-page-logo img {
+    max-height: 80px;
+    max-width: 150px;
+}
+
+.login-page-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
+    margin: 15vh auto 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 2rem;
+    width: 500px;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.login-page-box-icon {
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px;
+    color: #802124;
+    display: block;
+    font-size: 50px;
+    line-height: 100px;
+    margin: 2rem auto;
+    text-align: center;
+    width: 100px;
+}
+
+.login-box-header-title {
+    color: #666;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 2rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    word-spacing: 8px;
+}
+
+/* login form */
+.login-box-formContainer .quiqqer-frontendUsers-frontendlogin-login h1 {
+    display: none;
+}
+
+.login-box-formContainer .quiqqer-login {
+    padding: 0;
+}
+
+.login-box-formContainer .quiqqer-login-auth label span {
+    display: none;
+}
+
+.login-box-formContainer .quiqqer-login-auth label input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    margin-bottom: 2rem;
+}
+
+.login-box-formContainer .quiqqer-login-auth label input:hover,
+.login-box-formContainer .quiqqer-login-auth label input:focus {
+    border-bottom-color: #aaa;
+}
+
+.login-box-formContainer button.qui-button[type="submit"] {
+    color: #999;
+    background: none;
+    border: none;
+    float: right;
+}
+
+.login-box-formContainer button.qui-button[type="submit"]:hover {
+    color: #444 !important;
+}
+
+/* footer */
+.login-box-footer {
+    font-size: 12px;
+    transform: translateY(1.5rem);
+    text-align: center;
+}
+
+.login-box-footer-entry {
+    margin: 0 10px;
+}
+
+.login-box-footer-entry a {
+    color: #802124;
+    font-weight: normal;
+}
+
+
+@media (max-width: 767px) {
+    .login-page-logo {
+        padding: 1rem;
+    }
+
+    .login-page-logo img {
+        max-height: 50px;
+        max-width: 120px;
+    }
+
+    .login-page-box {
+        margin-top: 10vh;
+    }
+}
+
+/*****************/
+/* passwort link */
+/*****************/
+.passwordlink-page {
+    align-items: flex-start;
+    background: #eee;
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+.passwordlink-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
+    margin: 15vh auto 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 2rem;
+    width: 500px;
+    z-index: 1;
+}
+
+.passwordlink-box-icon {
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px;
+    color: #802124;
+    display: block;
+    font-size: 50px;
+    line-height: 100px;
+    margin: 2rem auto;
+    text-align: center;
+    width: 100px;
+}
+
+.passwordlink-box-header-title {
+    color: #666;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 2rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    word-spacing: 8px;
+}
+
+.passwordlink-box-fieldset {
+    border: none;
+    display: block;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.passwordlink-box-fieldset-input {
+    border-bottom-color: #ddd;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    display: block;
+    outline: none;
+    transition: 0.2s all ease-out;
+    width: 100%;
+}
+
+.passwordlink-box-fieldset-input:hover,
+.passwordlink-box-fieldset-input:active,
+.passwordlink-box-fieldset-input:focus {
+    border-bottom-color: #aaa;
+}
+
+.passwordlink-box-fieldset-error {
+    color: red;
+    display: block;
+    float: left;
+    font-size: 0.9rem;
+    margin: 1rem 0 0;
+    padding: .375rem .75rem;
+}
+
+.passwordlink-box-fieldset-submit {
+    background: none !important;
+    border: none !important;
+    color: #999 !important;
+    float: right !important;
+    margin: 1rem 0 0;
+}
+
+.passwordlink-box-fieldset-submit:hover {
+    color: #444 !important;
+}
+
+@media (max-width: 767px) {
+    .passwordlink-logo {
+        padding: 1rem;
+    }
+
+    .passwordlink-logo img {
+        max-height: 50px;
+        max-width: 120px;
+    }
+
+    .passwordlink-box {
+        margin-top: 10vh;
+    }
+}
+
+/*********************************/
+/* passwort link - password data */
+/*********************************/
+.passwordlink-box.passwordlink-data {
+    width: 600px;
+}
+
+.passwordlink-data-header {
+    background: linear-gradient(90deg, #2071a7, #4091c7);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: -2rem -2rem 0 -2rem;
+    padding: 2rem;
+}
+
+.passwordlink-data-header-title {
+    margin: 0;
+}
+
+.passwordlink-data-header-subtitle {
+    line-height: 100%;
+    opacity: 0.6;
+}
+
+.passwordlink-data-desc {
+    margin: 2rem 0;
+}

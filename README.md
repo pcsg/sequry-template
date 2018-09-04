@@ -5,7 +5,7 @@ Basic template for Sequry passsword manager
 
 Paketname:
 
-    pcsg/template-sequry
+    sequry/template
 
 
 Features (Funktionen)
@@ -15,7 +15,7 @@ Features (Funktionen)
 Installation
 ------------
 
-Der Paketname ist: pcsg/template-sequry
+Der Paketname ist: sequry/template
 
 
 Mitwirken

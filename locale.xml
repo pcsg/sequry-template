@@ -1,9 +1,526 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
-  <groups name="pcsg/template-sequry" datatype="php,js">
-    <locale name="package.title">
-      <de><![CDATA[Sequry Basis-Template]]></de>
-      <en><![CDATA[Sequry basic template]]></en>
-    </locale>
-  <locale name="package.description"><de><![CDATA[Sequry Basis-Template]]></de><en><![CDATA[Sequry basic template]]></en></locale></groups>
+    <groups name="sequry/template" datatype="php,js">
+
+        <locale name="package.title">
+            <de><![CDATA[Sequry Basis-Template]]></de>
+            <en><![CDATA[Sequry basic template]]></en>
+        </locale>
+
+        <locale name="package.description">
+            <de>
+                <![CDATA[Das Sequry Basis-Template bietet ein einfaches, zugängliches Design für das Sequry Frontend.]]></de>
+            <en><![CDATA[The Sequry basic template offers an easy, accessable design for the Sequry frontend.]]></en>
+        </locale>
+
+        <!-- site type -->
+        <locale name="admin.types.sequry">
+            <de><![CDATA[Sequry]]></de>
+            <en><![CDATA[Sequry]]></en>
+        </locale>
+
+
+        <locale name="sequry.control.label.users">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.control.label.groups">
+            <de><![CDATA[Gruppen]]></de>
+            <en><![CDATA[Groups]]></en>
+        </locale>
+
+        <!-- passwort panel template -->
+        <locale name="sequry.panel.template.basicData">
+            <de><![CDATA[Stammdaten]]></de>
+            <en><![CDATA[Basic data]]></en>
+        </locale>
+        <locale name="sequry.panel.template.authLevel">
+            <de><![CDATA[Authentifizierungs-Stufe]]></de>
+            <en><![CDATA[Authentication level]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passTitle">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passTitlePlaceholder">
+            <de><![CDATA[Titel hinzufügen]]></de>
+            <en><![CDATA[Add title]]></en>
+        </locale>
+        <locale name="sequry.panel.template.desc">
+            <de><![CDATA[Beschreibung]]></de>
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.descPlaceholder">
+            <de><![CDATA[Beschreibung hinzufügen]]></de>
+            <en><![CDATA[Add description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.descPlaceholder">
+            <de><![CDATA[Beschreibung hinzufügen]]></de>
+            <en><![CDATA[Add description]]></en>
+        </locale>
+        <locale name="sequry.panel.template.owner">
+            <de><![CDATA[Eigentümer]]></de>
+            <en><![CDATA[Owner]]></en>
+        </locale>
+
+
+        <locale name="sequry.panel.template.payload.title">
+            <de><![CDATA[Inhalt - Diese Informationen werden verschlüsselt!]]></de>
+            <en><![CDATA[Content - This information will be encrypted]]></en>
+        </locale>
+        <locale name="sequry.panel.template.payload.passType">
+            <de><![CDATA[Passwort-Typ]]></de>
+            <en><![CDATA[Password type]]></en>
+        </locale>
+
+        <locale name="sequry.panel.template.user">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.panel.template.userPlaceholder">
+            <de><![CDATA[Benutzername hinzufügen]]></de>
+            <en><![CDATA[Add user name]]></en>
+        </locale>
+        <locale name="sequry.panel.template.password">
+            <de><![CDATA[Passwort]]></de>
+            <en><![CDATA[Password]]></en>
+        </locale>
+        <locale name="sequry.panel.template.passwordPlaceholder">
+            <de><![CDATA[Benutzerpasswort hinzufügen]]></de>
+            <en><![CDATA[Add password]]></en>
+        </locale>
+        <locale name="sequry.panel.template.url">
+            <de><![CDATA[Url]]></de>
+            <en><![CDATA[Url]]></en>
+        </locale>
+        <locale name="sequry.panel.template.urlPlaceholder">
+            <de><![CDATA[Url hinzufügen]]></de>
+            <en><![CDATA[Add url]]></en>
+        </locale>
+        <locale name="sequry.panel.template.note">
+            <de><![CDATA[Notiz]]></de>
+            <en><![CDATA[Notice]]></en>
+        </locale>
+        <locale name="sequry.panel.template.notePlaceholder">
+            <de><![CDATA[Notiz]]></de>
+            <en><![CDATA[Notice]]></en>
+        </locale>
+        <locale name="sequry.panel.template.key">
+            <de><![CDATA[Schlüssel]]></de>
+            <en><![CDATA[Key]]></en>
+        </locale>
+        <locale name="sequry.panel.template.keyPlaceholder">
+            <de><![CDATA[Schlüssel hinzufügen]]></de>
+            <en><![CDATA[Add API Key]]></en>
+        </locale>
+        <locale name="sequry.panel.template.host">
+            <de><![CDATA[Host]]></de>
+            <en><![CDATA[Host]]></en>
+        </locale>
+        <locale name="sequry.panel.template.hostPlaceholder">
+            <de><![CDATA[Host hinzufügen]]></de>
+            <en><![CDATA[Add Hoshost]]></en>
+        </locale>
+        <locale name="sequry.panel.template.text">
+            <de><![CDATA[Geheimtext]]></de>
+            <en><![CDATA[Confidential text]]></en>
+        </locale>
+        <locale name="sequry.panel.template.textPlaceholder">
+            <de><![CDATA[Ihr Geheimtext]]></de>
+            <en><![CDATA[Your confidential text]]></en>
+        </locale>
+
+        <locale name="sequry.panel.template.extra.title">
+            <de><![CDATA[Erweiterte Daten]]></de>
+            <en><![CDATA[Extended data]]></en>
+        </locale>
+        <locale name="sequry.panel.template.categories.title">
+            <de><![CDATA[Passwort-Kategorien]]></de>
+            <en><![CDATA[Password categories]]></en>
+        </locale>
+        <locale name="sequry.panel.template.categories.private.title">
+            <de><![CDATA[Passwort-Kategorien (persönlich)]]></de>
+            <en><![CDATA[Password categories (private)]]></en>
+        </locale>
+        <locale name="sequry.panel.category.private.title">
+            <de><![CDATA[Persönliche Kategorien]]></de>
+            <en><![CDATA[Private categories]]></en>
+        </locale>
+
+        <!-- buttons -->
+        <locale name="sequry.panel.button.share">
+            <de><![CDATA[Teilen]]></de>
+            <en><![CDATA[Share]]></en>
+        </locale>
+        <locale name="sequry.panel.button.close">
+            <de><![CDATA[Schließen]]></de>
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="sequry.panel.button.edit">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+        <locale name="sequry.panel.button.save">
+            <de><![CDATA[Speichern]]></de>
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="sequry.panel.button.ok">
+            <de><![CDATA[Ok]]></de>
+            <en><![CDATA[Ok]]></en>
+        </locale>
+        <locale name="sequry.panel.button.cancel">
+            <de><![CDATA[Abbrechen]]></de>
+            <en><![CDATA[Cancel]]></en>
+        </locale>
+
+        <locale name="sequry.panel.template.passwordTypeNotSupported">
+            <de><![CDATA[Dieser Passwort-Typ ist vom Template nicht unterstützt.]]></de>
+            <en><![CDATA[This password type is not supported by template.]]></en>
+        </locale>
+        <locale name="sequry.panel.createPassword.title">
+            <de><![CDATA[Passwort hinzufügen]]></de>
+            <en><![CDATA[Add password]]></en>
+        </locale>
+        <locale name="sequry.panel.createPassword.edit.title">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+
+        <locale name="sequry.panel.category.title">
+            <de><![CDATA[Kategorien auswählen]]></de>
+            <en><![CDATA[Select categories]]></en>
+        </locale>
+
+        <!-- panel select -->
+        <locale name="sequry.panel.select.title.userAndGroup">
+            <de><![CDATA[Benutzer- und Gruppen-Auswahl]]></de>
+            <en><![CDATA[Select user or group]]></en>
+        </locale>
+
+        <locale name="sequry.panel.select.actors.selecttable.tbl.eligible">
+            <de><![CDATA[geeignet]]></de>
+            <en><![CDATA[eligible]]></en>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible">
+            <de><![CDATA[nicht geeignet]]></de>
+            <en><![CDATA[non eligible]]></en>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.user">
+            <de><![CDATA[Nicht für für alle nötigen Authentifizierungs-Faktoren registriert]]></de>
+            <en><![CDATA[Not registered for all necessary authentication factors]]></en>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.tbl.not.eligible.group">
+            <de><![CDATA[Nicht für alle nötigen Sicherheitsklassen freigeschaltet]]></de>
+            <en><![CDATA[Not activated for all necessary security classes]]></en>
+        </locale>
+        <locale name="sequry.panel.select.actors.selecttable.filter.buttonEligibleOnly">
+            <de><![CDATA[Nur geeignete zeigen]]></de>
+            <en><![CDATA[Show only eligible]]></en>
+        </locale>
+
+        <!-- panel share -->
+        <locale name="sequry.panel.share.title">
+            <de><![CDATA[Passwort teilen]]></de>
+            <en><![CDATA[Share password]]></en>
+        </locale>
+        <locale name="sequry.panel.share.description">
+            <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort <span class="text-accent">[passwordTitle] (#[passwordId])</span> anzusehen.]]></de>
+        </locale>
+
+        <!-- user settings -->
+        <locale name="sequry.usermenu.entrysettings.title">
+            <de><![CDATA[Einstellungen]]></de>
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.title">
+            <de><![CDATA[Sequry]]></de>
+            <en><![CDATA[Sequry]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authfactors.title">
+            <de><![CDATA[Auth.-Einstelungen]]></de>
+            <en><![CDATA[Auth.-settings]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title">
+            <de><![CDATA[Auth.-Methoden]]></de>
+            <en><![CDATA[Auth.-methods]]></en>
+        </locale>
+
+        <!-- user settings auth methos -->
+        <locale name="sequry.usersettings.category.authmethods.box.title">
+            <de><![CDATA[Authentifizierungs-Methoden]]></de>
+            <en><![CDATA[Authentication methods]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.registered">
+            <de><![CDATA[registriert]]></de>
+            <en><![CDATA[registered]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.registeredsyncrequired">
+            <de><![CDATA[registriert (Passwort-Synchronisation erforderlich)]]></de>
+            <en><![CDATA[registered (password synchronization required)]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.status.notregistered">
+            <de><![CDATA[Nicht registriert]]></de>
+            <en><![CDATA[Not registered]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.status.registeredsyncrequired">
+            <de><![CDATA[Passwörter synchronisieren]]></de>
+            <en><![CDATA[Synchronize passwords]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.register">
+            <de><![CDATA[Registrieren]]></de>
+            <en><![CDATA[Register]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.change">
+            <de><![CDATA[Zugangsdaten ändern]]></de>
+            <en><![CDATA[Change access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.recovery">
+            <de><![CDATA[Zugangsdaten vergessen]]></de>
+            <en><![CDATA[Recover access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.btn.regenerate">
+            <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
+            <en><![CDATA[Regenerate recovery code]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.register">
+            <de><![CDATA[Registrieren]]></de>
+            <en><![CDATA[Register]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.change">
+            <de><![CDATA[Zugangsdaten  ändern]]></de>
+            <en><![CDATA[Change access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.recovery">
+            <de><![CDATA[Zugangsdaten wiederherstellen]]></de>
+            <en><![CDATA[Restore access data]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.title.regenerate">
+            <de><![CDATA[Wiederherstellungs-Code generieren]]></de>
+            <en><![CDATA[Generate recovery code]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.regenerate.confirm">
+            <de><![CDATA[Ja, ich weiß, was ich tue.]]></de>
+            <en><![CDATA[Yes, I know what I'm doing.]]></en>
+        </locale>
+
+        <locale name="sequry.usersettings.category.authmethods.idlabel">
+            <de><![CDATA[Id:]]></de>
+            <en><![CDATA[Id:]]></en>
+        </locale>
+        <locale name="sequry.usersettings.category.authmethods.statuslabel">
+            <de><![CDATA[Status:]]></de>
+            <en><![CDATA[Status:]]></en>
+        </locale>
+    </groups>
+
+    <groups name="sequry/template" datatype="js">
+
+        <!-- Password link list -->
+        <locale name="sequry.panel.linkList.noEntry.title">
+            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <en><![CDATA[No entries found]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.noEntry.desc">
+            <de><![CDATA[Das Passwort wurde noch nicht extern geteilt.]]></de>
+            <en><![CDATA[The password has not yet been shared externally.]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.openLink.title">
+            <de><![CDATA[Passwort-Link anzeigen]]></de>
+            <en><![CDATA[Show password link]]></en>
+        </locale>
+
+        <locale name="sequry.panel.linkList.validUntil.label">
+            <de><![CDATA[Gültig bis:]]></de>
+            <en><![CDATA[Valid to:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.calls.label">
+            <de><![CDATA[Aufrufe:]]></de>
+            <en><![CDATA[Calls:]]></en>
+        </locale>
+
+        <!-- button calls -->
+        <locale name="sequry.panel.linkList.callsBtn.label">
+            <de><![CDATA[[anzeigen]]]></de>
+            <en><![CDATA[[show]]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.callsBtn.title">
+            <de><![CDATA[Aufrufe anzeigen]]></de>
+            <en><![CDATA[Show calls]]></en>
+        </locale>
+        <!-- button details -->
+        <locale name="sequry.panel.linkList.detailsBtn.title">
+            <de><![CDATA[Link-Details]]></de>
+            <en><![CDATA[Link details]]></en>
+        </locale>
+
+        <!-- passwort link details -->
+        <locale name="sequry.panel.linkList.details.id.label">
+            <de><![CDATA[Id]]></de>
+            <en><![CDATA[Id]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.pin.label">
+            <de><![CDATA[PIN-Schutz:]]></de>
+            <en><![CDATA[PIN protection:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.createDate.label">
+            <de><![CDATA[Erstellungsdatum]]></de>
+            <en><![CDATA[Create date]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.createUser.label">
+            <de><![CDATA[Erstellt von:]]></de>
+            <en><![CDATA[Created by:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.passwordOwner.label">
+            <de><![CDATA[Passwort-Eigentümer:]]></de>
+            <en><![CDATA[Password owner:]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.details.securityClass.label">
+            <de><![CDATA[Sicherheitsklasse:]]></de>
+            <en><![CDATA[Security class:]]></en>
+        </locale>
+
+        <!-- Password calls list -->
+        <locale name="sequry.panel.callsList.title">
+            <de><![CDATA[Passwort-Link Aufrufe]]></de>
+            <en><![CDATA[Password link calls]]></en>
+        </locale>
+        <locale name="sequry.panel.callsList.noEntry.title">
+            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <en><![CDATA[No entries found]]></en>
+        </locale>
+        <locale name="sequry.panel.callsList.noEntry.desc">
+            <de><![CDATA[Der Passwort-Link wurde bis jetzt noch nicht aufgerufen.]]></de>
+            <en><![CDATA[The password link has not yet been called.]]></en>
+        </locale>
+
+        <!-- Password view popup / dialog -->
+        <locale name="sequry.panel.linkList.openLink.popup.title">
+            <de><![CDATA[Link öffnen]]></de>
+            <en><![CDATA[Open link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.openLink.popup.desc">
+            <de><![CDATA[Hier können Sie den Link direkt aufrufen oder in die Zwischenablage kopieren.]]></de>
+            <en><![CDATA[Here you can call the link directly or copy it to the clipboard.]]></en>
+        </locale>
+
+        <!-- Password link create -->
+        <locale name="sequry.panel.linkList.createLink.title">
+            <de><![CDATA[Neuen Passwort-Link erstellen]]></de>
+            <en><![CDATA[Create new password link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.createLink.actionLink">
+            <de><![CDATA[Passwort-Link erstellen]]></de>
+            <en><![CDATA[Create password link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.createLink.activate">
+            <de><![CDATA[aktivieren]]></de>
+            <en><![CDATA[activate]]></en>
+        </locale>
+
+        <!-- custom confirm popup: default text -->
+        <locale name="sequry.customPopup.confirm.title">
+            <de><![CDATA[Aktion abbrechen]]></de>
+            <en><![CDATA[Cancel action]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.content">
+            <de><![CDATA[Wollen Sie wirklich abbrechen und das Fenster schließen?]]></de>
+            <en><![CDATA[Do you really want to abort and close the window?]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.button.ok">
+            <de><![CDATA[Ja]]></de>
+            <en><![CDATA[Yes]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.button.cancel">
+            <de><![CDATA[Nein]]></de>
+            <en><![CDATA[No]]></en>
+        </locale>
+
+        <!-- custom confirm popup: create password text -->
+        <locale name="sequry.customPopup.confirm.create.title">
+            <de><![CDATA[Passwortfenster schließen]]></de>
+            <en><![CDATA[Close password window]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.content">
+            <de><![CDATA[Das Passwortfenster wird jetzt geschlossen. Alle bereits eingegebene Daten gehen verloren.]]></de>
+            <en><![CDATA[The password window will be closed. All data already entered will be lost.]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.button.ok">
+            <de><![CDATA[Schließen]]></de>
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.create.button.cancel">
+            <de><![CDATA[Zurück]]></de>
+            <en><![CDATA[Back]]></en>
+        </locale>
+
+        <!-- custom confirm popup: delete password link -->
+        <locale name="sequry.customPopup.confirm.disableLink.title">
+            <de><![CDATA[Link deaktivieren]]></de>
+            <en><![CDATA[Disable link]]></en>
+        </locale>
+        <locale name="sequry.customPopup.confirm.disableLink.content" html="true">
+            <de><![CDATA[Sind Sie sicher, dass der Passwort-Link <strong>#[linkId]</strong> dauerhaft deaktiviert werden soll? Der Passwort-Link bleibt weiterhin in der Übersichtsliste, kann aber nicht mehr aufgerufen oder wieder aktiviert werden.]]></de>
+            <en><![CDATA[Are you sure you want to permanently disable the <strong>#[linkId]</strong> password link? The password link remains in the overview list, but can no longer be called up or reactivated.]]></en>
+        </locale>
+
+        <!-- left menu -->
+        <locale name="sequry.menu.filters.all">
+            <de><![CDATA[Alle Passwörter]]></de>
+            <en><![CDATA[All passwords]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.favorite">
+            <de><![CDATA[Favoriten]]></de>
+            <en><![CDATA[Favorite]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.owned">
+            <de><![CDATA[Eigene]]></de>
+            <en><![CDATA[Owned]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.mostUsed">
+            <de><![CDATA[Meistgenutzte]]></de>
+            <en><![CDATA[Most used]]></en>
+        </locale>
+        <locale name="sequry.menu.filters.new">
+            <de><![CDATA[Neueste]]></de>
+            <en><![CDATA[New]]></en>
+        </locale>
+
+
+        <locale name="sequry.menu.category.private.label">
+            <de><![CDATA[privat]]></de>
+            <en><![CDATA[private]]></en>
+        </locale>
+
+        <!-- header -->
+        <locale name="sequry.header.logout">
+            <de><![CDATA[Abmelden]]></de>
+            <en><![CDATA[Log out]]></en>
+        </locale>
+        <locale name="sequry.header.search.input.placeholder">
+            <de><![CDATA[Filtern...]]></de>
+            <en><![CDATA[Filter...]]></en>
+        </locale>
+    </groups>
+
+    <groups name="sequry/template" datatype="php">
+
+        <!-- Password link site -->
+        <locale name="sequry.passwortsite.pinprotected.title">
+            <de><![CDATA[PIN Eingabe]]></de>
+            <en><![CDATA[PIN enter]]></en>
+        </locale>
+        <locale name="sequry.passwortsite.pinprotected.input.placeholder">
+            <de><![CDATA[PIN eingeben]]></de>
+            <en><![CDATA[Enter PIN]]></en>
+        </locale>
+        <locale name="sequry.passwortsite.pinprotected.submit">
+            <de><![CDATA[Bestätigen]]></de>
+            <en><![CDATA[Confirm]]></en>
+        </locale>
+        <!-- password link error -->
+        <locale name="sequry.passwortsite.error.title">
+            <de><![CDATA[Kein Passwort-Link]]></de>
+            <en><![CDATA[No passwort link]]></en>
+        </locale>
+    </groups>
 </locales>

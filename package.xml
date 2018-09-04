@@ -1,15 +1,15 @@
 <quiqqer>
     <package>
         <title>
-            <locale group='pcsg/template-sequry' var='package.title'/>
+            <locale group='sequry/template' var='package.title'/>
         </title>
 
         <description>
-           <locale group='pcsg/template-sequry' var='package.description'/>
+           <locale group='sequry/template' var='package.description'/>
         </description>
 
         <!-- Hauptbild -->
-        <image src='URL_OPT_DIR/pcsg/template-sequry/bin/quiqqer_logo.png'/>
+        <!--<image src='URL_OPT_DIR/sequry/template/bin/quiqqer_logo.png'/>-->
 
          <!-- More preview images
         <preview>

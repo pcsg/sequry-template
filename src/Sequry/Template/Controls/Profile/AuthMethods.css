@@ -1,0 +1,422 @@
+.quiqqer-sequry-profile-auth-methods {
+    height: 100%;
+    opacity: 0;
+    overflow: auto;
+    transform: translateX(-20px);
+    transition: .2s all;
+}
+
+.quiqqer-sequry-profile-auth-methods-list {
+    margin: 0;
+}
+
+/* list entry */
+.sequry-table-list-entry .sequry-table-list-entry-icon-primary {
+    transition: 0.2s all;
+}
+
+/* 2 password open - dev  */
+.sequry-table-list-entry:nth-child(2) .sequry-table-list-entry-details {
+    /*height: auto;*/
+}
+
+.sequry-table-list-entry[data-status="registered"] .sequry-table-list-entry-icon-primary,
+.sequry-table-list-entry:hover .sequry-table-list-entry-icon-primary {
+    color: inherit;
+}
+
+.sequry-table-list-entry .sequry-table-list-entry-content-line-status-value {
+    color: red;
+    color: #e64a19;
+}
+
+.sequry-table-list-entry[data-status="registered"] .sequry-table-list-entry-content-line-status-value {
+    color: green;
+    color: #43a047;
+}
+
+.sequry-table-list-entry[data-status="registeredsyncrequired"] .sequry-table-list-entry-content-line-status-value {
+    color: orange;
+    color: #FF9800;
+}
+
+.sequry-table-list-entry-content-title span:first-child {
+    font-weight: normal;
+    padding-right: 5px;
+}
+
+.sequry-table-list-entry-content-title span:nth-child(2) {
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+.sequry-table-list-entry-content-line-status-label {
+    /*margin-right: 10px;*/
+}
+
+.sequry-table-list-entry-content-line-status-value {
+    font-weight: normal;
+}
+
+/* reg button */
+.sequry-table-list-entry-icon-secondary-register {
+    opacity: 1;
+    width: auto;
+}
+
+.sequry-table-list-entry-icon-secondary {
+    cursor: pointer;
+}
+
+/* details */
+.sequry-table-list-entry-details {
+    height: 0;
+    overflow: hidden;
+    transition: 0.15s height;
+    width: 100%;
+}
+
+.sequry-table-list-entry-details-inner {
+    padding: 10px 0 10px calc(1rem + 40px);
+}
+
+.sequry-table-list-entry-details-btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.sequry-table-list-entry-details-btn .fa {
+    margin-right: 5px;
+}
+
+/**********************/
+/* Auth method panels */
+/**********************/
+/* default */
+.panel-authmethod-subpanel {
+    background: #f2f2f2;
+}
+
+.panel-authmethod-subpanel-inner {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+.panel-authmethod-subpanel .sidebar-panel-action {
+    display: none;
+}
+
+.panel-authmethod-subpanel h1 {
+    font-size: 1.6em
+}
+
+.panel-authmethod-subpanel table.data-table.data-table-flexbox {
+    margin: 2rem 0;
+    text-align: left;
+    width: 100%;
+}
+
+.panel-authmethod-subpanel table.data-table.data-table-flexbox th {
+    font-weight: normal;
+    padding-bottom: 1rem;
+}
+
+.panel-authmethod-subpanel label {
+    float: none;
+    width: 100%;
+}
+
+.panel-authmethod-subpanel input[type="text"],
+.panel-authmethod-subpanel input[type="password"] {
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    height: 3rem;
+    margin-bottom: 1rem;
+    outline: none;
+    width: 100%;
+}
+
+.panel-authmethod-subpanel input[type="password"]:hover,
+.panel-authmethod-subpanel input[type="text"]:hover,
+.panel-authmethod-subpanel input[type="password"]:active,
+.panel-authmethod-subpanel input[type="text"]:active {
+    border-bottom-color: #aaa;
+}
+
+.quiqqer-sequry-profile-auth-methods-submit {
+    display: block;
+    margin-left: auto;
+}
+
+/* end default */
+
+/*******************************/
+/* Auth method panels - change */
+/*******************************/
+.panel-authmethod-change .field-container-field.pcsg-gpm-auth-control,
+.panel-authmethod-change .sequry-auth-password-change-inputs {
+    /*max-width: 500px;*/
+}
+
+.panel-authmethod-change .pcsg-gpm-auth-recovery {
+    display: none;
+}
+
+.panel-authmethod-change .sequry-auth-password-change-inputs label span,
+.panel-authmethod-change .pcsg-gpm-auth-secondpassword-change-inputs label span {
+    display: none;
+}
+
+/******************/
+/* recovery popup */
+/******************/
+.pcsg-gpm-auth-recovery-popup .qui-window-popup-content h1 {
+    background: none;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin: 2rem 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.pcsg-gpm-auth-recovery-popup .pcsg-gpm-recoverycode-warning {
+    margin-bottom: 1rem;
+}
+
+.pcsg-gpm-multisecurityclassauth table,
+.pcsg-gpm-auth-recovery-popup .qui-window-popup-content table {
+    max-width: 100%;
+    width: 100%;
+}
+
+.pcsg-gpm-multisecurityclassauth table th,
+.pcsg-gpm-auth-recovery-popup .qui-window-popup-content table th {
+    font-weight: normal;
+    padding-bottom: 1rem;
+    text-align: left;
+}
+
+.pcsg-gpm-auth-recovery-popup .field-container {
+    display: flex;
+}
+
+.pcsg-gpm-auth-recovery-popup .field-container-item {
+    display: block;
+    margin-right: 10px;
+    padding: 2px 0;
+    width: 200px;
+}
+
+.pcsg-gpm-auth-recovery-popup .field-container-field {
+    font-weight: normal;
+}
+
+.pcsg-gpm-auth-recovery-popup .pcsg-gpm-recoverycode-code {
+    background: #f5f5f5;
+    float: left;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    line-height: 1em;
+    margin: 1rem 0;
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+/*********************************/
+/* Auth method panels - register */
+/*********************************/
+.sequry-auth-secondpassword-registration label {
+    margin: 0;
+}
+
+.sequry-auth-secondpassword-registration label > span,
+.sequry-auth-password-registration label > span {
+    display: none;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show label > span {
+    display: block;
+    margin-right: 10px;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show {
+    float: none;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show label {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100% !important;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-show input[type="checkbox"] {
+    margin: 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate {
+    float: none;
+    text-align: right;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate button {
+    background: none;
+    border: none;
+    border-color: #6c757d;
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.sequry-auth-secondpassword-registration .sequry-auth-secondpassword-registration-generate button:hover {
+    border-color: #5c656d;
+    color: #5c656d;
+}
+
+/* popup key file register */
+.sequry-auth-keyfile-registration-generate {
+    float: none;
+    margin: 20px 0;
+}
+
+.panel-authmethod-subpanel-inner .gpm-auth-keyfile-changeauth-title {
+    margin: 0;
+}
+
+.panel-authmethod-subpanel-inner input[type="file"] {
+    align-items: center;
+    border: 2px dashed #ddd;
+    cursor: pointer;
+    display: flex;
+    margin: 5px 0;
+    outline: none;
+    padding: 20px;
+    width: 100%;
+}
+
+.panel-authmethod-subpanel-inner input[type="file"]:hover {
+    background: #f5f5f5;
+}
+
+/***********************************/
+/* popup multi security class auth */
+/***********************************/
+.pcsg-gpm-multisecurityclassauth .multisecurityclassauth-info {
+    margin-bottom: 1rem;
+}
+
+.pcsg-gpm-multisecurityclassauth .multisecurityclassauth-data {
+    border-spacing: 0;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container {
+    align-items: center;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    display: flex;
+}
+
+.pcsg-gpm-multisecurityclassauth tr:last-child .field-container {
+    border-bottom: 1px solid #ddd;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-item {
+    background: #eee;
+    display: block;
+    margin-right: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-field {
+    font-weight: normal;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-field button {
+    background: none;
+    border-color: inherit;
+    color: inherit;
+    font-size: 0.9rem;
+}
+
+.pcsg-gpm-multisecurityclassauth .field-container-field button:disabled {
+    display: none;
+}
+
+/*********************************/
+/* Auth method panels - recovery */
+/*********************************/
+/* step 1 */
+.panel-authmethod-subpanel-inner.panel-authmethod-recovery-inner {
+    max-width: 600px;
+}
+
+.panel-authmethod-recovery .pcsg-gpm-auth-recovery-step-content button {
+    white-space: normal;
+}
+
+.panel-authmethod-recovery .pcsg-gpm-auth-recovery-error {
+    display: block;
+    margin: 1rem 0;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-1 input {
+    display: block;
+    float: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    height: auto;
+    letter-spacing: 10px;
+    margin: 1rem auto;
+    max-width: 300px;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* step 2 */
+.panel-authmethod-recovery .pcsg-gpm-password-hint {
+    margin-top: 0 !important;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-2 .pcsg-gpm-auth-recovery-step-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.panel-authmethod-recovery .data-table-flexbox.step-1 input.pcsg-gpm-auth-recovery-code-input {
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-top: 1rem;
+}
+
+/***********************************/
+/* Auth method panels - regenerate */
+/***********************************/
+.panel-authmethod-regenerate-inner button .fa {
+    margin-right: 10px;
+}
+
+.panel-authmethod-regenerate-inner label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+
+}

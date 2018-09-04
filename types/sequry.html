@@ -1,0 +1,456 @@
+<div class="sequry-page-wrapper">
+
+    <div class="header-logo">
+        <h2>Sequry.io</h2>
+    </div>
+
+    <!-- header -->
+    <div class="header-main">
+        <div class="desktop-search">
+            <input type="text">
+            <span class="fa fa-search"></span>
+        </div>
+
+        <a href="?logout=1">
+            <button class="qui-button qui-utils-noselect">
+                <span class="qui-button-text-image fa fa-sign-out"></span>
+                <span class="qui-button-text">
+                {locale group="quiqqer/frontend-users" var="login.btn.logout"}
+            </span>
+            </button>
+        </a>
+    </div>
+
+    <!-- navigation desktop -->
+    <div class="sequry-desktop-menu">
+
+        <div class="sequry-filter">
+            <ul class="navigation">
+                <li class="navigation-entry">
+                    <a class="active">
+                        <span class="fa fa-lock navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Alle Passwörter</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-star-o navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Favoriten</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-user-o navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Eigene</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-bookmark-o navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Meistgenutzte</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-clock-o navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Neueste</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sequry-passwordType">
+            <header class="header-button">
+                <span class="header-button-text">Passwort-Typ</span>
+                <span class="fa fa-cog header-button-icon"></span>
+            </header>
+            <ul class="navigation">
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-globe navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">Zugangsdaten</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-key navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">SSH-Keys</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-server navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">FTP-Server</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-laptop navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">API-Schlüssel</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sequry-tags">
+            <header class="header-button">
+                <span class="header-button-text">Tags</span>
+                <span class="fa fa-plus header-button-icon"></span>
+            </header>
+
+            <ul class="navigation">
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-tag navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">arbeit</span>
+                    </a>
+                </li>
+                <li class="navigation-entry">
+                    <a>
+                        <span class="fa fa-tag navigation-entry-icon"></span>
+                        <span class="navigation-entry-text">privat</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- main -->
+    <div class="main">
+
+        <div class="main-list">
+            <!-- main list header -->
+            <div class="main-list-header">
+                <div class="list-favorite"></div>
+                <div class="list-name">
+                    <span class="list-name-text">Name</span>
+                    <span class="list-name-icon fa fa-caret-down"></span>
+                </div>
+                <div class="list-desc">
+                    <span class="list-desc-text">Kurzbeschreibung</span>
+                </div>
+                <div class="list-type">
+                    <span class="list-type-text">Typ</span>
+                </div>
+                <div class="list-action"></div>
+            </div>
+
+            <!-- main list entries -->
+            <ul class="main-list-entries">
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Facebook</span>
+                    </div>
+                    <div class="list-desc">
+                        Donec rutrum congue leo eget malesuada. Cras ultricies ligula sed magna dictum porta.
+
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Google</span>
+                    </div>
+                    <div class="list-desc">
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Twitter</span>
+                    </div>
+                    <div class="list-desc">
+                        Donec sollicitudin molestie malesuada.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">PCSG Server</span>
+                    </div>
+                    <div class="list-desc">
+                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">FTP-Server</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">PCSG Server mit langem Titel</span>
+                    </div>
+                    <div class="list-desc">
+                        Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">FTP-Server</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Mein private key</span>
+                    </div>
+                    <div class="list-desc">
+                        Proin eget tortor risus. Quisque velit nisi, pretium ut lacinia in, elementum id enim
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">SSH-Keys</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Pinterest</span>
+                    </div>
+                    <div class="list-desc">
+                        Quisque velit nisi, pretium ut lacinia in, elementum id enim.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Gmail</span>
+                    </div>
+                    <div class="list-desc">
+                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Peat's private key</span>
+                    </div>
+                    <div class="list-desc">
+                        Cras ultricies ligula sed magna dictum porta.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">SSH-Keys</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+
+                <li class="main-list-entry">
+                    <div class="list-favorite">
+                        <span class="fa fa-star-o"></span>
+                    </div>
+                    <div class="list-name">
+                        <span class="list-name-title">Bankkonto - Sparkasse</span>
+                    </div>
+                    <div class="list-desc">
+                        Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+                    </div>
+                    <div class="list-type">
+                        <span class="list-type-text">Zugangsdaten</span>
+                    </div>
+                    <div class="list-action">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="button button-add button-add-password hide-on-mobile">
+                <span class="button-add-text">Neues Passwort</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- sidebar panel -->
+<div class="background-wrapper" style="/*display: none;*/"></div>
+
+<div class="sidebar-panel" style="right: 0%;">
+    <div class="sidebar-panel-container">
+        <header class="sidebar-panel-header">
+            <h3 class="sidebar-panel-header-title">Neues Passwort</h3>
+        </header>
+        <div class="sidebar-panel-content">
+            <p>
+                Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem
+            </p>
+        </div>
+
+        <div class="sidebar-panel-action">
+            <div class="sidebar-panel-action-buttons hide-on-mobile">
+                <button>Speichern</button>
+                <button class="btn-light">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-panel" style="/*right: 0%;*/">
+    <div class="sidebar-panel-container">
+        <header class="sidebar-panel-header">
+            <h3 class="sidebar-panel-header-title">Benutzer</h3>
+        </header>
+        <div class="sidebar-panel-content">
+            <ul>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega list</li>
+                <li>mega listd</li>
+            </ul>
+        </div>
+
+        <div class="sidebar-panel-action">
+            <div class="sidebar-panel-action-buttons hide-on-mobile">
+                <button>Teilen</button>
+                <button class="btn-light">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- mobile bottom menu -->
+<div class="sequry-bottom-navigation hide-on-desktop">
+    <ul class="bottom-navigation">
+        <li class="bottom-navigation-entry">
+            <a class="bottom-navigation-entry-link">
+                <span class="bottom-navigation-entry-link-icon fa fa-filter"></span>
+                <span class="bottom-navigation-entry-link-text">Filter</span>
+            </a>
+        </li>
+
+        <li class="bottom-navigation-entry">
+            <a class="bottom-navigation-entry-link">
+                <span class="bottom-navigation-entry-link-icon fa fa-search"></span>
+                <span class="bottom-navigation-entry-link-text">Suche</span>
+            </a>
+        </li>
+
+        <li class="bottom-navigation-entry">
+            <a class="bottom-navigation-entry-link">
+                <span class="bottom-navigation-entry-link-icon fa fa-bars"></span>
+                <span class="bottom-navigation-entry-link-text">Menü</span>
+            </a>
+        </li>
+
+        <li class="bottom-navigation-entry">
+            <a class="bottom-navigation-entry-link control-color">
+                <span class="bottom-navigation-entry-link-icon fa fa-plus"></span>
+                <span class="bottom-navigation-entry-link-text">Hinzufügen</span>
+            </a>
+        </li>
+    </ul>
+</div>

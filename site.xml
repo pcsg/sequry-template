@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+    <types>
+        <type type="types/sequry" icon="fa fa-lock">
+            <locale group="sequry/template" var="admin.types.sequry"/>
+            <desc>
+                <locale group="sequry/template" var="admin.types.sequry.desc" />
+            </desc>
+        </type>
+    </types>
+</site>

@@ -1,0 +1,66 @@
+{*
+<div class="login-main-wrapper">
+    <div class="login-panelLeft">
+        <div class="login-panel-wrapper">
+            {image image=$Logo width=300 height=60 width=200 class="login-panel-logo"}
+
+            <div class="login-panel-features hide-on-mobile">
+                <header class="control-color">
+                    <h1>Password Manager Ipsum</h1>
+                </header>
+                <p>
+                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                    Curabitur aliquet quam id dui posuere blandit.</p>
+                <ul class="fa-ul">
+                    <li><span class="fa-li fa fa-check"></span>Nulla porttitor accumsan tincidunt.</li>
+                    <li><span class="fa-li fa fa-check"></span>Donec sollicitudin molestie malesuada.</li>
+                    <li><span class="fa-li fa fa-check"></span>Pellentesque in ipsum id orci porta dapibus.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-panelRight">
+        <div class="login-panel-wrapper">
+            <div class="login-panel-formContainer">
+                {$FrontendLogin->create()}
+            </div>
+        </div>
+    </div>
+</div>
+*}
+
+<div class="login-page">
+
+    <a href="{url id=1}" class="page-logo">
+        <img src="{$logoUrl}" alt="Sequry"/>
+    </a>
+
+    <div class="login-page-box">
+        <span class="fa fa-user login-page-box-icon"></span>
+
+        <header class="login-box-header">
+            <h1 class="login-box-header-title">
+                {*locale group="sequry/template" var="sequry.passwortsite.pinprotected.title"*}
+                Einloggen
+            </h1>
+        </header>
+        <p>
+            {*locale group="sequry/core" var="sitetypes.passwordlink.password_protection"*}
+            Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Pellentesque egestas, neque sit amet
+            convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est.
+        </p>
+
+        <div class="login-box-formContainer">
+            {$FrontendLogin->create()}
+        </div>
+        <div class="login-box-footer">
+            <span class="login-box-footer-entry">
+                Powered by <a href="https://quiqqer.com">QUIQQER</a>
+            </span>
+            <span class="login-box-footer-entry">
+                Made with love by <a href="https://pcsg.de">PCSG</a>
+            </span>
+        </div>
+    </div>
+</div>

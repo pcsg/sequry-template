@@ -1,0 +1,77 @@
+<!doctype html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="{$Project->getAttribute('lang')}" itemscope
+      itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="{$Project->getAttribute('lang')}" itemscope
+      itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="{$Project->getAttribute('lang')}" itemscope
+      itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="{$Project->getAttribute('lang')}" itemscope
+      itemtype="http://schema.org/WebPage">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1,maximum-scale=1, user-scalable=no, minimal-ui"/>
+
+    {fontawesome}
+    {$Template->getHeader()}
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/style.css"/>
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/sequry.css"/>
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/buttons.css"/>
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/form.css"/>
+
+    <link rel="stylesheet" href="{$URL_TPL_DIR}bin/css/theme.light.css"/>
+
+    {assign var=layoutType value=$Template->getLayoutType()}
+</head>
+<body class="page-{$Site->getId()}">
+
+{if $isPasswordLinkSite}
+
+    {$Template->getLayout()}
+
+{elseif $isAuth}
+
+    <section class="sequry-page-wrapper">
+
+        <div class="header-logo">
+            <h2>Sequry.io</h2>
+        </div>
+
+        <!-- header -->
+        <div class="header-main"
+             data-qui="package/sequry/template/bin/js/controls/components/Header"
+        >&nbsp;</div>
+
+        <!-- desktop nav -->
+        <nav class="sequry-desktop-menu"
+             data-qui="package/sequry/template/bin/js/controls/components/Menu"
+        ></nav>
+
+        <main class="main" data-qui="package/sequry/template/bin/js/controls/main/List"
+        >&nbsp;</main>
+
+    </section>
+
+<div class="header-user-avatar" style="display: none">
+    {$Avatar->create()}
+</div>
+
+
+{else}
+
+    {include file="`$TPL_DIR`login.html"}
+
+{/if}
+<!-- Scripts -->
+<script src="{$URL_TPL_DIR}bin/js/init.js"></script>
+</body>
+</html>
