@@ -247,9 +247,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 page   : 1
             };
 
-            this.ListManager.getPagination().then(function (html) {
+            /*this.ListManager.getPagination().then(function (html) {
                 console.log(html)
-            })
+            })*/
 
             /*QUI.parse(ParentNode).then(function () {
                 // fertig

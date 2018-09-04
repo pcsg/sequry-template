@@ -71,7 +71,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
                     self.$Elm.set('html', Mustache.render(template, {
                         description: description,
                         ownerUsers : QUILocale.get(lg, 'sequry.control.label.users'),
-                        ownerGroups: QUILocale.get(lg, 'sequry.control.label.users')
+                        ownerGroups: QUILocale.get(lg, 'sequry.control.label.groups')
                     }));
 
                     var ActorUsersElm  = self.$Elm.getElement('.password-share-user-select'),
