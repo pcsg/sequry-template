@@ -7,8 +7,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/utils/Functions',
     'qui/controls/loader/Loader',
     'Mustache',
+    'Ajax',
 
     'package/sequry/template/bin/js/classes/List',
     'package/sequry/template/bin/js/Password',
@@ -26,8 +28,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
 ], function (
     QUI,
     QUIControl,
+    QUIFunctionUtils,
     QUILoader,
     Mustache,
+    QUIAjax,
     ClassesList,
     Password,
     Passwords, // package/sequry/core/bin/Passwords
@@ -64,6 +68,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 onImport: this.$onImport
             });
 
+            QUI.addEvent('onResize', function () {
+                this.$onResize();
+            }.bind(this));
+
             this.initSearchParams();
 
             this.Loader = new QUILoader();
@@ -71,8 +79,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.addButton = null;
             this.listContainer = null;
             this.MobileMenu = null;
-
-            console.log(QUI.getBodySize().x)
+            this.mobileBreakPoint = 768;
         },
 
         /**
@@ -98,11 +105,27 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.show();
 
             this.$renderEntries();
-            this.createMobileMenu();
+            this.$onResize();
+        },
+
+        $onResize: function () {
+            if (QUI.getBodySize().x <= this.mobileBreakPoint) {
+                this.createMobileMenu();
+                return;
+            }
+
+            if (this.MobileMenu) {
+                this.MobileMenu.destroy();
+                this.MobileMenu = null;
+            }
         },
 
         createMobileMenu: function () {
             var self = this;
+
+            if (this.MobileMenu) {
+                return;
+            }
 
             this.MobileMenu = new Element('div', {
                 'class': 'mobile-menu'
@@ -114,19 +137,16 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 html   : '<span class="fa fa-filter"></span><span class="mobile-menu-button-label">Filter</span>',
                 events : {
                     click: function () {
-                        console.log("open filter")
-
-
                         var FilterContainer = new Element('div', {
                             'class': 'mobile-filter sequry-desktop-menu',
-                            html: '<header class="header-button">Filter</header>' +
+                            html   : '<header class="header-button">Filter</header>' +
                                 '<div data-qui="package/sequry/template/bin/js/controls/components/Menu"></div>'
-                        })
+                        });
 
                         new Element('button', {
-                            'class' : 'mobile-filter-close',
-                            html: '<span class="fa fa-times"></span>',
-                            events: {
+                            'class': 'mobile-filter-close',
+                            html   : '<span class="fa fa-times"></span>',
+                            events : {
                                 click: function () {
                                     moofx(FilterContainer).animate({
                                         left: '-100%'
@@ -226,6 +246,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 perPage: 100,
                 page   : 1
             };
+
+            this.ListManager.getPagination().then(function (html) {
+                console.log(html)
+            })
 
             /*QUI.parse(ParentNode).then(function () {
                 // fertig
