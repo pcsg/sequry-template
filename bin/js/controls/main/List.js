@@ -8,6 +8,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'qui/QUI',
     'qui/controls/Control',
     'qui/utils/Functions',
+    'qui/utils/String',
     'qui/controls/loader/Loader',
     'Mustache',
     'Ajax',
@@ -29,6 +30,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     QUI,
     QUIControl,
     QUIFunctionUtils,
+    QUIStringUtils,
     QUILoader,
     Mustache,
     QUIAjax,
@@ -104,6 +106,15 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.inject(this.$Elm);
             this.Loader.show();
 
+            this.ListParams = {
+                sortOn : null,
+                sortBy : 'ASC',
+                perPage: 5,
+                page   : 1
+            };
+
+            this.PaginationControl = null;
+
             this.$renderEntries();
             this.$onResize();
         },
@@ -155,11 +166,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             }
                         }).inject(FilterContainer.getElement('header'));
 
-                        QUI.parse(FilterContainer).then(function () {
-//                            var FilterControl = QUI.Controls.get(
-//                                ParentNode.getElement('.pagination').get('data-quiid')
-//                            );
-                        });
+                        QUI.parse(FilterContainer);
 
                         FilterContainer.inject(document.getElement('body'));
 
@@ -234,40 +241,60 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
+         * Create pagination
+         *
+         * @param total - number of items (passwords)
+         */
+        createPagination: function (total) {
+            var self = this;
+
+            this.ListManager.getPaginationHtml(total).then(function (html) {
+                var PaginationParent = self.$Elm.getElement('.pagination-wrapper');
+                PaginationParent.set('html', html);
+
+                QUI.parse(PaginationParent).then(function () {
+                    self.PaginationControl = QUI.Controls.getById(
+                        PaginationParent.getElement('.quiqqer-pagination').get('data-quiid')
+                    );
+
+                    self.PaginationControl.addEvents({
+                        onChange: function (Pagination, Sheet, Query) {
+                            self.ListParams.page = Query.page;
+                            self.ListParams.perPage = Query.limit;
+
+//                            console.log('######');
+//                            console.log(self.ListParams);
+                            self.$listRefresh();
+                        }
+                    });
+                })
+            });
+
+        },
+
+        /**
          * Render the list HTML with passwords
          *
          */
         $renderEntries: function () {
             var self = this;
 
-            var ListParams = {
-                sortOn : null,
-                sortBy : 'ASC',
-                perPage: 100,
-                page   : 1
-            };
-
-            /*this.ListManager.getPagination().then(function (html) {
-                console.log(html)
-            })*/
-
-            /*QUI.parse(ParentNode).then(function () {
-                // fertig
-                var PaginationControl = QUI.Controls.get(
-                    ParentNode.getElement('.pagination').get('data-quiid')
-                );
-
-                PaginationControl.addEvents({
-                    onChange: function () {
-                        console.log('yes');
-                    }
-                });
-            });*/
-
 
             Passwords.getPasswords(
-                Object.merge(ListParams, this.$SearchParams)
+                Object.merge(this.$SearchParams, this.ListParams)
             ).then(function (response) {
+
+                if (!self.PaginationControl) {
+//                    console.log(self.ListParams)
+
+                    var total = response.total;
+                    var perPage = self.ListParams.perPage;
+                    var sheets = Math.ceil(total / perPage);
+                    var page = self.ListParams.page;
+
+                    self.createPagination(sheets, page)
+                }
+
                 var entries = response.data;
 
 //                console.log(entries);

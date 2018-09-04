@@ -134,6 +134,11 @@
     z-index: 10;
 }
 
+.mobile-menu {
+    display: none;
+}
+
+
 @media (max-width: 768px) {
 
     /* main list */

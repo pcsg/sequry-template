@@ -33,6 +33,21 @@ define('package/sequry/template/bin/js/classes/List', [
                     }
                 );
             });
+        },
+
+        /**
+         * Get HTML of Pagination Control
+         *
+         * @returns {Promise}
+         */
+        getPaginationHtml: function (sheets) {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get('package_sequry_template_ajax_getPaginationHtml', resolve, {
+                    'package': 'sequry/template',
+                    onError  : reject,
+                    sheets: sheets
+                });
+            });
         }
     });
 });

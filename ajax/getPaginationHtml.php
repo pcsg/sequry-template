@@ -8,45 +8,30 @@
 
 QUI::$Ajax->registerFunction(
     'package_sequry_template_ajax_getPaginationHtml',
-    function () {
+    function ($sheets) {
 
-        $Pagination = new QUI\Controls\Navigating\Pagination();
+        $Pagination = new QUI\Controls\Navigating\Pagination([
+            'Site'      => QUI::getRewrite()->getSite(),
+            'useAjax'   => true,
+            'sheets'    => $sheets,
+            'showLimit' => true,
+            'limits'    => '[2,5,6,7]',
+            'limit'     => 5
+        ]);
 
+        try {
+            $html = $Pagination->create();
+        } catch (\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
 
+            return false;
+        }
 
-        $Pagination->setAttribute('limit', 4);
-        $Pagination->setAttribute('sheets', 10);
+        $result = QUI\Control\Manager::getCSS();
+        $result .= $html;
 
-        \QUI\System\Log::writeRecursive('----------------------------------');
-        \QUI\System\Log::writeRecursive($Pagination);
-        \QUI\System\Log::writeRecursive('----------------------------------');
-
-//        return $Pagination->create();
-
-
-        /*try {
-
-            $Pagination = new QUI\Controls\Navigating\Pagination();
-
-            $Pagination->setAttribute('limit', 4);
-            $Pagination->setAttribute('sheets', 10);
-
-            \QUI\System\Log::writeRecursive('----------------------------------');
-            \QUI\System\Log::writeRecursive($Pagination);
-            \QUI\System\Log::writeRecursive('----------------------------------');
-
-            return $Pagination->create();
-        } catch (\QUI\Exception $Exception) {
-
-            $L  = QUI::getLocale();
-            $lg = 'sequry/template';
-
-            \QUI\System\Log::writeException($Exception);
-
-            return getErrorMessageTemplate(
-                $L->get($lg, 'sequry.panel.template.passwordTypeNotSupported')
-            );
-        }*/
+        return QUI\Output::getInstance()->parse($result);
     },
+    ['sheets'],
     false
 );
