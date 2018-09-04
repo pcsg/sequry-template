@@ -42,11 +42,11 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
         ],
 
         options: {
-            title       : QUILocale.get(lg, 'sequry.panel.share.title'),
-            actionButton: QUILocale.get(lg, 'sequry.panel.button.save'),
-            closeButton : QUILocale.get(lg, 'sequry.panel.button.close'),
-            confirmClosePopup : true,
-            passwordId  : false
+            title            : QUILocale.get(lg, 'sequry.panel.share.title'),
+            actionButton     : QUILocale.get(lg, 'sequry.panel.button.save'),
+            closeButton      : QUILocale.get(lg, 'sequry.panel.button.close'),
+            confirmClosePopup: false,
+            passwordId       : false
         },
 
         initialize: function (options) {
@@ -82,7 +82,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
                 self.$PasswordShare = new PasswordShare({
                     passwordId: pwId,
                     events    : {
-                        onLoad: function () {
+                        onLoad : function () {
                             self.Loader.hide();
                         },
                         onClose: function () {
