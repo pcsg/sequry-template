@@ -30,6 +30,7 @@
     border-top: none;
     outline: none;
     text-align: right;
+    padding-right: 0;
 }
 
 .quiqqer-sequry-profile-auth-factors input.pcsg-gpm-user-authpluginsettings-plugin-options-option-priority:hover,

@@ -237,12 +237,12 @@
             <en><![CDATA[Sequry]]></en>
         </locale>
         <locale name="sequry.usersettings.category.authfactors.title">
-            <de><![CDATA[Auth.-Einstelungen]]></de>
+            <de><![CDATA[Auth.-Einstellungen]]></de>
             <en><![CDATA[Auth.-settings]]></en>
         </locale>
         <locale name="sequry.usersettings.category.authmethods.title">
-            <de><![CDATA[Auth.-Methoden]]></de>
-            <en><![CDATA[Auth.-methods]]></en>
+            <de><![CDATA[Auth.-Faktorem]]></de>
+            <en><![CDATA[Auth.-factors]]></en>
         </locale>
 
         <!-- user settings auth methos -->
@@ -301,6 +301,12 @@
         <locale name="sequry.usersettings.category.authmethods.regenerate.confirm">
             <de><![CDATA[Ja, ich weiß, was ich tue.]]></de>
             <en><![CDATA[Yes, I know what I'm doing.]]></en>
+        </locale>
+
+
+        <locale name="sequry.usersettings.category.authmethods.regenerate.title">
+            <de><![CDATA[Wiederherstellungs-Code neu generieren]]></de>
+            <en><![CDATA[Regenerate recovery code]]></en>
         </locale>
 
         <locale name="sequry.usersettings.category.authmethods.idlabel">

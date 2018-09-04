@@ -650,11 +650,7 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
 
                 var lgCore = 'sequry/core';
 
-                var title = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.title', {
-                    authPluginTitle: AuthPluginData.title
-                });
-
-                title = "Wiederherstellungs-Code neu generieren";
+                var title = QUILocale.get(lg, 'sequry.usersettings.category.authmethods.regenerate.title');
 
                 var subTitle = AuthPluginData.title;
 
@@ -677,13 +673,18 @@ define('package/sequry/template/bin/js/controls/components/profile/AuthMethods',
                             var header = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.title', {
                                 authPluginTitle: AuthPluginData.title
                             });
+
+                            var confirmText =  QUILocale.get(lgCore, 'auth.panel.regenerate.popup.header', {
+                                authPluginTitle: AuthPluginData.title
+                            });
+
                             var information = QUILocale.get(lgCore, 'auth.panel.regenerate.popup.info', {
                                 recoveryCodeId: recoveryCodeId
                             });
 
                             var Inner = new Element('div', {
                                 'class': 'panel-authmethod-subpanel-inner panel-authmethod-regenerate-inner',
-                                html   : '<h1>' + header + '</h1><p>' + information + '</p>'
+                                html   : '<h1>' + header + '</h1><p>' + confirmText + '</p><p>' + information + '</p>'
                             }).inject(Content);
 
                             var Label = new Element('label', {
