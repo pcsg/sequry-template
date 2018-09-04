@@ -119,8 +119,9 @@ input:-webkit-autofill {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-    -webkit-appearance: none;
+    margin: 0 0 0 10px; /* <-- Apparently some margin are still there even though it's hidden */
+    opacity: 0.5;
+
 }
 
 /** helper
