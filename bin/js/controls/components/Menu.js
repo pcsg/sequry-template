@@ -89,6 +89,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 private: []
             };
 
+            this.ShowAllBtn = null;
+
             this.addEvents({
                 onInject: this.$onInject
             });
@@ -151,7 +153,11 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                 }
 
                 var Button = self.createEntry(Entry, btnType, func);
-                Button.inject(self.FilterContainer)
+                Button.inject(self.FilterContainer);
+
+                if (Entry.name === 'all') {
+                    self.ShowAllBtn = Button.getElement('.menu-button');
+                }
             })
         },
 
@@ -256,6 +262,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
                             SequryUI.PasswordList.setCategoryParam(self.SelectedCategories['public']);
                             SequryUI.PasswordList.setCategoryPrivateParam(self.SelectedCategories['private']);
                             SequryUI.PasswordList.$listRefresh();
+                            self.removeActiveStatus(self.ShowAllBtn);
                         }
                     },
                     onSelectPublic : function (Category) {

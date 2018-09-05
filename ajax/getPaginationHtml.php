@@ -8,45 +8,37 @@
 
 QUI::$Ajax->registerFunction(
     'package_sequry_template_ajax_getPaginationHtml',
-    function () {
+    function ($total, $perPage, $currentPage) {
 
-        $Pagination = new QUI\Controls\Navigating\Pagination();
+        $total = intval($total);
 
+        if ($total == 0) {
+            $total = 1;
+        }
 
+        $Pagination = new QUI\Controls\Navigating\Pagination([
+            'Site'      => QUI::getRewrite()->getSite(),
+            'useAjax'   => true,
+            'count'     => $total,
+            'showLimit' => true,
+            'limits'    => '[10, 25, 50, 100]',
+            'limit'     => $perPage,
+            'sheet' => $currentPage
+        ]);
 
-        $Pagination->setAttribute('limit', 4);
-        $Pagination->setAttribute('sheets', 10);
+        try {
+            $html = $Pagination->create();
+        } catch (\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
 
-        \QUI\System\Log::writeRecursive('----------------------------------');
-        \QUI\System\Log::writeRecursive($Pagination);
-        \QUI\System\Log::writeRecursive('----------------------------------');
+            return false;
+        }
 
-//        return $Pagination->create();
+        $result = QUI\Control\Manager::getCSS();
+        $result .= $html;
 
-
-        /*try {
-
-            $Pagination = new QUI\Controls\Navigating\Pagination();
-
-            $Pagination->setAttribute('limit', 4);
-            $Pagination->setAttribute('sheets', 10);
-
-            \QUI\System\Log::writeRecursive('----------------------------------');
-            \QUI\System\Log::writeRecursive($Pagination);
-            \QUI\System\Log::writeRecursive('----------------------------------');
-
-            return $Pagination->create();
-        } catch (\QUI\Exception $Exception) {
-
-            $L  = QUI::getLocale();
-            $lg = 'sequry/template';
-
-            \QUI\System\Log::writeException($Exception);
-
-            return getErrorMessageTemplate(
-                $L->get($lg, 'sequry.panel.template.passwordTypeNotSupported')
-            );
-        }*/
+        return QUI\Output::getInstance()->parse($result);
     },
+    ['total', 'perPage', 'currentPage'],
     false
 );

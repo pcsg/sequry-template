@@ -32,6 +32,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     "use strict";
 
     var lg = 'sequry/template';
+    var lgCore = 'sequry/core';
 
     return new Class({
 
@@ -155,7 +156,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             if (!actors.length) {
                 QUI.getMessageHandler(function (MH) {
                     MH.addAttention(
-                        QUILocale.get(lg, 'password.create.submit.no.owner.assigned')
+                        QUILocale.get(lgCore, 'password.create.submit.no.owner.assigned')
                     );
                 });
 

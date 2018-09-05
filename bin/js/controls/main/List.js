@@ -8,6 +8,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'qui/QUI',
     'qui/controls/Control',
     'qui/utils/Functions',
+    'qui/utils/String',
     'qui/controls/loader/Loader',
     'Mustache',
     'Ajax',
@@ -29,6 +30,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     QUI,
     QUIControl,
     QUIFunctionUtils,
+    QUIStringUtils,
     QUILoader,
     Mustache,
     QUIAjax,
@@ -104,6 +106,16 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.Loader.inject(this.$Elm);
             this.Loader.show();
 
+            this.ListParams = {
+                sortOn : null,
+                sortBy : 'ASC',
+                perPage: 50,
+                page   : 1, // current page,
+                total  : 100
+            };
+
+            this.PaginationControl = null;
+
             this.$renderEntries();
             this.$onResize();
         },
@@ -155,11 +167,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             }
                         }).inject(FilterContainer.getElement('header'));
 
-                        QUI.parse(FilterContainer).then(function () {
-//                            var FilterControl = QUI.Controls.get(
-//                                ParentNode.getElement('.pagination').get('data-quiid')
-//                            );
-                        });
+                        QUI.parse(FilterContainer);
 
                         FilterContainer.inject(document.getElement('body'));
 
@@ -197,7 +205,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             // add password
             new Element('button', {
-                'class': 'mobile-menu-button highlight',
+                'class': 'mobile-menu-button highlight',// todo locale
                 html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">Hinzufügen</span>',
                 events : {
                     click: function () {
@@ -234,40 +242,66 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * Render the list HTML with passwords
+         * Create pagination
          *
+         * @param total - number of items (passwords)
+         */
+        createPagination: function (total, perPage, currentPage) {
+
+            var self = this;
+
+//            total = 500;
+
+            this.ListManager.getPaginationHtml(total, perPage, currentPage).then(function (html) {
+                var PaginationParent = self.$Elm.getElement('.main-list-pagination');
+                PaginationParent.set('html', html);
+
+                QUI.parse(PaginationParent).then(function () {
+                    self.PaginationControl = QUI.Controls.getById(
+                        PaginationParent.getElement('.quiqqer-pagination').get('data-quiid')
+                    );
+
+                    self.PaginationControl.addEvents({
+                        onChange: function (Pagination, Sheet, Query) {
+                            self.ListParams.page = Query.page;
+                            self.ListParams.perPage = Query.limit;
+
+//                            self.createPagination(total, self.ListParams.perPage, self.ListParams.page)
+
+//                            console.log('######');
+//                            console.log(self.ListParams);
+                            self.$listRefresh();
+                        }
+                    });
+                })
+            });
+
+        },
+
+        /**
+         * Render list HTML with passwords
          */
         $renderEntries: function () {
             var self = this;
 
-            var ListParams = {
-                sortOn : null,
-                sortBy : 'ASC',
-                perPage: 100,
-                page   : 1
-            };
-
-            /*this.ListManager.getPagination().then(function (html) {
-                console.log(html)
-            })*/
-
-            /*QUI.parse(ParentNode).then(function () {
-                // fertig
-                var PaginationControl = QUI.Controls.get(
-                    ParentNode.getElement('.pagination').get('data-quiid')
-                );
-
-                PaginationControl.addEvents({
-                    onChange: function () {
-                        console.log('yes');
-                    }
-                });
-            });*/
-
 
             Passwords.getPasswords(
-                Object.merge(ListParams, this.$SearchParams)
+                Object.merge(this.$SearchParams, this.ListParams)
             ).then(function (response) {
+
+                self.ListParams.total = response.total;
+
+                console.warn(self.ListParams)
+
+//                if (!self.PaginationControl) {
+
+                var total = self.ListParams.total;
+                var perPage = self.ListParams.perPage;
+                var currentPage = self.ListParams.page;
+
+                self.createPagination(total, perPage, currentPage)
+//                }
+
                 var entries = response.data;
 
 //                console.log(entries);
