@@ -109,8 +109,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.ListParams = {
                 sortOn : null,
                 sortBy : 'ASC',
-                perPage: 5,
-                page   : 1
+                perPage: 3,
+                page   : 1, // current page,
+                total  : 100
             };
 
             this.PaginationControl = null;
@@ -204,7 +205,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             // add password
             new Element('button', {
-                'class': 'mobile-menu-button highlight',
+                'class': 'mobile-menu-button highlight',// todo locale
                 html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">Hinzufügen</span>',
                 events : {
                     click: function () {
@@ -245,11 +246,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
          *
          * @param total - number of items (passwords)
          */
-        createPagination: function (total) {
+        createPagination: function (total, perPage, currentPage) {
+
             var self = this;
 
-            this.ListManager.getPaginationHtml(total).then(function (html) {
-                var PaginationParent = self.$Elm.getElement('.pagination-wrapper');
+            total = 500;
+
+            this.ListManager.getPaginationHtml(total, perPage, currentPage).then(function (html) {
+                var PaginationParent = self.$Elm.getElement('.main-list-pagination');
                 PaginationParent.set('html', html);
 
                 QUI.parse(PaginationParent).then(function () {
@@ -262,6 +266,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             self.ListParams.page = Query.page;
                             self.ListParams.perPage = Query.limit;
 
+//                            self.createPagination(total, self.ListParams.perPage, self.ListParams.page)
+
 //                            console.log('######');
 //                            console.log(self.ListParams);
                             self.$listRefresh();
@@ -273,8 +279,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * Render the list HTML with passwords
-         *
+         * Render list HTML with passwords
          */
         $renderEntries: function () {
             var self = this;
@@ -284,16 +289,18 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 Object.merge(this.$SearchParams, this.ListParams)
             ).then(function (response) {
 
-                if (!self.PaginationControl) {
-//                    console.log(self.ListParams)
+                self.ListParams.total = response.total;
 
-                    var total = response.total;
-                    var perPage = self.ListParams.perPage;
-                    var sheets = Math.ceil(total / perPage);
-                    var page = self.ListParams.page;
+                console.warn(self.ListParams)
 
-                    self.createPagination(sheets, page)
-                }
+//                if (!self.PaginationControl) {
+
+                var total = self.ListParams.total;
+                var perPage = self.ListParams.perPage;
+                var currentPage = self.ListParams.page;
+
+                self.createPagination(total, perPage, currentPage)
+//                }
 
                 var entries = response.data;
 

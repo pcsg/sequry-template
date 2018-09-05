@@ -8,15 +8,22 @@
 
 QUI::$Ajax->registerFunction(
     'package_sequry_template_ajax_getPaginationHtml',
-    function ($sheets) {
+    function ($total, $perPage, $currentPage) {
+
+        $total = intval($total);
+
+        if ($total == 0) {
+            $total = 1;
+        }
 
         $Pagination = new QUI\Controls\Navigating\Pagination([
             'Site'      => QUI::getRewrite()->getSite(),
             'useAjax'   => true,
-            'sheets'    => $sheets,
+            'count'     => $total,
             'showLimit' => true,
-            'limits'    => '[2,5,6,7]',
-            'limit'     => 5
+            'limits'    => '[2, 10, 25, 50, 100]',
+            'limit'     => $perPage,
+            'sheet' => $currentPage
         ]);
 
         try {
@@ -32,6 +39,6 @@ QUI::$Ajax->registerFunction(
 
         return QUI\Output::getInstance()->parse($result);
     },
-    ['sheets'],
+    ['total', 'perPage', 'currentPage'],
     false
 );

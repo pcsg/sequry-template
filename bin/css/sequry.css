@@ -76,6 +76,9 @@
 /* mobile */
 /**********/
 @media (max-width: 768px) {
+    body {
+        font-weight: 400;
+    }
 
     .sequry-page-wrapper {
         display: block;

@@ -40,12 +40,14 @@ define('package/sequry/template/bin/js/classes/List', [
          *
          * @returns {Promise}
          */
-        getPaginationHtml: function (sheets) {
+        getPaginationHtml: function (total, perPage, currentPage) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_sequry_template_ajax_getPaginationHtml', resolve, {
                     'package': 'sequry/template',
                     onError  : reject,
-                    sheets: sheets
+                    total    : total,
+                    perPage  : perPage,
+                    currentPage: currentPage
                 });
             });
         }
