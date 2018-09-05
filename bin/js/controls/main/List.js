@@ -109,7 +109,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.ListParams = {
                 sortOn : null,
                 sortBy : 'ASC',
-                perPage: 3,
+                perPage: 50,
                 page   : 1, // current page,
                 total  : 100
             };
@@ -250,7 +250,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             var self = this;
 
-            total = 500;
+//            total = 500;
 
             this.ListManager.getPaginationHtml(total, perPage, currentPage).then(function (html) {
                 var PaginationParent = self.$Elm.getElement('.main-list-pagination');
