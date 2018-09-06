@@ -88,10 +88,10 @@
 .password-field-row-left {
     color: #888;
     flex-shrink: 0;
+    font-size: 0.9rem;
+    font-weight: normal;
     margin-right: 20px;
     width: 30%;
-    font-weight: normal;
-    font-size: 0.9rem;
 }
 
 .password-field-row-right {
@@ -294,4 +294,19 @@
 
 .password-category .pcsg-gpm-categories-select-edit-text {
     display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar-panel {
+        overflow: scroll;
+    }
+
+    .sidebar-panel-container {
+        grid-template-rows: 80px 1fr auto;
+        height: auto;
+    }
+
+    .sidebar-panel-header-title {
+        font-size: 1.1rem;
+    }
 }

@@ -321,6 +321,20 @@
 
     <groups name="sequry/template" datatype="js">
 
+        <!-- Password list -->
+        <locale name="sequry.List.header.title">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+        </locale>
+        <locale name="sequry.List.header.desc">
+            <de><![CDATA[Beschreibung]]></de>
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="sequry.List.header.type">
+            <de><![CDATA[Typ]]></de>
+            <en><![CDATA[Type]]></en>
+        </locale>
+
         <!-- Password link list -->
         <locale name="sequry.panel.linkList.noEntry.title">
             <de><![CDATA[Kein Einträge gefunden]]></de>
@@ -505,6 +519,30 @@
         <locale name="sequry.header.search.input.placeholder">
             <de><![CDATA[Filtern...]]></de>
             <en><![CDATA[Filter...]]></en>
+        </locale>
+
+        <!-- mobile -->
+        <locale name="sequry.mobile.menu.filter">
+            <de><![CDATA[Filter]]></de>
+            <en><![CDATA[Filter]]></en>
+        </locale>
+        <locale name="sequry.mobile.menu.search">
+            <de><![CDATA[Suchen]]></de>
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="sequry.mobile.menu.user">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="sequry.mobile.menu.addPassword">
+            <de><![CDATA[Hinzufügen]]></de>
+            <en><![CDATA[Add]]></en>
+        </locale>
+
+        <!-- mobile filter nav -->
+        <locale name="sequry.mobile.nav.header">
+            <de><![CDATA[Filter]]></de>
+            <en><![CDATA[Filter]]></en>
         </locale>
     </groups>
 

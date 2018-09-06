@@ -11,12 +11,13 @@ a:hover {
     color: #2071a7;
 }
 
+.mobile-panel-filter-menu .sidebar-panel-header,
 .control-background {
     background: #2071a7;
 }
 
 .header-logo,
-.sequry-desktop-menu {
+.sequry-filter-menu {
     background: #4D9BC4;
     background: #2070a5;
     color: #ffffff;

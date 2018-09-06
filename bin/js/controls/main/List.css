@@ -349,15 +349,29 @@
         opacity: 0.6;
     }
 
-    /* mobiles nav - filter */
-    .mobile-filter.sequry-desktop-menu {
-        display: block;
-        position: fixed;
-        top: 0;
+    /*****************************/
+    /* mobile panel nav / filter */
+    /*****************************/
+    .mobile-panel-filter-menu .sidebar-panel-content {
+        padding: 0;
     }
 
-    .mobile-filter-close {
-        background: none;
-        border: none;
+    .mobile-panel-filter-menu .sidebar-panel-container {
+        grid-template-rows: 60px 1fr;
+    }
+
+    .mobile-panel-filter-menu .sidebar-panel-header {
+        padding-right: 0;
+    }
+
+    .mobile-panel-filter-menu .sidebar-panel-header-title {
+        font-size: 1.1rem; /* todo - im panel header doch die größe standard setzne (und Höhe von oben?) */
+    }
+
+    .mobile-sequry-filter-menu {
+        width: 100%;
+        left: 0;
+        position: relative;
+        display: block;
     }
 }
