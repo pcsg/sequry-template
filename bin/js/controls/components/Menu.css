@@ -1,5 +1,5 @@
 /* menu */
-.sequry-desktop-menu {
+.sequry-filter-menu {
     overflow-x: hidden;
     /*background: #2d445a;*/
     /*color: #bfccd9;*/
@@ -8,30 +8,30 @@
     width: 300px;
 }
 
-.sequry-desktop-menu h2,
-.sequry-desktop-menu header {
+.sequry-filter-menu h2,
+.sequry-filter-menu header {
     margin: 1rem;
 }
 
-.sequry-desktop-menu header {
+.sequry-filter-menu header {
     font-size: 1.1rem;
     font-weight: 400;
 }
 
-.sequry-desktop-menu .header-button {
+.sequry-filter-menu .header-button {
     align-items: center;
     display: flex;
     justify-content: space-between;
     margin: 0 0 0 2rem;
 }
 
-.sequry-desktop-menu .header-button-icon {
+.sequry-filter-menu .header-button-icon {
     cursor: pointer;
     padding: 1rem;
     width: 3rem;
 }
 
-.sequry-desktop-menu .header-button-icon:hover {
+.sequry-filter-menu .header-button-icon:hover {
     background: rgba(0, 0, 0, 0.1);
 }
 

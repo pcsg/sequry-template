@@ -59,9 +59,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
             keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
+            keepPanelOnClose       : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
             subPanel               : false, // {bool} [optional] sub panel will be opened within the first panel.
             width                  : null, // {int/string} [optional] if no defined standard is 600px (value examples: 300, '300px', '30%', '30vw')
-            direction              : 'right' // {string} [optional] slide direction (support: left / right)
+            direction              : 'right' // {string} [optional] slide direction (support: left / right),
         },
 
         initialize: function (options) {
@@ -140,6 +141,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             // inject node element to body
             document.body.appendChild(this.$Elm);
+
+            this.fireEvent('afterCreate', [this]);
         },
 
 
@@ -158,6 +161,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.Background.show();
 
             this.fireEvent('openBegin', [this]);
+            this.$Elm.setStyle('opacity', 1);
 
             return new Promise(function (resolve) {
                 var direction     = self.getAttribute('direction'),
@@ -204,7 +208,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             if (!this.isOpen) {
                 return;
             }
-            var self = this;
+            var self                = this,
+                keepPanelOnClose = this.getAttribute('keepPanelOnClose');
 
             self.fireEvent('closeBegin', [self]);
 
@@ -220,16 +225,26 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     callback: function () {
 
                         if (!self.getAttribute('keepBackground')) {
-                            // restore page scroll bar
-                            self.Background.destroy();
 
+                            if (keepPanelOnClose) {
+                                self.Background.hide();
+                            } else {
+                                self.Background.hide().then(function () {
+                                    self.Background.destroy();
+                                });
+                            }
+
+                            // restore page scroll bar
                             if (!self.getAttribute('subPanel')) {
                                 self.setPageScroll();
                             }
                         }
 
-                        self.$Elm.destroy();
-                        self.$Elm = null;
+                        if (!keepPanelOnClose) {
+                            self.$Elm.destroy();
+                            self.$Elm = null;
+                        }
+
                         self.isOpen = false;
 
                         self.fireEvent('close', [self]);

@@ -78,6 +78,7 @@
 @media (max-width: 768px) {
     body {
         font-weight: 400;
+        position: relative;
     }
 
     .sequry-page-wrapper {
@@ -89,7 +90,8 @@
     .header-main {
         display: none;
     }
-    .sequry-desktop-menu {
+
+    .sequry-filter-menu {
         display: none; /* im moment */
         height: 100vh;
         left: -100%;

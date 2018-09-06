@@ -12,10 +12,12 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'qui/controls/loader/Loader',
     'Mustache',
     'Ajax',
+    'Locale',
 
     'package/sequry/template/bin/js/classes/List',
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Passwords',
+    'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
@@ -26,17 +28,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
     'css!package/sequry/template/bin/js/controls/main/List.css'
 
-], function (
-    QUI,
-    QUIControl,
-    QUIFunctionUtils,
-    QUIStringUtils,
-    QUILoader,
-    Mustache,
-    QUIAjax,
+], function (QUI, QUIControl, QUIFunctionUtils, QUIStringUtils, QUILoader, Mustache, QUIAjax, QUILocale,
     ClassesList,
     Password,
     Passwords, // package/sequry/core/bin/Passwords
+    Panel,
     PasswordPanel,
     PasswordCreatePanel,
     PasswordSharePanel,
@@ -46,6 +42,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
     ListEntryTemplate
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -82,6 +80,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.listContainer = null;
             this.MobileMenu = null;
             this.mobileBreakPoint = 768;
+            this.MobileFilterNav = false; // mobile filter panel (filter, types, categories)
+
         },
 
         /**
@@ -123,6 +123,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         $onResize: function () {
             if (QUI.getBodySize().x <= this.mobileBreakPoint) {
                 this.createMobileMenu();
+
                 return;
             }
 
@@ -146,34 +147,20 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // filter
             new Element('button', {
                 'class': 'mobile-menu-button',
-                html   : '<span class="fa fa-filter"></span><span class="mobile-menu-button-label">Filter</span>',
+                html   : '<span class="fa fa-filter"></span><span class="mobile-menu-button-label">' +
+                    QUILocale.get(lg, 'sequry.mobile.menu.filter') +
+                    '</span>',
                 events : {
                     click: function () {
-                        var FilterContainer = new Element('div', {
-                            'class': 'mobile-filter sequry-desktop-menu',
-                            html   : '<header class="header-button">Filter</header>' +
-                                '<div data-qui="package/sequry/template/bin/js/controls/components/Menu"></div>'
-                        });
+                        if (!self.MobileFilterNav) {
+                            self.MobileFilterNav = self.createMobileFilterNav()
+                        }
 
-                        new Element('button', {
-                            'class': 'mobile-filter-close',
-                            html   : '<span class="fa fa-times"></span>',
-                            events : {
-                                click: function () {
-                                    moofx(FilterContainer).animate({
-                                        left: '-100%'
-                                    })
-                                }
-                            }
-                        }).inject(FilterContainer.getElement('header'));
+                        self.MobileFilterNav.open();
 
-                        QUI.parse(FilterContainer);
-
-                        FilterContainer.inject(document.getElement('body'));
-
-                        moofx(FilterContainer).animate({
+                        /*moofx(FilterContainer).animate({
                             left: 0
-                        })
+                        })*/
 
                     }
                 }
@@ -182,11 +169,50 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // search
             new Element('button', {
                 'class': 'mobile-menu-button',
-                html   : '<span class="fa fa-search"></span><span class="mobile-menu-button-label">Suchen</span>',
+                html   : '<span class="fa fa-search"></span><span class="mobile-menu-button-label">' +
+                    QUILocale.get(lg, 'sequry.mobile.menu.search') +
+                    '</span>',
                 events : {
                     click: function () {
-                        console.log("Suchen");
-                        self.addPassword();
+                        require(['package/sequry/template/bin/js/controls/components/Search'], function(Search) {
+                            var SearchControl = new Search({
+                                height: 60,
+                                iconBefore: 'fa fa-search',
+                                iconAfter: 'fa fa-close',
+                                events: {
+                                    onIconAfterSubmit: function () {
+                                        moofx(SearchControl.$Elm).animate({
+                                            transform: 'translateY(60px)',
+                                            opacity: 0
+                                        }, {
+                                            duration: 200,
+                                            callback: function () {
+                                                self.setSearchTerm('');
+                                                self.$listRefresh();
+                                                SearchControl.destroy();
+                                            }
+                                        })
+                                    }
+                                }
+                            });
+
+                            SearchControl.inject(document.getElement('body'))
+                            console.log(SearchControl)
+
+                            SearchControl.$Elm.setStyles({
+                                transform: 'translateY(60px)',
+                            })
+
+                            SearchControl.$Elm.addClass('sequry-search-mobile');
+
+                            SearchControl.$Elm.getElement('input').focus();
+                            moofx(SearchControl.$Elm).animate({
+                                transform: 'translateY(0)'
+                            }, {
+                                duration: 200
+                            })
+
+                        })
                     }
                 }
             }).inject(this.MobileMenu);
@@ -194,11 +220,13 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // user
             new Element('button', {
                 'class': 'mobile-menu-button',
-                html   : '<span class="fa fa-user"></span><span class="mobile-menu-button-label">Benutzer</span>',
+                html   : '<span class="fa fa-user"></span><span class="mobile-menu-button-label">' +
+                    QUILocale.get(lg, 'sequry.mobile.menu.user') +
+                    '</span>',
                 events : {
                     click: function () {
+
                         console.log("Suchen");
-                        self.addPassword();
                     }
                 }
             }).inject(this.MobileMenu);
@@ -206,7 +234,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             // add password
             new Element('button', {
                 'class': 'mobile-menu-button highlight',// todo locale
-                html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">Hinzufügen</span>',
+                html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">' +
+                    QUILocale.get(lg, 'sequry.mobile.menu.addPassword') +
+                    '</span>',
                 events : {
                     click: function () {
                         console.log("Passwort hinzufügen");
@@ -242,75 +272,24 @@ define('package/sequry/template/bin/js/controls/main/List', [
         },
 
         /**
-         * Create pagination
-         *
-         * @param total - number of items (passwords)
-         */
-        createPagination: function (total, perPage, currentPage) {
-
-            var self = this;
-
-//            total = 500;
-
-            this.ListManager.getPaginationHtml(total, perPage, currentPage).then(function (html) {
-                var PaginationParent = self.$Elm.getElement('.main-list-pagination');
-                PaginationParent.set('html', html);
-
-                QUI.parse(PaginationParent).then(function () {
-                    self.PaginationControl = QUI.Controls.getById(
-                        PaginationParent.getElement('.quiqqer-pagination').get('data-quiid')
-                    );
-
-                    self.PaginationControl.addEvents({
-                        onChange: function (Pagination, Sheet, Query) {
-                            self.ListParams.page = Query.page;
-                            self.ListParams.perPage = Query.limit;
-
-//                            self.createPagination(total, self.ListParams.perPage, self.ListParams.page)
-
-//                            console.log('######');
-//                            console.log(self.ListParams);
-                            self.$listRefresh();
-                        }
-                    });
-                })
-            });
-
-        },
-
-        /**
          * Render list HTML with passwords
          */
         $renderEntries: function () {
             var self = this;
 
-
             Passwords.getPasswords(
                 Object.merge(this.$SearchParams, this.ListParams)
             ).then(function (response) {
-
+                var entries = response.data;
                 self.ListParams.total = response.total;
 
-                console.warn(self.ListParams)
+                self.createPagination();
 
-//                if (!self.PaginationControl) {
-
-                var total = self.ListParams.total;
-                var perPage = self.ListParams.perPage;
-                var currentPage = self.ListParams.page;
-
-                self.createPagination(total, perPage, currentPage)
-//                }
-
-                var entries = response.data;
-
-//                console.log(entries);
                 self.Loader.hide();
 
                 entries.each(function (Entry) {
                     self.$renderEntry(Entry);
                 })
-
             });
         },
 
@@ -338,6 +317,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             Li.set('html', Mustache.render(ListEntryTemplate, {
                 'favIconName': favIconName,
                 'dataFavo'   : Entry.favorite,
+                'headerTitle': QUILocale.get(lg, 'sequry.List.header.title'),
+                'headerDesc' : QUILocale.get(lg, 'sequry.List.header.desc'),
+                'headerType' : QUILocale.get(lg, 'sequry.List.header.type'),
                 'title'      : Entry.title,
                 'description': Entry.description,
                 'dataType'   : Entry.dataType
@@ -570,6 +552,110 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
         setSearchTerm: function (term) {
             this.$SearchParams.search.searchterm = term.trim();
+        },
+
+        /**
+         * Create pagination
+         **/
+        createPagination: function () {
+            var self = this;
+
+//            this.ListParams.total = 500;
+
+
+            this.ListManager.getPaginationHtml(
+                this.ListParams.total,
+                this.ListParams.perPage,
+                this.ListParams.page
+            ).then(function (html) {
+//                console.log(html)
+                var PaginationParent = false;
+
+                // if mobile create pagination in filter panel (mobile)...
+                if (QUI.getBodySize().x <= self.mobileBreakPoint) {
+                    // ... but only if the panel exist
+                    if(self.MobileFilterNav) {
+                        PaginationParent = self.MobileFilterNav.$Elm.getElement(
+                            '.main-list-pagination'
+                        );
+                    }
+                } else {
+                    // create pagination on the bottom of the list (desktop)
+                    PaginationParent = self.$Elm.getElement('.main-list-pagination')
+                }
+
+                if (!PaginationParent) {
+                    return;
+                }
+
+                PaginationParent.set('html', html);
+
+                QUI.parse(PaginationParent).then(function () {
+                    self.PaginationControl = QUI.Controls.getById(
+                        PaginationParent.getElement('.quiqqer-pagination').get('data-quiid')
+                    );
+
+                    self.PaginationControl.addEvents({
+                        onChange: function (Pagination, Sheet, Query) {
+
+//                            console.log(Pagination)
+//                            console.log(Sheet)
+//                            console.log(Query)
+                            self.ListParams.page = Query.page;
+                            self.ListParams.perPage = Query.limit;
+                            self.$listRefresh();
+                        }
+                    });
+                })
+            });
+
+        },
+
+        /**
+         * Create mobile filter navigation
+         *
+         * @return {object} }QUIControl Panel package/sequry/template/bin/js/controls/panels/Panel
+         */
+        createMobileFilterNav: function () {
+            var self = this;
+
+            return new Panel({
+                width                  : 300,
+                title                  : QUILocale.get(lg, 'sequry.mobile.nav.header'),
+                iconHeaderButton       : QUILocale.get(lg, 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                direction              : 'left',
+                keepPanelOnClose       : true,
+                isOwner                : true,
+                events                 : {
+                    onAfterCreate: function (PanelControl) {
+                        var PanelElm = PanelControl.$Elm;
+                        PanelElm.addClass('mobile-panel-filter-menu');
+//                        PanelElm.getElement('.sidebar-panel-action-buttons').setStyle('display', 'none');
+
+                        require(['package/sequry/template/bin/js/controls/components/Menu'], function (Menu) {
+                            var FilterContainer = new Element('div', {
+                                'class': 'mobile-sequry-filter-menu sequry-filter-menu'
+                            });
+
+                            new Menu().inject(FilterContainer);
+
+                            FilterContainer.inject(PanelControl.getContent());
+                        })
+                    },
+
+                    onOpenBegin: function(PanelControl) {
+                        var PanelElm = PanelControl.$Elm;
+                        var ActionBar = PanelElm.getElement('.sidebar-panel-action');
+                        ActionBar.addClass('main-list-pagination');
+                        ActionBar.set('html', self.createPagination());
+                    },
+
+                    onSubmitSecondary: function (PanelControl) {
+                        PanelControl.close()
+                    }
+                }
+            })
         }
     });
 });
