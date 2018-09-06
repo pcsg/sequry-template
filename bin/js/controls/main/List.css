@@ -462,4 +462,40 @@
         color: #666;
     }
 
+    /*****************/
+    /* sequry search */
+    /*****************/
+    .sequry-search-mobile {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        background: #f8f8f8;
+        z-index: 100;
+        display: flex;
+        border-top: 1px solid #eee;
+    }
+
+    .sequry-search-mobile input {
+        height: 100%;
+        width: 100%;
+        font-size: 1rem;
+        outline: none;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .sequry-search-mobile input:focus {
+        border-color: #aaa;
+    }
+
+    .sequry-search button {
+        background: none;
+        border: none;
+        border-radius: 0;
+        color: #aaa;
+    }
+
 }

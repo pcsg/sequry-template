@@ -78,6 +78,7 @@
 @media (max-width: 768px) {
     body {
         font-weight: 400;
+        position: relative;
     }
 
     .sequry-page-wrapper {

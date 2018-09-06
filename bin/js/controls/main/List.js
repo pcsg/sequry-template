@@ -174,7 +174,45 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-                        console.log("Suchen");
+                        require(['package/sequry/template/bin/js/controls/components/Search'], function(Search) {
+                            var SearchControl = new Search({
+                                height: 60,
+                                iconBefore: 'fa fa-search',
+                                iconAfter: 'fa fa-close',
+                                events: {
+                                    onIconAfterSubmit: function () {
+                                        moofx(SearchControl.$Elm).animate({
+                                            transform: 'translateY(60px)',
+                                            opacity: 0
+                                        }, {
+                                            duration: 200,
+                                            callback: function () {
+                                                self.setSearchTerm('');
+                                                self.$listRefresh();
+                                                SearchControl.destroy();
+                                            }
+                                        })
+                                    }
+                                }
+                            });
+
+                            SearchControl.inject(document.getElement('body'))
+                            console.log(SearchControl)
+
+                            SearchControl.$Elm.setStyles({
+                                transform: 'translateY(60px)',
+                            })
+
+                            SearchControl.$Elm.addClass('sequry-search-mobile');
+
+                            SearchControl.$Elm.getElement('input').focus();
+                            moofx(SearchControl.$Elm).animate({
+                                transform: 'translateY(0)'
+                            }, {
+                                duration: 200
+                            })
+
+                        })
                     }
                 }
             }).inject(this.MobileMenu);
@@ -522,22 +560,27 @@ define('package/sequry/template/bin/js/controls/main/List', [
         createPagination: function () {
             var self = this;
 
-            this.ListParams.total = 500;
+//            this.ListParams.total = 500;
+
 
             this.ListManager.getPaginationHtml(
                 this.ListParams.total,
                 this.ListParams.perPage,
                 this.ListParams.page
             ).then(function (html) {
+//                console.log(html)
                 var PaginationParent = false;
 
+                // if mobile create pagination in filter panel (mobile)...
                 if (QUI.getBodySize().x <= self.mobileBreakPoint) {
+                    // ... but only if the panel exist
                     if(self.MobileFilterNav) {
                         PaginationParent = self.MobileFilterNav.$Elm.getElement(
                             '.main-list-pagination'
                         );
                     }
                 } else {
+                    // create pagination on the bottom of the list (desktop)
                     PaginationParent = self.$Elm.getElement('.main-list-pagination')
                 }
 
@@ -554,6 +597,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
                     self.PaginationControl.addEvents({
                         onChange: function (Pagination, Sheet, Query) {
+
+//                            console.log(Pagination)
+//                            console.log(Sheet)
+//                            console.log(Query)
                             self.ListParams.page = Query.page;
                             self.ListParams.perPage = Query.limit;
                             self.$listRefresh();
