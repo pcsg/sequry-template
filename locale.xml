@@ -526,6 +526,10 @@
             <de><![CDATA[Filtern...]]></de>
             <en><![CDATA[Filter...]]></en>
         </locale>
+        <locale name="sequry.header.search.searchbtn">
+            <de><![CDATA[Suchen]]></de>
+            <en><![CDATA[Search]]></en>
+        </locale>
 
         <!-- mobile -->
         <locale name="sequry.mobile.menu.filter">

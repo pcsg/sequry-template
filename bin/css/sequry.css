@@ -34,21 +34,35 @@
 }
 
 .desktop-search input[type="text"] {
-    border: none;
     border-radius: 5px;
     outline: none;
     width: 500px;
+    padding-left: 3rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
 }
 
 .desktop-search .fa-search {
-    align-items: center;
-    background: #51b7a3;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    color: #fff;
+    position: absolute;
+    line-height: 42px;
+    color: #c9c8c5;
+    border: none;
     display: flex;
     justify-content: center;
     width: 3rem;
+}
+
+.btn.desktop-search-searchbtn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #eee;
+    color: #444;
+    border-color: #c9c8c5;
+}
+.btn.desktop-search-searchbtn:hover {
+    background: #ccc;
+    color: #444;
 }
 
 /******************/

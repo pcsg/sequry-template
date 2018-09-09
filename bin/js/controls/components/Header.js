@@ -50,7 +50,8 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                 inputEsc = false;
 
             this.$Elm.set('html', Mustache.render(template, {
-                inputPlaceholder: QUILocale.get(lg, 'sequry.header.search.input.placeholder')
+                inputPlaceholder: QUILocale.get(lg, 'sequry.header.search.input.placeholder'),
+                searchBtn       : QUILocale.get(lg, 'sequry.header.search.searchbtn')
             }));
 
             this.DesktopSearch = this.$Elm.getElement('.desktop-search');

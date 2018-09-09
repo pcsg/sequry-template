@@ -120,7 +120,8 @@ define('package/sequry/template/bin/js/controls/components/Search', [
                     if (inputEsc) {
                         event.stop();
                         self.Input.value = '';
-                        self.search();
+//                        self.search();
+                        return;
                     }
 
                     self.search();

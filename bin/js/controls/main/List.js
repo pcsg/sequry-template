@@ -174,21 +174,23 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-                        require(['package/sequry/template/bin/js/controls/components/Search'], function(Search) {
+                        require(['package/sequry/template/bin/js/controls/components/Search'], function (Search) {
                             var SearchControl = new Search({
-                                height: 60,
+                                height    : 60,
                                 iconBefore: 'fa fa-search',
-                                iconAfter: 'fa fa-close',
-                                events: {
+                                iconAfter : 'fa fa-close',
+                                events    : {
                                     onIconAfterSubmit: function () {
                                         moofx(SearchControl.$Elm).animate({
                                             transform: 'translateY(60px)',
-                                            opacity: 0
+                                            opacity  : 0
                                         }, {
                                             duration: 200,
                                             callback: function () {
-                                                self.setSearchTerm('');
-                                                self.$listRefresh();
+                                                if (SearchControl.$Elm.getElement(input).value != '') {
+                                                    self.setSearchTerm('');
+                                                    self.$listRefresh();
+                                                }
                                                 SearchControl.destroy();
                                             }
                                         })
@@ -574,7 +576,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 // if mobile create pagination in filter panel (mobile)...
                 if (QUI.getBodySize().x <= self.mobileBreakPoint) {
                     // ... but only if the panel exist
-                    if(self.MobileFilterNav) {
+                    if (self.MobileFilterNav) {
                         PaginationParent = self.MobileFilterNav.$Elm.getElement(
                             '.main-list-pagination'
                         );
@@ -644,7 +646,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                         })
                     },
 
-                    onOpenBegin: function(PanelControl) {
+                    onOpenBegin: function (PanelControl) {
                         var PanelElm = PanelControl.$Elm;
                         var ActionBar = PanelElm.getElement('.sidebar-panel-action');
                         ActionBar.addClass('main-list-pagination');
