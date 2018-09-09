@@ -29,6 +29,12 @@
             <en><![CDATA[Groups]]></en>
         </locale>
 
+        <!-- login -->
+        <locale name="sequry.login.title">
+            <de><![CDATA[Einloggen]]></de>
+            <en><![CDATA[Login]]></en>
+        </locale>
+
         <!-- passwort panel template -->
         <locale name="sequry.panel.template.basicData">
             <de><![CDATA[Stammdaten]]></de>
