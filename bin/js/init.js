@@ -87,8 +87,8 @@ document.addEvent('domready', function () {
         'package/sequry/template/bin/js/controls/components/Menu',
         'package/sequry/template/bin/js/controls/main/List'
     ], function (QUI, Header, Menu, List) {
-        var Wrapper = document.getElement('.sequry-page-wrapper'),
-            Loader  = document.getElement('.sequry-loader');
+        var Wrapper       = document.getElement('.sequry-page-wrapper'),
+            LoaderContainer = document.getElement('.sequry-loader');
 
         var headerLoaded = false,
             menuLoaded   = false,
@@ -99,8 +99,12 @@ document.addEvent('domready', function () {
                 // loader hide
                 Wrapper.setStyle('display', null);
 
-                moofx(Loader).animate({
+                moofx(LoaderContainer).animate({
                     opacity: 0
+                }, {
+                    callback: function () {
+                        LoaderContainer.destroy();
+                    }
                 })
             }
         };
@@ -117,13 +121,11 @@ document.addEvent('domready', function () {
 
                     UserContainer.inject(SequryHeader.getElm());
 
-
                     headerLoaded = true;
                     isLoaded();
                 }
             }
         }).inject(Wrapper);
-
 
         new Menu({
             events: {
