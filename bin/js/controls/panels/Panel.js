@@ -56,6 +56,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner. String = title
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
+            isOwner                : true,
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
             keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
@@ -417,13 +418,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         createActionButton: function (label) {
             var self = this;
 
-            new Element('button', {
+            var Button = new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,
                 events : {
                     click: self.submit
                 }
-            }).inject(this.panelMenu)
+            });
+
+            Button.inject(this.panelMenu);
         },
 
         /**

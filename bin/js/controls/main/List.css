@@ -387,6 +387,10 @@
         width: 100%;
     }
 
+    .mobile-sequry-filter-menu .sequry-filter-menu {
+        display: block;
+    }
+
     /****************************/
     /* pagination in filter nav */
     /****************************/

@@ -50,7 +50,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             actionButton           : QUILocale.get(lg, 'sequry.panel.button.share'),
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),
             iconHeaderButton       : QUILocale.get(lg, 'sequry.panel.button.edit'),
-            iconHeaderButtonFaClass: 'fa fa-edit'
+            iconHeaderButtonFaClass: 'fa fa-edit',
+            isOwner                : true
         },
 
         initialize: function (options) {

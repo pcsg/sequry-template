@@ -142,11 +142,11 @@
 
     .sequry-filter-menu {
         display: none; /* im moment */
-        height: 100vh;
+        /*height: 100vh;
         left: -100%;
         max-width: 100%;
         position: absolute;
-        z-index: 10;
+        z-index: 10;*/
     }
 
     .header-main:before, .main:before {

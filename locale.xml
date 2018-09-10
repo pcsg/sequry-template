@@ -202,6 +202,10 @@
             <de><![CDATA[Benutzer- und Gruppen-Auswahl]]></de>
             <en><![CDATA[Select user or group]]></en>
         </locale>
+        <locale name="sequry.panel.select.actionButton">
+            <de><![CDATA[Auswählen]]></de>
+            <en><![CDATA[Select]]></en>
+        </locale>
 
         <locale name="sequry.panel.select.actors.selecttable.tbl.eligible">
             <de><![CDATA[geeignet]]></de>

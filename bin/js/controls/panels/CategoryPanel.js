@@ -37,6 +37,7 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
         Type   : 'package/sequry/template/bin/js/controls/panels/CategoryPanel',
 
         Binds: [
+            '$onAfterCreate',
             '$onSubmit',
             '$openBegin',
             '$onOpen'
@@ -52,7 +53,6 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
         initialize: function (options) {
             this.parent(options);
-            this.$Elm.addClass('category-panel');
 
             this.CatPublic = null;
             this.CatPrivate = null;
@@ -60,11 +60,16 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
 
             // panel events
             this.addEvents({
-                onOpen     : this.$onOpen,
-                onOpenBegin: this.$openBegin,
-                onSubmit   : this.$onSubmit,
-                onFinish   : this.$onFinish
+                onAfterCreate: this.$onAfterCreate,
+                onOpen       : this.$onOpen,
+                onOpenBegin  : this.$openBegin,
+                onSubmit     : this.$onSubmit,
+                onFinish     : this.$onFinish
             });
+        },
+
+        $onAfterCreate: function () {
+            this.$Elm.addClass('category-panel');
         },
 
         /**

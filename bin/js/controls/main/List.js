@@ -210,7 +210,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                                         }, {
                                             duration: 200,
                                             callback: function () {
-                                                if (SearchControl.$Elm.getElement(input).value !== '') {
+                                                if (SearchControl.$Elm.getElement('input').value !== '') {
                                                     self.setSearchTerm('');
                                                     self.$listRefresh();
                                                 }
@@ -222,7 +222,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             });
 
                             SearchControl.inject(document.getElement('body'));
-                            console.log(SearchControl)
 
                             SearchControl.$Elm.setStyles({
                                 transform: 'translateY(60px)'
@@ -664,16 +663,19 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 isOwner                : true,
                 events                 : {
                     onAfterCreate: function (PanelControl) {
+                        console.log(PanelControl)
                         var PanelElm = PanelControl.$Elm;
                         PanelElm.addClass('mobile-panel-filter-menu');
 //                        PanelElm.getElement('.sidebar-panel-action-buttons').setStyle('display', 'none');
 
                         require(['package/sequry/template/bin/js/controls/components/Menu'], function (Menu) {
-                            var FilterContainer = new Element('div', {
+                            var FilterContainer = new Element('section', {
                                 'class': 'mobile-sequry-filter-menu sequry-filter-menu'
                             });
 
                             new Menu().inject(FilterContainer);
+
+
 
                             FilterContainer.inject(PanelControl.getContent());
                         })

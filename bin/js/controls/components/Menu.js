@@ -138,7 +138,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             this.$buildFilters();
             this.$buildTypes();
-
+console.log("inject menu")
             this.fireEvent('load', [this]);
         },
 
