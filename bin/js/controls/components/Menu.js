@@ -27,7 +27,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
     CategorySelect,
     CategorySelectPrivate,
     SequryUI,
-    Template
+    template
 ) {
     "use strict";
 
@@ -96,11 +96,18 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             });
         },
 
+        create: function() {
+            this.$Elm = this.parent();
+            this.$Elm.addClass('sequry-filter-menu');
+
+            this.$Elm.set('html', template);
+            return this.$Elm;
+        },
+
         /**
          * event: on inject
          */
         $onInject: function () {
-            this.$Elm.set('html', Mustache.render(Template, {}));
 
             var self = this,
                 Tags = this.$Elm.getElement('.sequry-tags');
@@ -131,6 +138,8 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             this.$buildFilters();
             this.$buildTypes();
+
+            this.fireEvent('load', [this]);
         },
 
         /**

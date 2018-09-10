@@ -1,3 +1,45 @@
+.sequry-loader {
+    align-items: center;
+    background: #f5f5f5;
+    color: #ccc;
+    display: flex;
+    font-size: 5rem;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100000;
+}
+
+.sequry-loader-wrapper {
+    animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    -o-animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    -o-animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
+    animation-name: firstLoaderShow;
+    -moz-animation-name: firstLoaderShow;
+    -o-animation-name: firstLoaderShow;
+    -webkit-animation-name: firstLoaderShow;
+}
+
+@keyframes firstLoaderShow {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
 .sequry-page-wrapper {
     background-color: #f5f5f5;
     display: grid;
@@ -34,32 +76,34 @@
 }
 
 .desktop-search input[type="text"] {
-    border-radius: 5px;
-    outline: none;
-    width: 500px;
-    padding-left: 3rem;
-    border-top-right-radius: 0;
+    border-bottom-left-radius: 5px;
     border-bottom-right-radius: 0;
     border-right: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0;
+    outline: none;
+    padding-left: 3rem;
+    width: 500px;
 }
 
 .desktop-search .fa-search {
-    position: absolute;
-    line-height: 42px;
-    color: #c9c8c5;
     border: none;
+    color: #c9c8c5;
     display: flex;
     justify-content: center;
+    line-height: 42px;
+    position: absolute;
     width: 3rem;
 }
 
 .btn.desktop-search-searchbtn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     background: #eee;
-    color: #444;
+    border-bottom-left-radius: 0;
     border-color: #c9c8c5;
+    border-top-left-radius: 0;
+    color: #444;
 }
+
 .btn.desktop-search-searchbtn:hover {
     background: #ccc;
     color: #444;
@@ -395,8 +439,8 @@ button.fa {
 }
 
 .login-box-formContainer button.qui-button[type="submit"]:hover {
-    color: #444 !important;
     border-color: #444 !important;
+    color: #444 !important;
 }
 
 /* footer */

@@ -40,6 +40,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
             '$onSubmit',
             '$openBegin',
             '$onOpen',
+            '$onSubmitSecondary',
             'openSharePassword',
             'openEditPassword'
         ],
@@ -71,7 +72,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
          * Integrate password
          */
         $onOpen: function () {
-            var self = this,
+            var self       = this,
                 passwordId = this.getAttribute('id');
 
             Actors.getPasswordAccessInfo(passwordId).then(function (AccessInfo) {
@@ -85,20 +86,20 @@ define('package/sequry/template/bin/js/controls/panels/PasswordPanel', [
                 self.$Password = new Password({
                     id    : self.getAttribute('id'),
                     events: {
-                        onLoad : function (PW) {
+                        onLoad  : function (PW) {
                             self.setTitle(PW.getTitle());
                             self.setSubtitle(PW.getType());
 
                             self.ButtonParser.parse(self.getElm());
                             self.Loader.hide();
                         },
-                        onClose: function () {
+                        onClose : function () {
                             self.Loader.hide();
                             self.cancel();
                         },
-                        onSubmit: function(PW) {
+                        onSubmit: function (PW) {
                             if (self.getAttribute('isOwner')) {
-                                PW.share()
+                                PW.share();
                             }
                         }
                     }

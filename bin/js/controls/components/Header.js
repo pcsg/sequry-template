@@ -38,21 +38,33 @@ define('package/sequry/template/bin/js/controls/components/Header', [
             this.searchValue = null;
 
             this.addEvents({
-                onImport: this.$onImport
+                onInject: this.$onInject
             });
         },
 
         /**
-         * event: on inject
+         * Create the DOMNode Element
+         *
+         * @returns {Element}
          */
-        $onImport: function () {
-            var self     = this,
-                inputEsc = false;
+        create: function () {
+            this.$Elm = this.parent();
+            this.$Elm.addClass('header-main');
 
             this.$Elm.set('html', Mustache.render(template, {
                 inputPlaceholder: QUILocale.get(lg, 'sequry.header.search.input.placeholder'),
                 searchBtn       : QUILocale.get(lg, 'sequry.header.search.searchbtn')
             }));
+
+            return this.$Elm;
+        },
+
+        /**
+         * event: on inject
+         */
+        $onInject: function () {
+            var self     = this,
+                inputEsc = false;
 
             this.DesktopSearch = this.$Elm.getElement('.desktop-search');
             this.Input = this.DesktopSearch.getElement('input');
@@ -79,6 +91,8 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                     self.search();
                 }
             });
+
+            this.fireEvent('load', [this]);
         },
 
         /**

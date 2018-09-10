@@ -40,26 +40,19 @@
 
 {elseif $isAuth}
 
-    <section class="sequry-page-wrapper">
+<section class="sequry-page-wrapper" style="display: grid;">
 
-        <div class="header-logo">
-            <h2>Sequry.io</h2>
-        </div>
+    <div class="header-logo">
+        <h2>Sequry.io</h2>
+    </div>
 
-        <!-- header -->
-        <div class="header-main"
-             data-qui="package/sequry/template/bin/js/controls/components/Header"
-        >&nbsp;</div>
+</section>
 
-        <!-- desktop nav -->
-        <nav class="sequry-filter-menu"
-             data-qui="package/sequry/template/bin/js/controls/components/Menu"
-        ></nav>
-
-        <main class="main" data-qui="package/sequry/template/bin/js/controls/main/List"
-        >&nbsp;</main>
-
-    </section>
+<div class="sequry-loader">
+    <span class="sequry-loader-wrapper">
+        <span class="fa fa-cog fa-spin"></span>
+    </span>
+</div>
 
 <div class="header-user-avatar" style="display: none">
     {$Avatar->create()}

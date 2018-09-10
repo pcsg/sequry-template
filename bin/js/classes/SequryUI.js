@@ -1,4 +1,6 @@
-define('package/sequry/template/bin/js/classes/SequryUI', [], function (QDOM) {
+define('package/sequry/template/bin/js/classes/SequryUI', [
+    'qui/classes/DOM'
+], function (QDOM) {
     "use strict";
 
     return new Class({
@@ -6,7 +8,9 @@ define('package/sequry/template/bin/js/classes/SequryUI', [], function (QDOM) {
         Extends: QDOM,
         Type   : 'package/sequry/template/bin/js/classes/SequryUI',
 
-        initialize: function () {
+        initialize: function (options) {
+            this.parent(options);
+
             this.PasswordList = null; // global password list
         }
     });
