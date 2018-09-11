@@ -1,8 +1,8 @@
 /* menu */
 .sequry-filter-menu {
-    overflow-x: hidden;
     /*background: #2d445a;*/
     /*color: #bfccd9;*/
+    overflow-x: hidden;
     overflow-y: auto;
     position: relative;
     width: 300px;

@@ -33,6 +33,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
         Type   : 'package/sequry/template/bin/js/controls/panels/SelectPanel',
 
         Binds: [
+            '$onAfterCreate',
             '$onSubmit',
             '$openBegin',
             '$onOpen'
@@ -40,7 +41,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
         options: {
             title            : false, // title depends on actor type (user / group)
-            actionButton     : 'Auswählen',
+            actionButton     : QUILocale.get(lg, 'sequry.panel.select.actionButton'),
             closeButton      : QUILocale.get(lg, 'sequry.panel.button.cancel'),
             info             : '',       // info text that is shown above the table
             securityClassIds : [],    // security class ids the actors have to be eligible for
@@ -54,17 +55,21 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
 
         initialize: function (options) {
             this.parent(options);
-            this.$Elm.addClass('category-panel');
 
             this.$SelectTable = null;
 
             // panel events
             this.addEvents({
-                onOpen     : this.$onOpen,
-                onOpenBegin: this.$openBegin,
-                onSubmit   : this.$onSubmit,
-                onFinish   : this.$onFinish
+                onAfterCreate: this.$onAfterCreate,
+                onOpen       : this.$onOpen,
+                onOpenBegin  : this.$openBegin,
+                onSubmit     : this.$onSubmit,
+                onFinish     : this.$onFinish
             });
+        },
+
+        $onAfterCreate: function () {
+            this.$Elm.addClass('category-panel');
         },
 
         /**
@@ -72,7 +77,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
          * integrate password
          */
         $onOpen: function () {
-            var self    = this,
+            var self = this,
                 title;
 
             switch (this.getAttribute('actorType')) {

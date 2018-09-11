@@ -29,6 +29,12 @@
             <en><![CDATA[Groups]]></en>
         </locale>
 
+        <!-- login -->
+        <locale name="sequry.login.title">
+            <de><![CDATA[Einloggen]]></de>
+            <en><![CDATA[Login]]></en>
+        </locale>
+
         <!-- passwort panel template -->
         <locale name="sequry.panel.template.basicData">
             <de><![CDATA[Stammdaten]]></de>
@@ -195,6 +201,10 @@
         <locale name="sequry.panel.select.title.userAndGroup">
             <de><![CDATA[Benutzer- und Gruppen-Auswahl]]></de>
             <en><![CDATA[Select user or group]]></en>
+        </locale>
+        <locale name="sequry.panel.select.actionButton">
+            <de><![CDATA[Auswählen]]></de>
+            <en><![CDATA[Select]]></en>
         </locale>
 
         <locale name="sequry.panel.select.actors.selecttable.tbl.eligible">
@@ -519,6 +529,10 @@
         <locale name="sequry.header.search.input.placeholder">
             <de><![CDATA[Filtern...]]></de>
             <en><![CDATA[Filter...]]></en>
+        </locale>
+        <locale name="sequry.header.search.searchbtn">
+            <de><![CDATA[Suchen]]></de>
+            <en><![CDATA[Search]]></en>
         </locale>
 
         <!-- mobile -->

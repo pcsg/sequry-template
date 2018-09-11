@@ -1,3 +1,36 @@
+.sequry-loader {
+    align-items: center;
+    background: #f5f5f5;
+    color: #ccc;
+    display: flex;
+    font-size: 5rem;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100000;
+    overflow: hidden;
+}
+
+.sequry-loader-wrapper {
+    animation: firstLoaderShow 0.5s 0.5s forwards;
+    opacity: 0;
+}
+
+@keyframes firstLoaderShow {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
 .sequry-page-wrapper {
     background-color: #f5f5f5;
     display: grid;
@@ -34,21 +67,37 @@
 }
 
 .desktop-search input[type="text"] {
-    border: none;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0;
     outline: none;
+    padding-left: 3rem;
     width: 500px;
 }
 
 .desktop-search .fa-search {
-    align-items: center;
-    background: #51b7a3;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    color: #fff;
+    border: none;
+    color: #c9c8c5;
     display: flex;
     justify-content: center;
+    line-height: 42px;
+    position: absolute;
     width: 3rem;
+}
+
+.btn.desktop-search-searchbtn {
+    background: #eee;
+    border-bottom-left-radius: 0;
+    border-color: #c9c8c5;
+    border-top-left-radius: 0;
+    color: #444;
+}
+
+.btn.desktop-search-searchbtn:hover {
+    background: #ccc;
+    color: #444;
 }
 
 /******************/
@@ -82,8 +131,8 @@
     }
 
     .sequry-page-wrapper {
-        display: block;
         background: #fff;
+        display: block;
     }
 
     .header-logo,
@@ -93,11 +142,11 @@
 
     .sequry-filter-menu {
         display: none; /* im moment */
-        height: 100vh;
+        /*height: 100vh;
         left: -100%;
         max-width: 100%;
         position: absolute;
-        z-index: 10;
+        z-index: 10;*/
     }
 
     .header-main:before, .main:before {
@@ -287,7 +336,6 @@ button.fa {
     width: 3rem;
 }
 
-
 /******************/
 /* new login page */
 /******************/
@@ -316,11 +364,11 @@ button.fa {
     box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
     margin: 15vh auto 1rem;
     max-width: calc(100% - 2rem);
-    padding: 2rem;
+    opacity: 0;
+    padding: 2rem 2rem 0.5rem;
+    transform: translateY(20px);
     width: 500px;
     z-index: 1;
-    opacity: 0;
-    transform: translateY(20px);
 }
 
 .login-page-box-icon {
@@ -361,12 +409,12 @@ button.fa {
 }
 
 .login-box-formContainer .quiqqer-login-auth label input {
-    border-top: none;
+    border-bottom: 1px solid #ddd;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #ddd;
-    outline: none;
+    border-top: none;
     margin-bottom: 2rem;
+    outline: none;
 }
 
 .login-box-formContainer .quiqqer-login-auth label input:hover,
@@ -375,20 +423,21 @@ button.fa {
 }
 
 .login-box-formContainer button.qui-button[type="submit"] {
-    color: #999;
     background: none;
-    border: none;
+    border-color: #999;
+    color: #999;
     float: right;
 }
 
 .login-box-formContainer button.qui-button[type="submit"]:hover {
+    border-color: #444 !important;
     color: #444 !important;
 }
 
 /* footer */
 .login-box-footer {
     font-size: 12px;
-    transform: translateY(1.5rem);
+    margin-top: 3rem;
     text-align: center;
 }
 
@@ -400,7 +449,6 @@ button.fa {
     color: #802124;
     font-weight: normal;
 }
-
 
 @media (max-width: 767px) {
     .login-page-logo {

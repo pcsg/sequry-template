@@ -1,6 +1,7 @@
 /**
  * @module package/sequry/template/bin/js/controls/password/Password
  */
+
 define('package/sequry/template/bin/js/controls/password/Password', [
 
     'qui/QUI',

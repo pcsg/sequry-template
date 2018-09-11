@@ -4,6 +4,7 @@
  *
  * @module package/sequry/template/bin/js/controls/panels/Panel
  */
+
 define('package/sequry/template/bin/js/controls/panels/Panel', [
 
     'qui/QUI',
@@ -31,7 +32,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
     var lg = 'sequry/template';
 
-
     return new Class({
 
         Extends: QUIControl,
@@ -56,6 +56,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             closeButton            : QUILocale.get(lg, 'sequry.panel.button.close'),  // {false|string} show the close button
             iconHeaderButton       : false, // {false|string} [optional] icon button on the right top corner. String = title
             iconHeaderButtonFaClass: '',    // {string} [optional] icon type css class
+            isOwner                : true,
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
             keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
@@ -82,10 +83,13 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             this.Loader = new QUILoader();
             this.ButtonParser = new ButtonParser();
             this.isOpen = false;
-
-            this.create();
         },
 
+        /**
+         * Return the DOMNode Element
+         *
+         * @returns {HTMLDivElement}
+         */
         create: function () {
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
@@ -139,12 +143,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 );
             }
 
-            // inject node element to body
-            document.body.appendChild(this.$Elm);
-
             this.fireEvent('afterCreate', [this]);
-        },
 
+            return this.$Elm;
+        },
 
         /**
          * Open panel.
@@ -154,6 +156,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         open: function () {
             var self = this;
+
+            if (!this.$Elm) {
+                this.create();
+            }
+
+            if (!this.$Elm.getParent()) {
+                this.$Elm.inject(document.body);
+            }
 
             this.setPageFix();
 
@@ -206,9 +216,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          */
         close: function () {
             if (!this.isOpen) {
-                return;
+                return Promise.resolve();
             }
-            var self                = this,
+
+            var self             = this,
                 keepPanelOnClose = this.getAttribute('keepPanelOnClose');
 
             self.fireEvent('closeBegin', [self]);
@@ -260,7 +271,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
          * Override it if you need a custom close confirm popup.
          */
         confirmClose: function () {
-
             var self      = this,
                 title     = QUILocale.get(lg, 'sequry.customPopup.confirm.title'),
                 content   = QUILocale.get(lg, 'sequry.customPopup.confirm.content'),
@@ -301,28 +311,24 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         /**
          * Don't scroll the page while panel is open
          */
-        setPageFix:
-
-            function () {
-                // its easier - but requires more tests
-                document.body.setStyle('overflow', 'hidden');
-                return;
-
-                // touch body fix
-                QUI.Windows.calcWindowSize();
-
-                document.body.setStyles({
-                    width   : document.body.getSize().x,
-                    minWidth: document.body.getSize().x
-                });
-
-                document.body.setStyles({
-                    overflow: 'hidden',
-                    position: 'absolute'
-                });
-            }
-
-        ,
+        setPageFix: function () {
+            // its easier - but requires more tests
+            document.body.setStyle('overflow', 'hidden');
+//            return;
+//
+//            // touch body fix
+//            QUI.Windows.calcWindowSize();
+//
+//            document.body.setStyles({
+//                width   : document.body.getSize().x,
+//                minWidth: document.body.getSize().x
+//            });
+//
+//            document.body.setStyles({
+//                overflow: 'hidden',
+//                position: 'absolute'
+//            });
+        },
 
         /**
          * Restore page scroll after panel ist closed.
@@ -330,14 +336,14 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         setPageScroll: function () {
             // its easier - but requires more tests
             document.body.setStyle('overflow', '');
-            return;
-
-            document.body.setStyles({
-                width   : '',
-                minWidth: '',
-                overflow: '',
-                position: ''
-            });
+//            return;
+//
+//            document.body.setStyles({
+//                width   : '',
+//                minWidth: '',
+//                overflow: '',
+//                position: ''
+//            });
         },
 
         /**
@@ -412,13 +418,15 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         createActionButton: function (label) {
             var self = this;
 
-            new Element('button', {
+            var Button = new Element('button', {
                 'class': 'panel-actionButton',
                 'html' : label,
                 events : {
                     click: self.submit
                 }
-            }).inject(this.panelMenu)
+            });
+
+            Button.inject(this.panelMenu);
         },
 
         /**

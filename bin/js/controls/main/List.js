@@ -3,6 +3,7 @@
  *
  * @module package/sequry/template/bin/js/controls/main/List
  */
+
 define('package/sequry/template/bin/js/controls/main/List', [
 
     'qui/QUI',
@@ -18,7 +19,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Passwords',
     'package/sequry/template/bin/js/controls/panels/Panel',
-    'package/sequry/template/bin/js/controls/panels/PasswordPanel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordLinkPanel',
@@ -28,18 +28,18 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'text!package/sequry/template/bin/js/controls/main/List.Entry.html',
     'css!package/sequry/template/bin/js/controls/main/List.css'
 
-], function (QUI, QUIControl, QUIFunctionUtils, QUIStringUtils, QUILoader, Mustache, QUIAjax, QUILocale,
+], function (
+    QUI, QUIControl, QUIFunctionUtils, QUIStringUtils, QUILoader, Mustache, QUIAjax, QUILocale,
     ClassesList,
     Password,
     Passwords, // package/sequry/core/bin/Passwords
     Panel,
-    PasswordPanel,
     PasswordCreatePanel,
     PasswordSharePanel,
     PasswordLinkPanel,
     SequryUI,
     template,
-    ListEntryTemplate
+    listEntryTemplate
 ) {
     "use strict";
 
@@ -51,7 +51,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
         Type   : 'package/sequry/template/bin/js/controls/main/List',
 
         Binds: [
-            '$onImport',
+            '$onInject',
             'open',
             'edit',
             'addPassword',
@@ -63,9 +63,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
         initialize: function (options) {
             this.parent(options);
 
-
             this.addEvents({
-                onImport: this.$onImport
+                onInject: this.$onInject
             });
 
             QUI.addEvent('onResize', function () {
@@ -81,15 +80,31 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.MobileMenu = null;
             this.mobileBreakPoint = 768;
             this.MobileFilterNav = false; // mobile filter panel (filter, types, categories)
+        },
 
+        /**
+         * Create the DOMNode element
+         *
+         * @returns {Element}
+         */
+        create: function () {
+            this.$Elm = new Element('main', {
+                'class'     : 'main',
+                'data-quiid': this.getId(),
+                'html'      : Mustache.render(template, {
+                    headerTitle: QUILocale.get(lg, 'sequry.List.header.title'),
+                    headerDesc : QUILocale.get(lg, 'sequry.List.header.desc'),
+                    headerType : QUILocale.get(lg, 'sequry.List.header.type')
+                })
+            });
+
+            return this.$Elm;
         },
 
         /**
          * event: on inject
          */
-        $onImport: function () {
-
-            this.$Elm.set('html', Mustache.render(template, {}));
+        $onInject: function () {
             this.listContainer = this.$Elm.getElement('.main-list-entries');
             this.addButton = this.$Elm.getElement('.button-add-password');
 
@@ -116,14 +131,19 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             this.PaginationControl = null;
 
-            this.$renderEntries();
             this.$onResize();
+
+            this.$renderEntries().then(function () {
+                this.fireEvent('load', [this]);
+            }.bind(this));
         },
 
+        /**
+         * event: on resize
+         */
         $onResize: function () {
             if (QUI.getBodySize().x <= this.mobileBreakPoint) {
                 this.createMobileMenu();
-
                 return;
             }
 
@@ -133,6 +153,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
             }
         },
 
+        /**
+         * create the mobile
+         */
         createMobileMenu: function () {
             var self = this;
 
@@ -174,21 +197,23 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-                        require(['package/sequry/template/bin/js/controls/components/Search'], function(Search) {
+                        require(['package/sequry/template/bin/js/controls/components/Search'], function (Search) {
                             var SearchControl = new Search({
-                                height: 60,
+                                height    : 60,
                                 iconBefore: 'fa fa-search',
-                                iconAfter: 'fa fa-close',
-                                events: {
+                                iconAfter : 'fa fa-close',
+                                events    : {
                                     onIconAfterSubmit: function () {
                                         moofx(SearchControl.$Elm).animate({
                                             transform: 'translateY(60px)',
-                                            opacity: 0
+                                            opacity  : 0
                                         }, {
                                             duration: 200,
                                             callback: function () {
-                                                self.setSearchTerm('');
-                                                self.$listRefresh();
+                                                if (SearchControl.$Elm.getElement('input').value !== '') {
+                                                    self.setSearchTerm('');
+                                                    self.$listRefresh();
+                                                }
                                                 SearchControl.destroy();
                                             }
                                         })
@@ -196,12 +221,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
                                 }
                             });
 
-                            SearchControl.inject(document.getElement('body'))
-                            console.log(SearchControl)
+                            SearchControl.inject(document.getElement('body'));
 
                             SearchControl.$Elm.setStyles({
-                                transform: 'translateY(60px)',
-                            })
+                                transform: 'translateY(60px)'
+                            });
 
                             SearchControl.$Elm.addClass('sequry-search-mobile');
 
@@ -225,8 +249,52 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-
-                        console.log("Suchen");
+//                        var UserIcon = document.getElement(
+//                            '[data-qui="package/quiqqer/frontend-users/bin/frontend/controls/UserIcon"]'
+//                        );
+//
+//                        if (!UserIcon) {
+//                            return;
+//                        }
+//
+//                        var Control = QUI.Controls.getById(UserIcon.get('data-quiid'));
+//                        var Menu = Control.$Menu;
+//                        var children = Menu.getChildren();
+//
+//                        var Select = new Element('select', {
+//                            events: {
+//                                change: function () {
+//                                    console.log('##########');
+//                                    alert(this.value);
+//                                }
+//                            },
+//                            styles: {
+//                                height  : '100%',
+//                                left    : 0,
+//                                opacity : 0,
+//                                position: 'absolute',
+//                                top     : 0,
+//                                zIndex  : 2,
+//                                width   : '100%'
+//                            }
+//                        }).inject(document.body);
+//
+//                        if (!('ontouchstart' in window)) {
+//                            this.$Select.setStyle('zIndex', 1);
+//                        }
+//
+//                        for (var i = 0, len = children.length; i < len; i++) {
+//                            if (children[i].getType() !== 'qui/controls/contextmenu/Item') {
+//                                continue;
+//                            }
+//
+//                            new Element('option', {
+//                                html : children[i].getAttribute('text'),
+//                                value: children[i].getAttribute('value')
+//                            }).inject(Select);
+//                        }
+//
+//                        Select.click();
                     }
                 }
             }).inject(this.MobileMenu);
@@ -273,18 +341,20 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
         /**
          * Render list HTML with passwords
+         *
+         * @return {Promise}
          */
         $renderEntries: function () {
             var self = this;
 
-            Passwords.getPasswords(
+
+            return Passwords.getPasswords(
                 Object.merge(this.$SearchParams, this.ListParams)
             ).then(function (response) {
                 var entries = response.data;
+
                 self.ListParams.total = response.total;
-
                 self.createPagination();
-
                 self.Loader.hide();
 
                 entries.each(function (Entry) {
@@ -314,7 +384,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             });
 
             // render html
-            Li.set('html', Mustache.render(ListEntryTemplate, {
+            Li.set('html', Mustache.render(listEntryTemplate, {
                 'favIconName': favIconName,
                 'dataFavo'   : Entry.favorite,
                 'headerTitle': QUILocale.get(lg, 'sequry.List.header.title'),
@@ -377,12 +447,20 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * Open password according to the password id
          *
          * @param Entry
+         * @return {Promise}
          */
         open: function (Entry) {
-            new PasswordPanel({
-                id     : Entry.id,
-                isOwner: Entry.isOwner
-            }).open();
+            return new Promise(function (resolve, reject) {
+                require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function (PasswordPanel) {
+                    new PasswordPanel({
+                        id     : Entry.id,
+                        isOwner: Entry.isOwner,
+                        events : {
+                            onOpen: resolve
+                        }
+                    }).open();
+                }, reject);
+            });
         },
 
         /**
@@ -574,7 +652,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 // if mobile create pagination in filter panel (mobile)...
                 if (QUI.getBodySize().x <= self.mobileBreakPoint) {
                     // ... but only if the panel exist
-                    if(self.MobileFilterNav) {
+                    if (self.MobileFilterNav) {
                         PaginationParent = self.MobileFilterNav.$Elm.getElement(
                             '.main-list-pagination'
                         );
@@ -629,22 +707,24 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 isOwner                : true,
                 events                 : {
                     onAfterCreate: function (PanelControl) {
+                        console.log(PanelControl)
                         var PanelElm = PanelControl.$Elm;
                         PanelElm.addClass('mobile-panel-filter-menu');
 //                        PanelElm.getElement('.sidebar-panel-action-buttons').setStyle('display', 'none');
 
                         require(['package/sequry/template/bin/js/controls/components/Menu'], function (Menu) {
-                            var FilterContainer = new Element('div', {
+                            var FilterContainer = new Element('section', {
                                 'class': 'mobile-sequry-filter-menu sequry-filter-menu'
                             });
 
                             new Menu().inject(FilterContainer);
 
+
                             FilterContainer.inject(PanelControl.getContent());
                         })
                     },
 
-                    onOpenBegin: function(PanelControl) {
+                    onOpenBegin: function (PanelControl) {
                         var PanelElm = PanelControl.$Elm;
                         var ActionBar = PanelElm.getElement('.sidebar-panel-action');
                         ActionBar.addClass('main-list-pagination');
