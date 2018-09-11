@@ -80,6 +80,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.MobileMenu = null;
             this.mobileBreakPoint = 768;
             this.MobileFilterNav = false; // mobile filter panel (filter, types, categories)
+            this.isAnimating = false;
         },
 
         /**
@@ -249,6 +250,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
+                        alert(isTouchDevice())
 //                        var UserIcon = document.getElement(
 //                            '[data-qui="package/quiqqer/frontend-users/bin/frontend/controls/UserIcon"]'
 //                        );
@@ -450,13 +452,24 @@ define('package/sequry/template/bin/js/controls/main/List', [
          * @return {Promise}
          */
         open: function (Entry) {
+            // prevent open password panel twice by double click if QUIBackground does not exist yet
+            if (this.isAnimating) {
+                return Promise.reject();
+            }
+
+            var self = this;
+            this.isAnimating = true;
+
             return new Promise(function (resolve, reject) {
                 require(['package/sequry/template/bin/js/controls/panels/PasswordPanel'], function (PasswordPanel) {
                     new PasswordPanel({
                         id     : Entry.id,
                         isOwner: Entry.isOwner,
                         events : {
-                            onOpen: resolve
+                            onOpen: function () {
+                                self.isAnimating = false;
+                                resolve();
+                            }
                         }
                     }).open();
                 }, reject);
