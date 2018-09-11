@@ -1,5 +1,4 @@
 document.addEvent('domready', function () {
-
     var PasswordLink = document.getElement(
         '.passwordlink-box'
     );
@@ -87,7 +86,7 @@ document.addEvent('domready', function () {
         'package/sequry/template/bin/js/controls/components/Menu',
         'package/sequry/template/bin/js/controls/main/List'
     ], function (QUI, Header, Menu, List) {
-        var Wrapper       = document.getElement('.sequry-page-wrapper'),
+        var Wrapper         = document.getElement('.sequry-page-wrapper'),
             LoaderContainer = document.getElement('.sequry-loader');
 
         var headerLoaded = false,
@@ -180,4 +179,31 @@ document.addEvent('domready', function () {
             SettingsPanel.open();
         })
     }
+
+
+    // register service worker for pwa
+    if ('serviceWorker' in navigator) {
+        if (navigator.serviceWorker.controller) {
+            // A ServiceWorker controls the site on load and therefor can handle offline
+            // fallback.
+        } else {
+            // console.log('DEBUG: Service Worker start register');
+            navigator.serviceWorker.register(
+                URL_OPT_DIR + 'sequry/template/bin/js/sw/worker.php',
+                {scope: '/'}
+            ).then(function () {
+                // Success
+            }).catch(function (e) {
+                // Fail :(
+                console.error(e);
+            });
+        }
+    }
+
+    function isTouchDevice() {
+        // thanks -> https://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
+        return 'ontouchstart' in window        // works on most browsers
+            || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+    }
+
 });

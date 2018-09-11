@@ -249,8 +249,52 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-
-                        console.log("Suchen");
+//                        var UserIcon = document.getElement(
+//                            '[data-qui="package/quiqqer/frontend-users/bin/frontend/controls/UserIcon"]'
+//                        );
+//
+//                        if (!UserIcon) {
+//                            return;
+//                        }
+//
+//                        var Control = QUI.Controls.getById(UserIcon.get('data-quiid'));
+//                        var Menu = Control.$Menu;
+//                        var children = Menu.getChildren();
+//
+//                        var Select = new Element('select', {
+//                            events: {
+//                                change: function () {
+//                                    console.log('##########');
+//                                    alert(this.value);
+//                                }
+//                            },
+//                            styles: {
+//                                height  : '100%',
+//                                left    : 0,
+//                                opacity : 0,
+//                                position: 'absolute',
+//                                top     : 0,
+//                                zIndex  : 2,
+//                                width   : '100%'
+//                            }
+//                        }).inject(document.body);
+//
+//                        if (!('ontouchstart' in window)) {
+//                            this.$Select.setStyle('zIndex', 1);
+//                        }
+//
+//                        for (var i = 0, len = children.length; i < len; i++) {
+//                            if (children[i].getType() !== 'qui/controls/contextmenu/Item') {
+//                                continue;
+//                            }
+//
+//                            new Element('option', {
+//                                html : children[i].getAttribute('text'),
+//                                value: children[i].getAttribute('value')
+//                            }).inject(Select);
+//                        }
+//
+//                        Select.click();
                     }
                 }
             }).inject(this.MobileMenu);
@@ -674,7 +718,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             });
 
                             new Menu().inject(FilterContainer);
-
 
 
                             FilterContainer.inject(PanelControl.getContent());
