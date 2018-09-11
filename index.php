@@ -3,7 +3,7 @@
 use QUI\FrontendUsers\Controls\Auth\FrontendLogin;
 use Sequry\Core\Constants\Sequry as SequryConstants;
 
-$logoUrl = URL_OPT_DIR . 'sequry/template/bin/images/Sequry_logo_250x40.png';
+$logoUrl = URL_OPT_DIR . 'sequry/template/bin/images/Sequry_logo_250x40_white.png';
 
 if ($Project->getMedia()->getLogoImage()) {
     $logoUrl = $Project->getMedia()->getLogoImage()->getSizeCacheUrl();
