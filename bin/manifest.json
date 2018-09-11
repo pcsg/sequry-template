@@ -4,7 +4,6 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f4f4f4",
-  "theme_color": "#00897b",
   "description": "Password protection safe and easy",
   "orientation": "any",
   "homepage_url": "https://www.sequry.io/",
