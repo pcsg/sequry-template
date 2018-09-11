@@ -86,6 +86,8 @@ document.addEvent('domready', function () {
         'package/sequry/template/bin/js/controls/components/Menu',
         'package/sequry/template/bin/js/controls/main/List'
     ], function (QUI, Header, Menu, List) {
+        QUI.setAttribute('control-loader-type', 'ball-clip-rotate');
+
         var Wrapper         = document.getElement('.sequry-page-wrapper'),
             LoaderContainer = document.getElement('.sequry-loader');
 

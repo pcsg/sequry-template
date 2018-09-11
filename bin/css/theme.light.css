@@ -32,6 +32,13 @@ a:hover {
     color: #afd3e5;
 }
 
+@media (max-width: 768px) {
+    .header-logo {
+        background: #f8f8f8;
+        border-bottom: 1px solid #eaeaea;
+    }
+}
+
 /*********/
 /* panel */
 /*********/

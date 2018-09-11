@@ -140,7 +140,18 @@
         display: block;
     }
 
-    .header-logo,
+    .header-logo {
+        justify-content: center;
+        padding: 1.5rem 1rem;
+        background: #f8f8f8;
+    }
+
+    .header-logo img {
+        max-width: 150px;
+        max-height: 35px;
+    }
+
+    /*.header-logo,*/
     .header-main {
         display: none;
     }

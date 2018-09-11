@@ -299,6 +299,7 @@
 @media (max-width: 768px) {
     .sidebar-panel {
         overflow: scroll;
+        height: 100%;
     }
 
     .sidebar-panel-container {
@@ -307,6 +308,6 @@
     }
 
     .sidebar-panel-header-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 }
