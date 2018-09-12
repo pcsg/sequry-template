@@ -418,6 +418,10 @@
             <de><![CDATA[Sicherheitsklasse:]]></de>
             <en><![CDATA[Security class:]]></en>
         </locale>
+        <locale name="sequry.panel.linkList.details.button.disable">
+            <de><![CDATA[Deaktivieren]]></de>
+            <en><![CDATA[Disable]]></en>
+        </locale>
 
         <!-- Password calls list -->
         <locale name="sequry.panel.callsList.title">
@@ -451,6 +455,10 @@
         <locale name="sequry.panel.linkList.createLink.actionLink">
             <de><![CDATA[Passwort-Link erstellen]]></de>
             <en><![CDATA[Create password link]]></en>
+        </locale>
+        <locale name="sequry.panel.linkList.createLink.generatePinButton">
+            <de><![CDATA[PIN generieren]]></de>
+            <en><![CDATA[Generate PIN]]></en>
         </locale>
         <locale name="sequry.panel.linkList.createLink.activate">
             <de><![CDATA[aktivieren]]></de>

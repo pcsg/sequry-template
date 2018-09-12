@@ -70,6 +70,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
             this.$ShowInactiveBtn = null;
             this.$SearchParams = {};
             this.CurDate = new Date();
+            this.createButtonActive = true;
 
             this.addEvents({
                 onInject: this.$onInject
@@ -98,7 +99,9 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 html   : QUILocale.get(lgCore, 'controls.password.linklist.tbl.btn.add'),
                 events : {
                     click: function () {
-                        self.openCreateLinkPanel();
+                        if (self.createButtonActive) {
+                            self.openCreateLinkPanel();
+                        }
                     }
                 }
             }).inject(ButtonBarElm);
@@ -297,7 +300,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
         },
 
         toggleDetails: function (event, LiElm, params) {
-
             var Button = event.target,
                 open   = Button.getProperty('data-open');
 
@@ -319,7 +321,6 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 Button.addClass('fa-angle-double-down');
                 return;
             }
-
 
             this.createDetails(LiElm, params).then(function (Details) {
                 var DetailsInner = Details.getElement('.link-table-list-entry-details-inner');
@@ -361,7 +362,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }).inject(LiElm);
 
                 var DisableLinkBtn = new Element('span', {
-                    'class': 'fa fa-trash-o link-table-list-entry-icon'
+                    'class': 'fa fa-trash-o link-table-list-entry-icon',
+                    title  : QUILocale.get(lg, 'sequry.panel.linkList.details.button.disable')
                 });
 
                 if (params.active) {
@@ -540,6 +542,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
          */
         openCreateLinkPanel: function () {
             var self = this;
+            this.createButtonActive = false;
 
             var LinkCreateControl = new LinkCreate({
                 passwordId: this.getAttribute('passwordId')
@@ -553,6 +556,9 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 events      : {
                     onOpenBegin: function (PanelCreateLink) {
                         LinkCreateControl.inject(PanelCreateLink.getContent());
+                    },
+                    onOpen     : function () {
+                        self.createButtonActive = true;
                     },
                     onSubmit   : function (PanelCreateLink) {
                         LinkCreateControl.submit().then(function () {
