@@ -47,9 +47,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
         ],
 
         options: {
-            passwordId   : false,   // passwordId
-            // todo wahrscheinlich nicht benötigt
-            showSubmitBtn: true     // show submit button in control
+            passwordId: false // passwordId
         },
 
         initialize: function (options) {
@@ -106,6 +104,16 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 '.password-linkcreate-date'
             );
 
+            var changeStatusCheckbox = function (Checkbox) {
+                var Label = Checkbox.getParent('label');
+
+                if (Checkbox.checked) {
+                    Label.addClass('active');
+                } else {
+                    Label.removeClass('active')
+                }
+            };
+
             ValidDateDateSelect.addEvent('change', function (event) {
                 ValidDateInput.value = event.target.value;
             });
@@ -122,6 +130,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             });
 
             ActiveValidDate.addEvent('change', function () {
+                changeStatusCheckbox(this);
+
                 ValidDateInput.disabled = !ValidDateInput.disabled;
                 ValidDateSelect.disabled = !ValidDateSelect.disabled;
             });
@@ -136,6 +146,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             ActiveMaxCalls.addEvent('change', function () {
                 MaxCallsInput.disabled = !MaxCallsInput.disabled;
+
+                changeStatusCheckbox(this);
 
                 if (!MaxCallsInput.disabled) {
                     MaxCallsInput.focus();
@@ -152,6 +164,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             var GeneratePinBtn = new QUIButton({
                 icon  : 'fa fa-random',
+                title : QUILocale.get(lg, 'sequry.panel.linkList.createLink.generatePinButton'),
                 events: {
                     onClick: function (Btn, event) {
                         event.stop();
@@ -173,6 +186,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             GeneratePinBtn.disable();
 
             ActivePasswords.addEvent('change', function () {
+                changeStatusCheckbox(this);
+
                 self.$PasswordInput.disabled = !self.$PasswordInput.disabled;
 
                 if (!self.$PasswordInput.disabled) {
@@ -236,7 +251,6 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             );
 
             this.$getVHostList().then(function (vhosts) {
-
                 if (!vhosts.length) {
                     self.$Elm.set(
                         'html',
@@ -248,6 +262,11 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
                     VHostRowElm.destroy();
                     self.fireEvent('noPasswordSites', [self]);
+                    return;
+                }
+
+                if (vhosts.length <= 1) {
+                    VHostRowElm.destroy();
                     return;
                 }
 
@@ -265,14 +284,9 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 if (vhosts.length > 1) {
                     VHostRowElm.removeClass('password-linkcreate__hidden');
                 }
-
-                self.fireEvent('loaded', [self]);
             });
 
-            // todo wahrscheinlich nicht benötigt
-            if (!this.getAttribute('showSubmitBtn')) {
-                return this.$Elm;
-            }
+            self.fireEvent('loaded', [self]);
 
             return this.$Elm;
         },

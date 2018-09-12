@@ -65,7 +65,11 @@
 {else}
 
     {include file="`$TPL_DIR`login.html"}
-
+<div class="sequry-loader-onlogin">
+    <span class="sequry-loader-wrapper">
+        <span class="fa fa-cog fa-spin"></span>
+    </span>
+</div>
 {/if}
 <!-- Scripts -->
 <script src="{$URL_TPL_DIR}bin/js/init.js"></script>
