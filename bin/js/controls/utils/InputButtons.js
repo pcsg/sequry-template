@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        "ClipboardJS"  : URL_OPT_DIR + 'bin/clipboard/dist/clipboard'
+        "ClipboardJS": URL_OPT_DIR + 'bin/clipboard/dist/clipboard'
     }
 });
 
@@ -9,11 +9,15 @@ require.config({
  * @author www.pcsg.de (Michael Danielczok)
  */
 define('package/sequry/template/bin/js/controls/utils/InputButtons', [
+    'Locale',
     'ClipboardJS'
 ], function (
+    QUILocale,
     Clipboard
 ) {
     "use strict";
+
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -54,8 +58,11 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
          * @param CopyBtn
          */
         parseCopyElm: function (CopyBtn) {
-            var parent        = CopyBtn.getParent(),
-                Input         = parent.getElement('input');
+            console.log(CopyBtn)
+            var parent = CopyBtn.getParent(),
+                Input  = parent.getElement('input');
+
+            CopyBtn.set('title', QUILocale.get(lg, 'sequry.utils.button.copy'));
 
             CopyBtn.addEvent('click', function () {
                 //todo click-feedback
@@ -111,6 +118,8 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
             var parent = OpenUrlBtn.getParent(),
                 Input  = parent.getElement('input');
 
+            OpenUrlBtn.set('title', QUILocale.get(lg, 'sequry.utils.button.openLink'));
+            
             OpenUrlBtn.addEvent('click', function () {
                 var href;
 
