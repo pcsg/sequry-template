@@ -22,9 +22,11 @@ document.addEvent('domready', function () {
         // login site
         if (Login) {
             Login.addEvent('load', function () {
+
+
                 var LoginWrapper = document.getElement('.login-page-box'),
-                    Control      = QUI.Controls.getById(Login.get('data-quiid')),
-                    labels       = Control.getElm().getElements('label');
+                    LoginControl = QUI.Controls.getById(Login.get('data-quiid')),
+                    labels       = LoginControl.getElm().getElements('label');
 
                 for (var i = 0, len = labels.length; i < len; i++) {
                     var text  = labels[i].getElement('span').get('html'),
@@ -33,10 +35,26 @@ document.addEvent('domready', function () {
                     input.set('placeholder', text);
                 }
 
-                moofx(LoginWrapper).animate({
-                    opacity  : 1,
-                    transform: 'translateY(0)'
-                });
+                var LoaderContainer = document.getElement('.sequry-loader-onlogin');
+
+                // loader hide
+//                Wrapper.setStyle('display', null);
+
+                moofx(LoaderContainer).animate({
+                    opacity: 0
+                }, {
+                    duration: 200,
+                    callback: function () {
+                        LoaderContainer.destroy();
+
+                        moofx(LoginWrapper).animate({
+                            opacity  : 1,
+//                            transform: 'translateY(0)'
+                        });
+                    }
+                })
+
+
             });
 
             return;
