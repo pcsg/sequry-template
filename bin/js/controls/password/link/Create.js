@@ -104,6 +104,16 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 '.password-linkcreate-date'
             );
 
+            var changeStatusCheckbox = function (Checkbox) {
+                var Label = Checkbox.getParent('label');
+
+                if (Checkbox.checked) {
+                    Label.addClass('active');
+                } else {
+                    Label.removeClass('active')
+                }
+            };
+
             ValidDateDateSelect.addEvent('change', function (event) {
                 ValidDateInput.value = event.target.value;
             });
@@ -120,6 +130,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             });
 
             ActiveValidDate.addEvent('change', function () {
+                changeStatusCheckbox(this);
+
                 ValidDateInput.disabled = !ValidDateInput.disabled;
                 ValidDateSelect.disabled = !ValidDateSelect.disabled;
             });
@@ -134,6 +146,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
             ActiveMaxCalls.addEvent('change', function () {
                 MaxCallsInput.disabled = !MaxCallsInput.disabled;
+
+                changeStatusCheckbox(this);
 
                 if (!MaxCallsInput.disabled) {
                     MaxCallsInput.focus();
@@ -172,6 +186,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
             GeneratePinBtn.disable();
 
             ActivePasswords.addEvent('change', function () {
+                changeStatusCheckbox(this);
+
                 self.$PasswordInput.disabled = !self.$PasswordInput.disabled;
 
                 if (!self.$PasswordInput.disabled) {

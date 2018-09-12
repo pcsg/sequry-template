@@ -39,6 +39,10 @@ a:hover {
     }
 }
 
+label.active {
+    color: #43a047;
+}
+
 /*********/
 /* panel */
 /*********/
