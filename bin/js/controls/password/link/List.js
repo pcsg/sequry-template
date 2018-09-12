@@ -517,50 +517,51 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
                 }).inject(List);
             }
 
-            var PanelCalls = new Panel({
-                title                  : QUILocale.get(lg, 'sequry.panel.callsList.title'),
-                iconHeaderButtonFaClass: '',
-                subPanel               : true,
-                events                 : {
-                    onOpen: function (Panel) {
-                        List.inject(Panel.getContent());
+            new Panel({
+                title   : QUILocale.get(lg, 'sequry.panel.callsList.title'),
+                subPanel: true,
+                events  : {
+                    onOpen: function (PC) {
+                        PC.setTitle(QUILocale.get(lg, 'sequry.panel.callsList.title'));
+
+                        if (pwTitle) {
+                            PC.setSubtitle(pwTitle);
+                        }
+
+                        List.inject(PC.getContent());
                     }
                 }
-            });
-
-            PanelCalls.setTitle(QUILocale.get(lg, 'sequry.panel.callsList.title'));
-
-            if (pwTitle) {
-                PanelCalls.setSubtitle(pwTitle);
-            }
-
-            PanelCalls.open()
+            }).open();
         },
 
+        /**
+         * Create link to password
+         * Create {Object} LinkCreate and inject it to the panel.
+         */
         openCreateLinkPanel: function () {
             var self = this;
+
             var LinkCreateControl = new LinkCreate({
                 passwordId: this.getAttribute('passwordId')
             });
 
-            var PanelCreateLink = new Panel({
+            new Panel({
                 title       : QUILocale.get(lg, 'sequry.panel.linkList.createLink.title'),
                 subTitle    : this.getAttribute('passwordTitle'),
                 actionButton: QUILocale.get(lg, 'sequry.panel.linkList.createLink.actionLink'),
                 subPanel    : true,
                 events      : {
-                    onSubmit: function () {
+                    onOpenBegin: function (PanelCreateLink) {
+                        LinkCreateControl.inject(PanelCreateLink.getContent());
+                    },
+                    onSubmit   : function (PanelCreateLink) {
                         LinkCreateControl.submit().then(function () {
                             self.$listRefresh();
                             PanelCreateLink.close();
                         });
                     }
                 }
-            });
-
-            LinkCreateControl.inject(PanelCreateLink.getContent());
-
-            PanelCreateLink.open();
+            }).open();
         }
     });
 });
