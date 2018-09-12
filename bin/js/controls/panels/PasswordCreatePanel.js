@@ -116,6 +116,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             } else {
                 // create
                 this.$Password = new PasswordCreate({
+                    mode: 'create',
                     events: {
                         onLoad: function () {
                             self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.title'));

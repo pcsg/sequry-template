@@ -48,6 +48,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
         options: {
             passwordId   : false,   // passwordId
+            // todo wahrscheinlich nicht benötigt
             showSubmitBtn: true     // show submit button in control
         },
 
@@ -268,6 +269,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
                 self.fireEvent('loaded', [self]);
             });
 
+            // todo wahrscheinlich nicht benötigt
             if (!this.getAttribute('showSubmitBtn')) {
                 return this.$Elm;
             }

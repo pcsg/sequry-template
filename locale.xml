@@ -29,6 +29,16 @@
             <en><![CDATA[Groups]]></en>
         </locale>
 
+        <!-- Utils -->
+        <locale name="sequry.utils.button.copy">
+            <de><![CDATA[Kopieren]]></de>
+            <en><![CDATA[Copy]]></en>
+        </locale>
+        <locale name="sequry.utils.button.openLink">
+            <de><![CDATA[Link öffnen]]></de>
+            <en><![CDATA[Open link]]></en>
+        </locale>
+
         <!-- login -->
         <locale name="sequry.login.title">
             <de><![CDATA[Einloggen]]></de>

@@ -53,18 +53,19 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             '$showSetOwnerInformation',
             '$loadContent',
             '$setPrivateCategories'
-
         ],
 
         options: {
             id  : false,
-            data: false
+            data: false,
+            mode: 'create' // create or edit password
         },
 
         initialize: function (options) {
             this.parent(options);
 
             this.$OwnerSelectElm = null;
+            this.$loaded = false;
 
             this.addEvents({
                 onInject: this.$onInject
@@ -78,8 +79,6 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
          */
         $onInject: function () {
             var self = this;
-
-            this.$Elm = this.getElm();
 
             this.$Elm.set('html', Mustache.render(template, {
                 'basicData'           : QUILocale.get(lgTpl, 'sequry.panel.template.basicData'),
@@ -106,6 +105,13 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 '.password-user-select'
             );
 
+            if (this.getAttribute('mode') === 'edit') {
+                this.$CurrentOwner = {
+                    id  : this.getAttribute('data').ownerId,
+                    type: this.getAttribute('data').ownerType === '1' ? 'user' : 'group'
+                };
+            }
+
             this.$SecurityClassSelect = new SecurityClassSelectSlider({
                 events: {
                     onLoaded: this.$onSecurityClassSelectLoaded
@@ -120,9 +126,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 'div.password-payload'
             ));
 
-            /**
-             * category handling
-             */
+            /* category handling */
             // category public
             this.$CategorySelect = new CategorySelect().inject(
                 this.$Elm.getElement(
@@ -208,6 +212,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             var fields = this.$getFields(),
                 Data   = this.getAttribute('data');
 
+
             for (var i = 0, len = fields.length; i < len; i++) {
                 var FieldElm = fields[i];
                 var fieldName = FieldElm.getProperty('name');
@@ -257,8 +262,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
         /**
          * Depend on mode (edit or create new password) return security class
-         * edit => depend on password id
-         * create => default security class
+         * edit -> depend on password id
+         * create -> default security class
          *
          * @returns {*}
          */
@@ -285,8 +290,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
         /**
          * Perform certain actions if the selected security class changes:
-         *
-         * - Check if the currently selected owner is eligible for security class
+         * Check if the currently selected owner is eligible for security class
          *
          * @param {number} securityClassId - security class ID
          */
@@ -294,6 +298,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
             var self = this;
 
             this.$OwnerSelectElm.set('html', '');
+
             var ActorSelectAttributes = {
                 popupInfo       : QUILocale.get(lg,
                     'controls.password.create.ownerselect.info'
@@ -331,7 +336,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
 
             this.$OwnerSelect = new ActorSelect(ActorSelectAttributes).inject(this.$OwnerSelectElm);
 
-            if (!this.$loaded) {
+            // create password mode
+            if (this.getAttribute('mode') !== 'edit' && !this.$loaded) {
                 Authentication.isActorEligibleForSecurityClass(
                     QUIQQER_USER.id.toInt(),
                     'user',
@@ -349,6 +355,19 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 );
 
                 return;
+            }
+
+            if (!this.$loaded && this.$CurrentOwner.type === 'group') {
+                // if owner is group, show warning
+                new Element('div', {
+                    'class': 'pcsg-gpm-password-warning',
+                    styles : {
+                        marginTop: 10
+                    },
+                    html   : QUILocale.get(lg, 'password.edit.securityclass.change.warning')
+                }).inject(this.$OwnerSelectElm);
+
+                this.$loaded = true;
             }
 
             if (!this.$CurrentOwner) {
