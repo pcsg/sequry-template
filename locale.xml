@@ -41,7 +41,7 @@
 
         <!-- login -->
         <locale name="sequry.login.title">
-            <de><![CDATA[Einloggen]]></de>
+            <de><![CDATA[Anmelden]]></de>
             <en><![CDATA[Login]]></en>
         </locale>
 
