@@ -97,6 +97,7 @@ define('package/sequry/template/bin/js/controls/panels/SelectPanel', [
             this.setTitle(title);
 
             this.$SelectTable = new SelectTable({
+                title            : this.getAttribute('title'),
                 info             : this.getAttribute('info'),
                 securityClassIds : this.getAttribute('securityClassIds'),
                 multiSelect      : this.getAttribute('multiSelect'),

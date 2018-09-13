@@ -237,6 +237,10 @@
             <de><![CDATA[Nur geeignete zeigen]]></de>
             <en><![CDATA[Show only eligible]]></en>
         </locale>
+        <locale name="sequry.panel.select.actors.selecttable.title">
+            <de><![CDATA[Sicherheitsklasse(n): ]]></de>
+            <en><![CDATA[Security class(es): ]]]></en>
+        </locale>
 
         <!-- panel share -->
         <locale name="sequry.panel.share.title">
