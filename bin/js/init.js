@@ -16,6 +16,17 @@ document.addEvent('domready', function () {
             if (PasswordLinkInput) {
                 PasswordLinkInput.focus();
             }
+
+            var ShowPasswordBtn = PasswordLink.getElement('.password-show');
+
+            if (ShowPasswordBtn) {
+                require(['package/sequry/template/bin/js/controls/utils/InputButtons'], function (ButtonParser) {
+                    var BtnParser = new ButtonParser();
+                    BtnParser.parse(PasswordLinkInput.getParent('fieldset'));
+
+                });
+            }
+
             return;
         }
 
@@ -48,7 +59,7 @@ document.addEvent('domready', function () {
                         LoaderContainer.destroy();
 
                         moofx(LoginWrapper).animate({
-                            opacity  : 1,
+                            opacity: 1,
 //                            transform: 'translateY(0)'
                         });
                     }

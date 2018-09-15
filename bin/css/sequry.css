@@ -558,7 +558,24 @@ button.fa {
     margin-top: 2rem;
 }
 
-.passwordlink-box-fieldset-input {
+.passwordlink-box-fieldset-wrapper {
+    display: flex;
+}
+
+.passwordlink-box-fieldset-wrapper .fa {
+    background: none;
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    color: #ddd;
+    transition: 0.2s all ease-out;
+}
+
+.passwordlink-box-fieldset-input,
+input.passwordlink-box-fieldset-input[type="text"],
+input.passwordlink-box-fieldset-input[type="password"] {
     border-bottom-color: #ddd;
     border-left: none;
     border-radius: 0;
@@ -570,9 +587,11 @@ button.fa {
     width: 100%;
 }
 
-.passwordlink-box-fieldset-input:hover,
-.passwordlink-box-fieldset-input:active,
-.passwordlink-box-fieldset-input:focus {
+input.passwordlink-box-fieldset-input:hover,
+input.passwordlink-box-fieldset-input:active,
+input.passwordlink-box-fieldset-input:focus,
+.passwordlink-box-fieldset-wrapper:hover button,
+.passwordlink-box-fieldset-input:focus ~ button{
     border-bottom-color: #aaa;
 }
 
@@ -587,14 +606,19 @@ button.fa {
 
 .passwordlink-box-fieldset-submit {
     background: none !important;
-    border: none !important;
     color: #999 !important;
     float: right !important;
     margin: 1rem 0 0;
+    border-color: #999 !important;
 }
 
 .passwordlink-box-fieldset-submit:hover {
     color: #444 !important;
+    border-color: #444 !important;
+}
+
+.passwordlink-box-fieldset-wrapper:hover button {
+    color: #aaa;
 }
 
 @media (max-width: 767px) {

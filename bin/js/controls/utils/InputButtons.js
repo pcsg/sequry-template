@@ -58,13 +58,13 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
          * @param CopyBtn
          */
         parseCopyElm: function (CopyBtn) {
-            console.log(CopyBtn)
             var parent = CopyBtn.getParent(),
                 Input  = parent.getElement('input');
 
             CopyBtn.set('title', QUILocale.get(lg, 'sequry.utils.button.copy'));
 
-            CopyBtn.addEvent('click', function () {
+            CopyBtn.addEvent('click', function (event) {
+                event.stop();
                 //todo click-feedback
             });
 
@@ -89,7 +89,9 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 Input    = parent.getElement('input'),
                 showPass = false;
 
-            ShowBtn.addEvent('click', function () {
+
+            ShowBtn.addEvent('click', function (event) {
+                event.stop();
                 //todo click-feedback
 
                 if (showPass) {

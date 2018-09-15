@@ -43,6 +43,10 @@ label.active {
     color: #43a047;
 }
 
+.passwordlink-box-fieldset-wrapper button:hover {
+    color: #2071a7;
+}
+
 /*********/
 /* panel */
 /*********/
