@@ -521,7 +521,7 @@ button.fa {
     box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
     margin: 15vh auto 1rem;
     max-width: calc(100% - 2rem);
-    padding: 2rem;
+    padding: 2rem 2rem 0.5rem;
     width: 500px;
     z-index: 1;
 }
@@ -608,7 +608,7 @@ input.passwordlink-box-fieldset-input:focus,
     background: none !important;
     color: #999 !important;
     float: right !important;
-    margin: 1rem 0 0;
+    margin: 2rem 0 0;
     border-color: #999 !important;
 }
 
@@ -619,6 +619,21 @@ input.passwordlink-box-fieldset-input:focus,
 
 .passwordlink-box-fieldset-wrapper:hover button {
     color: #aaa;
+}
+
+.passwordlink-box-footer {
+    font-size: 12px;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.passwordlink-box-footer-entry {
+    margin: 0 10px;
+}
+
+.passwordlink-box-footer-entry a {
+    color: #802124;
+    font-weight: normal;
 }
 
 @media (max-width: 767px) {
