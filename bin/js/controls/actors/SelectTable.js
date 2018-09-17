@@ -46,6 +46,7 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         ],
 
         options: {
+            title            : '',        // title of the select table control
             info             : '',        // info text that is shown above the table
             multiSelect      : false,     // can select multiple actors
             securityClassIds : [],     // security class ids the actors have to be eligible for
@@ -63,7 +64,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             this.$search = false;
             this.$SearchInput = null;
             this.$eligibleOnly = options.showEligibleOnly || true;
-            this.info = false;
             this.$InfoElm = null;
             this.$List = null;
             this.$actorType = this.getAttribute('actorType');
@@ -85,23 +85,22 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         $onInject: function () {
             var self = this;
 
-            this.Loader.inject(this.$Elm);
-
             this.$Elm.addClass('select-table');
 
-            // info
-            var info = self.getAttribute('info');
+            var title = this.getAttribute('title'),
+                info  = this.getAttribute('info');
+
+            if (title) {
+                var titleElm = new Element('p', {
+                    'class': 'text-accent select-table-info-title',
+                    html   : title
+                }).inject(this.$Elm);
+            }
 
             if (info) {
-                this.info = true;
-
-                this.$InfoElm = new Element('div', {
-                    'class': 'select-table-info'
-                }).inject(this.$Elm);
-
                 new Element('p', {
                     html: info
-                }).inject(this.$InfoElm);
+                }).inject(this.$Elm);
             }
 
             var ButtonBarElm = new Element('div', {
@@ -191,17 +190,45 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                 type       : 'search'
             }).inject(ButtonBarElm);
 
-            this.$SearchInput.addEventListener('search', function (event) {
+            /*this.$SearchInput.addEventListener('search', function (event) {
                 var Input = event.target;
                 self.$search = Input.value.trim();
                 self.$listRefresh();
+            });*/
+
+            var inputEsc = false;
+            this.$SearchInput.addEvents({
+                keydown: function (event) {
+                    if (event.key === 'esc') {
+                        event.stop();
+                        inputEsc = true;
+                        return;
+                    }
+
+                    inputEsc = false;
+                },
+                keyup  : function (event) {
+
+                    // Esc clears the input field
+                    if (inputEsc) {
+                        event.stop();
+                        self.$SearchInput.value = '';
+                        self.search();
+                    }
+
+                    self.search();
+                }
             });
 
-            this.$List = new Element('ul', {
-                'class': 'select-table-list'
+            this.ListWrapper = new Element('div', {
+                'class': 'select-table-list-wrapper',
+                html   : '<ul class="select-table-list"></ul>'
             }).inject(this.$Elm);
 
+            this.$List = this.ListWrapper.getElement('ul.select-table-list');
 
+            // todo michael loader für liste refresh
+            this.Loader.inject(this.$Elm);
             this.Loader.show();
 
             var securityClassIds = this.getAttribute('securityClassIds');
@@ -212,7 +239,6 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             }
 
             Promise.all(promises).then(function (securityClasses) {
-
                 // content
                 var securityClassTitles = [];
 
@@ -220,13 +246,8 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
                     securityClassTitles.push(securityClasses[i].title);
                 }
 
-                if (self.info) {
-                    new Element('p', {
-                        'class': 'text-accent',
-                        html   : QUILocale.get(lgCore, 'controls.actors.selecttable.tbl.header.notice', {
-                            securityClassTitles: securityClassTitles.join(' / ')
-                        })
-                    }).inject(self.$InfoElm, 'top');
+                if (title) {
+                    titleElm.innerHTML += ' ' + securityClassTitles.join(' / ');
                 }
 
                 self.$listRefresh();
@@ -277,11 +298,40 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
         },
 
         /**
+         * Excecute the search with a delay
+         */
+        search: function () {
+            var searchValue = this.$SearchInput.value.trim();
+            var self = this;
+
+            if (searchValue === '') {
+                this.$SearchInput.value = '';
+                //this.$Input.focus();
+            }
+
+            // prevents the search from being execute
+            // after action-less keys (alt, shift, ctrl, etc.)
+            if (searchValue === this.$search) {
+                return;
+            }
+
+            if (this.$Timer) {
+                clearInterval(this.$Timer);
+            }
+
+            this.$Timer = (function () {
+                self.$search = searchValue;
+
+                self.Loader.show();
+                self.$listRefresh();
+            }).delay(500);
+        },
+
+        /**
          * Refresh entry list
          */
         $listRefresh: function () {
             var self = this;
-            this.$List.set('html', '');
 
             // todo @michael Irgendwann Sortierung integrieren.
             var SearchParams = {
@@ -315,6 +365,14 @@ define('package/sequry/template/bin/js/controls/actors/SelectTable', [
             this.Loader.show();
 
             Actors.search(SearchParams).then(function (ResultData) {
+
+                if (self.$search !== self.$SearchInput.value) {
+                    self.$search = self.$SearchInput.value;
+                    self.$listRefresh();
+                    return;
+                }
+
+                self.$List.set('html', '');
                 self.Loader.hide();
                 self.$renderEntries(ResultData);
             });

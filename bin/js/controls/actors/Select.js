@@ -152,9 +152,9 @@ define('package/sequry/template/bin/js/controls/actors/Select', [
                 filterActorIds.combine(this.getValue().split(','));
             }
 
-
             new SelectPanel({
                 subPanel         : true,
+                title            : QUILocale.get(lg, 'sequry.panel.select.actors.selecttable.title'),
                 info             : this.getAttribute('popupInfo'),
                 securityClassIds : this.getAttribute('securityClassIds'),
                 multiSelect      : this.getAttribute('multiSelect'),

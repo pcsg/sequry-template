@@ -7,12 +7,12 @@
     height: 100vh;
     justify-content: center;
     left: 0;
+    overflow: hidden;
     pointer-events: none;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 100000;
-    overflow: hidden;
 }
 
 .sequry-loader-wrapper {
@@ -29,12 +29,12 @@
     height: 100vh;
     justify-content: center;
     left: 0;
+    overflow: hidden;
     pointer-events: none;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 100000;
-    overflow: hidden;
 }
 
 .sequry-loader-wrapper {
@@ -66,8 +66,8 @@
     align-items: center;
     background: #eee;
     display: flex;
-    position: relative;
     padding: 0 2rem;
+    position: relative;
 }
 
 .header-logo h2 {
@@ -163,14 +163,14 @@
     }
 
     .header-logo {
+        background: #f8f8f8;
         justify-content: center;
         padding: 1.5rem 1rem;
-        background: #f8f8f8;
     }
 
     .header-logo img {
-        max-width: 150px;
         max-height: 35px;
+        max-width: 150px;
     }
 
     /*.header-logo,*/
@@ -439,7 +439,13 @@ button.fa {
 }
 
 .login-box-formContainer .quiqqer-login {
+    margin: 0 auto;
+    max-width: 300px;
     padding: 0;
+}
+
+.login-box-formContainer .quiqqer-login-auth label {
+    margin-bottom: 1.5rem;
 }
 
 .login-box-formContainer .quiqqer-login-auth label span {
@@ -451,7 +457,6 @@ button.fa {
     border-left: none;
     border-right: none;
     border-top: none;
-    margin-bottom: 2rem;
     outline: none;
 }
 
@@ -464,7 +469,8 @@ button.fa {
     background: none;
     border-color: #999;
     color: #999;
-    float: right;
+    margin-top: 1.5rem;
+    width: 100%;
 }
 
 .login-box-formContainer button.qui-button[type="submit"]:hover {
@@ -474,7 +480,7 @@ button.fa {
 
 /* footer */
 .login-box-footer {
-    font-size: 12px;
+    font-size: 11px;
     margin-top: 3rem;
     text-align: center;
 }
@@ -489,17 +495,40 @@ button.fa {
 }
 
 @media (max-width: 767px) {
-    .login-page-logo {
-        padding: 1rem;
+    .login-page {
+        background: none;
     }
 
-    .login-page-logo img {
-        max-height: 50px;
+    .page-logo {
+        display: none;
+        padding: 1rem 2rem;
+    }
+
+    .page-logo img {
+        max-height: 30px;
         max-width: 120px;
     }
 
     .login-page-box {
-        margin-top: 10vh;
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        max-width: 767px;
+        padding: 4rem 2rem 5px;
+        width: 100%;
+    }
+
+    .login-page-box-icon {
+        font-size: 30px;
+        line-height: 80px;
+        margin: 0 auto 2rem;
+        width: 80px;
+    }
+
+    .login-box-footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4rem;
     }
 }
 
@@ -521,7 +550,7 @@ button.fa {
     box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.2);
     margin: 15vh auto 1rem;
     max-width: calc(100% - 2rem);
-    padding: 2rem;
+    padding: 2rem 2rem 0.5rem;
     width: 500px;
     z-index: 1;
 }
@@ -558,7 +587,24 @@ button.fa {
     margin-top: 2rem;
 }
 
-.passwordlink-box-fieldset-input {
+.passwordlink-box-fieldset-wrapper {
+    display: flex;
+}
+
+.passwordlink-box-fieldset-wrapper .fa {
+    background: none;
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    color: #ddd;
+    transition: 0.2s all ease-out;
+}
+
+.passwordlink-box-fieldset-input,
+input.passwordlink-box-fieldset-input[type="text"],
+input.passwordlink-box-fieldset-input[type="password"] {
     border-bottom-color: #ddd;
     border-left: none;
     border-radius: 0;
@@ -570,9 +616,11 @@ button.fa {
     width: 100%;
 }
 
-.passwordlink-box-fieldset-input:hover,
-.passwordlink-box-fieldset-input:active,
-.passwordlink-box-fieldset-input:focus {
+input.passwordlink-box-fieldset-input:hover,
+input.passwordlink-box-fieldset-input:active,
+input.passwordlink-box-fieldset-input:focus,
+.passwordlink-box-fieldset-wrapper:hover button,
+.passwordlink-box-fieldset-input:focus ~ button {
     border-bottom-color: #aaa;
 }
 
@@ -587,14 +635,34 @@ button.fa {
 
 .passwordlink-box-fieldset-submit {
     background: none !important;
-    border: none !important;
+    border-color: #999 !important;
     color: #999 !important;
     float: right !important;
-    margin: 1rem 0 0;
+    margin: 2rem 0 0;
 }
 
 .passwordlink-box-fieldset-submit:hover {
+    border-color: #444 !important;
     color: #444 !important;
+}
+
+.passwordlink-box-fieldset-wrapper:hover button {
+    color: #aaa;
+}
+
+.passwordlink-box-footer {
+    font-size: 12px;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.passwordlink-box-footer-entry {
+    margin: 0 10px;
+}
+
+.passwordlink-box-footer-entry a {
+    color: #802124;
+    font-weight: normal;
 }
 
 @media (max-width: 767px) {
