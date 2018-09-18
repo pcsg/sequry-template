@@ -708,3 +708,23 @@ input.passwordlink-box-fieldset-input:focus,
 .passwordlink-data-desc {
     margin: 2rem 0;
 }
+
+/**********************************/
+/* custom loader for input button */
+/**********************************/
+.custom-input-button-loader .qui-loader-inner,
+.password-type-content .custom-input-button-loader .qui-loader-inner {
+    margin: 0;
+    width: 100%;
+}
+
+.custom-input-button-loader .qui-loader-inner-ball-clip-rotate {
+    align-items: center;
+    display: flex;
+}
+
+.custom-input-button-loader .qui-loader-inner-ball-clip-rotate > div {
+    height: 30px;
+    width: 30px;
+}
+
