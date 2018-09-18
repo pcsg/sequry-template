@@ -586,6 +586,14 @@
             <de><![CDATA[Benutzer]]></de>
             <en><![CDATA[User]]></en>
         </locale>
+        <locale name="sequry.mobile.user.nav.settings">
+            <de><![CDATA[Einstellungen]]></de>
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="sequry.mobile.user.nav.logout">
+            <de><![CDATA[Abmelden]]></de>
+            <en><![CDATA[Logout]]></en>
+        </locale>
     </groups>
 
     <groups name="sequry/template" datatype="php">
