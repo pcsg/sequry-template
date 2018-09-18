@@ -418,5 +418,58 @@
 }
 
 @media screen and (max-width: 767px) {
+    .sequry-table-list-entry {
+        padding: 10px;
+    }
+
+    .sequry-table-list-entry-icon {
+        padding: 10px 20px;
+    }
+
+    .sequry-table-list-entry-icon.sequry-table-list-entry-icon-primary {
+        order: 1;
+    }
+
+    .sequry-table-list-entry-icon-secondary {
+        margin-left: auto;
+        padding: 10px 0;
+        width: auto;
+        order: 2;
+    }
+
+    .sequry-table-list-entry-content {
+        order: 3;
+    }
+
+    .sequry-table-list-entry-details {
+        order: 4;
+    }
+
+    .sequry-table-list-entry-details-inner {
+        padding: 10px 0;
+    }
+
+    .sequry-table-list-entry-details-btn {
+        white-space: normal;
+        width: 100%;
+    }
+
+    /* sub panels from auth method */
+    .panel-authmethod-subpanel button {
+        white-space: normal;
+    }
+    .panel-authmethod-subpanel .sidebar-panel-content {
+        padding: 0;
+    }
+
+    .panel-authmethod-subpanel .panel-authmethod-subpanel-inner {
+        border: 1px solid #ddd;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* recovery code */
+    .panel-authmethod-subpanel input[type="text"], .panel-authmethod-subpanel input[type="password"] {
+        max-width: 200px;
+    }
 
 }

@@ -10,10 +10,14 @@ require.config({
  */
 define('package/sequry/template/bin/js/controls/utils/InputButtons', [
     'Locale',
-    'ClipboardJS'
+    'qui/controls/loader/Loader',
+    'ClipboardJS',
+    'package/sequry/core/bin/Passwords'
 ], function (
     QUILocale,
-    Clipboard
+    QUILoader,
+    Clipboard,
+    Passwords
 ) {
     "use strict";
 
@@ -22,6 +26,10 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
     return new Class({
 
         Type: 'package/sequry/template/bin/js/controls/utils/InputButtons',
+
+        initialize: function () {
+            this.Loader = null;
+        },
 
         /**
          * Parse DOM elements of the view and add specific controls
@@ -49,6 +57,13 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
             for (i = 0, len = urlElms.length; i < len; i++) {
                 this.parseOpenUrlElm(urlElms[i]);
+            }
+
+            // generate password elements
+            var generateElms = ParseElm.getElements('.password-generate');
+
+            for (i = 0, len = generateElms.length; i < len; i++) {
+                this.parseGeneratePassword(generateElms[i]);
             }
         },
 
@@ -121,7 +136,7 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 Input  = parent.getElement('input');
 
             OpenUrlBtn.set('title', QUILocale.get(lg, 'sequry.utils.button.openLink'));
-            
+
             OpenUrlBtn.addEvent('click', function () {
                 var href;
 
@@ -155,7 +170,37 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 AnchorElm.click();
                 AnchorElm.destroy();
             })
-        }
+        },
 
+        /**
+         * Parse generate password button
+         *
+         * @param Button
+         */
+        parseGeneratePassword: function (Button) {
+            var self   = this,
+                parent = Button.getParent(),
+                Input  = parent.getElement('input');
+
+            if (typeof Input === 'undefined') {
+                return;
+            }
+
+            if (this.Loader === null) {
+                this.Loader = new QUILoader({
+                    cssclass: 'custom-input-button-loader'
+                });
+                this.Loader.inject(parent)
+            }
+
+            Button.addEvent('click', function () {
+                self.Loader.show();
+
+                Passwords.generateRandomPassword().then(function (rndPassword) {
+                    Input.value = rndPassword;
+                    self.Loader.hide();
+                });
+            })
+        }
     });
 });

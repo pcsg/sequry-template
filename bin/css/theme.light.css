@@ -12,12 +12,14 @@ a:hover {
 }
 
 .mobile-panel-filter-menu .sidebar-panel-header,
+.mobile-panel-user-menu .sidebar-panel-header,
 .control-background {
     background: #2071a7;
 }
 
 .header-logo,
-.sequry-filter-menu {
+.sequry-filter-menu,
+.sidebar-panel.mobile-panel-user-menu {
     background: #4D9BC4;
     background: #2070a5;
     color: #ffffff;
