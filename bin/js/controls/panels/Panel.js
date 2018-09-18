@@ -234,11 +234,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                 moofx(self.$Elm).animate(animateParams, {
                     duration: 250,
                     callback: function () {
-
-                        console.log(self.getAttribute('keepBackground'))
-
                         if (!self.getAttribute('keepBackground')) {
-console.log(1111)
                             if (keepPanelOnClose) {
                                 self.Background.hide();
                             } else {

@@ -301,7 +301,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             // add password
             new Element('button', {
-                'class': 'mobile-menu-button highlight',// todo locale
+                'class': 'mobile-menu-button highlight',
                 html   : '<span class="fa fa-plus"></span><span class="mobile-menu-button-label">' +
                     QUILocale.get(lg, 'sequry.mobile.menu.addPassword') +
                     '</span>',
@@ -752,7 +752,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
             return new Panel({
                 width                  : 300,
-                title                  : 'Benutzer', // todo locale
+                title                  : QUILocale.get(lg, 'sequry.mobile.user.nav.header'),
                 iconHeaderButton       : QUILocale.get(lg, 'sequry.panel.button.close'),
                 iconHeaderButtonFaClass: 'fa fa-close',
                 direction              : 'left',
@@ -773,8 +773,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
 
                         // Button settings
-                        var settingsIcon  = '<span class="navigation-entry-icon ' + 'fa fa-cog' + '"></span>',
-                            settingsLabel = '<span class="navigation-entry-text">' + 'Einstellungen' + '</span>'; // todo locale
+                        var settingsIcon  = '<span class="navigation-entry-icon fa fa-cog"></span>',
+                            settingsLabel = '<span class="navigation-entry-text">' + '' +
+                                QUILocale.get(lg, 'sequry.mobile.user.nav.settings') + '</span>';
 
                         var ButtonSettings = new Element('a', {
                             'class': 'menu-button ',
@@ -785,8 +786,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             'click', function () {
                                 PanelControl.setAttribute('keepBackground', true);
 
-                                self.createMobileUserSettings(PanelControl.Background).then(function (Panelski) {
-                                    Panelski.open().then(function () {
+                                self.createMobileUserSettings(PanelControl.Background).then(function (PanelSettings) {
+                                    PanelSettings.open().then(function () {
                                         PanelControl.close();
                                     });
                                 });
@@ -796,8 +797,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
                         ButtonSettings.inject(ListElm);
 
                         // Button logout
-                        var logoutIcon  = '<span class="navigation-entry-icon ' + 'fa fa-sign-out' + '"></span>',
-                            logoutLabel = '<span class="navigation-entry-text">' + 'Abmelden' + '</span>'; // todo locale
+                        var logoutIcon  = '<span class="navigation-entry-icon fa fa-sign-out"></span>',
+                            logoutLabel = '<span class="navigation-entry-text">' + '' +
+                                QUILocale.get(lg, 'sequry.mobile.user.nav.logout') + '</span>';
 
                         var ButtonLogout = new Element('a', {
                             'class': 'menu-button ',
