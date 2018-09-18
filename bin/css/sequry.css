@@ -403,7 +403,7 @@ button.fa {
     margin: 15vh auto 1rem;
     max-width: calc(100% - 2rem);
     opacity: 0;
-    padding: 2rem 2rem 0.5rem;
+    padding: 1rem 2rem 0.5rem;
     /*transform: translateY(20px);*/
     width: 500px;
     z-index: 1;

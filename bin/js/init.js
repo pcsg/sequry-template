@@ -33,8 +33,6 @@ document.addEvent('domready', function () {
         // login site
         if (Login) {
             Login.addEvent('load', function () {
-
-
                 var LoginWrapper = document.getElement('.login-page-box'),
                     LoginControl = QUI.Controls.getById(Login.get('data-quiid')),
                     labels       = LoginControl.getElm().getElements('label');
@@ -48,9 +46,6 @@ document.addEvent('domready', function () {
 
                 var LoaderContainer = document.getElement('.sequry-loader-onlogin');
 
-                // loader hide
-//                Wrapper.setStyle('display', null);
-
                 moofx(LoaderContainer).animate({
                     opacity: 0
                 }, {
@@ -59,13 +54,10 @@ document.addEvent('domready', function () {
                         LoaderContainer.destroy();
 
                         moofx(LoginWrapper).animate({
-                            opacity: 1,
-//                            transform: 'translateY(0)'
+                            opacity: 1
                         });
                     }
                 })
-
-
             });
 
             return;
@@ -227,10 +219,12 @@ document.addEvent('domready', function () {
             }
         }
 
-        function isTouchDevice () {
-            // thanks -> https://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
-            return 'ontouchstart' in window        // works on most browsers
-                || navigator.maxTouchPoints;       // works on IE10/11 and Surface
-        }
+
     });
 });
+
+/*function isTouchDevice () {
+    // thanks -> https://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
+    return 'ontouchstart' in window        // works on most browsers
+        || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+}*/

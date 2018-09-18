@@ -29,7 +29,6 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
         initialize: function () {
             this.Loader = null;
-            console.log("huhu")
         },
 
         /**
@@ -37,7 +36,6 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
          * (e.g. copy / show password buttons)
          */
         parse: function (ParseElm) {
-            console.log("parse")
             var i, len;
 
             // copy elements

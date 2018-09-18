@@ -60,8 +60,8 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
             backgroundClosable     : true,   // {bool} [optional] closes the window on click?
             confirmClosePopup      : false, // {bool} [optional] if true, it prevent accidentally closing the panel
             keepBackground         : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
-            keepPanelOnClose       : false, // {bool} [optional] if true background will be not destroyed. Use it if you want to edit password form existing panel
-            subPanel               : false, // {bool} [optional] sub panel will be opened within the first panel.
+            keepPanelOnClose       : false, // {bool} [optional] if true panel will be not destroyed by closing. Useful for nav panel.
+            subPanel               : false, // {bool} [optional] sub panel will be opened within the first panel. The first panel should be not closed.
             width                  : null, // {int/string} [optional] if no defined standard is 600px (value examples: 300, '300px', '30%', '30vw')
             direction              : 'right' // {string} [optional] slide direction (support: left / right),
         },
@@ -81,7 +81,7 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
 
             this.panelMenu = null;
             this.Loader = new QUILoader();
-            this.ButtonParser = new ButtonParser();
+            this.ButtonParser = new ButtonParser(); //todo michael - es wird nur in einigen Panels benögitg (create / show / ?). Daher lieber in den Klassen den ButtonParser laden.
             this.isOpen = false;
         },
 
@@ -235,8 +235,10 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
                     duration: 250,
                     callback: function () {
 
-                        if (!self.getAttribute('keepBackground')) {
+                        console.log(self.getAttribute('keepBackground'))
 
+                        if (!self.getAttribute('keepBackground')) {
+console.log(1111)
                             if (keepPanelOnClose) {
                                 self.Background.hide();
                             } else {

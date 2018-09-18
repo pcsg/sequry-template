@@ -310,4 +310,21 @@
     .sidebar-panel-header-title {
         font-size: 1.2rem;
     }
+
+    .password-field-row {
+        display: block;
+    }
+
+    .password-field-row-left {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .password-field-row-right {
+        width: 100%;
+    }
+
+    .password-user-select .qui-elements-selectItem {
+        padding: 10px 0;
+    }
 }

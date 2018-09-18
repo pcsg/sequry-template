@@ -11,7 +11,7 @@
     padding: 0;
 }
 
-.quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label {
+.quiqqer-sequry-profiwle-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label {
     align-items: center;
     cursor: pointer;
     display: flex;
@@ -29,8 +29,8 @@
     border-right: none;
     border-top: none;
     outline: none;
-    text-align: right;
     padding-right: 0;
+    text-align: right;
 }
 
 .quiqqer-sequry-profile-auth-factors input.pcsg-gpm-user-authpluginsettings-plugin-options-option-priority:hover,
@@ -49,11 +49,32 @@ input[type="submit"].quiqqer-sequry-profile-auth-factors-submit {
 
 @media screen and (max-width: 767px) {
     .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin:not(:first-of-type) {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 
     input[type="submit"].quiqqer-sequry-profile-auth-factors-submit {
         width: 100%;
+    }
+
+    .quiqqer-sequry-profiwle-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label {
+        display: block;
+    }
+
+    .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label span {
+        float: none;
+    }
+
+    .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label input[type="text"],
+    .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label input[type="number"] {
+        display: block;
+        float: none;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .quiqqer-sequry-profile-auth-factors .pcsg-gpm-user-authpluginsettings-plugin-options label input[type="checkbox"] {
+        margin-top: 10px;
+        float: right;
     }
 
 }

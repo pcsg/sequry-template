@@ -580,6 +580,12 @@
             <de><![CDATA[Filter]]></de>
             <en><![CDATA[Filter]]></en>
         </locale>
+
+        <!-- mobile user nav -->
+        <locale name="sequry.mobile.user.nav.header">
+            <de><![CDATA[Benutzer]]></de>
+            <en><![CDATA[User]]></en>
+        </locale>
     </groups>
 
     <groups name="sequry/template" datatype="php">

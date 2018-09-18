@@ -181,11 +181,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                         }
 
                         self.MobileFilterNav.open();
-
-                        /*moofx(FilterContainer).animate({
-                            left: 0
-                        })*/
-
                     }
                 }
             }).inject(this.MobileMenu);
@@ -250,7 +245,10 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-                        alert(isTouchDevice())
+                        var UserPanel = self.createMobileUserNav();
+                        UserPanel.open();
+
+//                        alert(isTouchDevice())
 //                        var UserIcon = document.getElement(
 //                            '[data-qui="package/quiqqer/frontend-users/bin/frontend/controls/UserIcon"]'
 //                        );
@@ -720,7 +718,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 isOwner                : true,
                 events                 : {
                     onAfterCreate: function (PanelControl) {
-                        console.log(PanelControl)
                         var PanelElm = PanelControl.$Elm;
                         PanelElm.addClass('mobile-panel-filter-menu');
 //                        PanelElm.getElement('.sidebar-panel-action-buttons').setStyle('display', 'none');
@@ -731,7 +728,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                             });
 
                             new Menu().inject(FilterContainer);
-
 
                             FilterContainer.inject(PanelControl.getContent());
                         })
@@ -749,6 +745,116 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     }
                 }
             })
+        },
+
+        createMobileUserNav: function () {
+            var self = this;
+
+            return new Panel({
+                width                  : 300,
+                title                  : 'Benutzer', // todo locale
+                iconHeaderButton       : QUILocale.get(lg, 'sequry.panel.button.close'),
+                iconHeaderButtonFaClass: 'fa fa-close',
+                direction              : 'left',
+                isOwner                : true,
+                events                 : {
+                    onAfterCreate    : function (PanelControl) {
+                        var PanelElm = PanelControl.$Elm,
+                            Content  = PanelControl.getContent();
+                        PanelElm.addClass('mobile-panel-user-menu');
+
+                        var List = new Element('ul', {
+                            'class': 'navigation'
+                        }).inject(Content);
+
+                        var ListElm = new Element('li', {
+                            'class': 'navigation-entry'
+                        }).inject(List);
+
+
+                        // Button settings
+                        var settingsIcon  = '<span class="navigation-entry-icon ' + 'fa fa-cog' + '"></span>',
+                            settingsLabel = '<span class="navigation-entry-text">' + 'Einstellungen' + '</span>'; // todo locale
+
+                        var ButtonSettings = new Element('a', {
+                            'class': 'menu-button ',
+                            html   : settingsIcon + settingsLabel
+                        });
+
+                        ButtonSettings.addEvent(
+                            'click', function () {
+                                PanelControl.setAttribute('keepBackground', true);
+
+                                self.createMobileUserSettings(PanelControl.Background).then(function (Panelski) {
+                                    Panelski.open().then(function () {
+                                        PanelControl.close();
+                                    });
+                                });
+                            }
+                        );
+
+                        ButtonSettings.inject(ListElm);
+
+                        // Button logout
+                        var logoutIcon  = '<span class="navigation-entry-icon ' + 'fa fa-sign-out' + '"></span>',
+                            logoutLabel = '<span class="navigation-entry-text">' + 'Abmelden' + '</span>'; // todo locale
+
+                        var ButtonLogout = new Element('a', {
+                            'class': 'menu-button ',
+                            html   : logoutIcon + logoutLabel
+                        });
+
+                        ButtonLogout.addEvent(
+                            'click', function () {
+                                require(['controls/users/LogoutWindow'], function (LogoutWindow) {
+                                    new LogoutWindow().open();
+                                });
+                            }
+                        );
+
+                        ButtonLogout.inject(ListElm);
+                    },
+                    onSubmitSecondary: function () {
+                        this.close();
+                    }
+                }
+            })
+        },
+
+        createMobileUserSettings: function (Background) {
+            return new Promise(function (resolve) {
+                require([
+                    'package/quiqqer/frontend-users/bin/frontend/controls/profile/Profile'
+                ], function (User) {
+                    new Panel({
+                        title                  : QUILocale.get('sequry/template',
+                            'sequry.usermenu.entrysettings.title'),
+                        subTitle               : QUIQQER_USER.name,
+                        width                  : 400,
+                        direction              : 'left',
+                        iconHeaderButton       : QUILocale.get('sequry/template', 'sequry.panel.button.close'),
+                        iconHeaderButtonFaClass: 'fa fa-close',
+                        Background             : Background,
+                        isOwner                : true,
+                        events                 : {
+                            onAfterCreate: function (PanelControl) {
+                                PanelControl.getElm().addClass('user-settings-panel');
+                                resolve(PanelControl);
+                            },
+                            onOpen       : function (PanelControl) {
+                                new User({
+                                    windowHistory: false
+                                }).inject(PanelControl.getContent());
+
+                            },
+                            onSubmitSecondary: function () {
+                                this.close();
+                            }
+                        }
+                    }).create();
+                });
+            })
+
         }
     });
 });
