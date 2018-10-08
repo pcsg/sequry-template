@@ -177,6 +177,7 @@
 
 .password-field-row-right .note-container {
     padding: 0 10px;
+    white-space: pre-wrap;
 }
 
 .password-field-row-right textarea {
@@ -298,13 +299,13 @@
 
 @media (max-width: 768px) {
     .sidebar-panel {
-        overflow: scroll;
         height: 100%;
+        overflow: scroll;
     }
 
     .sidebar-panel-container {
-        grid-template-rows: 80px 1fr auto;
         height: auto;
+        grid-template-rows: 80px 1fr auto;
     }
 
     .sidebar-panel-header-title {
@@ -316,8 +317,8 @@
     }
 
     .password-field-row-left {
-        width: 100%;
         margin-right: 0;
+        width: 100%;
     }
 
     .password-field-row-right {
@@ -326,5 +327,9 @@
 
     .password-user-select .qui-elements-selectItem {
         padding: 10px 0;
+    }
+
+    .password-field-row-right .note-container {
+        font-weight: 300;
     }
 }

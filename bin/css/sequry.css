@@ -148,6 +148,10 @@
     border-color: #aaa;
 }
 
+textarea {
+    font-weight: 300;
+}
+
 /**********/
 /* mobile */
 /**********/
@@ -155,6 +159,10 @@
     body {
         font-weight: 400;
         position: relative;
+    }
+
+    body textarea {
+        font-weight: 300;
     }
 
     .sequry-page-wrapper {
