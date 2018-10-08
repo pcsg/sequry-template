@@ -104,7 +104,6 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 Input    = parent.getElement('input'),
                 showPass = false;
 
-
             ShowBtn.addEvent('click', function (event) {
                 event.stop();
                 //todo click-feedback
@@ -123,7 +122,6 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 showPass = true;
 
             })
-
         },
 
         /**

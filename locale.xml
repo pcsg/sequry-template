@@ -146,7 +146,7 @@
             <en><![CDATA[Your confidential text]]></en>
         </locale>
 
-        <locale name="sequry.panel.template.extra.title">
+        <locale name="sequry.panel.template.extendedData.title">
             <de><![CDATA[Erweiterte Daten]]></de>
             <en><![CDATA[Extended data]]></en>
         </locale>
@@ -345,6 +345,12 @@
 
     <groups name="sequry/template" datatype="js">
 
+        <!-- search -->
+        <locale name="sequry.components.search.placeholder">
+            <de><![CDATA[Suchen]]></de>
+            <en><![CDATA[Search]]></en>
+        </locale>
+
         <!-- Password list -->
         <locale name="sequry.List.header.title">
             <de><![CDATA[Titel]]></de>
@@ -516,6 +522,15 @@
         </locale>
 
         <!-- left menu -->
+        <locale name="sequry.menu.section.title.passwordType">
+            <de><![CDATA[Passwort-Typ]]></de>
+            <en><![CDATA[Password type]]></en>
+        </locale>
+        <locale name="sequry.menu.section.title.categories">
+            <de><![CDATA[Tags]]></de>
+            <en><![CDATA[Tags]]></en>
+        </locale>
+
         <locale name="sequry.menu.filters.all">
             <de><![CDATA[Alle Passwörter]]></de>
             <en><![CDATA[All passwords]]></en>

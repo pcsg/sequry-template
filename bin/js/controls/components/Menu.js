@@ -96,11 +96,15 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             });
         },
 
-        create: function() {
+        create: function () {
             this.$Elm = this.parent();
             this.$Elm.addClass('sequry-filter-menu');
 
-            this.$Elm.set('html', template);
+            this.$Elm.set('html', Mustache.render(template, {
+                'passwordType': QUILocale.get(lg, 'sequry.menu.section.title.passwordType'),
+                'categories'  : QUILocale.get(lg, 'sequry.menu.section.title.categories')
+            }));
+
             return this.$Elm;
         },
 

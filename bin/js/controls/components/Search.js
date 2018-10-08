@@ -63,7 +63,7 @@ define('package/sequry/template/bin/js/controls/components/Search', [
             this.Input = new Element('input', {
                 name        : 'sequry-search',
                 type        : 'text',
-                placeholder : 'Suchen', // todo locale
+                placeholder : QUILocale.get(lg, 'sequry.components.search.placeholder'),
                 autocomplete: 'off'
             }).inject(this.$Elm);
 

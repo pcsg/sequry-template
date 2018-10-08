@@ -90,7 +90,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordCreate', [
                 'owner'               : QUILocale.get(lgTpl, 'sequry.panel.template.owner'),
                 'payloadTitle'        : QUILocale.get(lgTpl, 'sequry.panel.template.payload.title'),
                 'passType'            : QUILocale.get(lgTpl, 'sequry.panel.template.payload.passType'),
-                'extraTitle'          : QUILocale.get(lgTpl, 'sequry.panel.template.extra.title'),
+                'extendedData'        : QUILocale.get(lgTpl, 'sequry.panel.template.extendedData.title'),
                 'categories'          : QUILocale.get(lgTpl, 'sequry.panel.template.categories.title'),
                 'categoriesPrivate'   : QUILocale.get(lgTpl, 'sequry.panel.template.categories.private.title')
             }));
