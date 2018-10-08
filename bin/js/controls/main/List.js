@@ -307,7 +307,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     '</span>',
                 events : {
                     click: function () {
-                        console.log("Passwort hinzufügen");
                         self.addPassword();
                     }
                 }
@@ -346,7 +345,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         $renderEntries: function () {
             var self = this;
-
 
             return Passwords.getPasswords(
                 Object.merge(this.$SearchParams, this.ListParams)
@@ -626,19 +624,73 @@ define('package/sequry/template/bin/js/controls/main/List', [
             this.$listRefresh();
         },
 
-        setFilters: function (type, name) {
-            this.$SearchParams.filters[type] = name ? name.split() : false;
-            this.$listRefresh();
+        /**
+         * Set list param.
+         * Works only for the first level. For Filters look at "setFilters"
+         *
+         * @param param
+         * @param value
+         *
+         * searchParams: {
+         *  "sortOn":null,
+         *  "sortBy":"ASC",
+         *  "perPage":100,
+         *  "page":1,
+         *  "search":{
+         *      "searchterm":""
+         *  },
+         *  "categoryIds":["3"],
+         *  "categoryIdsPrivate":false,
+         *  "filters":{
+         *      "filters":["favorites","new"],
+         *      "types":[]
+         *  }
+         *
+         *
+         */
+        setListParam: function (param, value) {
+            if (!this.ListParams) {
+                return;
+            }
+
+            if (this.ListParams[param]) {
+                this.ListParams[param] = value;
+            }
         },
 
+        /**
+         * Set filters
+         *
+         * @param type
+         * @param name
+         */
+        setFilters: function (type, name) {
+            this.$SearchParams.filters[type] = name ? name.split() : false;
+        },
+
+        /**
+         * Set public category IDs
+         *
+         * @param catId
+         */
         setCategoryParam: function (catId) {
             this.$SearchParams.categoryIds = catId ? catId : false;
         },
 
+        /**
+         * Set private category IDs
+         *
+         * @param catId
+         */
         setCategoryPrivateParam: function (catId) {
             this.$SearchParams.categoryIdsPrivate = catId ? catId : false;
         },
 
+        /**
+         * Set search term to the search params
+         *
+         * @param term
+         */
         setSearchTerm: function (term) {
             this.$SearchParams.search.searchterm = term.trim();
         },
@@ -651,13 +703,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
 
 //            this.ListParams.total = 500;
 
-
             this.ListManager.getPaginationHtml(
                 this.ListParams.total,
                 this.ListParams.perPage,
                 this.ListParams.page
             ).then(function (html) {
-//                console.log(html)
                 var PaginationParent = false;
 
                 // if mobile create pagination in filter panel (mobile)...
@@ -839,11 +889,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
                         Background             : Background,
                         isOwner                : true,
                         events                 : {
-                            onAfterCreate: function (PanelControl) {
+                            onAfterCreate    : function (PanelControl) {
                                 PanelControl.getElm().addClass('user-settings-panel');
                                 resolve(PanelControl);
                             },
-                            onOpen       : function (PanelControl) {
+                            onOpen           : function (PanelControl) {
                                 new User({
                                     windowHistory: false
                                 }).inject(PanelControl.getContent());

@@ -175,7 +175,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         /**
-         * Build types buttons
+         * Build "password type" buttons
          * (website, api key, ftp, etc.)
          */
         $buildTypes: function () {
@@ -291,7 +291,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             CatPanel.open();
         },
-
 
         /**
          * Create list entry.
@@ -461,7 +460,11 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             var type = Target.getAttribute('data-type'),
                 name = Target.getAttribute('data-name');
 
+            // always set the page of pagination to 1
+            SequryUI.PasswordList.setListParam('page', 1);
             SequryUI.PasswordList.setFilters(type, name);
+
+            SequryUI.PasswordList.$listRefresh();
         },
 
         /**
