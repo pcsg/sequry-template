@@ -94,7 +94,6 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
                     // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            self.CatPrivate.deselectAll();
                             this.getCategory(catId).then(function (Category) {
                                 /**
                                  * Category = {
@@ -113,7 +112,7 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
             }
 
             // private categories
-            if (this.getAttribute('showPublicCategories')) {
+            if (this.getAttribute('showPrivateCategories')) {
 
                 PrivateContainer = new Element('div', {
                     'class': 'panel-category-container panel-category-private',
@@ -126,7 +125,6 @@ define('package/sequry/template/bin/js/controls/panels/CategoryPanel', [
                     // todo @michael später direkt nach dem Klick filtern?
                     events  : {
                         onCategorySelect: function (catId) {
-                            self.CatPublic.deselectAll();
                             this.getCategory(catId).then(function (Category) {
                                 /**
                                  * Category = {
