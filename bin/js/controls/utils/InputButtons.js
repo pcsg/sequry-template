@@ -80,7 +80,24 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
             CopyBtn.addEvent('click', function (event) {
                 event.stop();
-                //todo click-feedback
+
+                var ToolTip = new Element('div', {
+                    'class': 'sequry-utils-buttons-copy-tooltip-left',
+                    html   : '<span>' +
+                        QUILocale.get(lg, 'sequry.utils.button.copy.tooltip') +
+                        '</span>'
+                }).inject(CopyBtn, 'after');
+
+                (function () {
+                    moofx(ToolTip).animate({
+                        opacity: 0
+                    }, {
+                        duration: 1000,
+                        callback: function () {
+                            ToolTip.destroy();
+                        }
+                    });
+                }.delay(750));
             });
 
             new Clipboard(CopyBtn, {
@@ -106,7 +123,6 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
 
             ShowBtn.addEvent('click', function (event) {
                 event.stop();
-                //todo click-feedback
 
                 if (showPass) {
                     ShowBtn.removeClass('fa-eye-slash');
@@ -197,6 +213,24 @@ define('package/sequry/template/bin/js/controls/utils/InputButtons', [
                 Passwords.generateRandomPassword().then(function (rndPassword) {
                     Input.value = rndPassword;
                     self.Loader.hide();
+
+                    var ToolTip = new Element('div', {
+                        'class': 'sequry-utils-buttons-copy-tooltip-left',
+                        html   : '<span>' +
+                            QUILocale.get(lg, 'sequry.utils.button.passwordGenerate.tooltip') +
+                            '</span>'
+                    }).inject(Button, 'after');
+
+                    (function () {
+                        moofx(ToolTip).animate({
+                            opacity: 0
+                        }, {
+                            duration: 1000,
+                            callback: function () {
+                                ToolTip.destroy();
+                            }
+                        });
+                    }.delay(750));
                 });
             })
         }

@@ -30,13 +30,26 @@
         </locale>
 
         <!-- Utils -->
+        <!-- Input buttons -->
         <locale name="sequry.utils.button.copy">
             <de><![CDATA[Kopieren]]></de>
             <en><![CDATA[Copy]]></en>
         </locale>
+        <locale name="sequry.utils.button.copy.tooltip">
+            <de><![CDATA[Kopiert!]]></de>
+            <en><![CDATA[Copied!]]></en>
+        </locale>
         <locale name="sequry.utils.button.openLink">
             <de><![CDATA[Link öffnen]]></de>
             <en><![CDATA[Open link]]></en>
+        </locale>
+        <locale name="sequry.utils.button.passwordGenerate">
+            <de><![CDATA[Passwort generieren]]></de>
+            <en><![CDATA[Generate password]]></en>
+        </locale>
+        <locale name="sequry.utils.button.passwordGenerate.tooltip">
+            <de><![CDATA[Generiert!]]></de>
+            <en><![CDATA[Generated!]]></en>
         </locale>
 
         <!-- login -->
@@ -605,6 +618,12 @@
             <de><![CDATA[Einstellungen]]></de>
             <en><![CDATA[Settings]]></en>
         </locale>
+        <locale name="sequry.mobile.user.nav.logout">
+            <de><![CDATA[Abmelden]]></de>
+            <en><![CDATA[Logout]]></en>
+        </locale>
+
+        <!-- input buttons -->
         <locale name="sequry.mobile.user.nav.logout">
             <de><![CDATA[Abmelden]]></de>
             <en><![CDATA[Logout]]></en>
