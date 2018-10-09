@@ -377,6 +377,14 @@
             <de><![CDATA[Typ]]></de>
             <en><![CDATA[Type]]></en>
         </locale>
+        <locale name="sequry.List.button.edit">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+        <locale name="sequry.List.button.share">
+            <de><![CDATA[Passwort teilen]]></de>
+            <en><![CDATA[Share password]]></en>
+        </locale>
 
         <!-- Password link list -->
         <locale name="sequry.panel.linkList.noEntry.title">

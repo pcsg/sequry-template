@@ -398,7 +398,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
             var actionContainer = Li.getElement('.list-action');
 
             var BtnShare = new Element('span', {
-                'class': 'fa fa-share-alt list-action-share'
+                'class': 'fa fa-share-alt list-action-share',
+                'title': QUILocale.get(lg, 'sequry.List.button.share')
             });
 
             var BtnLink = new Element('span', {
@@ -406,7 +407,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
             });
 
             var BtnEdit = new Element('span', {
-                'class': 'fa fa-pencil list-action-edit'
+                'class': 'fa fa-pencil list-action-edit',
+                'title': QUILocale.get(lg, 'sequry.List.button.edit')
             });
 
             if (Entry.isOwner) {
