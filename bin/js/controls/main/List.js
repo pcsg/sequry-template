@@ -21,7 +21,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'package/sequry/template/bin/js/controls/panels/Panel',
     'package/sequry/template/bin/js/controls/panels/PasswordCreatePanel',
     'package/sequry/template/bin/js/controls/panels/PasswordSharePanel',
-    'package/sequry/template/bin/js/controls/panels/PasswordLinkPanel',
     'package/sequry/template/bin/js/SequryUI',
 
     'text!package/sequry/template/bin/js/controls/main/List.html',
@@ -36,7 +35,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
     Panel,
     PasswordCreatePanel,
     PasswordSharePanel,
-    PasswordLinkPanel,
     SequryUI,
     template,
     listEntryTemplate
@@ -402,9 +400,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 'title': QUILocale.get(lg, 'sequry.List.button.share')
             });
 
-            var BtnLink = new Element('span', {
+            /*var BtnLink = new Element('span', {
                 'class': 'fa fa-link list-action-link'
-            });
+            });*/
 
             var BtnEdit = new Element('span', {
                 'class': 'fa fa-pencil list-action-edit',
@@ -422,14 +420,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 this.setButtonInactive(BtnEdit);
             }
 
-            if (Entry.canLink) {
+            /*if (Entry.canLink) {
                 BtnLink.addEvent('click', this.link);
             } else {
                 this.setButtonInactive(BtnLink);
-            }
+            }*/
 
             BtnShare.inject(actionContainer);
-            BtnLink.inject(actionContainer);
+//            BtnLink.inject(actionContainer);
             BtnEdit.inject(actionContainer);
 
             // open event
@@ -510,25 +508,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 pwTitle = ListElm.getAttribute('data-pwTitle');
 
             new PasswordSharePanel({
-                passwordId   : pwId,
-                passwordTitle: pwTitle
-            }).open();
-        },
-
-        /**
-         * Open link password panel
-         *
-         * @param event
-         */
-        link: function (event) {
-            event.stop();
-
-            var Target  = event.target,
-                ListElm = Target.getParent('.password-entry'),
-                pwId    = ListElm.getAttribute('data-pwid'),
-                pwTitle = ListElm.getAttribute('data-pwTitle');
-
-            new PasswordLinkPanel({
                 passwordId   : pwId,
                 passwordTitle: pwTitle
             }).open();

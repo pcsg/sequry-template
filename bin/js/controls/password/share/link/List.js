@@ -1,7 +1,7 @@
 /**
- * @module package/sequry/template/bin/js/controls/password/link/List
+ * @module package/sequry/template/bin/js/controls/password/share/link/List
  */
-define('package/sequry/template/bin/js/controls/password/link/List', [
+define('package/sequry/template/bin/js/controls/password/share/link/List', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -14,14 +14,14 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     'package/sequry/template/bin/js/controls/utils/InputButtons',
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
-    'package/sequry/template/bin/js/controls/password/link/Create',
+    'package/sequry/template/bin/js/controls/password/share/link/Create',
     'package/sequry/template/bin/js/controls/panels/Panel',
 
-    'text!package/sequry/template/bin/js/controls/password/link/List.Entry.html',
-    'text!package/sequry/template/bin/js/controls/password/link/List.Entry.Details.html',
-    'text!package/sequry/template/bin/js/controls/password/link/List.Calls.html',
-    'text!package/sequry/template/bin/js/controls/password/link/List.View.html',
-    'css!package/sequry/template/bin/js/controls/password/link/List.css'
+    'text!package/sequry/template/bin/js/controls/password/share/link/List.Entry.html',
+    'text!package/sequry/template/bin/js/controls/password/share/link/List.Entry.Details.html',
+    'text!package/sequry/template/bin/js/controls/password/share/link/List.Calls.html',
+    'text!package/sequry/template/bin/js/controls/password/share/link/List.View.html',
+    'css!package/sequry/template/bin/js/controls/password/share/link/List.css'
 
 ], function (
     QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale, QUIConfirm,
@@ -45,7 +45,7 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/password/link/List',
+        Type   : 'package/sequry/template/bin/js/controls/password/share/link/List',
 
         Binds: [
             '$onInject',

@@ -1,14 +1,14 @@
 /**
  * Control for creating / viewing password links
  *
- * @module package/sequry/core/bin/controls/password/link/Create
+ * @module package/sequry/core/bin/controls/password/share/link/Create
  * @author www.pcsg.de (Patrick Müller)
  *
  * @event onSubmit [this] - fires after a new PasswordLink has been successfully created
  * @event onLoaded [this] - fires after everything loaded
  * @event onNoPasswordSites [this] - fires if every is loaded but no sites with the correct password link site type exist
  */
-define('package/sequry/template/bin/js/controls/password/link/Create', [
+define('package/sequry/template/bin/js/controls/password/share/link/Create', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -24,8 +24,8 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
 
     'package/sequry/core/bin/Passwords',
 
-    'text!package/sequry/template/bin/js/controls/password/link/Create.html',
-    'css!package/sequry/template/bin/js/controls/password/link/Create.css'
+    'text!package/sequry/template/bin/js/controls/password/share/link/Create.html',
+    'css!package/sequry/template/bin/js/controls/password/share/link/Create.css'
 
 ], function (QUI, QUIControl, QUIButton, QUIMailSelect, InputButtons,
     QUIAjax, QUILocale, Mustache, Passwords, template
@@ -38,7 +38,7 @@ define('package/sequry/template/bin/js/controls/password/link/Create', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/password/link/Create',
+        Type   : 'package/sequry/template/bin/js/controls/password/share/link/Create',
 
         Binds: [
             'create',

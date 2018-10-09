@@ -262,6 +262,15 @@
         </locale>
         <locale name="sequry.panel.share.description">
             <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort <span class="text-accent">[passwordTitle] (#[passwordId])</span> anzusehen.]]></de>
+            <en><![CDATA[Here you can define which users and groups are authorized to view the password <span class="text-accent">[passwordTitle] (#[passwordId])</span>.]]></en>
+        </locale>
+        <locale name="sequry.panel.tabButton.intern">
+            <de><![CDATA[Intern]]></de>
+            <en><![CDATA[Intern]]></en>
+        </locale>
+        <locale name="sequry.panel.tabButton.link">
+            <de><![CDATA[Link erstellen]]></de>
+            <en><![CDATA[Create link]]></en>
         </locale>
 
         <!-- user settings -->
@@ -388,7 +397,7 @@
 
         <!-- Password link list -->
         <locale name="sequry.panel.linkList.noEntry.title">
-            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <de><![CDATA[Keine Einträge gefunden]]></de>
             <en><![CDATA[No entries found]]></en>
         </locale>
         <locale name="sequry.panel.linkList.noEntry.desc">
@@ -460,7 +469,7 @@
             <en><![CDATA[Password link calls]]></en>
         </locale>
         <locale name="sequry.panel.callsList.noEntry.title">
-            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <de><![CDATA[Keine Einträge gefunden]]></de>
             <en><![CDATA[No entries found]]></en>
         </locale>
         <locale name="sequry.panel.callsList.noEntry.desc">

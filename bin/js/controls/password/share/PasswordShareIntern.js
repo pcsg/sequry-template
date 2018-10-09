@@ -1,7 +1,7 @@
 /**
- * @module package/sequry/template/bin/js/controls/password/PasswordShareIntern
+ * @module package/sequry/template/bin/js/controls/password/share/PasswordShareIntern
  */
-define('package/sequry/template/bin/js/controls/password/PasswordShareIntern', [
+define('package/sequry/template/bin/js/controls/password/share/PasswordShareIntern', [
 
     'qui/QUI',
     'qui/controls/Control',
@@ -13,8 +13,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordShareIntern', [
     'package/sequry/core/bin/Passwords',
     'package/sequry/template/bin/js/controls/actors/Select',
 
-    'text!package/sequry/template/bin/js/controls/password/PasswordShareIntern.html',
-    'css!package/sequry/template/bin/js/controls/password/PasswordShareIntern.css'
+    'text!package/sequry/template/bin/js/controls/password/share/PasswordShareIntern.html',
+    'css!package/sequry/template/bin/js/controls/password/share/PasswordShareIntern.css'
 
 ], function (
     QUI, QUIControl, Mustache, QUIAjax, QUILocale,
@@ -30,7 +30,7 @@ define('package/sequry/template/bin/js/controls/password/PasswordShareIntern', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/sequry/template/bin/js/controls/password/PasswordShareIntern',
+        Type   : 'package/sequry/template/bin/js/controls/password/share/PasswordShareIntern',
 
         Binds: [
             '$onInject'

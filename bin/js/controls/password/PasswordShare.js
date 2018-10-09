@@ -12,8 +12,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
-    'package/sequry/template/bin/js/controls/password/PasswordShareIntern',
-    'package/sequry/template/bin/js/controls/password/link/List',
+    'package/sequry/template/bin/js/controls/password/share/PasswordShareIntern',
+    'package/sequry/template/bin/js/controls/password/share/link/List',
 
     'text!package/sequry/template/bin/js/controls/password/PasswordShare.html',
     'css!package/sequry/template/bin/js/controls/password/PasswordShare.css'
@@ -74,7 +74,10 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
             this.$Elm = this.getElm();
 
-            self.$Elm.set('html', Mustache.render(template));
+            self.$Elm.set('html', Mustache.render(template, {
+                shareIntern: QUILocale.get(lg, 'sequry.panel.tabButton.intern'),
+                shareLink  : QUILocale.get(lg, 'sequry.panel.tabButton.link')
+            }));
 
             // tab buttons to switch between "share intern" and "create link"
             this.TabButtons = self.$Elm.getElements('.share-password-tab-btn');
