@@ -148,6 +148,10 @@
     border-color: #aaa;
 }
 
+textarea {
+    font-weight: 300;
+}
+
 /**********/
 /* mobile */
 /**********/
@@ -155,6 +159,10 @@
     body {
         font-weight: 400;
         position: relative;
+    }
+
+    body textarea {
+        font-weight: 300;
     }
 
     .sequry-page-wrapper {
@@ -728,3 +736,37 @@ input.passwordlink-box-fieldset-input:focus,
     width: 30px;
 }
 
+/*****************/
+/* input buttons */
+/*****************/
+.sequry-utils-buttons-copy-tooltip-left {
+    position: relative;
+}
+
+.sequry-utils-buttons-copy-tooltip-left span {
+    background: #e5e5e5;
+    border-radius: 6px;
+    color: #444;
+    line-height: 30px;
+    margin-left: 10px;
+    min-height: 30px;
+    padding: 0 15px;
+    position: absolute;
+    right: 45px;
+    text-align: center;
+    top: 7px;
+    font-size: 0.9rem;
+}
+
+.sequry-utils-buttons-copy-tooltip-left span:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid #e5e5e5;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}

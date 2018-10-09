@@ -30,13 +30,26 @@
         </locale>
 
         <!-- Utils -->
+        <!-- Input buttons -->
         <locale name="sequry.utils.button.copy">
             <de><![CDATA[Kopieren]]></de>
             <en><![CDATA[Copy]]></en>
         </locale>
+        <locale name="sequry.utils.button.copy.tooltip">
+            <de><![CDATA[Kopiert!]]></de>
+            <en><![CDATA[Copied!]]></en>
+        </locale>
         <locale name="sequry.utils.button.openLink">
             <de><![CDATA[Link öffnen]]></de>
             <en><![CDATA[Open link]]></en>
+        </locale>
+        <locale name="sequry.utils.button.passwordGenerate">
+            <de><![CDATA[Generieren]]></de>
+            <en><![CDATA[Generate]]></en>
+        </locale>
+        <locale name="sequry.utils.button.passwordGenerate.tooltip">
+            <de><![CDATA[Generiert!]]></de>
+            <en><![CDATA[Generated!]]></en>
         </locale>
 
         <!-- login -->
@@ -146,7 +159,7 @@
             <en><![CDATA[Your confidential text]]></en>
         </locale>
 
-        <locale name="sequry.panel.template.extra.title">
+        <locale name="sequry.panel.template.extendedData.title">
             <de><![CDATA[Erweiterte Daten]]></de>
             <en><![CDATA[Extended data]]></en>
         </locale>
@@ -249,6 +262,15 @@
         </locale>
         <locale name="sequry.panel.share.description">
             <de><![CDATA[Hier kann festgelegt werden, welche Benutzer und Gruppen die Berechtigung haben, das Passwort <span class="text-accent">[passwordTitle] (#[passwordId])</span> anzusehen.]]></de>
+            <en><![CDATA[Here you can define which users and groups are authorized to view the password <span class="text-accent">[passwordTitle] (#[passwordId])</span>.]]></en>
+        </locale>
+        <locale name="sequry.panel.tabButton.intern">
+            <de><![CDATA[Intern]]></de>
+            <en><![CDATA[Intern]]></en>
+        </locale>
+        <locale name="sequry.panel.tabButton.link">
+            <de><![CDATA[Link erstellen]]></de>
+            <en><![CDATA[Create link]]></en>
         </locale>
 
         <!-- user settings -->
@@ -345,6 +367,12 @@
 
     <groups name="sequry/template" datatype="js">
 
+        <!-- search -->
+        <locale name="sequry.components.search.placeholder">
+            <de><![CDATA[Suchen]]></de>
+            <en><![CDATA[Search]]></en>
+        </locale>
+
         <!-- Password list -->
         <locale name="sequry.List.header.title">
             <de><![CDATA[Titel]]></de>
@@ -358,10 +386,18 @@
             <de><![CDATA[Typ]]></de>
             <en><![CDATA[Type]]></en>
         </locale>
+        <locale name="sequry.List.button.edit">
+            <de><![CDATA[Passwort bearbeiten]]></de>
+            <en><![CDATA[Edit password]]></en>
+        </locale>
+        <locale name="sequry.List.button.share">
+            <de><![CDATA[Passwort teilen]]></de>
+            <en><![CDATA[Share password]]></en>
+        </locale>
 
         <!-- Password link list -->
         <locale name="sequry.panel.linkList.noEntry.title">
-            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <de><![CDATA[Keine Einträge gefunden]]></de>
             <en><![CDATA[No entries found]]></en>
         </locale>
         <locale name="sequry.panel.linkList.noEntry.desc">
@@ -433,7 +469,7 @@
             <en><![CDATA[Password link calls]]></en>
         </locale>
         <locale name="sequry.panel.callsList.noEntry.title">
-            <de><![CDATA[Kein Einträge gefunden]]></de>
+            <de><![CDATA[Keine Einträge gefunden]]></de>
             <en><![CDATA[No entries found]]></en>
         </locale>
         <locale name="sequry.panel.callsList.noEntry.desc">
@@ -516,6 +552,15 @@
         </locale>
 
         <!-- left menu -->
+        <locale name="sequry.menu.section.title.passwordType">
+            <de><![CDATA[Passwort-Typ]]></de>
+            <en><![CDATA[Password type]]></en>
+        </locale>
+        <locale name="sequry.menu.section.title.categories">
+            <de><![CDATA[Tags]]></de>
+            <en><![CDATA[Tags]]></en>
+        </locale>
+
         <locale name="sequry.menu.filters.all">
             <de><![CDATA[Alle Passwörter]]></de>
             <en><![CDATA[All passwords]]></en>
@@ -590,6 +635,12 @@
             <de><![CDATA[Einstellungen]]></de>
             <en><![CDATA[Settings]]></en>
         </locale>
+        <locale name="sequry.mobile.user.nav.logout">
+            <de><![CDATA[Abmelden]]></de>
+            <en><![CDATA[Logout]]></en>
+        </locale>
+
+        <!-- input buttons -->
         <locale name="sequry.mobile.user.nav.logout">
             <de><![CDATA[Abmelden]]></de>
             <en><![CDATA[Logout]]></en>

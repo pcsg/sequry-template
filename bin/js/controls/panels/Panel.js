@@ -93,7 +93,6 @@ define('package/sequry/template/bin/js/controls/panels/Panel', [
         create: function () {
             // click on background close the panel?
             if (this.getAttribute('backgroundClosable')) {
-                // todo @michael JS error wenn passwordShow-->passwordEdit-->close über click auf background
                 this.Background.getElm().addEvent('click', this.cancel);
             }
 

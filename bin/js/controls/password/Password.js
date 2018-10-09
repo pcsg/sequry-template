@@ -83,7 +83,7 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
                 self.$Elm.set('html', Mustache.render(template, {
                     'description'      : ViewData.description,
-                    'extraTitle'       : QUILocale.get(lg, 'sequry.panel.template.extra.title'),
+                    'extendedData'     : QUILocale.get(lg, 'sequry.panel.template.extendedData.title'),
                     'categories'       : QUILocale.get(lg, 'sequry.panel.template.categories.title'),
                     'categoriesPrivate': QUILocale.get(lg, 'sequry.panel.template.categories.private.title')
                 }));
@@ -103,9 +103,10 @@ define('package/sequry/template/bin/js/controls/password/Password', [
 
 
                 /**
-                 * category handling
+                 * Category handling
+                 *
+                 * private categories
                  */
-                // private categories
                 var CategoryPrivateElm = self.$Elm.getElement(
                     '.password-category-private'
                 );
@@ -122,7 +123,9 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                     CategoryPrivate.setValue(catIdsPrivate);
                 }
 
-                // public categories
+                /**
+                 * public categories
+                 */
                 var CategoriesPublicElm = self.$Elm.getElement(
                     '.password-category-public'
                 );
@@ -137,7 +140,6 @@ define('package/sequry/template/bin/js/controls/password/Password', [
                 if (catIdsPublic) {
                     Categories.setValue(catIdsPublic);
                 }
-
 
                 self.setAttribute('passwordData', ViewData);
                 self.fireEvent('load', [self]);

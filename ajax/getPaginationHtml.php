@@ -21,9 +21,9 @@ QUI::$Ajax->registerFunction(
             'useAjax'   => true,
             'count'     => $total,
             'showLimit' => true,
-            'limits'    => '[2,5,10, 25, 50, 100]',
+            'limits'    => '[10, 25, 50, 100]',
             'limit'     => $perPage,
-            'sheet' => $currentPage
+            'sheet'     => $currentPage
         ]);
 
         try {

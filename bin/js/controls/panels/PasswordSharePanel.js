@@ -52,7 +52,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$PasswordShare = null;
+            this.$PasswordShareControl = null;
 
             // panel events
             this.addEvents({
@@ -79,7 +79,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
                     return;
                 }
 
-                self.$PasswordShare = new PasswordShare({
+                self.$PasswordShareControl = new PasswordShare({
                     passwordId: pwId,
                     events    : {
                         onLoad : function () {
@@ -108,8 +108,8 @@ define('package/sequry/template/bin/js/controls/panels/PasswordSharePanel', [
         $onSubmit: function () {
             var self = this;
 
-            var shareData = this.$PasswordShare.$ActorSelectUsers.getActors().append(
-                this.$PasswordShare.$ActorSelectGroups.getActors()
+            var shareData = this.$PasswordShareControl.$PasswordShare.$ActorSelectUsers.getActors().append(
+                this.$PasswordShareControl.$PasswordShare.$ActorSelectGroups.getActors()
             );
 
             return new Promise(function (resolve, reject) {

@@ -96,11 +96,15 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             });
         },
 
-        create: function() {
+        create: function () {
             this.$Elm = this.parent();
             this.$Elm.addClass('sequry-filter-menu');
 
-            this.$Elm.set('html', template);
+            this.$Elm.set('html', Mustache.render(template, {
+                'passwordType': QUILocale.get(lg, 'sequry.menu.section.title.passwordType'),
+                'categories'  : QUILocale.get(lg, 'sequry.menu.section.title.categories')
+            }));
+
             return this.$Elm;
         },
 
@@ -171,7 +175,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
         },
 
         /**
-         * Build types buttons
+         * Build "password type" buttons
          * (website, api key, ftp, etc.)
          */
         $buildTypes: function () {
@@ -287,7 +291,6 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
             CatPanel.open();
         },
-
 
         /**
          * Create list entry.
@@ -457,7 +460,11 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
             var type = Target.getAttribute('data-type'),
                 name = Target.getAttribute('data-name');
 
+            // always set the page of pagination to 1
+            SequryUI.PasswordList.setListParam('page', 1);
             SequryUI.PasswordList.setFilters(type, name);
+
+            SequryUI.PasswordList.$listRefresh();
         },
 
         /**
