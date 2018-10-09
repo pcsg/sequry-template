@@ -88,6 +88,8 @@ define('package/sequry/template/bin/js/controls/password/link/List', [
 
             this.$Elm = this.getElm();
 
+            this.$Elm.addClass('qui-control-password-share-link');
+
             // list buttons bar
             var ButtonBarElm = new Element('div', {
                 'class': 'link-table-buttonBar'

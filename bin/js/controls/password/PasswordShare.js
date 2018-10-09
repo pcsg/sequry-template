@@ -5,27 +5,30 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/loader/Loader',
     'Mustache',
     'Ajax',
     'Locale',
 
     'package/sequry/core/bin/Actors',
     'package/sequry/core/bin/Passwords',
-    'package/sequry/template/bin/js/controls/actors/Select',
+    'package/sequry/template/bin/js/controls/password/PasswordShareIntern',
+    'package/sequry/template/bin/js/controls/password/link/List',
 
     'text!package/sequry/template/bin/js/controls/password/PasswordShare.html',
     'css!package/sequry/template/bin/js/controls/password/PasswordShare.css'
 
 ], function (
-    QUI, QUIControl, Mustache, QUIAjax, QUILocale,
+    QUI, QUIControl, QUILoader, Mustache, QUIAjax, QUILocale,
     Actors,
     Passwords,
-    ActorSelect, // package/sequry/template/bin/js/controls/actors/Select
+    PasswordShareIntern,
+    PasswordLinkList,
     template
 ) {
     "use strict";
 
-    var lg     = 'sequry/template';
+    var lg = 'sequry/template';
 
     return new Class({
 
@@ -33,7 +36,8 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
         Type   : 'package/sequry/template/bin/js/controls/password/PasswordShare',
 
         Binds: [
-            '$onInject'
+            '$onInject',
+            'toggleShareTypes'
         ],
 
         options: {
@@ -42,6 +46,12 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
 
         initialize: function (options) {
             this.parent(options);
+
+            this.Loader = new QUILoader();
+            this.TabButtons = null;
+            this.ShareContainer = null;
+            this.$PasswordLink = null;
+            this.$PasswordShare = null;
 
             this.addEvents({
                 onInject: this.$onInject
@@ -54,98 +64,134 @@ define('package/sequry/template/bin/js/controls/password/PasswordShare', [
          * Create the password html stuff
          */
         $onInject: function () {
-            var self = this,
-                pwId = this.getAttribute('passwordId');
+            var self    = this,
+                pwId    = this.getAttribute('passwordId'),
+                pwTitle = this.getAttribute('passwordTitle');
+
+            if (pwTitle) {
+                this.setSubtitle(pwTitle);
+            }
 
             this.$Elm = this.getElm();
 
-            Passwords.getShareData(pwId).then(
-                function (ShareData) {
+            self.$Elm.set('html', Mustache.render(template));
 
-                    var description = QUILocale.get(lg,
-                        'sequry.panel.share.description', {
-                            passwordTitle: ShareData.title,
-                            passwordId   : pwId
-                        });
+            // tab buttons to switch between "share intern" and "create link"
+            this.TabButtons = self.$Elm.getElements('.share-password-tab-btn');
 
-                    self.$Elm.set('html', Mustache.render(template, {
-                        description: description,
-                        ownerUsers : QUILocale.get(lg, 'sequry.control.label.users'),
-                        ownerGroups: QUILocale.get(lg, 'sequry.control.label.groups')
-                    }));
-
-                    var ActorUsersElm  = self.$Elm.getElement('.password-share-user-select'),
-                        ActorGroupsElm = self.$Elm.getElement('.password-share-group-select');
-
-                    self.$ShareData = ShareData;
-
-                    self.$ActorSelectUsers = new ActorSelect({
-                        actorType       : 'users',
-                        securityClassIds: [ShareData.securityClassId],
-                        showEligibleOnly: true,
-                        multiSelect     : true
-                    }).inject(ActorUsersElm);
-
-                    self.$ActorSelectGroups = new ActorSelect({
-                        actorType       : 'groups',
-                        securityClassIds: [ShareData.securityClassId],
-                        showEligibleOnly: true,
-                        multiSelect     : true
-                    }).inject(ActorGroupsElm);
-
-                    self.$insertData();
-                    self.fireEvent('load');
-
-                }, function () {
-                    self.fireEvent('close', [self]);
-                }
+            this.TabButtons.addEvent(
+                'click', self.toggleShareTypes
             );
+
+            this.ShareContainer = this.$Elm.getElement('.share-password-wrapper');
+
+            this.Loader.inject(this.ShareContainer);
+
+            Actors.getPasswordAccessInfo(pwId).then(function (AccessInfo) {
+
+                if (!AccessInfo.canAccess) {
+                    Passwords.getNoAccessInfoElm(AccessInfo, self).inject(self.$Elm);
+                    self.close();
+                    return;
+                }
+
+                Promise.all([
+                    self.createPasswordShareIntern(pwId),
+                    self.createPasswordShareLink(pwId, pwTitle)
+                ]).then(function () {
+                    self.fireEvent('load');
+                });
+            });
         },
 
         /**
-         * Insert actors
-         */
-        $insertData: function () {
-            this.$ActorSelectUsers.clear();
-            this.$ActorSelectGroups.clear();
-
-            for (var type in this.$ShareData.sharedWith) {
-                if (!this.$ShareData.sharedWith.hasOwnProperty(type)) {
-                    continue;
-                }
-
-                var actors = this.$ShareData.sharedWith[type];
-
-                for (var i = 0, len = actors.length; i < len; i++) {
-                    switch (type) {
-                        case 'users':
-                            this.$addActor(actors[i], 'user');
-                            break;
-
-                        case 'groups':
-                            this.$addActor(actors[i], 'group');
-                            break;
-                    }
-                }
-            }
-        },
-
-        /**
-         * Adds an actor to an acoording actor box
+         * Toggle Button status and slide content (share intern / share link)
          *
-         * @param {number} id - user or group id
-         * @param {string} type - "user" or "group"
+         * @param event
          */
-        $addActor: function (id, type) {
-            switch (type) {
-                case 'user':
-                    this.$ActorSelectUsers.addItem('u' + id, type);
-                    break;
+        toggleShareTypes: function (event) {
+            event.stop();
 
-                case 'group':
-                    this.$ActorSelectGroups.addItem('g' + id, type);
-                    break;
+            var Button = event.target;
+
+            if (Button.hasClass('active')) {
+                return;
             }
+
+            this.Loader.show();
+            this.TabButtons.removeClass('active');
+
+            Button.addClass('active');
+
+            // share type: intern | link
+            var self            = this,
+                shareType       = Button.getProperty('data-qui-share-type'),
+                shareContainers = this.ShareContainer.getElements('.qui-control'),
+                leftValue       = 0; // show "share password intern"
+
+            if (shareType === 'link') {
+                leftValue = '-100%'; // show "share password link"
+            }
+
+            moofx(shareContainers).animate({
+                left: leftValue
+            }, {
+                duration: 350,
+                callback: function () {
+                    self.Loader.hide();
+                }
+            });
+        },
+
+        /**
+         * Created Password Share Intern control and inject into the password wrapper
+         *
+         * @param pwId
+         * @returns {Promise}
+         */
+        createPasswordShareIntern: function (pwId) {
+            var self = this;
+
+            return new Promise(function (resolve, reject) {
+                self.$PasswordShare = new PasswordShareIntern({
+                    passwordId: pwId,
+                    events    : {
+                        onLoad : function () {
+                            resolve();
+                        },
+                        onClose: function () {
+                            reject();
+                        }
+                    }
+                }).inject(self.ShareContainer);
+            })
+        },
+
+        /**
+         * Created Password Share Link control and inject into the password wrapper
+         *
+         * @param pwId
+         * @param pwTitle
+         * @returns {Promise}
+         */
+        createPasswordShareLink: function (pwId, pwTitle) {
+            var self = this;
+
+            return new Promise(function (resolve, reject) {
+
+                self.$PasswordLink = new PasswordLinkList({
+                    passwordId   : pwId,
+                    passwordTitle: pwTitle,
+                    events       : {
+                        onLoad : function () {
+                            resolve()
+                        },
+                        onClose: function () {
+                            reject();
+                        }
+                    }
+                }).inject(self.ShareContainer);
+            })
         }
     });
 });

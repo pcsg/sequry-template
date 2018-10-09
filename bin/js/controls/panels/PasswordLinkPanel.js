@@ -106,6 +106,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordLinkPanel', [
          * Let the loader display before the animation starts
          */
         $openBegin: function () {
+            console.log(1)
             this.Loader.show();
         },
 

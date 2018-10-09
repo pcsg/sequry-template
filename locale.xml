@@ -44,8 +44,8 @@
             <en><![CDATA[Open link]]></en>
         </locale>
         <locale name="sequry.utils.button.passwordGenerate">
-            <de><![CDATA[Passwort generieren]]></de>
-            <en><![CDATA[Generate password]]></en>
+            <de><![CDATA[Generieren]]></de>
+            <en><![CDATA[Generate]]></en>
         </locale>
         <locale name="sequry.utils.button.passwordGenerate.tooltip">
             <de><![CDATA[Generiert!]]></de>
