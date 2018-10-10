@@ -45,7 +45,8 @@ label.active {
     color: #43a047;
 }
 
-.passwordlink-box-fieldset-wrapper button:hover {
+.passwordlink-box-fieldset-wrapper button:hover,
+.desktop-search .desktop-search-resetbtn:hover {
     color: #2071a7;
 }
 
