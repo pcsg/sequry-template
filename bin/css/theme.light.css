@@ -7,7 +7,8 @@ a:hover {
     color: #2071a7;
 }
 
-.control-color {
+.control-color,
+.sequry-customPopup.box .qui-window-popup-buttons button.sequry-customPopup-welcome-submit:first-child {
     color: #2071a7;
 }
 
