@@ -490,12 +490,15 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         edit: function (event) {
             event.stop();
-            var self = this;
-            var Target = event.target,
-                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+            var self    = this,
+                Target  = event.target,
+                ListElm = Target.getParent('.password-entry'),
+                pwId    = ListElm.getAttribute('data-pwid'),
+                pwTitle = ListElm.getAttribute('data-pwtitle');
 
             new PasswordCreatePanel({
                 passwordId: pwId,
+                title     : pwTitle,
                 mode      : 'edit',
                 events    : {
                     finish: function () {
@@ -702,9 +705,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
             ).then(function (html) {
                 var PaginationParent = false;
 
-                // if mobile create pagination in filter panel (mobile)...
+                // create pagination in filter panel (mobile)
                 if (QUI.getBodySize().x <= self.mobileBreakPoint) {
-                    // ... but only if the panel exist
                     if (self.MobileFilterNav) {
                         PaginationParent = self.MobileFilterNav.$Elm.getElement(
                             '.main-list-pagination'
@@ -739,7 +741,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     });
                 })
             });
-
         },
 
         /**
@@ -1022,11 +1023,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     Popup.open();
 
                     Popup.addButton(new Element('button', {
-                        'class' : 'qui-button sequry-customPopup-welcome-submit',
-                        text  : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
-                        alt   : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
-                        title : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
-                        events: {
+                        'class': 'qui-button sequry-customPopup-welcome-submit',
+                        text   : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        alt    : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        title  : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        events : {
                             click: FuncSubmit
                         }
                     }));

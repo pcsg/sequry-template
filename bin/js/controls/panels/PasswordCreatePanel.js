@@ -9,6 +9,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/windows/Popup',
     'Ajax',
     'Locale',
 
@@ -19,10 +20,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
     'package/sequry/core/bin/Passwords'
 
 ], function (
-    QUI,
-    QUIControl,
-    QUIAjax,
-    QUILocale,
+    QUI, QUIControl, QUIPopup, QUIAjax, QUILocale,
     Actors,
     PasswordManager,
     Panel,
@@ -62,11 +60,27 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
             // panel events
             this.addEvents({
-                onOpen     : this.$onOpen,
-                onOpenBegin: this.$openBegin,
-                onSubmit   : this.$onSubmit,
-                onFinish   : this.$onFinish
+                onOpen           : this.$onOpen,
+                onOpenBegin      : this.$openBegin,
+                onSubmit         : this.$onSubmit,
+                onSubmitSecondary: this.$submitSecondary,
+                onFinish         : this.$onFinish,
+                onAfterCreate    : this.onAfterCreate
             });
+        },
+
+        /**
+         * event: on after create
+         */
+        onAfterCreate: function () {
+            // delete password button in edit mode
+            if (this.getAttribute('mode') === 'edit') {
+                this.createHeaderButton(
+                    'Passwort löschen', // todo locale
+                    'fa fa-trash',
+                    true
+                );
+            }
         },
 
         /**
@@ -116,7 +130,7 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
             } else {
                 // create
                 this.$Password = new PasswordCreate({
-                    mode: 'create',
+                    mode  : 'create',
                     events: {
                         onLoad: function () {
                             self.setTitle(QUILocale.get(lg, 'sequry.panel.createPassword.title'));
@@ -180,6 +194,17 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
         },
 
         /**
+         * event: on submit secondary
+         *
+         * Delete passwort action. Only in "edit" mode
+         */
+        $submitSecondary: function () {
+            if (this.getAttribute('mode') === 'edit') {
+                this.deletePassword();
+            }
+        },
+
+        /**
          * Depend on mode (edit or create new password) execute the right function
          *
          * @return {Promise}
@@ -236,6 +261,61 @@ define('package/sequry/template/bin/js/controls/panels/PasswordCreatePanel', [
 
                 Popup.open();
             })
+        },
+
+        /**
+         * Delete password
+         */
+        deletePassword: function () {
+            var self = this;
+
+            // open popup
+            var DeletePopup = new QUIPopup({
+                'class'    : 'sequry-customPopup sequry-customPopup-deletePassword',
+                title      : QUILocale.get(
+                    lgCore, 'gpm.passwords.panel.delete.popup.title'
+                ),
+                maxHeight  : 300,
+                maxWidth   : 400,
+                closeButton: true,
+                closeButtonText: 'Schließen',
+                content    : '<span class="fa fa-trash popup-icon"></span>' +
+                    '<span class="popup-title">' +
+                    QUILocale.get(lgCore, 'gpm.passwords.panel.delete.popup.info.title') +
+                    '</span>' +
+                    '<span class="pcsg-gpm-passwords-delete-info-description">' +
+                    QUILocale.get(lgCore, 'gpm.passwords.panel.delete.popup.info.description', {
+                        passwordId   : self.getAttribute('passwordId'),
+                        passwordTitle: self.getAttribute('title')
+                    }) +
+                    '</span>' +
+                    '</div>'
+            });
+
+            DeletePopup.open();
+
+            DeletePopup.addButton(new Element('button', {
+                'class' : 'qui-button',
+                text  : QUILocale.get(lgCore, 'gpm.passwords.panel.delete.popup.btn.text'),
+                alt   : QUILocale.get(lgCore, 'gpm.passwords.panel.delete.popup.btn'),
+                title : QUILocale.get(lgCore, 'gpm.passwords.panel.delete.popup.btn'),
+                events: {
+                    click: function () {
+                        DeletePopup.Loader.show();
+
+                        Passwords.deletePassword(self.getAttribute('passwordId')).then(
+                            function () {
+                                DeletePopup.close();
+                                self.$PasswordData = null;
+                                self.fireEvent('finish');
+                            },
+                            function () {
+                                DeletePopup.close();
+                            }
+                        );
+                    }
+                }
+            }));
         }
     });
 });
