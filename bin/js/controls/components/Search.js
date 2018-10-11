@@ -96,7 +96,6 @@ define('package/sequry/template/bin/js/controls/components/Search', [
          * event: on inject
          */
         $onInject: function () {
-            console.log("inject!")
             if (this.getAttribute('focus')) {
                 this.Input.focus();
             }
@@ -115,7 +114,6 @@ define('package/sequry/template/bin/js/controls/components/Search', [
                     inputEsc = false;
                 },
                 keyup  : function (event) {
-
                     // Esc clears the input field
                     if (inputEsc) {
                         event.stop();
@@ -127,13 +125,6 @@ define('package/sequry/template/bin/js/controls/components/Search', [
                     self.search();
                 }
             });
-        },
-
-        /**
-         * event: on import
-         */
-        $onImport: function () {
-            console.log('import...')
         },
 
         /**

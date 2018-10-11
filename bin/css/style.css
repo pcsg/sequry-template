@@ -199,6 +199,7 @@ input::-webkit-inner-spin-button {
 /* buttons */
 .sequry-customPopup .qui-window-popup-buttons,
 .qui-window-popup.box .qui-window-popup-buttons {
+    align-items: center;
     background: none;
     display: flex;
     justify-content: space-around;
@@ -224,13 +225,18 @@ input::-webkit-inner-spin-button {
     border: none;
     box-shadow: none;
     color: #635555;
+    width: auto !important;
+}
+
+.sequry-customPopup .qui-window-popup-buttons .qui-button,
+.qui-window-popup.box .qui-window-popup-buttons .qui-button {
+    color: #999999;
 }
 
 .sequry-customPopup .qui-window-popup-buttons .qui-button:first-child,
 .qui-window-popup.box .qui-window-popup-buttons .qui-button:first-child {
     background: none;
     border: none;
-    color: #999999;
 }
 
 /**********/

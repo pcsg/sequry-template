@@ -7,7 +7,8 @@ a:hover {
     color: #2071a7;
 }
 
-.control-color {
+.control-color,
+.sequry-customPopup.box .qui-window-popup-buttons button.sequry-customPopup-welcome-submit:first-child {
     color: #2071a7;
 }
 
@@ -45,7 +46,8 @@ label.active {
     color: #43a047;
 }
 
-.passwordlink-box-fieldset-wrapper button:hover {
+.passwordlink-box-fieldset-wrapper button:hover,
+.desktop-search .desktop-search-resetbtn:hover {
     color: #2071a7;
 }
 
@@ -69,10 +71,17 @@ body .sidebar-panel-header {
     color: #bbbbbb;
 }
 
-.sequry-customPopup .qui-window-popup-buttons .qui-button:nth-child(2),
-.qui-window-popup.box .qui-window-popup-buttons .qui-button:nth-child(2) {
+.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child,
+.qui-window-popup.box .qui-window-popup-buttons .qui-button:first-child {
     color: #2071a7;
     /*order: 2;*/
+}
+
+/************************************/
+/* custom confirm - delete password */
+/************************************/
+.sequry-customPopup-deletePassword.sequry-customPopup .qui-window-popup-buttons .qui-button:first-child {
+    color: red;
 }
 
 /*********/

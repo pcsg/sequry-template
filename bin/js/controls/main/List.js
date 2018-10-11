@@ -12,10 +12,14 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'qui/utils/String',
     'qui/controls/loader/Loader',
     'Mustache',
+    'qui/controls/windows/Popup',
     'Ajax',
     'Locale',
 
     'package/sequry/template/bin/js/classes/List',
+    'package/sequry/core/bin/Authentication',
+    'package/sequry/core/bin/Actors',
+    'package/sequry/core/bin/controls/auth/recovery/CodePopup',
     'package/sequry/template/bin/js/Password',
     'package/sequry/core/bin/Passwords',
     'package/sequry/template/bin/js/controls/panels/Panel',
@@ -28,8 +32,11 @@ define('package/sequry/template/bin/js/controls/main/List', [
     'css!package/sequry/template/bin/js/controls/main/List.css'
 
 ], function (
-    QUI, QUIControl, QUIFunctionUtils, QUIStringUtils, QUILoader, Mustache, QUIAjax, QUILocale,
+    QUI, QUIControl, QUIFunctionUtils, QUIStringUtils, QUILoader, Mustache, QUIPopup, QUIAjax, QUILocale,
     ClassesList,
+    Authentication, // package/sequry/core/bin/Authentication
+    Actors, // package/sequry/core/bin/Actors
+    RecoveryCodePopup, // package/sequry/core/bin/controls/auth/recovery/CodePopup
     Password,
     Passwords, // package/sequry/core/bin/Passwords
     Panel,
@@ -42,6 +49,7 @@ define('package/sequry/template/bin/js/controls/main/List', [
     "use strict";
 
     var lg = 'sequry/template';
+    var lgCore = 'sequry/core';
 
     return new Class({
 
@@ -106,6 +114,9 @@ define('package/sequry/template/bin/js/controls/main/List', [
         $onInject: function () {
             this.listContainer = this.$Elm.getElement('.main-list-entries');
             this.addButton = this.$Elm.getElement('.button-add-password');
+
+            // initial welcome popup
+            this.$initialRegistration();
 
             // event add new password
             if (this.addButton) {
@@ -479,12 +490,15 @@ define('package/sequry/template/bin/js/controls/main/List', [
          */
         edit: function (event) {
             event.stop();
-            var self = this;
-            var Target = event.target,
-                pwId   = Target.getParent('.password-entry').getAttribute('data-pwid');
+            var self    = this,
+                Target  = event.target,
+                ListElm = Target.getParent('.password-entry'),
+                pwId    = ListElm.getAttribute('data-pwid'),
+                pwTitle = ListElm.getAttribute('data-pwtitle');
 
             new PasswordCreatePanel({
                 passwordId: pwId,
+                title     : pwTitle,
                 mode      : 'edit',
                 events    : {
                     finish: function () {
@@ -691,9 +705,8 @@ define('package/sequry/template/bin/js/controls/main/List', [
             ).then(function (html) {
                 var PaginationParent = false;
 
-                // if mobile create pagination in filter panel (mobile)...
+                // create pagination in filter panel (mobile)
                 if (QUI.getBodySize().x <= self.mobileBreakPoint) {
-                    // ... but only if the panel exist
                     if (self.MobileFilterNav) {
                         PaginationParent = self.MobileFilterNav.$Elm.getElement(
                             '.main-list-pagination'
@@ -728,7 +741,6 @@ define('package/sequry/template/bin/js/controls/main/List', [
                     });
                 })
             });
-
         },
 
         /**
@@ -888,6 +900,154 @@ define('package/sequry/template/bin/js/controls/main/List', [
                 });
             })
 
+        },
+
+        /**
+         * Initiates registration for first-time users
+         */
+        $initialRegistration: function () {
+            var self = this;
+
+            Promise.all([
+                Actors.canUsePasswordManager(),
+                Authentication.getDefaultAuthPluginId()
+            ]).then(function (result) {
+
+                var canUse = result[0];
+                var defaultAuthPluginId = result[1];
+
+                if (canUse) {
+                    return;
+                }
+
+                self.addButton.set('disabled', 'disabled');
+
+                var FuncSubmit = function () {
+                    var Content = Popup.getContent();
+                    var PasswordInput = Content.getElement('input');
+
+                    var password = PasswordInput.value.trim();
+
+                    if (password === '') {
+                        PasswordInput.value = '';
+                        PasswordInput.focus();
+                        return;
+                    }
+
+                    Popup.Loader.show();
+
+                    Authentication.registerUser(
+                        defaultAuthPluginId, password
+                    ).then(function (RecoveryData) {
+                        if (!RecoveryData) {
+                            Popup.Loader.hide();
+                            PasswordInput.value = '';
+                            PasswordInput.focus();
+
+                            return;
+                        }
+
+                        new RecoveryCodePopup({
+                            RecoveryCodeData: RecoveryData,
+                            events          : {
+                                onClose: function () {
+                                    RecoveryData = null;
+                                    Popup.close();
+                                    self.addButton.set('disabled', '');
+                                }
+                            }
+                        }).open();
+
+                        Popup.Loader.hide();
+                    });
+                };
+
+
+                // open popup
+                var Popup = new QUIPopup({
+                    title             : QUILocale.get(
+                        lgCore, 'controls.gpm.passwords.panel.initialRegistration.title'
+                    ),
+                    'class'           : 'sequry-customPopup sequry-customPopup-welcome',
+                    maxHeight         : 500,
+                    maxWidth          : 500,
+                    closeButton       : false,
+                    backgroundClosable: false,
+                    titleCloseButton  : false,
+                    events            : {
+                        onOpen: function () {
+                            var Content = Popup.getContent();
+
+                            Content.set(
+                                'html',
+                                '<span class="fa fa-check popup-icon"></span>' +
+                                '<span class="popup-title">' +
+                                QUILocale.get(lgCore,
+                                    'controls.gpm.passwords.panel.initialRegistration.header'
+                                ) +
+                                '</span>' +
+                                '<p class="popup-content">' +
+                                QUILocale.get(lgCore,
+                                    'controls.gpm.passwords.panel.initialRegistration.info'
+                                ) +
+                                '</p>' +
+                                '<label>' +
+                                '<span>' +
+                                QUILocale.get(lgCore,
+                                    'controls.gpm.passwords.panel.initialRegistration.label'
+                                ) +
+                                '</span>' +
+                                '<input type="password">' +
+                                '</label>'
+                            );
+
+                            var Input = Content.getElement('input');
+
+                            Input.addEvents({
+                                keyup: function (event) {
+                                    if (event.code === 13) {
+                                        FuncSubmit();
+                                        this.blur();
+                                    }
+                                }
+                            });
+
+                            (function () {
+                                Input.focus();
+                            }).delay(200);
+                        }
+                    }
+                });
+
+                var FuncOpenPopup = function () {
+                    Popup.open();
+
+                    Popup.addButton(new Element('button', {
+                        'class': 'qui-button sequry-customPopup-welcome-submit',
+                        text   : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        alt    : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        title  : QUILocale.get(lgCore, 'controls.gpm.passwords.panel.initialRegistration.btn'),
+                        events : {
+                            click: FuncSubmit
+                        }
+                    }));
+                };
+
+                var passwordChangePopups = QUI.Controls.getByType(
+                    'controls/users/password/Password'
+                );
+
+                if (!passwordChangePopups.length) {
+                    FuncOpenPopup();
+                    return;
+                }
+
+                passwordChangePopups[0].addEvents({
+                    onClose: function () {
+                        FuncOpenPopup();
+                    }
+                });
+            });
         }
     });
 });

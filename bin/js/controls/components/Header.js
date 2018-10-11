@@ -10,8 +10,7 @@ define('package/sequry/template/bin/js/controls/components/Header', [
 
     'package/sequry/template/bin/js/SequryUI',
 
-    'text!package/sequry/template/bin/js/controls/components/Header.html',
-    'css!package/sequry/template/bin/js/controls/components/Header.css'
+    'text!package/sequry/template/bin/js/controls/components/Header.html'
 
 ], function (QUI, QUIControl, Mustache, QUILocale,
     SequryUI,
@@ -27,7 +26,8 @@ define('package/sequry/template/bin/js/controls/components/Header', [
         Type   : 'package/sequry/template/bin/js/controls/components/Header',
 
         Binds: [
-            '$onInject'
+            '$onInject',
+            'search'
         ],
 
         initialize: function (options) {
@@ -36,6 +36,7 @@ define('package/sequry/template/bin/js/controls/components/Header', [
             this.DesktopSearch = null;
             this.Input = null;
             this.searchValue = null;
+            this.ResetButton = null;
 
             this.addEvents({
                 onInject: this.$onInject
@@ -67,9 +68,19 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                 inputEsc = false;
 
             this.DesktopSearch = this.$Elm.getElement('.desktop-search');
-            this.Input = this.DesktopSearch.getElement('input');
+            this.InputField = this.DesktopSearch.getElement('input[name="password-search"]');
+            this.ResetButton = this.DesktopSearch.getElement('.desktop-search-resetbtn');
 
-            this.Input.addEvents({
+            this.DesktopSearch.addEvent('submit', function (event) {
+                event.stop();
+            });
+
+            this.ResetButton.addEvent('click', function () {
+                self.InputField.value = ''; // needed, otherwise search() will be not executed
+                self.search();
+            });
+
+            this.InputField.addEvents({
                 keydown: function (event) {
                     if (event.key === 'esc') {
                         event.stop();
@@ -84,8 +95,7 @@ define('package/sequry/template/bin/js/controls/components/Header', [
                     // Esc clears the input field
                     if (inputEsc) {
                         event.stop();
-                        self.Input.value = '';
-                        self.search();
+                        self.InputField.value = '';
                     }
 
                     self.search();
@@ -96,15 +106,21 @@ define('package/sequry/template/bin/js/controls/components/Header', [
         },
 
         /**
-         * Excecute the search with a delay
+         * Execute the search with a delay
          */
         search: function () {
-            var searchValue = this.Input.value.trim();
-            var self = this;
+            var self        = this,
+                searchValue = this.InputField.value.trim(),
+                delay       = 500; // search delay
 
             if (searchValue === '') {
-                this.Input.value = '';
-                //this.$Input.focus();
+                this.InputField.value = '';
+                // hide reset button
+                self.ResetButton.setStyle('opacity', 0);
+                delay = 0; // execute search immediately
+            } else {
+                // show reset button
+                self.ResetButton.setStyle('opacity', 1);
             }
 
             // prevents the search from being execute
@@ -119,10 +135,9 @@ define('package/sequry/template/bin/js/controls/components/Header', [
 
             this.$Timer = (function () {
                 self.searchValue = searchValue;
-
                 SequryUI.PasswordList.setSearchTerm(searchValue);
                 SequryUI.PasswordList.$listRefresh();
-            }).delay(500);
+            }).delay(delay);
         },
 
         /**
