@@ -430,6 +430,7 @@ define('package/sequry/template/bin/js/controls/components/Menu', [
 
                 this.removeActiveStatus(Target);
                 SequryUI.PasswordList.setFilters(type, false);
+                SequryUI.PasswordList.$listRefresh();
                 return;
             }
 
